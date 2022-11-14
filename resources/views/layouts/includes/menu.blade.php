@@ -26,9 +26,23 @@
                 </li>
 
                 <li>
+                    <a href="{{ route('ingredients.index') }}">
+                        <i class="fas fa-align-right"></i>
+                        Ingredients
+                    </a>
+                </li>
+
+                <li>
                     <a href="{{ route('floor.index') }}">
                         <i class="fa fa-building"></i>
                         Floor
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('table_list.index') }}">
+                        <i class="fa fa-fas fa-chair"></i>
+                        Table
                     </a>
                 </li>
 
