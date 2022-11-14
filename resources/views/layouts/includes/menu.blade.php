@@ -12,6 +12,27 @@
                 </li>
 
                 <li>
+                    <a href="{{ route('category.index') }}">
+                        <i data-feather="check"></i>
+                        Category
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('menu_list.index') }}">
+                        <i data-feather="clipboard"></i>
+                        Menu Lists
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('floor.index') }}">
+                        <i class="fa fa-building"></i>
+                        Floor
+                    </a>
+                </li>
+
+                <li>
                     <a href="{{ route('employee.index') }}">
                         <i data-feather="users"></i>
                         Employee

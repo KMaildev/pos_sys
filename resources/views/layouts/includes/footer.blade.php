@@ -27,9 +27,31 @@
 <!-- datepicker js -->
 <script src="{{ asset('assets/libs/flatpickr/flatpickr.min.js') }}"></script>
 
-
 <script type="text/javascript" src="{{ url('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
+<script src="{{ asset('assets/js/sweetalert.min.js') }}"></script>
 
+
+<script>
+    $(document).ready(function() {
+        // Delete Alert 
+        $('.del_confirm').click(function(event) {
+            var form = $(this).closest("form");
+            event.preventDefault();
+            swal({
+                    title: "Are you sure?",
+                    text: "Once deleted, you will not be able to recover this imaginary file!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        form.submit();
+                    }
+                });
+        });
+    });
+</script>
 @yield('script')
 </body>
 
