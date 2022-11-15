@@ -125,6 +125,7 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        {{ $menu_lists->withQueryString()->links() }}
                     </div>
                 </div>
             </div>

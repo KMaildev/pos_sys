@@ -23,6 +23,9 @@ class HomeController extends Controller
      */
     public function index()
     {
+        if (auth()->user()->can('pos_module')) {
+            return view('pos.dashboard.index');
+        }
         return view('home');
     }
 }

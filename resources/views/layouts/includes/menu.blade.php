@@ -12,6 +12,13 @@
                 </li>
 
                 <li>
+                    <a href="{{ route('customer.index') }}">
+                        <i data-feather="user-check"></i>
+                        Customer
+                    </a>
+                </li>
+
+                <li>
                     <a href="{{ route('category.index') }}">
                         <i data-feather="check"></i>
                         Category

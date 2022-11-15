@@ -23,7 +23,7 @@ class MenuListController extends Controller
             $menu_lists->where('menu_name', 'Like', '%' . request('q') . '%');
             $menu_lists->orWhere('price', 'Like', '%' . request('q') . '%');
         }
-        $menu_lists = $menu_lists->orderBy('categorie_id', 'ASC')->get();
+        $menu_lists = $menu_lists->orderBy('categorie_id', 'ASC')->paginate(20);
         return view('menu_list.index', compact('menu_lists'));
     }
 

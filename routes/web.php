@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Category\CategoryController;
+use App\Http\Controllers\Customer\CustomerController;
 use App\Http\Controllers\Floor\FloorController;
 use App\Http\Controllers\Hr\DepartmentController;
 use App\Http\Controllers\Hr\EmployeeController;
@@ -19,11 +20,11 @@ Auth::routes(['register' => false]);
 
 Route::middleware('auth')->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
     Route::resource('category', CategoryController::class);
     Route::resource('menu_list', MenuListController::class);
     Route::resource('floor', FloorController::class);
     Route::resource('table_list', TableListController::class);
+    Route::resource('customer', CustomerController::class);
     Route::get('table_search_find_by_floor/{floor_id}', [TableListController::class, 'index'])->name('table_search_find_by_floor');
     Route::resource('ingredients', IngredientsController::class);
     // HR 
