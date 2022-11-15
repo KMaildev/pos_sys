@@ -10,4 +10,4 @@
     </div>
 </div>
 
-@include('layouts.includes.footer')
+@include('layouts.pos.includes.pos_footer')

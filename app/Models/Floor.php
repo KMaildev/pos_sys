@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Floor extends Model
 {
     use HasFactory;
+
+    public function table_lists_table()
+    {
+        return $this->belongsTo(TableList::class, 'floor_id', 'id');
+    }
 }

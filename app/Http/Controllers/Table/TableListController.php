@@ -105,4 +105,15 @@ class TableListController extends Controller
         $table->delete();
         return redirect()->back()->with('success', 'Your processing has been completed.');
     }
+
+
+    public function loadTablePos()
+    {
+        $floors = Floor::with('table_lists_table')->get();
+        $viewRender = view('pos.table.index', compact('floors'))->render();
+
+        return response()->json([
+            'html' => $viewRender
+        ]);
+    }
 }

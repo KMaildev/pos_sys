@@ -9,6 +9,10 @@
                         <span class="logo-txt">POS</span>
                     </span>
                 </a>
+
+                <a href="#" onclick="loadTablePos()">
+                    Table
+                </a>
             </div>
 
         </div>

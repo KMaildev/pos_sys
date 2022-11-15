@@ -26,6 +26,9 @@
 <script src="{{ asset('assets/libs/choices.js/public/assets/scripts/choices.min.js') }}"></script>
 <!-- datepicker js -->
 <script src="{{ asset('assets/libs/flatpickr/flatpickr.min.js') }}"></script>
+<script src="{{ asset('assets/libs/twitter-bootstrap-wizard/jquery.bootstrap.wizard.min.js') }}"></script>
+<script src="{{ asset('assets/libs/twitter-bootstrap-wizard/prettify.js') }}"></script>
+<script src="{{ asset('assets/js/pages/form-wizard.init.js') }}"></script>
 
 <script type="text/javascript" src="{{ url('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
 <script src="{{ asset('assets/js/sweetalert.min.js') }}"></script>
@@ -53,6 +56,7 @@
     });
 </script>
 @yield('script')
+
 </body>
 
 </html>

@@ -26,6 +26,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('table_list', TableListController::class);
     Route::resource('customer', CustomerController::class);
     Route::get('table_search_find_by_floor/{floor_id}', [TableListController::class, 'index'])->name('table_search_find_by_floor');
+    Route::get('load_table_pos', [TableListController::class, 'loadTablePos'])->name('load_table_pos');
     Route::resource('ingredients', IngredientsController::class);
     // HR 
     Route::resource('employee', EmployeeController::class);
