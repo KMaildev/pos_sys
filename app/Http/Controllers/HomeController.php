@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,9 +24,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if (auth()->user()->can('pos_module')) {
+        $department_id = auth()->user()->department_id;
+        $departmemt = Department::findOrFail($department_id);
+        if ($departmemt->title == 'Waiter') {
             return view('pos.dashboard.index');
+        } elseif ($departmemt->title == 'Cashier') {
+            return 'Cashier';
+        } else {
+            return view('home');
         }
-        return view('home');
     }
 }
