@@ -11,6 +11,6 @@ class Floor extends Model
 
     public function table_lists_table()
     {
-        return $this->belongsTo(TableList::class, 'floor_id', 'id');
+        return $this->hasMany(TableList::class, 'floor_id', 'id');
     }
 }

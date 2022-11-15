@@ -1,23 +1,29 @@
-<div class="modal fade show" data-show="true" id="showTableModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-fullscreen">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
-                    Choose Table
-                </h5>
+<div class="col-md-12 col-lg-12 col-sm-12 py-3">
+    <style>
+        .table_btn {
+            font-size: 24px;
+            width: 100%;
+            padding: 20px 32px;
+            background-color: #2a66a3;
+            margin: 10px;
+            color: white;
+        }
+    </style>
+    @foreach ($floors as $floor)
+        <div class="row">
+            <div class="col-md-12 col-lg-12 col-sm-12">
+                <h2 class="card-title" style="font-size: 25px;">
+                    {{ $floor->title ?? '' }}
+                </h2>
             </div>
-            <div class="modal-body">
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda nesciunt expedita ea magnam,
-                    dignissimos tempora veniam earum consequuntur minus velit incidunt pariatur suscipit dolorum
-                    voluptatibus sapiente, recusandae exercitationem, nisi debitis?
-                </p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary">
-                    Next
-                </button>
-            </div>
+            @foreach ($floor->table_lists_table as $table_list)
+                <div class="col-md-2 col-lg-2 col-sm-2">
+                    <button class="table_btn" onclick="setTableName({{ $table_list->id }}, '{{ $table_list->table_name }}')">
+                        {{ $table_list->table_name ?? '' }}
+                    </button>
+                </div>
+            @endforeach
         </div>
-    </div>
+        <hr>
+    @endforeach
 </div>

@@ -107,4 +107,15 @@ class MenuListController extends Controller
         $menu->delete();
         return redirect()->back()->with('success', 'Your processing has been completed.');
     }
+
+
+    public function loadMenuListPos()
+    {
+        $floors = MenuList::all();
+        $viewRender = view('pos.menu_list.index', compact('floors'))->render();
+
+        return response()->json([
+            'html' => $viewRender
+        ]);
+    }
 }

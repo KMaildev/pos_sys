@@ -22,6 +22,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::resource('category', CategoryController::class);
     Route::resource('menu_list', MenuListController::class);
+    Route::get('load_menu_list_pos', [MenuListController::class, 'loadMenuListPos'])->name('load_menu_list_pos');
     Route::resource('floor', FloorController::class);
     Route::resource('table_list', TableListController::class);
     Route::resource('customer', CustomerController::class);
