@@ -3,23 +3,13 @@
 
         <div class="d-flex">
             <div class="navbar-brand-box">
-                <a href="{{ route('home') }}" class="logo logo-dark">
-                    <span class="logo-sm">
-                        <img src="{{ asset('assets/images/logo-sm.svg') }}" alt="" height="30">
-                    </span>
-                    <span class="logo-lg">
-                        <img src="{{ asset('assets/images/logo-sm.svg') }}" alt="" height="24"> <span
-                            class="logo-txt">Dason</span>
-                    </span>
-                </a>
-
                 <a href="{{ route('home') }}" class="logo logo-light">
-                    <span class="logo-sm">
+                    {{-- <span class="logo-sm">
                         <img src="{{ asset('assets/images/logo-sm.svg') }}" alt="" height="30">
-                    </span>
+                    </span> --}}
                     <span class="logo-lg">
-                        <img src="{{ asset('assets/images/logo-sm.svg') }}" alt="" height="24"> <span
-                            class="logo-txt">Dason</span>
+                        {{-- <img src="{{ asset('assets/images/logo-sm.svg') }}" alt="" height="24"> --}}
+                        <span class="logo-txt" style="font-size: 25px;">LEVITATE</span>
                     </span>
                 </a>
             </div>

@@ -1,6 +1,7 @@
 <script>
     // Load Show Table 
     function loadTablePos() {
+        $(".main_category_btn").hide();
         var url = '{{ url('load_table_pos') }}';
         $.ajax({
             url: url,
@@ -15,10 +16,14 @@
 
 
     // Load Menu List 
-    function loadMenuListPos() {
-        var url = '{{ url('load_menu_list_pos') }}';
+    function loadCategoryAndMenuListPos(type, category_id = null) {
+        $('.main_category_btn').css({
+            'display': 'block'
+        });
+
+        var url = '{{ url('load_category_and_menu_pos') }}';
         $.ajax({
-            url: url,
+            url: url + '/' + type + '/' + category_id,
             method: "GET",
             success: function(data) {
                 console.log(data);
@@ -33,7 +38,7 @@
         localStorage.setItem("table_id", table_id);
         localStorage.setItem("table_name", table_name);
         audioPlay();
-        loadMenuListPos();
+        loadCategoryAndMenuListPos('Food');
     }
 
     // Get Table Name And Id 

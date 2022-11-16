@@ -23,6 +23,7 @@
         type="text/css" />
 
     <link rel="stylesheet" href="{{ asset('pos/libs/twitter-bootstrap-wizard/prettify.css') }}">
+    <link rel="stylesheet" href="{{ asset('pos/css/pos.css') }}">
 </head>
 
 <body data-topbar="dark" data-layout="horizontal">

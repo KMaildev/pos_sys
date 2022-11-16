@@ -9,6 +9,7 @@ use App\Http\Controllers\Hr\PermissionController;
 use App\Http\Controllers\Hr\RoleController;
 use App\Http\Controllers\Ingredients\IngredientsController;
 use App\Http\Controllers\MenuList\MenuListController;
+use App\Http\Controllers\Pos\MenuControlController;
 use App\Http\Controllers\Table\TableListController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -22,13 +23,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::resource('category', CategoryController::class);
     Route::resource('menu_list', MenuListController::class);
-    Route::get('load_menu_list_pos', [MenuListController::class, 'loadMenuListPos'])->name('load_menu_list_pos');
+
     Route::resource('floor', FloorController::class);
     Route::resource('table_list', TableListController::class);
     Route::resource('customer', CustomerController::class);
     Route::get('table_search_find_by_floor/{floor_id}', [TableListController::class, 'index'])->name('table_search_find_by_floor');
     Route::get('load_table_pos', [TableListController::class, 'loadTablePos'])->name('load_table_pos');
     Route::resource('ingredients', IngredientsController::class);
+
+    // POS 
+    Route::get('load_category_and_menu_pos/{type}/{category_id}', [MenuControlController::class, 'loadCategoryAndMenuListPos'])->name('load_category_and_menu_pos');
+
     // HR 
     Route::resource('employee', EmployeeController::class);
     Route::resource('department', DepartmentController::class);
