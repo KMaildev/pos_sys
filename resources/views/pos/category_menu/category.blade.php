@@ -1,10 +1,12 @@
 {{-- Bill  --}}
 <div class="col-md-3 col-lg-3 col-sm-3">
+    <h3>
+        Order Item Area
+    </h3>
 </div>
 
 {{-- Menu List  --}}
 <div class="col-md-7 col-lg-7 col-sm-7">
-
     <div class="row">
         @foreach ($menu_lists as $menu_list)
             <div class="col-md-3 col-lg-3 col-sm-12">
@@ -14,8 +16,6 @@
             </div>
         @endforeach
     </div>
-
-
     {{-- <div class="card-body px-0 pt-2">
         <div class="table-responsive px-3" data-simplebar="init" style="max-height: 395px;">
             <div class="simplebar-wrapper" style="margin: 0px -16px;">

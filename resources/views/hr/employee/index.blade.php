@@ -97,10 +97,13 @@
                                             {{ $value->phone }}
                                         </td>
 
-                                        <td></td>
 
                                         <td style="text-align: center;">
                                             {{ $value->department->title ?? '' }}
+                                        </td>
+                                        
+                                        <td>
+                                            Role
                                         </td>
 
                                         <td style="text-align: center;">

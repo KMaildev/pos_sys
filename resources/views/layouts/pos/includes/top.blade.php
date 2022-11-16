@@ -17,7 +17,7 @@
 
             <div class="main_category_btn">
                 <button class="main-category" onclick="loadCategoryAndMenuListPos('Bar')">
-                    Bar
+                    Bar & Beverage
                 </button>
 
                 <button class="main-category" onclick="loadCategoryAndMenuListPos('Food')">
