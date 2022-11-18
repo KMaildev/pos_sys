@@ -10,6 +10,8 @@ use App\Http\Controllers\Hr\RoleController;
 use App\Http\Controllers\Ingredients\IngredientsController;
 use App\Http\Controllers\MenuList\MenuListController;
 use App\Http\Controllers\Pos\MenuControlController;
+use App\Http\Controllers\PosSys\TableList\TableListController as TableListTableListController;
+use App\Http\Controllers\PosSys\Test\TestController;
 use App\Http\Controllers\Table\TableListController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -39,4 +41,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('department', DepartmentController::class);
     Route::resource('permission', PermissionController::class);
     Route::resource('role', RoleController::class);
+
+
+    // POSSYS
+    Route::get('/pos_table_lists', [TableListTableListController::class, 'index'])->name('pos_table_lists');
+    Route::get('/pos_test_page', [TestController::class, 'index'])->name('pos_test_page');
 });

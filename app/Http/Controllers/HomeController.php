@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Department;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class HomeController extends Controller
 {
@@ -27,7 +28,7 @@ class HomeController extends Controller
         $department_id = auth()->user()->department_id;
         $departmemt = Department::findOrFail($department_id);
         if ($departmemt->title == 'Waiter') {
-            return view('pos.dashboard.index');
+            return Inertia::render('TableList/Index');
         } elseif ($departmemt->title == 'Cashier') {
             return 'Cashier';
         } else {

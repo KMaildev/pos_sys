@@ -1,5 +1,5 @@
 .main_category_btn {
-    display: none;
+    /* display: none; */
 }
 
 .main-category {
@@ -11,6 +11,15 @@
     color: white;
     height: 100%;
     border-color: white;
+}
+
+.table_btn {
+    font-size: 24px;
+    width: 100%;
+    padding: 20px 32px;
+    background-color: #2a66a3;
+    margin: 10px;
+    color: white;
 }
 
 

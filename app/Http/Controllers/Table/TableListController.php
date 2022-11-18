@@ -111,7 +111,6 @@ class TableListController extends Controller
     {
         $floors = Floor::with('table_lists_table')->get();
         $viewRender = view('pos.table.index', compact('floors'))->render();
-
         return response()->json([
             'html' => $viewRender
         ]);
