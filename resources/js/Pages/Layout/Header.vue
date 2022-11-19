@@ -17,8 +17,7 @@
 
                 <div class="d-flex">
 
-                    <div class="main_category_btn">
-
+                    <div class="main_category_btn" hidden>
                         <button class="main-category">
                             Bar & Beverage
                         </button>
@@ -26,8 +25,8 @@
                         <button class="main-category">
                             Food
                         </button>
-
                     </div>
+
                 </div>
             </div>
         </header>
@@ -36,12 +35,7 @@
 <script>
 
 export default {
-    name: "Menu",
-
-    data() {
-        return {
-        }
-    },
+    name: "Header",
 }
 </script>
 <style>

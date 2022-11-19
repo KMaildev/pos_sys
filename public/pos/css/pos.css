@@ -37,8 +37,9 @@
 .category_btn {
     font-size: 20px;
     width: 100%;
+    min-width: 100%;
     padding: 10px 32px;
-    background-color: red;
+    background-color: #5C2B16;
     margin: 2px;
     color: white;
 }

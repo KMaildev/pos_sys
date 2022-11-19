@@ -24,7 +24,7 @@
 
     <link href="{{ mix('/css/app.css') }}" rel="stylesheet" />
     @inertiaHead
-    
+
 </head>
 
 <body data-topbar="dark" data-layout="horizontal">
@@ -47,4 +47,5 @@
 <script src="{{ asset('assets/js/sweetalert.min.js') }}"></script>
 @routes
 <script src="{{ mix('/js/app.js') }}" defer></script>
+
 </html>

@@ -1,16 +1,16 @@
 <template>
     <div>
-        <Menu></Menu>
+        <Header></Header>
         <slot />
     </div>
 </template>
 <script>
-import Menu from "./Menu";
+import Header from "./Header";
 export default {
-    components: {
-        Menu
-    },
     name: "Master",
+    components: {
+        Header
+    },
 };
 </script>
 <style>

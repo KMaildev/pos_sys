@@ -1,17 +1,17 @@
 <template>
     <master>
-
         <div class="row py-2">
             <div class="col-md-4 col-lg-4 col-sm-12">
                 <form @submit.prevent="searchTableName">
-                    <input type="text" class="form-control form-control-lg bg-white search-inp"
+                    <input v-model="q" type="text" class="form-control form-control-lg bg-white search-inp"
                         placeholder="Search Table Name">
                 </form>
             </div>
 
             <div class="col-md-8 col-lg-8 col-sm-12">
-                <button class="floor_button" v-for="floor in floors" :key="floor.id">
-                    {{ floor.title }}
+                <button class="floor_button" v-for="floors_category in floors_categories" :key="floors_category.id"
+                    @click="searchFloorById(floors_category.id)">
+                    {{ floors_category.title }}
                 </button>
             </div>
         </div>
@@ -33,7 +33,6 @@
             </div>
             <hr>
         </div>
-
     </master>
 </template>
 <script>
@@ -48,20 +47,23 @@ export default {
 
     data() {
         return {
-            table_name: null,
+            q: '',
         }
     },
 
     props: [
         'floors',
+        'floors_categories',
     ],
 
     methods: {
         setTableName(table_id, table_name) {
             if (table_id && table_name) {
+                let type = 'Bar';
+                let category_id = null;
                 localStorage.setItem("table_id", table_id);
                 localStorage.setItem("table_name", table_name);
-                this.$inertia.get('/pos_test_page');
+                this.$inertia.get(`/pos_menu/${type}/${category_id}`);
                 this.audioPlay()
             } else {
                 this.alertMessage();
@@ -69,7 +71,11 @@ export default {
         },
 
         searchTableName() {
-            this.$inertia.get(`/pos_table_lists/`);
+            this.$inertia.get(`/pos_table_lists?table_name=${this.q}`);
+        },
+
+        searchFloorById(floor_id) {
+            this.$inertia.get(`/pos_table_lists?floor_id=${floor_id}`);
         },
 
         audioPlay() {
@@ -79,16 +85,21 @@ export default {
         },
 
         alertMessage() {
-            alert('Error')
+            swal({
+                title: "Please Select Table",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                    }
+                });
         },
     }
 }
 </script>
-<style>
-.main_category_btn {
-    display: none;
-}
-
+<style >
 .search-inp {
     font-size: 20px;
     width: 100%;
@@ -101,7 +112,7 @@ export default {
 }
 
 .ScrollStyle {
-    max-height: 900px;
+    max-height: 1000px;
     overflow-y: scroll;
 }
 </style>
