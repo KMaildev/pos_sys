@@ -5383,7 +5383,13 @@ __webpack_require__.r(__webpack_exports__);
     Master: _Layout_Master__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   name: "Index",
-  props: ['categories', 'menu_lists']
+  props: ['categories', 'menu_lists'],
+  methods: {
+    loadCategoryAndMenuListPos: function loadCategoryAndMenuListPos(type) {
+      var category_id = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+      this.$inertia.get("/pos_menu/".concat(type, "/").concat(category_id));
+    }
+  }
 });
 
 /***/ }),
@@ -5579,19 +5585,44 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "col-md-3 col-lg-3 col-sm-3"
   }, [_c("h3", [_vm._v("\n                Order Item Area\n            ")])]), _vm._v(" "), _c("div", {
-    staticClass: "col-md-7 col-lg-7 col-sm-7"
+    staticClass: "col-md-6 col-lg-6 col-sm-6"
   }, [_c("div", {
     staticClass: "row"
-  }, [_c("h3", [_vm._v("\n                    Menu Lists\n                ")])])]), _vm._v(" "), _c("div", {
-    staticClass: "col-md-2 col-lg-2 col-sm-2"
+  }, [_c("h3", [_vm._v("\n                    Menu Lists\n                ")]), _vm._v(" "), _vm._l(_vm.menu_lists, function (menu_list) {
+    return _c("h2", {
+      key: menu_list.id
+    }, [_vm._v("\n                    " + _vm._s(menu_list.menu_name) + "\n                ")]);
+  })], 2)]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-3 col-lg-3 col-sm-3"
+  }, [_c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-md-6 col-lg-6 col-sm-6"
   }, [_c("button", {
-    staticClass: "category_btn"
-  }, [_vm._v("\n                Beverage\n            ")]), _vm._v(" "), _c("button", {
-    staticClass: "category_btn"
-  }, [_vm._v("\n                Food\n            ")]), _vm._v(" "), _vm._l(_vm.categories, function (category) {
+    staticClass: "category_btn1",
+    on: {
+      click: function click($event) {
+        return _vm.loadCategoryAndMenuListPos("Bar");
+      }
+    }
+  }, [_vm._v("\n                        Beverage\n                    ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6 col-lg-6 col-sm-6"
+  }, [_c("button", {
+    staticClass: "category_btn1",
+    on: {
+      click: function click($event) {
+        return _vm.loadCategoryAndMenuListPos("Food");
+      }
+    }
+  }, [_vm._v("\n                        Food\n                    ")])])]), _vm._v(" "), _vm._l(_vm.categories, function (category) {
     return _c("button", {
       key: category.id,
-      staticClass: "category_btn"
+      staticClass: "category_btn",
+      on: {
+        click: function click($event) {
+          return _vm.loadCategoryAndMenuListPos(category.type, category.id);
+        }
+      }
     }, [_vm._v("\n                " + _vm._s(category.title) + "\n            ")]);
   })], 2)])]);
 };
