@@ -23,8 +23,8 @@
     <link rel="stylesheet" href="{{ asset('pos/css/pos.css') }}">
 
     <link href="{{ mix('/css/app.css') }}" rel="stylesheet" />
-    <script src="{{ mix('/js/app.js') }}" defer></script>
     @inertiaHead
+    
 </head>
 
 <body data-topbar="dark" data-layout="horizontal">
@@ -45,5 +45,6 @@
 <script src="{{ asset('assets/libs/feather-icons/feather.min.js') }}"></script>
 {{-- <script src="{{ asset('assets/js/app.js') }}"></script> --}}
 <script src="{{ asset('assets/js/sweetalert.min.js') }}"></script>
-
+@routes
+<script src="{{ mix('/js/app.js') }}" defer></script>
 </html>

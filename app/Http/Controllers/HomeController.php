@@ -28,7 +28,7 @@ class HomeController extends Controller
         $department_id = auth()->user()->department_id;
         $departmemt = Department::findOrFail($department_id);
         if ($departmemt->title == 'Waiter') {
-            return Inertia::render('TableList/Index');
+            return redirect()->route('pos_table_lists');
         } elseif ($departmemt->title == 'Cashier') {
             return 'Cashier';
         } else {

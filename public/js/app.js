@@ -5403,6 +5403,9 @@ __webpack_require__.r(__webpack_exports__);
         this.alertMessage();
       }
     },
+    searchTableName: function searchTableName() {
+      this.$inertia.get("/pos_table_lists/");
+    },
     audioPlay: function audioPlay() {
       var song = new Audio();
       song.src = "/data/order_success.mp3";
@@ -5492,7 +5495,7 @@ var render = function render() {
   }, [_c("Link", {
     staticClass: "logo logo-light",
     attrs: {
-      href: "/pos_table_lists"
+      href: _vm.route("pos_table_lists")
     }
   }, [_c("span", {
     staticClass: "logo-lg"
@@ -5536,10 +5539,36 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("master", [_vm._l(_vm.floors, function (floor) {
+  return _c("master", [_c("div", {
+    staticClass: "row py-2"
+  }, [_c("div", {
+    staticClass: "col-md-4 col-lg-4 col-sm-12"
+  }, [_c("form", {
+    on: {
+      submit: function submit($event) {
+        $event.preventDefault();
+        return _vm.searchTableName.apply(null, arguments);
+      }
+    }
+  }, [_c("input", {
+    staticClass: "form-control form-control-lg bg-white search-inp",
+    attrs: {
+      type: "text",
+      placeholder: "Search Table Name"
+    }
+  })])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-8 col-lg-8 col-sm-12"
+  }, _vm._l(_vm.floors, function (floor) {
+    return _c("button", {
+      key: floor.id,
+      staticClass: "floor_button"
+    }, [_vm._v("\n                " + _vm._s(floor.title) + "\n            ")]);
+  }), 0)]), _vm._v(" "), _c("div", {
+    staticClass: "ScrollStyle"
+  }, [_vm._l(_vm.floors, function (floor) {
     return _c("div", {
       key: floor.id,
-      staticClass: "row"
+      staticClass: "row py-3"
     }, [_c("div", {
       staticClass: "col-md-12 col-lg-12 col-sm-12"
     }, [_c("h2", {
@@ -5547,7 +5576,7 @@ var render = function render() {
       staticStyle: {
         "font-size": "25px"
       }
-    }, [_vm._v("\n                " + _vm._s(floor.title) + "\n            ")])]), _vm._v(" "), _vm._l(floor.table_lists_table, function (table_lists) {
+    }, [_vm._v("\n                    " + _vm._s(floor.title) + "\n                ")])]), _vm._v(" "), _vm._l(floor.table_lists_table, function (table_lists) {
       return _c("div", {
         key: table_lists.id,
         staticClass: "col-md-2 col-lg-2 col-sm-2"
@@ -5558,9 +5587,9 @@ var render = function render() {
             return _vm.setTableName(table_lists.id, table_lists.table_name);
           }
         }
-      }, [_vm._v("\n                " + _vm._s(table_lists.table_name) + "\n            ")])]);
+      }, [_vm._v("\n                    " + _vm._s(table_lists.table_name) + "\n                ")])]);
     })], 2);
-  }), _vm._v(" "), _c("hr")], 2);
+  }), _vm._v(" "), _c("hr")], 2)]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -5626,6 +5655,11 @@ __webpack_require__.r(__webpack_exports__);
       props = _ref.props,
       plugin = _ref.plugin;
     vue__WEBPACK_IMPORTED_MODULE_2__["default"].use(plugin);
+    vue__WEBPACK_IMPORTED_MODULE_2__["default"].mixin({
+      methods: {
+        route: window.route
+      }
+    });
     vue__WEBPACK_IMPORTED_MODULE_2__["default"].component('Link', _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_1__.Link);
     new vue__WEBPACK_IMPORTED_MODULE_2__["default"]({
       render: function render(h) {
@@ -11016,7 +11050,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.main_category_btn {\n    display: none;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.main_category_btn {\n    display: none;\n}\n.search-inp {\n    font-size: 20px;\n    width: 100%;\n    padding: 10px 32px;\n    background-color: #5C2B16;\n    margin: 2px;\n    color: white;\n    height: 100%;\n    border-color: gray;\n}\n.ScrollStyle {\n    max-height: 900px;\n    overflow-y: scroll;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

@@ -5,7 +5,7 @@
 
                 <div class="d-flex">
                     <div class="navbar-brand-box">
-                        <Link href="/pos_table_lists" class="logo logo-light">
+                        <Link :href="route('pos_table_lists')" class="logo logo-light">
                         <span class="logo-lg">
                             <span class="logo-txt" style="font-size: 30px;">
                                 LEVITATE POS
