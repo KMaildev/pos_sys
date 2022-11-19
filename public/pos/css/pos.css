@@ -70,3 +70,11 @@
     font-size: 25px;
     color: black;
 }
+
+.data_not_found {
+    font-size: 30px;
+    font-weight: bold;
+    color: red;
+    text-align: center;
+    padding: 20px 32px;
+}

@@ -5383,7 +5383,7 @@ __webpack_require__.r(__webpack_exports__);
     Master: _Layout_Master__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   name: "Index",
-  props: ['categories', 'menu_lists', 'category_title', 'type', 'category_id'],
+  props: ['categories', 'menu_lists', 'category_title', 'type', 'category_id', 'cart_temps'],
   data: function data() {
     return {
       q: ''
@@ -5393,6 +5393,9 @@ __webpack_require__.r(__webpack_exports__);
     loadCategoryAndMenuListPos: function loadCategoryAndMenuListPos(type) {
       var category_id = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
       this.$inertia.get("/pos_menu/".concat(type, "/").concat(category_id));
+    },
+    cartTemp: function cartTemp(menu_list_id, price) {
+      this.$inertia.get("/store_cart_temp?menu_list_id=".concat(menu_list_id, "&price=").concat(price));
     },
     searchMenuName: function searchMenuName() {
       this.$inertia.get("/pos_menu/".concat(type, "/").concat(category_id));
@@ -5595,405 +5598,52 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "card"
   }, [_c("div", {
-    staticClass: "card-header align-items-center d-flex"
-  }, [_c("h4", {
-    staticClass: "card-title mb-0 flex-grow-1"
-  }, [_vm._v("Customer List")]), _vm._v(" "), _c("div", {
-    staticClass: "flex-shrink-0"
+    staticClass: "card-body"
   }, [_c("div", {
-    staticClass: "dropdown"
-  }, [_c("a", {
-    staticClass: "dropdown-toggle",
-    attrs: {
-      href: "#",
-      id: "dropdownMenuButton2",
-      "data-bs-toggle": "dropdown",
-      "aria-haspopup": "true",
-      "aria-expanded": "false"
-    }
-  }, [_c("span", {
-    staticClass: "text-muted"
-  }, [_vm._v("All Members"), _c("i", {
-    staticClass: "mdi mdi-chevron-down ms-1"
-  })])]), _vm._v(" "), _c("div", {
-    staticClass: "dropdown-menu dropdown-menu-end",
-    attrs: {
-      "aria-labelledby": "dropdownMenuButton2"
-    }
-  }, [_c("a", {
-    staticClass: "dropdown-item",
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Members")]), _vm._v(" "), _c("a", {
-    staticClass: "dropdown-item",
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("New Members")]), _vm._v(" "), _c("a", {
-    staticClass: "dropdown-item",
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Old Members")])])])])]), _vm._v(" "), _c("div", {
-    staticClass: "card-body px-0"
-  }, [_c("div", {
-    staticClass: "px-3",
+    staticClass: "table-responsive"
+  }, [_c("table", {
+    staticClass: "align-middle mb-0 table-nowrap"
+  }, [_c("thead", {
+    staticClass: "table-light"
+  }, [_c("tr", [_c("th", {
     staticStyle: {
-      "max-height": "386px"
-    },
-    attrs: {
-      "data-simplebar": ""
+      width: "20px"
     }
-  }, [_c("div", {
-    staticClass: "d-flex align-items-center pb-4"
-  }, [_c("div", {
-    staticClass: "avatar-md me-4"
-  }, [_c("img", {
-    staticClass: "img-fluid rounded-circle",
-    attrs: {
-      src: "assets/images/users/avatar-2.jpg",
-      alt: ""
+  }, [_vm._v("Name")]), _vm._v(" "), _c("th", {
+    staticStyle: {
+      width: "10px"
     }
-  })]), _vm._v(" "), _c("div", {
-    staticClass: "flex-grow-1"
-  }, [_c("h5", {
-    staticClass: "font-size-15 mb-1"
+  }, [_vm._v("Qty")]), _vm._v(" "), _c("th", {
+    staticStyle: {
+      width: "30px"
+    }
+  }, [_vm._v("Price")])])]), _vm._v(" "), _c("tbody", _vm._l(_vm.cart_temps, function (cart_temp) {
+    return _c("tr", {
+      key: cart_temp.id
+    }, [_c("td", [_vm._v("\n                                        " + _vm._s(cart_temp.menu_lists_table.menu_name) + "\n                                    ")]), _vm._v(" "), _c("td", [_vm._v("\n                                        " + _vm._s(cart_temp.qty) + "\n                                    ")]), _vm._v(" "), _c("td", [_vm._v("\n                                        " + _vm._s(cart_temp.price) + "\n                                    ")])]);
+  }), 0)])]), _vm._v(" "), _c("div", {
+    staticClass: "row mt-4"
+  }, [_c("div", {
+    staticClass: "col-sm-6"
   }, [_c("a", {
-    staticClass: "text-dark",
+    staticClass: "btn btn-secondary",
     attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Randy Matthews")])]), _vm._v(" "), _c("span", {
-    staticClass: "text-muted"
-  }, [_vm._v("Randy@gmail.com")])]), _vm._v(" "), _c("div", {
-    staticClass: "flex-shrink-0 text-end"
-  }, [_c("div", {
-    staticClass: "dropdown align-self-start"
-  }, [_c("a", {
-    staticClass: "dropdown-toggle",
-    attrs: {
-      href: "#",
-      role: "button",
-      "data-bs-toggle": "dropdown",
-      "aria-haspopup": "true",
-      "aria-expanded": "false"
+      href: "ecommerce-products.html"
     }
   }, [_c("i", {
-    staticClass: "bx bx-dots-vertical-rounded font-size-24 text-dark"
-  })]), _vm._v(" "), _c("div", {
-    staticClass: "dropdown-menu"
-  }, [_c("a", {
-    staticClass: "dropdown-item",
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Copy")]), _vm._v(" "), _c("a", {
-    staticClass: "dropdown-item",
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Save")]), _vm._v(" "), _c("a", {
-    staticClass: "dropdown-item",
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Forward")]), _vm._v(" "), _c("a", {
-    staticClass: "dropdown-item",
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Delete")])])])])]), _vm._v(" "), _c("div", {
-    staticClass: "d-flex align-items-center pb-4"
+    staticClass: "mdi mdi-arrow-left me-1"
+  }), _vm._v(" Continue Shopping ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-sm-6"
   }, [_c("div", {
-    staticClass: "avatar-md me-4"
-  }, [_c("img", {
-    staticClass: "img-fluid rounded-circle",
-    attrs: {
-      src: "assets/images/users/avatar-4.jpg",
-      alt: ""
-    }
-  })]), _vm._v(" "), _c("div", {
-    staticClass: "flex-grow-1"
-  }, [_c("h5", {
-    staticClass: "font-size-15 mb-1"
+    staticClass: "text-sm-end mt-2 mt-sm-0"
   }, [_c("a", {
-    staticClass: "text-dark",
+    staticClass: "btn btn-success",
     attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Vernon Wood")])]), _vm._v(" "), _c("span", {
-    staticClass: "text-muted"
-  }, [_vm._v("Vernon@gmail.com")])]), _vm._v(" "), _c("div", {
-    staticClass: "flex-shrink-0 text-end"
-  }, [_c("div", {
-    staticClass: "dropdown align-self-start"
-  }, [_c("a", {
-    staticClass: "dropdown-toggle",
-    attrs: {
-      href: "#",
-      role: "button",
-      "data-bs-toggle": "dropdown",
-      "aria-haspopup": "true",
-      "aria-expanded": "false"
+      href: "ecommerce-checkout.html"
     }
   }, [_c("i", {
-    staticClass: "bx bx-dots-vertical-rounded font-size-24 text-dark"
-  })]), _vm._v(" "), _c("div", {
-    staticClass: "dropdown-menu"
-  }, [_c("a", {
-    staticClass: "dropdown-item",
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Copy")]), _vm._v(" "), _c("a", {
-    staticClass: "dropdown-item",
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Save")]), _vm._v(" "), _c("a", {
-    staticClass: "dropdown-item",
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Forward")]), _vm._v(" "), _c("a", {
-    staticClass: "dropdown-item",
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Delete")])])])])]), _vm._v(" "), _c("div", {
-    staticClass: "d-flex align-items-center pb-4"
-  }, [_c("div", {
-    staticClass: "avatar-md me-4"
-  }, [_c("img", {
-    staticClass: "img-fluid rounded-circle",
-    attrs: {
-      src: "assets/images/users/avatar-5.jpg",
-      alt: ""
-    }
-  })]), _vm._v(" "), _c("div", {
-    staticClass: "flex-grow-1"
-  }, [_c("h5", {
-    staticClass: "font-size-15 mb-1"
-  }, [_c("a", {
-    staticClass: "text-dark",
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Howard Rhoades")])]), _vm._v(" "), _c("span", {
-    staticClass: "text-muted"
-  }, [_vm._v("Howard@gmail.com")])]), _vm._v(" "), _c("div", {
-    staticClass: "flex-shrink-0 text-end"
-  }, [_c("div", {
-    staticClass: "dropdown align-self-start"
-  }, [_c("a", {
-    staticClass: "dropdown-toggle",
-    attrs: {
-      href: "#",
-      role: "button",
-      "data-bs-toggle": "dropdown",
-      "aria-haspopup": "true",
-      "aria-expanded": "false"
-    }
-  }, [_c("i", {
-    staticClass: "bx bx-dots-vertical-rounded font-size-24 text-dark"
-  })]), _vm._v(" "), _c("div", {
-    staticClass: "dropdown-menu"
-  }, [_c("a", {
-    staticClass: "dropdown-item",
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Copy")]), _vm._v(" "), _c("a", {
-    staticClass: "dropdown-item",
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Save")]), _vm._v(" "), _c("a", {
-    staticClass: "dropdown-item",
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Forward")]), _vm._v(" "), _c("a", {
-    staticClass: "dropdown-item",
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Delete")])])])])]), _vm._v(" "), _c("div", {
-    staticClass: "d-flex align-items-center pb-4"
-  }, [_c("div", {
-    staticClass: "avatar-md me-4"
-  }, [_c("img", {
-    staticClass: "img-fluid rounded-circle",
-    attrs: {
-      src: "assets/images/users/avatar-6.jpg",
-      alt: ""
-    }
-  })]), _vm._v(" "), _c("div", {
-    staticClass: "flex-grow-1"
-  }, [_c("h5", {
-    staticClass: "font-size-15 mb-1"
-  }, [_c("a", {
-    staticClass: "text-dark",
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Arthur Zurcher")])]), _vm._v(" "), _c("span", {
-    staticClass: "text-muted"
-  }, [_vm._v("Arthur@gmail.com")])]), _vm._v(" "), _c("div", {
-    staticClass: "flex-shrink-0 text-end"
-  }, [_c("div", {
-    staticClass: "dropdown align-self-start"
-  }, [_c("a", {
-    staticClass: "dropdown-toggle",
-    attrs: {
-      href: "#",
-      role: "button",
-      "data-bs-toggle": "dropdown",
-      "aria-haspopup": "true",
-      "aria-expanded": "false"
-    }
-  }, [_c("i", {
-    staticClass: "bx bx-dots-vertical-rounded font-size-24 text-dark"
-  })]), _vm._v(" "), _c("div", {
-    staticClass: "dropdown-menu"
-  }, [_c("a", {
-    staticClass: "dropdown-item",
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Copy")]), _vm._v(" "), _c("a", {
-    staticClass: "dropdown-item",
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Save")]), _vm._v(" "), _c("a", {
-    staticClass: "dropdown-item",
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Forward")]), _vm._v(" "), _c("a", {
-    staticClass: "dropdown-item",
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Delete")])])])])]), _vm._v(" "), _c("div", {
-    staticClass: "d-flex align-items-center pb-4"
-  }, [_c("div", {
-    staticClass: "avatar-md me-4"
-  }, [_c("img", {
-    staticClass: "img-fluid rounded-circle",
-    attrs: {
-      src: "assets/images/users/avatar-8.jpg",
-      alt: ""
-    }
-  })]), _vm._v(" "), _c("div", {
-    staticClass: "flex-grow-1"
-  }, [_c("h5", {
-    staticClass: "font-size-15 mb-1"
-  }, [_c("a", {
-    staticClass: "text-dark",
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Angela Palmer")])]), _vm._v(" "), _c("span", {
-    staticClass: "text-muted"
-  }, [_vm._v("Angela@gmail.com")])]), _vm._v(" "), _c("div", {
-    staticClass: "flex-shrink-0 text-end"
-  }, [_c("div", {
-    staticClass: "dropdown align-self-start"
-  }, [_c("a", {
-    staticClass: "dropdown-toggle",
-    attrs: {
-      href: "#",
-      role: "button",
-      "data-bs-toggle": "dropdown",
-      "aria-haspopup": "true",
-      "aria-expanded": "false"
-    }
-  }, [_c("i", {
-    staticClass: "bx bx-dots-vertical-rounded font-size-24 text-dark"
-  })]), _vm._v(" "), _c("div", {
-    staticClass: "dropdown-menu"
-  }, [_c("a", {
-    staticClass: "dropdown-item",
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Copy")]), _vm._v(" "), _c("a", {
-    staticClass: "dropdown-item",
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Save")]), _vm._v(" "), _c("a", {
-    staticClass: "dropdown-item",
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Forward")]), _vm._v(" "), _c("a", {
-    staticClass: "dropdown-item",
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Delete")])])])])]), _vm._v(" "), _c("div", {
-    staticClass: "d-flex align-items-center pb-3"
-  }, [_c("div", {
-    staticClass: "avatar-md me-4"
-  }, [_c("img", {
-    staticClass: "img-fluid rounded-circle",
-    attrs: {
-      src: "assets/images/users/avatar-9.jpg",
-      alt: ""
-    }
-  })]), _vm._v(" "), _c("div", {
-    staticClass: "flex-grow-1"
-  }, [_c("h5", {
-    staticClass: "font-size-15 mb-1"
-  }, [_c("a", {
-    staticClass: "text-dark",
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Dorothy Wimson")])]), _vm._v(" "), _c("span", {
-    staticClass: "text-muted"
-  }, [_vm._v("Dorothy@gmail.com")])]), _vm._v(" "), _c("div", {
-    staticClass: "flex-shrink-0 text-end"
-  }, [_c("div", {
-    staticClass: "dropdown align-self-start"
-  }, [_c("a", {
-    staticClass: "dropdown-toggle",
-    attrs: {
-      href: "#",
-      role: "button",
-      "data-bs-toggle": "dropdown",
-      "aria-haspopup": "true",
-      "aria-expanded": "false"
-    }
-  }, [_c("i", {
-    staticClass: "bx bx-dots-vertical-rounded font-size-24 text-dark"
-  })]), _vm._v(" "), _c("div", {
-    staticClass: "dropdown-menu"
-  }, [_c("a", {
-    staticClass: "dropdown-item",
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Copy")]), _vm._v(" "), _c("a", {
-    staticClass: "dropdown-item",
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Save")]), _vm._v(" "), _c("a", {
-    staticClass: "dropdown-item",
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Forward")]), _vm._v(" "), _c("a", {
-    staticClass: "dropdown-item",
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Delete")])])])])])])])])]), _vm._v(" "), _c("div", {
+    staticClass: "mdi mdi-cart-arrow-right me-1"
+  }), _vm._v(" Checkout ")])])])])])])]), _vm._v(" "), _c("div", {
     staticClass: "col-xl-6 col-md-6 col-lg-6 col-sm-6"
   }, [_c("div", {
     staticClass: "card"
@@ -6048,14 +5698,21 @@ var render = function render() {
     }
   }, [_c("div", {
     staticClass: "row g-2"
-  }, _vm._l(_vm.menu_lists, function (menu_list) {
+  }, [_vm.menu_lists.length == 0 ? _c("span", {
+    staticClass: "data_not_found"
+  }, [_vm._v("\n                            Data Not Found\n                        ")]) : _vm._e(), _vm._v(" "), _vm._l(_vm.menu_lists, function (menu_list) {
     return _c("div", {
       key: menu_list.id,
       staticClass: "col-3"
     }, [_c("button", {
-      staticClass: "meal_btn"
+      staticClass: "meal_btn",
+      on: {
+        click: function click($event) {
+          return _vm.cartTemp(menu_list.id, menu_list.price);
+        }
+      }
     }, [_vm._v("\n                                " + _vm._s(menu_list.menu_name) + "\n                            ")])]);
-  }), 0)])])]), _vm._v(" "), _c("div", {
+  })], 2)])])]), _vm._v(" "), _c("div", {
     staticClass: "col-xl-3 col-md-3 col-lg-3"
   }, [_c("div", {
     staticClass: "d-flex justify-content-between"

@@ -17,6 +17,8 @@
     <!-- App Css-->
     <link href="{{ asset('pos/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
 
+    <link href="{{ asset('pos/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css') }}" rel="stylesheet" />
+
     {{-- <link href="{{ asset('pos/libs/choices.js/public/pos/styles/choices.min.css') }}" rel="stylesheet"
         type="text/css" /> --}}
 
@@ -46,6 +48,8 @@
 <script src="{{ asset('assets/libs/feather-icons/feather.min.js') }}"></script>
 {{-- <script src="{{ asset('assets/js/app.js') }}"></script> --}}
 <script src="{{ asset('assets/js/sweetalert.min.js') }}"></script>
+<script src="{{ asset('assets/libs/pace-js/pace.min.js') }}"></script>
+<script src="{{ asset('assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js') }}"></script>
 @routes
 <script src="{{ mix('/js/app.js') }}" defer></script>
 

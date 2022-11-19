@@ -10,6 +10,7 @@ use App\Http\Controllers\Hr\RoleController;
 use App\Http\Controllers\Ingredients\IngredientsController;
 use App\Http\Controllers\MenuList\MenuListController;
 use App\Http\Controllers\Pos\MenuControlController;
+use App\Http\Controllers\PosSys\Cart\CartTempController;
 use App\Http\Controllers\PosSys\Menu\PosMenuController;
 use App\Http\Controllers\PosSys\TableList\TableListController as TableListTableListController;
 use App\Http\Controllers\PosSys\Test\TestController;
@@ -47,5 +48,6 @@ Route::middleware('auth')->group(function () {
     // POSSYS
     Route::get('/pos_table_lists', [TableListTableListController::class, 'index'])->name('pos_table_lists');
     Route::get('/pos_menu/{type}/{category_id}', [PosMenuController::class, 'index'])->name('pos_menu');
+    Route::get('/store_cart_temp', [CartTempController::class, 'store'])->name('store_cart_temp');
     Route::get('/pos_test_page', [TestController::class, 'index'])->name('pos_test_page');
 });
