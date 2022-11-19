@@ -5383,10 +5383,18 @@ __webpack_require__.r(__webpack_exports__);
     Master: _Layout_Master__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   name: "Index",
-  props: ['categories', 'menu_lists'],
+  props: ['categories', 'menu_lists', 'category_title', 'type', 'category_id'],
+  data: function data() {
+    return {
+      q: ''
+    };
+  },
   methods: {
     loadCategoryAndMenuListPos: function loadCategoryAndMenuListPos(type) {
       var category_id = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+      this.$inertia.get("/pos_menu/".concat(type, "/").concat(category_id));
+    },
+    searchMenuName: function searchMenuName() {
       this.$inertia.get("/pos_menu/".concat(type, "/").concat(category_id));
     }
   }
@@ -5583,38 +5591,489 @@ var render = function render() {
   return _c("master", [_c("div", {
     staticClass: "row"
   }, [_c("div", {
-    staticClass: "col-md-3 col-lg-3 col-sm-3"
-  }, [_c("h3", [_vm._v("\n                Order Item Area\n            ")])]), _vm._v(" "), _c("div", {
-    staticClass: "col-md-6 col-lg-6 col-sm-6"
+    staticClass: "col-xl-3 col-md-3 col-lg-3"
   }, [_c("div", {
-    staticClass: "row"
-  }, [_c("h3", [_vm._v("\n                    Menu Lists\n                ")]), _vm._v(" "), _vm._l(_vm.menu_lists, function (menu_list) {
-    return _c("h2", {
-      key: menu_list.id
-    }, [_vm._v("\n                    " + _vm._s(menu_list.menu_name) + "\n                ")]);
-  })], 2)]), _vm._v(" "), _c("div", {
-    staticClass: "col-md-3 col-lg-3 col-sm-3"
+    staticClass: "card"
   }, [_c("div", {
-    staticClass: "row"
+    staticClass: "card-header align-items-center d-flex"
+  }, [_c("h4", {
+    staticClass: "card-title mb-0 flex-grow-1"
+  }, [_vm._v("Customer List")]), _vm._v(" "), _c("div", {
+    staticClass: "flex-shrink-0"
   }, [_c("div", {
-    staticClass: "col-md-6 col-lg-6 col-sm-6"
+    staticClass: "dropdown"
+  }, [_c("a", {
+    staticClass: "dropdown-toggle",
+    attrs: {
+      href: "#",
+      id: "dropdownMenuButton2",
+      "data-bs-toggle": "dropdown",
+      "aria-haspopup": "true",
+      "aria-expanded": "false"
+    }
+  }, [_c("span", {
+    staticClass: "text-muted"
+  }, [_vm._v("All Members"), _c("i", {
+    staticClass: "mdi mdi-chevron-down ms-1"
+  })])]), _vm._v(" "), _c("div", {
+    staticClass: "dropdown-menu dropdown-menu-end",
+    attrs: {
+      "aria-labelledby": "dropdownMenuButton2"
+    }
+  }, [_c("a", {
+    staticClass: "dropdown-item",
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v("Members")]), _vm._v(" "), _c("a", {
+    staticClass: "dropdown-item",
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v("New Members")]), _vm._v(" "), _c("a", {
+    staticClass: "dropdown-item",
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v("Old Members")])])])])]), _vm._v(" "), _c("div", {
+    staticClass: "card-body px-0"
+  }, [_c("div", {
+    staticClass: "px-3",
+    staticStyle: {
+      "max-height": "386px"
+    },
+    attrs: {
+      "data-simplebar": ""
+    }
+  }, [_c("div", {
+    staticClass: "d-flex align-items-center pb-4"
+  }, [_c("div", {
+    staticClass: "avatar-md me-4"
+  }, [_c("img", {
+    staticClass: "img-fluid rounded-circle",
+    attrs: {
+      src: "assets/images/users/avatar-2.jpg",
+      alt: ""
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "flex-grow-1"
+  }, [_c("h5", {
+    staticClass: "font-size-15 mb-1"
+  }, [_c("a", {
+    staticClass: "text-dark",
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v("Randy Matthews")])]), _vm._v(" "), _c("span", {
+    staticClass: "text-muted"
+  }, [_vm._v("Randy@gmail.com")])]), _vm._v(" "), _c("div", {
+    staticClass: "flex-shrink-0 text-end"
+  }, [_c("div", {
+    staticClass: "dropdown align-self-start"
+  }, [_c("a", {
+    staticClass: "dropdown-toggle",
+    attrs: {
+      href: "#",
+      role: "button",
+      "data-bs-toggle": "dropdown",
+      "aria-haspopup": "true",
+      "aria-expanded": "false"
+    }
+  }, [_c("i", {
+    staticClass: "bx bx-dots-vertical-rounded font-size-24 text-dark"
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "dropdown-menu"
+  }, [_c("a", {
+    staticClass: "dropdown-item",
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v("Copy")]), _vm._v(" "), _c("a", {
+    staticClass: "dropdown-item",
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v("Save")]), _vm._v(" "), _c("a", {
+    staticClass: "dropdown-item",
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v("Forward")]), _vm._v(" "), _c("a", {
+    staticClass: "dropdown-item",
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v("Delete")])])])])]), _vm._v(" "), _c("div", {
+    staticClass: "d-flex align-items-center pb-4"
+  }, [_c("div", {
+    staticClass: "avatar-md me-4"
+  }, [_c("img", {
+    staticClass: "img-fluid rounded-circle",
+    attrs: {
+      src: "assets/images/users/avatar-4.jpg",
+      alt: ""
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "flex-grow-1"
+  }, [_c("h5", {
+    staticClass: "font-size-15 mb-1"
+  }, [_c("a", {
+    staticClass: "text-dark",
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v("Vernon Wood")])]), _vm._v(" "), _c("span", {
+    staticClass: "text-muted"
+  }, [_vm._v("Vernon@gmail.com")])]), _vm._v(" "), _c("div", {
+    staticClass: "flex-shrink-0 text-end"
+  }, [_c("div", {
+    staticClass: "dropdown align-self-start"
+  }, [_c("a", {
+    staticClass: "dropdown-toggle",
+    attrs: {
+      href: "#",
+      role: "button",
+      "data-bs-toggle": "dropdown",
+      "aria-haspopup": "true",
+      "aria-expanded": "false"
+    }
+  }, [_c("i", {
+    staticClass: "bx bx-dots-vertical-rounded font-size-24 text-dark"
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "dropdown-menu"
+  }, [_c("a", {
+    staticClass: "dropdown-item",
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v("Copy")]), _vm._v(" "), _c("a", {
+    staticClass: "dropdown-item",
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v("Save")]), _vm._v(" "), _c("a", {
+    staticClass: "dropdown-item",
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v("Forward")]), _vm._v(" "), _c("a", {
+    staticClass: "dropdown-item",
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v("Delete")])])])])]), _vm._v(" "), _c("div", {
+    staticClass: "d-flex align-items-center pb-4"
+  }, [_c("div", {
+    staticClass: "avatar-md me-4"
+  }, [_c("img", {
+    staticClass: "img-fluid rounded-circle",
+    attrs: {
+      src: "assets/images/users/avatar-5.jpg",
+      alt: ""
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "flex-grow-1"
+  }, [_c("h5", {
+    staticClass: "font-size-15 mb-1"
+  }, [_c("a", {
+    staticClass: "text-dark",
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v("Howard Rhoades")])]), _vm._v(" "), _c("span", {
+    staticClass: "text-muted"
+  }, [_vm._v("Howard@gmail.com")])]), _vm._v(" "), _c("div", {
+    staticClass: "flex-shrink-0 text-end"
+  }, [_c("div", {
+    staticClass: "dropdown align-self-start"
+  }, [_c("a", {
+    staticClass: "dropdown-toggle",
+    attrs: {
+      href: "#",
+      role: "button",
+      "data-bs-toggle": "dropdown",
+      "aria-haspopup": "true",
+      "aria-expanded": "false"
+    }
+  }, [_c("i", {
+    staticClass: "bx bx-dots-vertical-rounded font-size-24 text-dark"
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "dropdown-menu"
+  }, [_c("a", {
+    staticClass: "dropdown-item",
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v("Copy")]), _vm._v(" "), _c("a", {
+    staticClass: "dropdown-item",
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v("Save")]), _vm._v(" "), _c("a", {
+    staticClass: "dropdown-item",
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v("Forward")]), _vm._v(" "), _c("a", {
+    staticClass: "dropdown-item",
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v("Delete")])])])])]), _vm._v(" "), _c("div", {
+    staticClass: "d-flex align-items-center pb-4"
+  }, [_c("div", {
+    staticClass: "avatar-md me-4"
+  }, [_c("img", {
+    staticClass: "img-fluid rounded-circle",
+    attrs: {
+      src: "assets/images/users/avatar-6.jpg",
+      alt: ""
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "flex-grow-1"
+  }, [_c("h5", {
+    staticClass: "font-size-15 mb-1"
+  }, [_c("a", {
+    staticClass: "text-dark",
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v("Arthur Zurcher")])]), _vm._v(" "), _c("span", {
+    staticClass: "text-muted"
+  }, [_vm._v("Arthur@gmail.com")])]), _vm._v(" "), _c("div", {
+    staticClass: "flex-shrink-0 text-end"
+  }, [_c("div", {
+    staticClass: "dropdown align-self-start"
+  }, [_c("a", {
+    staticClass: "dropdown-toggle",
+    attrs: {
+      href: "#",
+      role: "button",
+      "data-bs-toggle": "dropdown",
+      "aria-haspopup": "true",
+      "aria-expanded": "false"
+    }
+  }, [_c("i", {
+    staticClass: "bx bx-dots-vertical-rounded font-size-24 text-dark"
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "dropdown-menu"
+  }, [_c("a", {
+    staticClass: "dropdown-item",
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v("Copy")]), _vm._v(" "), _c("a", {
+    staticClass: "dropdown-item",
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v("Save")]), _vm._v(" "), _c("a", {
+    staticClass: "dropdown-item",
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v("Forward")]), _vm._v(" "), _c("a", {
+    staticClass: "dropdown-item",
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v("Delete")])])])])]), _vm._v(" "), _c("div", {
+    staticClass: "d-flex align-items-center pb-4"
+  }, [_c("div", {
+    staticClass: "avatar-md me-4"
+  }, [_c("img", {
+    staticClass: "img-fluid rounded-circle",
+    attrs: {
+      src: "assets/images/users/avatar-8.jpg",
+      alt: ""
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "flex-grow-1"
+  }, [_c("h5", {
+    staticClass: "font-size-15 mb-1"
+  }, [_c("a", {
+    staticClass: "text-dark",
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v("Angela Palmer")])]), _vm._v(" "), _c("span", {
+    staticClass: "text-muted"
+  }, [_vm._v("Angela@gmail.com")])]), _vm._v(" "), _c("div", {
+    staticClass: "flex-shrink-0 text-end"
+  }, [_c("div", {
+    staticClass: "dropdown align-self-start"
+  }, [_c("a", {
+    staticClass: "dropdown-toggle",
+    attrs: {
+      href: "#",
+      role: "button",
+      "data-bs-toggle": "dropdown",
+      "aria-haspopup": "true",
+      "aria-expanded": "false"
+    }
+  }, [_c("i", {
+    staticClass: "bx bx-dots-vertical-rounded font-size-24 text-dark"
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "dropdown-menu"
+  }, [_c("a", {
+    staticClass: "dropdown-item",
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v("Copy")]), _vm._v(" "), _c("a", {
+    staticClass: "dropdown-item",
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v("Save")]), _vm._v(" "), _c("a", {
+    staticClass: "dropdown-item",
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v("Forward")]), _vm._v(" "), _c("a", {
+    staticClass: "dropdown-item",
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v("Delete")])])])])]), _vm._v(" "), _c("div", {
+    staticClass: "d-flex align-items-center pb-3"
+  }, [_c("div", {
+    staticClass: "avatar-md me-4"
+  }, [_c("img", {
+    staticClass: "img-fluid rounded-circle",
+    attrs: {
+      src: "assets/images/users/avatar-9.jpg",
+      alt: ""
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "flex-grow-1"
+  }, [_c("h5", {
+    staticClass: "font-size-15 mb-1"
+  }, [_c("a", {
+    staticClass: "text-dark",
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v("Dorothy Wimson")])]), _vm._v(" "), _c("span", {
+    staticClass: "text-muted"
+  }, [_vm._v("Dorothy@gmail.com")])]), _vm._v(" "), _c("div", {
+    staticClass: "flex-shrink-0 text-end"
+  }, [_c("div", {
+    staticClass: "dropdown align-self-start"
+  }, [_c("a", {
+    staticClass: "dropdown-toggle",
+    attrs: {
+      href: "#",
+      role: "button",
+      "data-bs-toggle": "dropdown",
+      "aria-haspopup": "true",
+      "aria-expanded": "false"
+    }
+  }, [_c("i", {
+    staticClass: "bx bx-dots-vertical-rounded font-size-24 text-dark"
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "dropdown-menu"
+  }, [_c("a", {
+    staticClass: "dropdown-item",
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v("Copy")]), _vm._v(" "), _c("a", {
+    staticClass: "dropdown-item",
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v("Save")]), _vm._v(" "), _c("a", {
+    staticClass: "dropdown-item",
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v("Forward")]), _vm._v(" "), _c("a", {
+    staticClass: "dropdown-item",
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v("Delete")])])])])])])])])]), _vm._v(" "), _c("div", {
+    staticClass: "col-xl-6 col-md-6 col-lg-6 col-sm-6"
+  }, [_c("div", {
+    staticClass: "card"
+  }, [_c("div", {
+    staticClass: "card-header align-items-center d-flex"
+  }, [_c("h4", {
+    staticClass: "card-title mb-0 flex-grow-1 category_title"
+  }, [_vm._v("\n                        Category\n                        "), _c("span", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.category_title,
+      expression: "category_title"
+    }]
+  }, [_vm._v("\n                            - " + _vm._s(_vm.category_title) + "\n                        ")])]), _vm._v(" "), _c("div", {
+    staticClass: "flex-shrink-0"
+  }, [_c("form", {
+    on: {
+      submit: function submit($event) {
+        $event.preventDefault();
+        return _vm.searchMenuName.apply(null, arguments);
+      }
+    }
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.q,
+      expression: "q"
+    }],
+    staticClass: "form-control form-control-lg bg-white search-inp",
+    attrs: {
+      type: "text",
+      placeholder: "Search"
+    },
+    domProps: {
+      value: _vm.q
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.q = $event.target.value;
+      }
+    }
+  })])])]), _vm._v(" "), _c("div", {
+    staticClass: "table-responsive",
+    staticStyle: {
+      "max-height": "395px"
+    },
+    attrs: {
+      "data-simplebar": ""
+    }
+  }, [_c("div", {
+    staticClass: "row g-2"
+  }, _vm._l(_vm.menu_lists, function (menu_list) {
+    return _c("div", {
+      key: menu_list.id,
+      staticClass: "col-3"
+    }, [_c("button", {
+      staticClass: "meal_btn"
+    }, [_vm._v("\n                                " + _vm._s(menu_list.menu_name) + "\n                            ")])]);
+  }), 0)])])]), _vm._v(" "), _c("div", {
+    staticClass: "col-xl-3 col-md-3 col-lg-3"
+  }, [_c("div", {
+    staticClass: "d-flex justify-content-between"
   }, [_c("button", {
-    staticClass: "category_btn1",
+    staticClass: "main_category_btn",
     on: {
       click: function click($event) {
         return _vm.loadCategoryAndMenuListPos("Bar");
       }
     }
-  }, [_vm._v("\n                        Beverage\n                    ")])]), _vm._v(" "), _c("div", {
-    staticClass: "col-md-6 col-lg-6 col-sm-6"
-  }, [_c("button", {
-    staticClass: "category_btn1",
+  }, [_vm._v("\n                    Beverage\n                ")]), _vm._v(" "), _c("button", {
+    staticClass: "main_category_btn",
     on: {
       click: function click($event) {
         return _vm.loadCategoryAndMenuListPos("Food");
       }
     }
-  }, [_vm._v("\n                        Food\n                    ")])])]), _vm._v(" "), _vm._l(_vm.categories, function (category) {
+  }, [_vm._v("\n                    Food\n                ")])]), _vm._v(" "), _vm._l(_vm.categories, function (category) {
     return _c("button", {
       key: category.id,
       staticClass: "category_btn",
@@ -5700,10 +6159,7 @@ var render = function render() {
     }, [_c("div", {
       staticClass: "col-md-12 col-lg-12 col-sm-12"
     }, [_c("h2", {
-      staticClass: "card-title",
-      staticStyle: {
-        "font-size": "25px"
-      }
+      staticClass: "card-title floor_name"
     }, [_vm._v("\n                    " + _vm._s(floor.title) + "\n                ")])]), _vm._v(" "), _vm._l(floor.table_lists_table, function (table_lists) {
       return _c("div", {
         key: table_lists.id,
@@ -11178,7 +11634,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.search-inp {\n    font-size: 20px;\n    width: 100%;\n    padding: 10px 32px;\n    background-color: #5C2B16;\n    margin: 2px;\n    color: white;\n    height: 100%;\n    border-color: gray;\n}\n.ScrollStyle {\n    max-height: 1000px;\n    overflow-y: scroll;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.floor_name {\n    font-size: 25px;\n    font-weight: bold;\n    color: black;\n}\n.search-inp {\n    font-size: 20px;\n    width: 100%;\n    padding: 10px 32px;\n    background-color: #5C2B16;\n    margin: 2px;\n    color: white;\n    height: 100%;\n    border-color: gray;\n}\n.ScrollStyle {\n    max-height: 1000px;\n    overflow-y: scroll;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

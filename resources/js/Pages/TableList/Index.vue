@@ -19,7 +19,7 @@
         <div class="ScrollStyle">
             <div class="row py-3" v-for="floor in floors" :key="floor.id">
                 <div class="col-md-12 col-lg-12 col-sm-12">
-                    <h2 class="card-title" style="font-size: 25px;">
+                    <h2 class="card-title floor_name">
                         {{ floor.title }}
                     </h2>
                 </div>
@@ -99,7 +99,13 @@ export default {
     }
 }
 </script>
-<style >
+<style>
+.floor_name {
+    font-size: 25px;
+    font-weight: bold;
+    color: black;
+}
+
 .search-inp {
     font-size: 20px;
     width: 100%;

@@ -1,7 +1,3 @@
-.main_category_btn {
-    /* display: none; */
-}
-
 .floor_button {
     font-size: 20px;
     width: 200px;
@@ -34,37 +30,43 @@
 }
 
 
+.main_category_btn {
+    width: 100%;
+    background-color: #5C2B16;
+    color: white;
+    padding: 20px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+}
+
 .category_btn {
     font-size: 20px;
     width: 100%;
     min-width: 100%;
-    padding: 10px 32px;
+    padding: 18px 32px;
     background-color: #5C2B16;
-    margin: 2px;
     color: white;
 }
 
-.category_btn1 {
-    font-size: 20px;
-    width: 100%;
-    min-width: 100%;
-    padding: 10px 32px;
-    background-color: red;
-    margin: 2px;
-    color: white;
-}
 
-.menu_btn {
+.meal_btn {
     width: 100%;
-    background-color: #4CAF50;
-    border: none;
+    height: 110px;
+    background-color: #5C2B16;
     color: white;
-    padding: 15px;
+    padding: 20px 32px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
-    width: 100%;
-    height: 70px;
-    margin: 2px;
+    font-size: 15px;
+    padding-right: 3px;
+    padding-left: 3px;
+}
+
+
+.category_title {
+    font-size: 25px;
+    color: black;
 }
