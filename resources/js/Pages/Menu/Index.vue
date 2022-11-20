@@ -1,51 +1,50 @@
 <template>
     <master>
         <div class="row">
-
             <!-- Ordre Item  -->
             <div class="col-xl-3 col-md-3 col-lg-3">
-                <div class="card">
+                <div class="" style="background-color: white; padding: 10px;">
+                    <h4 class="card-title" style="font-size: 15px; padding: 2px;">
+                        TBL / {{ table_name }}
+                    </h4>
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table class=" align-middle mb-0 table-nowrap">
-                                <thead class="table-light">
-                                    <tr>
-                                        <th style="width: 20px;">Name</th>
-                                        <th style="width: 10px">Qty</th>
-                                        <th style="width: 30px">Price</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                    <tr v-for="cart_temp in cart_temps" :key="cart_temp.id">
-                                        <td>
-                                            {{ cart_temp.menu_lists_table.menu_name }}
-                                        </td>
-
-                                        <td>
-                                            {{ cart_temp.qty }}
-                                        </td>
-
-                                        <td>
-                                            {{ cart_temp.price }}
-                                        </td>
-
-                                    </tr>
-                                </tbody>
+                        <div class="receipt">
+                            <table class="table" style="width: 100%">
+                                <tr class="header">
+                                    <th style="font-size: 18px; width: 80%;">
+                                        Description
+                                    </th>
+                                    <th style="font-size: 18px; width: 20%; text-align: right;">
+                                        Qty
+                                    </th>
+                                </tr>
                             </table>
+                            <tbody>
+                                <tr v-for="cart_temp in cart_temps" :key="cart_temp.id" @click="orderNote()">
+                                    <td style="width: 80%; padding: 3px;">
+                                        {{ cart_temp.menu_lists_table.menu_name }}
+                                    </td>
+
+                                    <td style="width: 20%; padding: 3px; text-align: right;">
+                                        {{ cart_temp.qty }}
+                                    </td>
+                                </tr>
+                            </tbody>
                         </div>
                         <div class="row mt-4">
                             <div class="col-sm-6">
                                 <a href="ecommerce-products.html" class="btn btn-secondary">
-                                    <i class="mdi mdi-arrow-left me-1"></i> Continue Shopping </a>
-                            </div> <!-- end col -->
+                                    <i class="mdi mdi-arrow-left me-1"></i>
+                                    Continue Shopping
+                                </a>
+                            </div>
                             <div class="col-sm-6">
                                 <div class="text-sm-end mt-2 mt-sm-0">
                                     <a href="ecommerce-checkout.html" class="btn btn-success">
                                         <i class="mdi mdi-cart-arrow-right me-1"></i> Checkout </a>
                                 </div>
-                            </div> <!-- end col -->
-                        </div> <!-- end row-->
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -68,7 +67,7 @@
                         </div>
                     </div>
 
-                    <div class="table-responsive" data-simplebar style="max-height: 395px;">
+                    <div class="table-responsive" data-simplebar style="max-height: 1200px;">
                         <div class="row g-2">
                             <span class="data_not_found" v-if="menu_lists.length == 0">
                                 Data Not Found
@@ -100,6 +99,21 @@
                 </button>
             </div>
 
+
+            <div class="col-xl-12 col-md-12 col-lg-12">
+                <footer class="footer">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="text-sm-end d-none d-sm-block">
+                                    Design & Develop by <a href="#!" class="text-decoration-underline">Themesbrand</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+
         </div>
     </master>
 </template>
@@ -119,6 +133,7 @@ export default {
         'type',
         'category_id',
         'cart_temps',
+        'table_name',
     ],
 
     data() {
@@ -139,7 +154,12 @@ export default {
         searchMenuName() {
             this.$inertia.get(`/pos_menu/${type}/${category_id}`);
         },
-    }
+    },
+
+    created() {
+        this.table_name = localStorage.getItem("table_name");
+        this.table_id = localStorage.getItem("table_id");
+    },
 }
 </script>
 <style>

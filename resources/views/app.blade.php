@@ -24,6 +24,7 @@
 
     <link rel="stylesheet" href="{{ asset('pos/libs/twitter-bootstrap-wizard/prettify.css') }}">
     <link rel="stylesheet" href="{{ asset('pos/css/pos.css') }}">
+    <link rel="stylesheet" href="{{ asset('pos/css/bill.css') }}">
 
     <link href="{{ mix('/css/app.css') }}" rel="stylesheet" />
     @inertiaHead

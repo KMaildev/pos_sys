@@ -63,7 +63,7 @@ class CartTempController extends Controller
             ],
         )->increment('qty', $already_qty);
 
-        return redirect()->back();
+        // return redirect()->back();
         // return json_encode(array(
         //     "statusCode" => 200,
         // ));

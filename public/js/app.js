@@ -5383,7 +5383,7 @@ __webpack_require__.r(__webpack_exports__);
     Master: _Layout_Master__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   name: "Index",
-  props: ['categories', 'menu_lists', 'category_title', 'type', 'category_id', 'cart_temps'],
+  props: ['categories', 'menu_lists', 'category_title', 'type', 'category_id', 'cart_temps', 'table_name'],
   data: function data() {
     return {
       q: ''
@@ -5400,6 +5400,10 @@ __webpack_require__.r(__webpack_exports__);
     searchMenuName: function searchMenuName() {
       this.$inertia.get("/pos_menu/".concat(type, "/").concat(category_id));
     }
+  },
+  created: function created() {
+    this.table_name = localStorage.getItem("table_name");
+    this.table_id = localStorage.getItem("table_id");
   }
 });
 
@@ -5596,32 +5600,59 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "col-xl-3 col-md-3 col-lg-3"
   }, [_c("div", {
-    staticClass: "card"
-  }, [_c("div", {
+    staticStyle: {
+      "background-color": "white",
+      padding: "10px"
+    }
+  }, [_c("h4", {
+    staticClass: "card-title",
+    staticStyle: {
+      "font-size": "15px",
+      padding: "2px"
+    }
+  }, [_vm._v("\n                    TBL / " + _vm._s(_vm.table_name) + "\n                ")]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("div", {
-    staticClass: "table-responsive"
+    staticClass: "receipt"
   }, [_c("table", {
-    staticClass: "align-middle mb-0 table-nowrap"
-  }, [_c("thead", {
-    staticClass: "table-light"
-  }, [_c("tr", [_c("th", {
+    staticClass: "table",
     staticStyle: {
-      width: "20px"
+      width: "100%"
     }
-  }, [_vm._v("Name")]), _vm._v(" "), _c("th", {
+  }, [_c("tr", {
+    staticClass: "header"
+  }, [_c("th", {
     staticStyle: {
-      width: "10px"
+      "font-size": "18px",
+      width: "80%"
     }
-  }, [_vm._v("Qty")]), _vm._v(" "), _c("th", {
+  }, [_vm._v("\n                                    Description\n                                ")]), _vm._v(" "), _c("th", {
     staticStyle: {
-      width: "30px"
+      "font-size": "18px",
+      width: "20%",
+      "text-align": "right"
     }
-  }, [_vm._v("Price")])])]), _vm._v(" "), _c("tbody", _vm._l(_vm.cart_temps, function (cart_temp) {
+  }, [_vm._v("\n                                    Qty\n                                ")])])]), _vm._v(" "), _c("tbody", _vm._l(_vm.cart_temps, function (cart_temp) {
     return _c("tr", {
-      key: cart_temp.id
-    }, [_c("td", [_vm._v("\n                                        " + _vm._s(cart_temp.menu_lists_table.menu_name) + "\n                                    ")]), _vm._v(" "), _c("td", [_vm._v("\n                                        " + _vm._s(cart_temp.qty) + "\n                                    ")]), _vm._v(" "), _c("td", [_vm._v("\n                                        " + _vm._s(cart_temp.price) + "\n                                    ")])]);
-  }), 0)])]), _vm._v(" "), _c("div", {
+      key: cart_temp.id,
+      on: {
+        click: function click($event) {
+          return _vm.orderNote();
+        }
+      }
+    }, [_c("td", {
+      staticStyle: {
+        width: "80%",
+        padding: "3px"
+      }
+    }, [_vm._v("\n                                    " + _vm._s(cart_temp.menu_lists_table.menu_name) + "\n                                ")]), _vm._v(" "), _c("td", {
+      staticStyle: {
+        width: "20%",
+        padding: "3px",
+        "text-align": "right"
+      }
+    }, [_vm._v("\n                                    " + _vm._s(cart_temp.qty) + "\n                                ")])]);
+  }), 0)]), _vm._v(" "), _c("div", {
     staticClass: "row mt-4"
   }, [_c("div", {
     staticClass: "col-sm-6"
@@ -5632,7 +5663,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "mdi mdi-arrow-left me-1"
-  }), _vm._v(" Continue Shopping ")])]), _vm._v(" "), _c("div", {
+  }), _vm._v("\n                                Continue Shopping\n                            ")])]), _vm._v(" "), _c("div", {
     staticClass: "col-sm-6"
   }, [_c("div", {
     staticClass: "text-sm-end mt-2 mt-sm-0"
@@ -5691,7 +5722,7 @@ var render = function render() {
   })])])]), _vm._v(" "), _c("div", {
     staticClass: "table-responsive",
     staticStyle: {
-      "max-height": "395px"
+      "max-height": "1200px"
     },
     attrs: {
       "data-simplebar": ""
@@ -5740,7 +5771,24 @@ var render = function render() {
         }
       }
     }, [_vm._v("\n                " + _vm._s(category.title) + "\n            ")]);
-  })], 2)])]);
+  })], 2), _vm._v(" "), _c("div", {
+    staticClass: "col-xl-12 col-md-12 col-lg-12"
+  }, [_c("footer", {
+    staticClass: "footer"
+  }, [_c("div", {
+    staticClass: "container-fluid"
+  }, [_c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-sm-12"
+  }, [_c("div", {
+    staticClass: "text-sm-end d-none d-sm-block"
+  }, [_vm._v("\n                                Design & Develop by "), _c("a", {
+    staticClass: "text-decoration-underline",
+    attrs: {
+      href: "#!"
+    }
+  }, [_vm._v("Themesbrand")])])])])])])])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
