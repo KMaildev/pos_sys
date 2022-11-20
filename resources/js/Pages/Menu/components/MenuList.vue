@@ -1,0 +1,47 @@
+<template>
+    <div class="col-xl-6 col-md-6 col-lg-6 col-sm-6">
+        <div class="card">
+            <div class="card-header align-items-center d-flex">
+                <h4 class="card-title mb-0 flex-grow-1 category_title">
+                    Category
+                    <span v-show="category_title">
+                        - {{ category_title }}
+                    </span>
+                </h4>
+            </div>
+
+            <div class="table-responsive" data-simplebar style="max-height: 1200px;">
+                <div class="row g-2">
+                    <span class="data_not_found" v-if="menu_lists.length == 0">
+                        Data Not Found
+                    </span>
+                    <div class="col-3" v-for="menu_list in menu_lists" :key="menu_list.id">
+                        <button class="meal_btn" @click="cartTemp(menu_list.id, menu_list.price)">
+                            {{ menu_list.menu_name }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+<script>
+export default {
+    name: "MenuList",
+
+    props: [
+        'menu_lists',
+        'category_title',
+    ],
+
+    methods: {
+        cartTemp(menu_list_id, price) {
+            this.$inertia.get(`/store_cart_temp?menu_list_id=${menu_list_id}&price=${price}`);
+        },
+    },
+
+}
+</script>
+<style>
+
+</style>

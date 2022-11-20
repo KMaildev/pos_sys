@@ -12,6 +12,7 @@ use App\Http\Controllers\MenuList\MenuListController;
 use App\Http\Controllers\Pos\MenuControlController;
 use App\Http\Controllers\PosSys\Cart\CartTempController;
 use App\Http\Controllers\PosSys\Menu\PosMenuController;
+use App\Http\Controllers\PosSys\Order\OrderConfirmController;
 use App\Http\Controllers\PosSys\TableList\TableListController as TableListTableListController;
 use App\Http\Controllers\PosSys\Test\TestController;
 use App\Http\Controllers\Table\TableListController;
@@ -49,5 +50,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/pos_table_lists', [TableListTableListController::class, 'index'])->name('pos_table_lists');
     Route::get('/pos_menu/{type}/{category_id}', [PosMenuController::class, 'index'])->name('pos_menu');
     Route::get('/store_cart_temp', [CartTempController::class, 'store'])->name('store_cart_temp');
+    Route::get('/order_confirm', [OrderConfirmController::class, 'store'])->name('order_confirm');
     Route::get('/pos_test_page', [TestController::class, 'index'])->name('pos_test_page');
 });
