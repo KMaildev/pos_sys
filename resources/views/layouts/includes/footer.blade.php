@@ -33,7 +33,7 @@
 <script type="text/javascript" src="{{ url('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
 <script src="{{ asset('assets/js/sweetalert.min.js') }}"></script>
 
-
+@include('layouts.js.javascript')
 <script>
     $(document).ready(function() {
         // Delete Alert 

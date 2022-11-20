@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\PosSys\Order;
 
 use App\Http\Controllers\Controller;
+use App\Models\CartTemp;
 use App\Models\OrderInfo;
+use App\Models\OrderItem;
 use Illuminate\Http\Request;
+use App\Helpers\Helper;
 
 class OrderConfirmController extends Controller
 {
@@ -36,10 +39,34 @@ class OrderConfirmController extends Controller
                 'order_time' => $order_infos_check->order_time ?? date('h:i:s A'),
                 'total_amount' => 0,
                 'cashier_user_id' => auth()->user()->id ?? 0,
+                'waiter_user_id' => auth()->user()->id ?? 0,
                 'order_no' => $order_infos_check->order_no ?? $order_no,
                 'inv_no' => $order_infos_check->inv_no ?? $inv_no,
             ],
         );
         $order_info_id = $order_info->id;
+
+        $session_id = session()->getId();
+        $user_id = auth()->user()->id ?? 0;
+        $temporary_order_items = CartTemp::where('session_id', $session_id)
+            ->where('user_id', $user_id)
+            ->get();
+
+        foreach ($temporary_order_items as $key => $value) {
+            OrderItem::create([
+                'menu_list_id' => $value['menu_list_id'],
+                'qty' => $value['qty'],
+                'price' => $value['price'],
+                'remark' => $value['remark'],
+                'order_info_id' => $order_info_id,
+                'waiter_user_id' => $user_id,
+            ]);
+        }
+        Helper::updateOrderInfoTotalAmount($order_info_id);
+
+        CartTemp::where('session_id', $session_id)
+            ->where('user_id', $user_id)
+            ->delete();
+        return redirect()->back();
     }
 }

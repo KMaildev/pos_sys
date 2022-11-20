@@ -11,6 +11,14 @@
                     </a>
                 </li>
 
+
+                <li>
+                    <a href="{{ route('order_list.index') }}">
+                        <i data-feather="align-justify"></i>
+                        Order List
+                    </a>
+                </li>
+
                 <li>
                     <a href="{{ route('customer.index') }}">
                         <i data-feather="user-check"></i>

@@ -9,6 +9,7 @@ use App\Http\Controllers\Hr\PermissionController;
 use App\Http\Controllers\Hr\RoleController;
 use App\Http\Controllers\Ingredients\IngredientsController;
 use App\Http\Controllers\MenuList\MenuListController;
+use App\Http\Controllers\Order\OrderListController;
 use App\Http\Controllers\Pos\MenuControlController;
 use App\Http\Controllers\PosSys\Cart\CartTempController;
 use App\Http\Controllers\PosSys\Menu\PosMenuController;
@@ -35,9 +36,9 @@ Route::middleware('auth')->group(function () {
     Route::get('table_search_find_by_floor/{floor_id}', [TableListController::class, 'index'])->name('table_search_find_by_floor');
     Route::get('load_table_pos', [TableListController::class, 'loadTablePos'])->name('load_table_pos');
     Route::resource('ingredients', IngredientsController::class);
+    Route::resource('order_list', OrderListController::class);
+    Route::get('get_order_list_ajax', [OrderListController::class, 'getOrderListAjax'])->name('get_order_list_ajax');
 
-    // POS 
-    Route::get('load_category_and_menu_pos/{type}/{category_id}', [MenuControlController::class, 'loadCategoryAndMenuListPos'])->name('load_category_and_menu_pos');
 
     // HR 
     Route::resource('employee', EmployeeController::class);
@@ -52,4 +53,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/store_cart_temp', [CartTempController::class, 'store'])->name('store_cart_temp');
     Route::get('/order_confirm', [OrderConfirmController::class, 'store'])->name('order_confirm');
     Route::get('/pos_test_page', [TestController::class, 'index'])->name('pos_test_page');
+
+
+    // POS 
+    Route::get('load_category_and_menu_pos/{type}/{category_id}', [MenuControlController::class, 'loadCategoryAndMenuListPos'])->name('load_category_and_menu_pos');
 });
