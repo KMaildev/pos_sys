@@ -16,17 +16,11 @@
                 </div>
 
                 <div class="d-flex">
-
-                    <div class="main_category_btn" hidden>
+                    <div class="">
                         <button class="main-category">
-                            Bar & Beverage
-                        </button>
-
-                        <button class="main-category">
-                            Food
+                            Sing Out
                         </button>
                     </div>
-
                 </div>
             </div>
         </header>

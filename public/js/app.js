@@ -5627,16 +5627,9 @@ var staticRenderFns = [function () {
     _c = _vm._self._c;
   return _c("div", {
     staticClass: "d-flex"
-  }, [_c("div", {
-    staticClass: "main_category_btn",
-    attrs: {
-      hidden: ""
-    }
-  }, [_c("button", {
+  }, [_c("div", {}, [_c("button", {
     staticClass: "main-category"
-  }, [_vm._v("\n                        Bar & Beverage\n                    ")]), _vm._v(" "), _c("button", {
-    staticClass: "main-category"
-  }, [_vm._v("\n                        Food\n                    ")])])]);
+  }, [_vm._v("\n                        Sing Out\n                    ")])])]);
 }];
 render._withStripped = true;
 
