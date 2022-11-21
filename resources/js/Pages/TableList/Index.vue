@@ -13,6 +13,10 @@
                     @click="searchFloorById(floors_category.id)">
                     {{ floors_category.title }}
                 </button>
+
+                <button @click="MainPage()" class="floor_button">
+                    Main
+                </button>
             </div>
         </div>
 
@@ -95,6 +99,10 @@ export default {
                     if (willDelete) {
                     }
                 });
+        },
+
+        MainPage() {
+            this.$inertia.get(`/pos_main_page`);
         },
     }
 }

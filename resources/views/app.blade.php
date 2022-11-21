@@ -21,7 +21,6 @@
 
     {{-- <link href="{{ asset('pos/libs/choices.js/public/pos/styles/choices.min.css') }}" rel="stylesheet"
         type="text/css" /> --}}
-
     <link rel="stylesheet" href="{{ asset('pos/libs/twitter-bootstrap-wizard/prettify.css') }}">
     <link rel="stylesheet" href="{{ asset('pos/css/pos.css') }}">
     <link rel="stylesheet" href="{{ asset('pos/css/bill.css') }}">
@@ -51,6 +50,7 @@
 <script src="{{ asset('assets/js/sweetalert.min.js') }}"></script>
 <script src="{{ asset('assets/libs/pace-js/pace.min.js') }}"></script>
 <script src="{{ asset('assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js') }}"></script>
+
 @routes
 <script src="{{ mix('/js/app.js') }}" defer></script>
 

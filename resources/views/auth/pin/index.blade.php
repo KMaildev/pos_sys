@@ -1,10 +1,10 @@
 @extends('layouts.pin')
 @section('content')
-    <form action="{{ route('pin_login') }}" method="post" id="form-id">
+    <form action="{{ route('pin_login') }}" method="post" id="form-id" autocomplete="off">
         @csrf
 
         <div class="result">
-            <input id="mynumber" placeholder="0" name="pin_code" />
+            <input id="mynumber" placeholder="0" name="pin_code" type="password" autocomplete="off" />
         </div>
 
         <div class="container">
@@ -84,6 +84,4 @@
             </ul>
         </div>
     </form>
-
-    
 @endsection

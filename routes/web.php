@@ -12,6 +12,7 @@ use App\Http\Controllers\MenuList\MenuListController;
 use App\Http\Controllers\Order\OrderListController;
 use App\Http\Controllers\Pos\MenuControlController;
 use App\Http\Controllers\PosSys\Cart\CartTempController;
+use App\Http\Controllers\PosSys\Main\MainController;
 use App\Http\Controllers\PosSys\Menu\PosMenuController;
 use App\Http\Controllers\PosSys\Order\OrderConfirmController;
 use App\Http\Controllers\PosSys\Pin\PinController;
@@ -26,7 +27,6 @@ use Illuminate\Support\Facades\Route;
 // PIN Login 
 Route::get('/', [PinController::class, 'index'])->name('pin');
 Route::post('pin_login', [PinController::class, 'pinLogin'])->name('pin_login');
-
 
 
 Route::get('/admin', function () {
@@ -53,20 +53,21 @@ Route::middleware('auth')->group(function () {
     Route::resource('employee', EmployeeController::class);
     Route::get('show_pin/{id}', [EmployeeController::class, 'showPin'])->name('show_pin');
     Route::post('update_pin', [EmployeeController::class, 'updatePin'])->name('update_pin');
-
-
     Route::resource('department', DepartmentController::class);
     Route::resource('permission', PermissionController::class);
     Route::resource('role', RoleController::class);
 
 
     // POSSYS
+    Route::get('/pos_main_page', [MainController::class, 'index'])->name('pos_main_page');
     Route::get('/pos_table_lists', [TableListTableListController::class, 'index'])->name('pos_table_lists');
     Route::get('/pos_menu/{type}/{category_id}', [PosMenuController::class, 'index'])->name('pos_menu');
     Route::get('/store_cart_temp', [CartTempController::class, 'store'])->name('store_cart_temp');
     Route::get('/clear_all', [CartTempController::class, 'clearAll'])->name('clear_all');
     Route::get('/order_confirm', [OrderConfirmController::class, 'store'])->name('order_confirm');
     Route::get('/pos_test_page', [TestController::class, 'index'])->name('pos_test_page');
+
+    Route::get('/pos_pin_logout', [PinController::class, 'pinLogout'])->name('pos_pin_logout');
 
 
     // POS 
