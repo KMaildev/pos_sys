@@ -1,8 +1,9 @@
 <template>
-    <master>
+    <master :user_name="user_name" :login_time="login_time">
         <div class="row">
             <div class="col-md-9">
                 <p>
+                    {{ user_name }}
                     Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel sed hic facilis in sunt et neque
                     maxime, commodi veniam delectus eum aut beatae mollitia dolor id, laboriosam voluptatem
                     quibusdam!
@@ -42,10 +43,10 @@
                     </div>
 
                     <div class="py-3">
-                        <button class="btn btn-lg btn-default float-end top_btn" type="button"
+                        <a href="/pos_pin_logout" class="btn btn-lg btn-default float-end top_btn" type="button"
                             style="background-color: #bc2d25;">
                             Cancel / SignOut
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -61,6 +62,13 @@ export default {
         Master
     },
     name: "Index",
+
+    props: [
+        'user_name',
+        'login_time',
+    ],
+
+
 
     methods: {
         posTableList() {

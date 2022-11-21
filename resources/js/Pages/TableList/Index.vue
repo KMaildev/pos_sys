@@ -1,5 +1,5 @@
 <template>
-    <master>
+    <master :user_name="user_name" :login_time="login_time">
         <div class="row py-2">
             <div class="col-md-4 col-lg-4 col-sm-12">
                 <form @submit.prevent="searchTableName">
@@ -58,6 +58,8 @@ export default {
     props: [
         'floors',
         'floors_categories',
+        'user_name',
+        'login_time',
     ],
 
     methods: {

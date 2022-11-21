@@ -5,16 +5,17 @@
                 <div class="navbar-header">
                     <div class="col-md-9">
                         <button class="btn btn-lg btn-default top_btn" type="button" style="background-color: #DCAE2C">
-                            Sign In : Mg Mg
+                            Sign In : {{ user_name }}
                         </button>
 
                         <button class="btn btn-lg btn-default top_btn" type="button" style="background-color: #DCAE2C">
-                            Sign In : Mg Mg
+                            {{ login_time }}
                         </button>
                     </div>
 
                     <div class="col-md-3">
-                        <button class="btn btn-lg btn-default float-end top_btn" type="button" style="background-color: #DCAE2C">
+                        <button class="btn btn-lg btn-default float-end top_btn" type="button"
+                            style="background-color: #DCAE2C">
                             Ready for your next entry
                         </button>
                     </div>
@@ -33,6 +34,11 @@ export default {
     components: {
         Header
     },
+
+    props: [
+        'user_name',
+        'login_time',
+    ],
 };
 </script>
 <style>

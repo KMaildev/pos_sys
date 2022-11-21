@@ -1,5 +1,5 @@
 <template>
-    <master>
+    <master :user_name="user_name" :login_time="login_time">
         <div class="row">
             <!-- Ordre Item  -->
             <OrderItem :cart_temps="cart_temps" :user_name="user_name"></OrderItem>
@@ -81,6 +81,7 @@ export default {
         'table_name',
         'table_id',
         'user_name',
+        'login_time',
     ],
 
     methods: {

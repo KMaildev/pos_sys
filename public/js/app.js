@@ -5360,7 +5360,8 @@ __webpack_require__.r(__webpack_exports__);
   name: "Master",
   components: {
     Header: _Header__WEBPACK_IMPORTED_MODULE_0__["default"]
-  }
+  },
+  props: ['user_name', 'login_time']
 });
 
 /***/ }),
@@ -5383,6 +5384,7 @@ __webpack_require__.r(__webpack_exports__);
     Master: _Layout_Master__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   name: "Index",
+  props: ['user_name', 'login_time'],
   methods: {
     posTableList: function posTableList() {
       this.$inertia.get("/pos_table_lists");
@@ -5419,7 +5421,7 @@ __webpack_require__.r(__webpack_exports__);
     OrderItem: _components_OrderItem_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   name: "Index",
-  props: ['categories', 'menu_lists', 'category_title', 'type', 'category_id', 'cart_temps', 'table_name', 'table_id', 'user_name'],
+  props: ['categories', 'menu_lists', 'category_title', 'type', 'category_id', 'cart_temps', 'table_name', 'table_id', 'user_name', 'login_time'],
   methods: {
     orderConfirm: function orderConfirm() {
       var table_list_id = this.table_id;
@@ -5545,7 +5547,7 @@ __webpack_require__.r(__webpack_exports__);
       q: ''
     };
   },
-  props: ['floors', 'floors_categories'],
+  props: ['floors', 'floors_categories', 'user_name', 'login_time'],
   methods: {
     setTableName: function setTableName(table_id, table_name) {
       if (table_id && table_name) {
@@ -5682,12 +5684,7 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("div", [_vm._m(0), _vm._v(" "), _vm._t("default")], 2);
-};
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", [_c("header", {
+  return _c("div", [_c("div", [_c("header", {
     staticStyle: {
       "background-color": "#000000"
     },
@@ -5706,7 +5703,7 @@ var staticRenderFns = [function () {
     attrs: {
       type: "button"
     }
-  }, [_vm._v("\n                        Sign In : Mg Mg\n                    ")]), _vm._v(" "), _c("button", {
+  }, [_vm._v("\n                        Sign In : " + _vm._s(_vm.user_name) + "\n                    ")]), _vm._v(" "), _c("button", {
     staticClass: "btn btn-lg btn-default top_btn",
     staticStyle: {
       "background-color": "#DCAE2C"
@@ -5714,7 +5711,12 @@ var staticRenderFns = [function () {
     attrs: {
       type: "button"
     }
-  }, [_vm._v("\n                        Sign In : Mg Mg\n                    ")])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                        " + _vm._s(_vm.login_time) + "\n                    ")])]), _vm._v(" "), _vm._m(0)])])]), _vm._v(" "), _vm._t("default")], 2);
+};
+var staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
     staticClass: "col-md-3"
   }, [_c("button", {
     staticClass: "btn btn-lg btn-default float-end top_btn",
@@ -5724,7 +5726,7 @@ var staticRenderFns = [function () {
     attrs: {
       type: "button"
     }
-  }, [_vm._v("\n                        Ready for your next entry\n                    ")])])])])]);
+  }, [_vm._v("\n                        Ready for your next entry\n                    ")])]);
 }];
 render._withStripped = true;
 
@@ -5746,11 +5748,16 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("master", [_c("div", {
+  return _c("master", {
+    attrs: {
+      user_name: _vm.user_name,
+      login_time: _vm.login_time
+    }
+  }, [_c("div", {
     staticClass: "row"
   }, [_c("div", {
     staticClass: "col-md-9"
-  }, [_c("p", [_vm._v("\n                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel sed hic facilis in sunt et neque\n                maxime, commodi veniam delectus eum aut beatae mollitia dolor id, laboriosam voluptatem\n                quibusdam!\n                Sapiente?\n            ")])]), _vm._v(" "), _c("div", {
+  }, [_c("p", [_vm._v("\n                " + _vm._s(_vm.user_name) + "\n                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel sed hic facilis in sunt et neque\n                maxime, commodi veniam delectus eum aut beatae mollitia dolor id, laboriosam voluptatem\n                quibusdam!\n                Sapiente?\n            ")])]), _vm._v(" "), _c("div", {
     staticClass: "col-md-3"
   }, [_c("div", {
     staticClass: "d-grid gap-2 float-end"
@@ -5796,12 +5803,13 @@ var render = function render() {
     }
   }, [_vm._v("\n                        Gust Detail\n                    ")])]), _vm._v(" "), _c("div", {
     staticClass: "py-3"
-  }, [_c("button", {
+  }, [_c("a", {
     staticClass: "btn btn-lg btn-default float-end top_btn",
     staticStyle: {
       "background-color": "#bc2d25"
     },
     attrs: {
+      href: "/pos_pin_logout",
       type: "button"
     }
   }, [_vm._v("\n                        Cancel / SignOut\n                    ")])])])])])]);
@@ -5827,7 +5835,12 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("master", [_c("div", {
+  return _c("master", {
+    attrs: {
+      user_name: _vm.user_name,
+      login_time: _vm.login_time
+    }
+  }, [_c("div", {
     staticClass: "row"
   }, [_c("OrderItem", {
     attrs: {
@@ -6100,7 +6113,12 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("master", [_c("div", {
+  return _c("master", {
+    attrs: {
+      user_name: _vm.user_name,
+      login_time: _vm.login_time
+    }
+  }, [_c("div", {
     staticClass: "row py-2"
   }, [_c("div", {
     staticClass: "col-md-4 col-lg-4 col-sm-12"

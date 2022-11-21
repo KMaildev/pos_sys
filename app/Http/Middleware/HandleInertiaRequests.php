@@ -37,7 +37,8 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
         return array_merge(parent::share($request), [
-            //
+            'user_name' => auth()->user()->name ?? '',
+            'login_time' => auth()->user()->last_login_at ?? '',
         ]);
     }
 }
