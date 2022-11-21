@@ -51,6 +51,10 @@ Route::middleware('auth')->group(function () {
 
     // HR 
     Route::resource('employee', EmployeeController::class);
+    Route::get('show_pin/{id}', [EmployeeController::class, 'showPin'])->name('show_pin');
+    Route::post('update_pin', [EmployeeController::class, 'updatePin'])->name('update_pin');
+
+
     Route::resource('department', DepartmentController::class);
     Route::resource('permission', PermissionController::class);
     Route::resource('role', RoleController::class);

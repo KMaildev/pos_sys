@@ -101,7 +101,7 @@
                                         <td style="text-align: center;">
                                             {{ $value->department->title ?? '' }}
                                         </td>
-                                        
+
                                         <td>
                                             Role
                                         </td>
@@ -115,6 +115,10 @@
                                                     <a class="dropdown-item"
                                                         href="{{ route('employee.edit', $value->id) }}">
                                                         Edit
+                                                    </a>
+
+                                                    <a class="dropdown-item" href="{{ route('show_pin', $value->id) }}">
+                                                        PIN
                                                     </a>
                                                 </div>
                                             </div>

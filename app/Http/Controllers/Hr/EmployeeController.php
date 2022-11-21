@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests\StoreEmployee;
 use App\Http\Requests\UpdateEmployee;
+use App\Http\Requests\updatePin;
 use App\Models\Department;
 use App\Models\MembersLists;
 use Illuminate\Support\Facades\Hash;
@@ -195,5 +196,21 @@ class EmployeeController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function showPin($id)
+    {
+        $employee = User::findOrFail($id);
+        return view('hr.employee.show_pin', compact('employee'));
+    }
+
+    public function updatePin(updatePin $request)
+    {
+        $id = $request->user_id;
+        $employee = User::findOrFail($id);
+        $employee->pin_code = $employee->pin_code ?? $request->pin_code;
+        $employee->update();
+        return redirect()->back()->with('success', 'Success.');
     }
 }
