@@ -2,7 +2,7 @@
     <master>
         <div class="row">
             <!-- Ordre Item  -->
-            <OrderItem :cart_temps="cart_temps"></OrderItem>
+            <OrderItem :cart_temps="cart_temps" :user_name="user_name"></OrderItem>
 
             <!-- Menu Meal List  -->
             <MenuList :menu_lists="menu_lists" :category_title="category_title"></MenuList>
@@ -10,6 +10,50 @@
             <MainCategory :categories="categories"></MainCategory>
 
         </div>
+
+        <footer class="py-5">
+            <div class="container-fluid">
+                <div class="row">
+
+                    <div class="col-sm-2 col-lg-2 col-md-2">
+                        <button @click="orderConfirm()" class="pay_btn">
+                            Pay
+                        </button>
+                    </div>
+
+                    <div class="col-sm-2 col-lg-2 col-md-2">
+                        <button class="service_btn">
+                            Services
+                        </button>
+                    </div>
+
+                    <div class="col-sm-2 col-lg-2 col-md-2">
+                        <button @click="editSeat()" class="edit_seat_btn">
+                            Edit Seat
+                        </button>
+                    </div>
+
+                    <div class="col-sm-2 col-lg-2 col-md-2">
+                        <button class="clear_btn">
+                            Clear/No
+                        </button>
+                    </div>
+
+                    <div class="col-sm-2 col-lg-2 col-md-2">
+                        <button @click="clearAll()" class="print_btn">
+                            Clear All
+                        </button>
+                    </div>
+
+                    <div class="col-sm-2 col-lg-2 col-md-2">
+                        <button class="comment_btn">
+                            Comment
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </footer>
     </master>
 </template>
 <script>
@@ -34,7 +78,48 @@ export default {
         'type',
         'category_id',
         'cart_temps',
+        'table_name',
+        'table_id',
+        'user_name',
     ],
+
+    methods: {
+        orderConfirm() {
+            const table_list_id = this.table_id;
+            if (table_list_id) {
+                this.$inertia.get(`/order_confirm?table_list_id=${table_list_id}`);
+            } else {
+                this.alertMessage();
+            }
+
+        },
+
+        editSeat() {
+            this.$inertia.get(`/pos_table_lists`);
+        },
+
+        clearAll() {
+            this.$inertia.get(`/clear_all`);
+        },
+
+        alertMessage() {
+            swal({
+                title: "Please Select Seat",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                    }
+                });
+        },
+    },
+
+    created() {
+        this.table_name = localStorage.getItem("table_name");
+        this.table_id = localStorage.getItem("table_id");
+    },
 }
 </script>
 <style>

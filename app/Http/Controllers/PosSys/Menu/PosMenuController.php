@@ -44,6 +44,7 @@ class PosMenuController extends Controller
             'cart_temps' => $cart_temps,
             'type' => $type,
             'category_id' => $category_id,
+            'user_name' => auth()->user()->name ?? 0,
         ]);
     }
 }

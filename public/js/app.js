@@ -5392,7 +5392,37 @@ __webpack_require__.r(__webpack_exports__);
     OrderItem: _components_OrderItem_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   name: "Index",
-  props: ['categories', 'menu_lists', 'category_title', 'type', 'category_id', 'cart_temps']
+  props: ['categories', 'menu_lists', 'category_title', 'type', 'category_id', 'cart_temps', 'table_name', 'table_id', 'user_name'],
+  methods: {
+    orderConfirm: function orderConfirm() {
+      var table_list_id = this.table_id;
+      if (table_list_id) {
+        this.$inertia.get("/order_confirm?table_list_id=".concat(table_list_id));
+      } else {
+        this.alertMessage();
+      }
+    },
+    editSeat: function editSeat() {
+      this.$inertia.get("/pos_table_lists");
+    },
+    clearAll: function clearAll() {
+      this.$inertia.get("/clear_all");
+    },
+    alertMessage: function alertMessage() {
+      swal({
+        title: "Please Select Seat",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true
+      }).then(function (willDelete) {
+        if (willDelete) {}
+      });
+    }
+  },
+  created: function created() {
+    this.table_name = localStorage.getItem("table_name");
+    this.table_id = localStorage.getItem("table_id");
+  }
 });
 
 /***/ }),
@@ -5457,30 +5487,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "OrderItem",
-  props: ['cart_temps', 'table_name', 'table_id'],
-  methods: {
-    orderConfirm: function orderConfirm() {
-      var table_list_id = this.table_id;
-      if (table_list_id) {
-        this.$inertia.get("/order_confirm?table_list_id=".concat(table_list_id));
-      } else {
-        this.alertMessage();
-      }
-    },
-    alertMessage: function alertMessage() {
-      swal({
-        title: "Please Select Seat",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true
-      }).then(function (willDelete) {
-        if (willDelete) {}
-      });
-    }
-  },
+  props: ['cart_temps', 'table_name', 'user_name'],
   created: function created() {
     this.table_name = localStorage.getItem("table_name");
-    this.table_id = localStorage.getItem("table_id");
   }
 });
 
@@ -5676,7 +5685,8 @@ var render = function render() {
     staticClass: "row"
   }, [_c("OrderItem", {
     attrs: {
-      cart_temps: _vm.cart_temps
+      cart_temps: _vm.cart_temps,
+      user_name: _vm.user_name
     }
   }), _vm._v(" "), _c("MenuList", {
     attrs: {
@@ -5687,7 +5697,52 @@ var render = function render() {
     attrs: {
       categories: _vm.categories
     }
-  })], 1)]);
+  })], 1), _vm._v(" "), _c("footer", {
+    staticClass: "py-5"
+  }, [_c("div", {
+    staticClass: "container-fluid"
+  }, [_c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-sm-2 col-lg-2 col-md-2"
+  }, [_c("button", {
+    staticClass: "pay_btn",
+    on: {
+      click: function click($event) {
+        return _vm.orderConfirm();
+      }
+    }
+  }, [_vm._v("\n                        Pay\n                    ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-sm-2 col-lg-2 col-md-2"
+  }, [_c("button", {
+    staticClass: "service_btn"
+  }, [_vm._v("\n                        Services\n                    ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-sm-2 col-lg-2 col-md-2"
+  }, [_c("button", {
+    staticClass: "edit_seat_btn",
+    on: {
+      click: function click($event) {
+        return _vm.editSeat();
+      }
+    }
+  }, [_vm._v("\n                        Edit Seat\n                    ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-sm-2 col-lg-2 col-md-2"
+  }, [_c("button", {
+    staticClass: "clear_btn"
+  }, [_vm._v("\n                        Clear/No\n                    ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-sm-2 col-lg-2 col-md-2"
+  }, [_c("button", {
+    staticClass: "print_btn",
+    on: {
+      click: function click($event) {
+        return _vm.clearAll();
+      }
+    }
+  }, [_vm._v("\n                        Clear All\n                    ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-sm-2 col-lg-2 col-md-2"
+  }, [_c("button", {
+    staticClass: "comment_btn"
+  }, [_vm._v("\n                        Comment\n                    ")])])])])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -5765,21 +5820,20 @@ var render = function render() {
     staticClass: "col-xl-6 col-md-6 col-lg-6 col-sm-6"
   }, [_c("div", {
     staticClass: "card"
-  }, [_c("div", {
-    staticClass: "card-header align-items-center d-flex"
   }, [_c("h4", {
     staticClass: "card-title mb-0 flex-grow-1 category_title"
-  }, [_vm._v("\n                Category\n                "), _c("span", {
+  }, [_vm._v("\n            Category\n            "), _c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
       value: _vm.category_title,
       expression: "category_title"
     }]
-  }, [_vm._v("\n                    - " + _vm._s(_vm.category_title) + "\n                ")])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                - " + _vm._s(_vm.category_title) + "\n            ")])]), _vm._v(" "), _c("div", {
     staticClass: "table-responsive",
     staticStyle: {
-      "max-height": "1200px"
+      "max-height": "1200px",
+      "padding-top": "5px"
     },
     attrs: {
       "data-simplebar": ""
@@ -5827,16 +5881,11 @@ var render = function render() {
     staticClass: "col-xl-3 col-md-3 col-lg-3"
   }, [_c("div", {
     staticStyle: {
-      "background-color": "white",
-      padding: "10px"
+      "background-color": "white"
     }
-  }, [_c("h4", {
-    staticClass: "card-title",
-    staticStyle: {
-      "font-size": "15px",
-      padding: "2px"
-    }
-  }, [_vm._v("\n            TBL / " + _vm._s(_vm.table_name) + "\n        ")]), _vm._v(" "), _c("div", {
+  }, [_c("h6", {
+    staticClass: "table_name_title"
+  }, [_vm._v("\n            TBL / " + _vm._s(_vm.table_name) + " "), _c("br"), _vm._v("\n            " + _vm._s(_vm.user_name) + "\n        ")]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("div", {
     staticClass: "receipt"
@@ -5850,7 +5899,7 @@ var render = function render() {
       }
     }, [_c("td", {
       staticStyle: {
-        width: "80%",
+        width: "200px",
         padding: "3px"
       }
     }, [_vm._v("\n                            " + _vm._s(cart_temp.menu_lists_table.menu_name) + "\n                        ")]), _vm._v(" "), _c("td", {
@@ -5860,29 +5909,7 @@ var render = function render() {
         "text-align": "right"
       }
     }, [_vm._v("\n                            " + _vm._s(cart_temp.qty) + "\n                        ")])]);
-  }), 0)]), _vm._v(" "), _c("div", {
-    staticClass: "row mt-4"
-  }, [_c("div", {
-    staticClass: "col-sm-6"
-  }, [_c("Link", {
-    staticClass: "btn btn-secondary",
-    attrs: {
-      href: _vm.route("pos_table_lists")
-    }
-  }, [_c("i", {
-    staticClass: "mdi mdi-arrow-left me-1"
-  }), _vm._v("\n                    Edit Seat\n                    ")])], 1), _vm._v(" "), _c("div", {
-    staticClass: "col-sm-6"
-  }, [_c("div", {
-    staticClass: "text-sm-end mt-2 mt-sm-0"
-  }, [_c("button", {
-    staticClass: "btn btn-success block",
-    on: {
-      click: _vm.orderConfirm
-    }
-  }, [_c("i", {
-    staticClass: "mdi mdi-cart-arrow-right me-1"
-  }), _vm._v("\n                            Send\n                        ")])])])])])])]);
+  }), 0)])])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -5897,7 +5924,7 @@ var staticRenderFns = [function () {
   }, [_c("th", {
     staticStyle: {
       "font-size": "18px",
-      width: "80%"
+      width: "80px"
     }
   }, [_vm._v("\n                            Description\n                        ")]), _vm._v(" "), _c("th", {
     staticStyle: {

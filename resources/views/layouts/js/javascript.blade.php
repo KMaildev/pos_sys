@@ -68,11 +68,6 @@
             order_info += res.order_infos[i].waiter_user_table.name;
             order_info += '</td>';
 
-            // Status
-            order_info += '<td class="text-center">';
-            order_info += res.order_infos[i].waiter_user_table.name;
-            order_info += '</td>';
-
             // Total Amount 
             order_info += '<td class="text-center">';
             order_info += res.order_infos[i].total_amount;

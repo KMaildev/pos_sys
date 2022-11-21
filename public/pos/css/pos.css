@@ -54,8 +54,8 @@
 .meal_btn {
     width: 100%;
     height: 110px;
-    background-color: #5C2B16;
-    color: white;
+    background-color: #C0C9D8;
+    color: black;
     padding: 20px 32px;
     text-align: center;
     text-decoration: none;
@@ -67,9 +67,26 @@
 
 
 .category_title {
-    font-size: 25px;
+    font-size: 20px;
     color: black;
+    text-align: center;
+    min-width: 100%;
+    padding: 10px;
+    background-color: #5C2B16;
+    color: white;
 }
+
+.table_name_title {
+    font-size: 18px;
+    color: black;
+    text-align: left;
+    min-width: 100%;
+    padding: 2px;
+    background-color: #5C2B16;
+    color: white;
+    padding-left: 10px;
+}
+
 
 .data_not_found {
     font-size: 30px;
@@ -77,4 +94,60 @@
     color: red;
     text-align: center;
     padding: 20px 32px;
+}
+
+.pay_btn {
+    font-size: 20px;
+    width: 100%;
+    min-width: 100%;
+    padding: 18px 32px;
+    background-color: #48726b;
+    color: white;
+}
+
+.edit_seat_btn {
+    font-size: 20px;
+    width: 100%;
+    min-width: 100%;
+    padding: 18px 32px;
+    background-color: #c9841e;
+    color: white;
+}
+
+.service_btn {
+    font-size: 20px;
+    width: 100%;
+    min-width: 100%;
+    padding: 18px 32px;
+    background-color: #DE3B30;
+    color: white;
+}
+
+.clear_btn {
+    font-size: 20px;
+    width: 100%;
+    min-width: 100%;
+    padding: 18px 32px;
+    background-color: #045FC1;
+    color: white;
+}
+
+
+.comment_btn {
+    font-size: 20px;
+    width: 100%;
+    min-width: 100%;
+    padding: 18px 32px;
+    background-color: #3582A4;
+    color: white;
+}
+
+
+.print_btn {
+    font-size: 20px;
+    width: 100%;
+    min-width: 100%;
+    padding: 18px 32px;
+    background-color: #9B7D43;
+    color: white;
 }

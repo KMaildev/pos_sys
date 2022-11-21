@@ -30,7 +30,8 @@ class HomeController extends Controller
         if ($departmemt->title == 'Waiter') {
             return redirect()->route('pos_table_lists');
         } elseif ($departmemt->title == 'Cashier') {
-            return 'Cashier';
+            // return 'Cashier';
+            return view('home');
         } else {
             return view('home');
         }

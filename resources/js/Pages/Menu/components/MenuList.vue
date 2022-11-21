@@ -1,16 +1,13 @@
 <template>
     <div class="col-xl-6 col-md-6 col-lg-6 col-sm-6">
         <div class="card">
-            <div class="card-header align-items-center d-flex">
-                <h4 class="card-title mb-0 flex-grow-1 category_title">
-                    Category
-                    <span v-show="category_title">
-                        - {{ category_title }}
-                    </span>
-                </h4>
-            </div>
-
-            <div class="table-responsive" data-simplebar style="max-height: 1200px;">
+            <h4 class="card-title mb-0 flex-grow-1 category_title">
+                Category
+                <span v-show="category_title">
+                    - {{ category_title }}
+                </span>
+            </h4>
+            <div class="table-responsive" data-simplebar style="max-height: 1200px; padding-top: 5px;">
                 <div class="row g-2">
                     <span class="data_not_found" v-if="menu_lists.length == 0">
                         Data Not Found

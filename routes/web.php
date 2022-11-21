@@ -14,17 +14,26 @@ use App\Http\Controllers\Pos\MenuControlController;
 use App\Http\Controllers\PosSys\Cart\CartTempController;
 use App\Http\Controllers\PosSys\Menu\PosMenuController;
 use App\Http\Controllers\PosSys\Order\OrderConfirmController;
+use App\Http\Controllers\PosSys\Pin\PinController;
 use App\Http\Controllers\PosSys\TableList\TableListController as TableListTableListController;
 use App\Http\Controllers\PosSys\Test\TestController;
 use App\Http\Controllers\Table\TableListController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
+
+
+// PIN Login 
+Route::get('/', [PinController::class, 'index'])->name('pin');
+Route::post('pin_login', [PinController::class, 'pinLogin'])->name('pin_login');
+
+
+
+Route::get('/admin', function () {
     return view('auth.login');
 });
-Auth::routes(['register' => false]);
 
+Auth::routes(['register' => false]);
 Route::middleware('auth')->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::resource('category', CategoryController::class);
@@ -51,6 +60,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/pos_table_lists', [TableListTableListController::class, 'index'])->name('pos_table_lists');
     Route::get('/pos_menu/{type}/{category_id}', [PosMenuController::class, 'index'])->name('pos_menu');
     Route::get('/store_cart_temp', [CartTempController::class, 'store'])->name('store_cart_temp');
+    Route::get('/clear_all', [CartTempController::class, 'clearAll'])->name('clear_all');
     Route::get('/order_confirm', [OrderConfirmController::class, 'store'])->name('order_confirm');
     Route::get('/pos_test_page', [TestController::class, 'index'])->name('pos_test_page');
 

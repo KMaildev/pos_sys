@@ -113,4 +113,14 @@ class CartTempController extends Controller
     {
         //
     }
+
+    public function clearAll()
+    {
+        $session_id = session()->getId();
+        $user_id = auth()->user()->id ?? 0;
+        CartTemp::where('session_id', $session_id)
+            ->where('user_id', $user_id)
+            ->delete();
+        return redirect()->back();
+    }
 }
