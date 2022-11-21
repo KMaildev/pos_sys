@@ -46,6 +46,7 @@ class CategoryController extends Controller
         $category = new Category();
         $category->title = $request->title;
         $category->type = $request->type;
+        $category->background_color = $request->background_color;
         $category->save();
         return redirect()->back()->with('success', 'Your processing has been completed.');
     }
@@ -85,6 +86,7 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
         $category->title = $request->title;
         $category->type = $request->type;
+        $category->background_color = $request->background_color ?? $category->background_color;
         $category->update();
         return redirect()->back()->with('success', 'Your processing has been completed.');
     }

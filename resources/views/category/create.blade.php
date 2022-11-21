@@ -38,10 +38,26 @@
                                         Food
                                     </option>
                                     <option value="Bar">
-                                        Bar & Beverage
+                                        Bar
+                                    </option>
+                                    <option value="Beverage">
+                                        Beverage
                                     </option>
                                 </select>
                                 @error('type')
+                                    <div class="invalid-feedback"> {{ $message }} </div>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label for="html5-text-input" class="col-md-3 col-form-label">
+                                Background Color
+                            </label>
+                            <div class="col-md-9">
+                                <input class="form-control @error('background_color') is-invalid @enderror" type="color"
+                                    name="background_color" value="{{ old('background_color') }}" />
+                                @error('background_color')
                                     <div class="invalid-feedback"> {{ $message }} </div>
                                 @enderror
                             </div>

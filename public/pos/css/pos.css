@@ -30,10 +30,32 @@
 }
 
 
-.main_category_btn {
+.main_category_bev_btn {
     width: 100%;
-    background-color: #5C2B16;
-    color: white;
+    background-color: #e59490;
+    color: black;
+    padding: 20px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+}
+
+.main_category_food_btn {
+    width: 100%;
+    background-color: #a982d4;
+    color: black;
+    padding: 20px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+}
+
+.main_category_bar_btn {
+    width: 100%;
+    background-color: #9fe864;
+    color: black;
     padding: 20px 32px;
     text-align: center;
     text-decoration: none;
@@ -47,7 +69,7 @@
     min-width: 100%;
     padding: 18px 32px;
     background-color: #5C2B16;
-    color: white;
+    color: black;
 }
 
 
@@ -70,7 +92,7 @@
     font-size: 20px;
     color: black;
     text-align: center;
-    min-width: 100%;
+    /* min-width: 100%; */
     padding: 10px;
     background-color: #5C2B16;
     color: white;

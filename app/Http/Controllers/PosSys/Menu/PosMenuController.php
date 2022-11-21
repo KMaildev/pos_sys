@@ -16,15 +16,15 @@ class PosMenuController extends Controller
         $categories = Category::where('type', $type)->get();
         if ($category_id == 'null') {
             $caregory = Category::where('type', $type)->first();
-            $category_id = $caregory->id;
-            $category_title = $caregory->title;
+            $category_id = $caregory->id ?? 0;
+            $category_title = $caregory->title ?? '';
         } else {
             $category_id = $category_id;
             $caregory = Category::findOrFail($category_id);
             $category_title = $caregory->title;
         }
 
-        $menu_lists = MenuList::query()
+        $menu_lists = MenuList::with('category_table')
             ->where('categorie_id', $category_id)
             ->get();
 

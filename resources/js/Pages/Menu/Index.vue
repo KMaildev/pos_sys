@@ -1,16 +1,13 @@
 <template>
     <master :user_name="user_name" :login_time="login_time">
-        <div class="row">
+        <div class="row" style="height: calc(600px - 25px);">
             <!-- Ordre Item  -->
             <OrderItem :cart_temps="cart_temps" :user_name="user_name"></OrderItem>
-
             <!-- Menu Meal List  -->
             <MenuList :menu_lists="menu_lists" :category_title="category_title"></MenuList>
             <!-- Main Category  -->
             <MainCategory :categories="categories"></MainCategory>
-
         </div>
-
         <footer class="py-5">
             <div class="container-fluid">
                 <div class="row">
@@ -33,11 +30,6 @@
                         </button>
                     </div>
 
-                    <div class="col-sm-2 col-lg-2 col-md-2">
-                        <button class="clear_btn">
-                            Clear/No
-                        </button>
-                    </div>
 
                     <div class="col-sm-2 col-lg-2 col-md-2">
                         <button @click="clearAll()" class="print_btn">
@@ -48,6 +40,12 @@
                     <div class="col-sm-2 col-lg-2 col-md-2">
                         <button class="comment_btn">
                             Comment
+                        </button>
+                    </div>
+
+                    <div class="col-sm-2 col-lg-2 col-md-2">
+                        <button @click="mainPage()" class="clear_btn">
+                            Main
                         </button>
                     </div>
 
@@ -92,7 +90,6 @@ export default {
             } else {
                 this.alertMessage();
             }
-
         },
 
         editSeat() {
@@ -101,6 +98,10 @@ export default {
 
         clearAll() {
             this.$inertia.get(`/clear_all`);
+        },
+
+        mainPage() {
+            this.$inertia.get(`/pos_main_page`);
         },
 
         alertMessage() {

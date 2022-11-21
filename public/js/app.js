@@ -5437,6 +5437,9 @@ __webpack_require__.r(__webpack_exports__);
     clearAll: function clearAll() {
       this.$inertia.get("/clear_all");
     },
+    mainPage: function mainPage() {
+      this.$inertia.get("/pos_main_page");
+    },
     alertMessage: function alertMessage() {
       swal({
         title: "Please Select Seat",
@@ -5519,6 +5522,32 @@ __webpack_require__.r(__webpack_exports__);
   props: ['cart_temps', 'table_name', 'user_name'],
   created: function created() {
     this.table_name = localStorage.getItem("table_name");
+  },
+  methods: {
+    amountCalc: function amountCalc(cart_temp) {
+      return cart_temp.price * cart_temp.qty;
+    },
+    totalQtyCalc: function totalQtyCalc(cart_temps) {
+      var sum = 0;
+      cart_temps.forEach(function (item) {
+        sum += parseFloat(item.qty);
+      });
+      return sum;
+    },
+    totalPriceCalc: function totalPriceCalc(cart_temps) {
+      var sum = 0;
+      cart_temps.forEach(function (item) {
+        sum += parseFloat(item.price);
+      });
+      return sum;
+    },
+    totalAmountCalc: function totalAmountCalc(cart_temps) {
+      var sum = 0;
+      cart_temps.forEach(function (item) {
+        sum += parseFloat(item.price) * parseFloat(item.qty);
+      });
+      return sum;
+    }
   }
 });
 
@@ -5757,7 +5786,7 @@ var render = function render() {
     staticClass: "row"
   }, [_c("div", {
     staticClass: "col-md-9"
-  }, [_c("p", [_vm._v("\n                " + _vm._s(_vm.user_name) + "\n                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel sed hic facilis in sunt et neque\n                maxime, commodi veniam delectus eum aut beatae mollitia dolor id, laboriosam voluptatem\n                quibusdam!\n                Sapiente?\n            ")])]), _vm._v(" "), _c("div", {
+  }, [_c("p")]), _vm._v(" "), _c("div", {
     staticClass: "col-md-3"
   }, [_c("div", {
     staticClass: "d-grid gap-2 float-end"
@@ -5841,7 +5870,10 @@ var render = function render() {
       login_time: _vm.login_time
     }
   }, [_c("div", {
-    staticClass: "row"
+    staticClass: "row",
+    staticStyle: {
+      height: "calc(600px - 25px)"
+    }
   }, [_c("OrderItem", {
     attrs: {
       cart_temps: _vm.cart_temps,
@@ -5887,10 +5919,6 @@ var render = function render() {
   }, [_vm._v("\n                        Edit Seat\n                    ")])]), _vm._v(" "), _c("div", {
     staticClass: "col-sm-2 col-lg-2 col-md-2"
   }, [_c("button", {
-    staticClass: "clear_btn"
-  }, [_vm._v("\n                        Clear/No\n                    ")])]), _vm._v(" "), _c("div", {
-    staticClass: "col-sm-2 col-lg-2 col-md-2"
-  }, [_c("button", {
     staticClass: "print_btn",
     on: {
       click: function click($event) {
@@ -5901,7 +5929,16 @@ var render = function render() {
     staticClass: "col-sm-2 col-lg-2 col-md-2"
   }, [_c("button", {
     staticClass: "comment_btn"
-  }, [_vm._v("\n                        Comment\n                    ")])])])])])]);
+  }, [_vm._v("\n                        Comment\n                    ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-sm-2 col-lg-2 col-md-2"
+  }, [_c("button", {
+    staticClass: "clear_btn",
+    on: {
+      click: function click($event) {
+        return _vm.mainPage();
+      }
+    }
+  }, [_vm._v("\n                        Main\n                    ")])])])])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -5929,23 +5966,33 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "d-flex justify-content-between"
   }, [_c("button", {
-    staticClass: "main_category_btn",
-    on: {
-      click: function click($event) {
-        return _vm.loadCategoryAndMenuListPos("Bar");
-      }
-    }
-  }, [_vm._v("\n            Beverage\n        ")]), _vm._v(" "), _c("button", {
-    staticClass: "main_category_btn",
+    staticClass: "main_category_food_btn",
     on: {
       click: function click($event) {
         return _vm.loadCategoryAndMenuListPos("Food");
       }
     }
-  }, [_vm._v("\n            Food\n        ")])]), _vm._v(" "), _vm._l(_vm.categories, function (category) {
+  }, [_vm._v("\n            Food\n        ")]), _vm._v(" "), _c("button", {
+    staticClass: "main_category_bev_btn",
+    on: {
+      click: function click($event) {
+        return _vm.loadCategoryAndMenuListPos("Beverage");
+      }
+    }
+  }, [_vm._v("\n            BEV\n        ")]), _vm._v(" "), _c("button", {
+    staticClass: "main_category_bar_btn",
+    on: {
+      click: function click($event) {
+        return _vm.loadCategoryAndMenuListPos("Bar");
+      }
+    }
+  }, [_vm._v("\n            Bar\n        ")])]), _vm._v(" "), _vm._l(_vm.categories, function (category) {
     return _c("button", {
       key: category.id,
       staticClass: "category_btn",
+      style: {
+        "background-color": category.background_color
+      },
       on: {
         click: function click($event) {
           return _vm.loadCategoryAndMenuListPos(category.type, category.id);
@@ -5991,7 +6038,7 @@ var render = function render() {
   }, [_vm._v("\n                - " + _vm._s(_vm.category_title) + "\n            ")])]), _vm._v(" "), _c("div", {
     staticClass: "table-responsive",
     staticStyle: {
-      "max-height": "1200px",
+      "max-height": "calc(600px - 25px)",
       "padding-top": "5px"
     },
     attrs: {
@@ -6007,6 +6054,9 @@ var render = function render() {
       staticClass: "col-3"
     }, [_c("button", {
       staticClass: "meal_btn",
+      style: {
+        "background-color": menu_list.category_table.background_color
+      },
       on: {
         click: function click($event) {
           return _vm.cartTemp(menu_list.id, menu_list.price);
@@ -6042,12 +6092,25 @@ var render = function render() {
     staticStyle: {
       "background-color": "white"
     }
-  }, [_c("h6", {
-    staticClass: "table_name_title"
-  }, [_vm._v("\n            TBL / " + _vm._s(_vm.table_name) + " "), _c("br"), _vm._v("\n            " + _vm._s(_vm.user_name) + "\n        ")]), _vm._v(" "), _c("div", {
-    staticClass: "card-body"
   }, [_c("div", {
-    staticClass: "receipt"
+    staticClass: "card-header d-flex"
+  }, [_c("h4", {
+    staticClass: "card-title mb-0 flex-grow-1 category_title",
+    staticStyle: {
+      "font-size": "20px",
+      "font-weight": "bold"
+    }
+  }, [_vm._v("\n                TBL / " + _vm._s(_vm.table_name) + "\n            ")]), _vm._v(" "), _c("h4", {
+    staticClass: "card-title mb-0 flex-grow-1 category_title",
+    staticStyle: {
+      "font-size": "20px",
+      "font-weight": "bold"
+    }
+  }, [_vm._v("\n                Guest : 10\n            ")])]), _vm._v(" "), _c("div", {
+    staticClass: "card-body",
+    staticStyle: {
+      margin: "5px"
+    }
   }, [_vm._m(0), _vm._v(" "), _c("tbody", _vm._l(_vm.cart_temps, function (cart_temp) {
     return _c("tr", {
       key: cart_temp.id,
@@ -6061,37 +6124,85 @@ var render = function render() {
         width: "200px",
         padding: "3px"
       }
-    }, [_vm._v("\n                            " + _vm._s(cart_temp.menu_lists_table.menu_name) + "\n                        ")]), _vm._v(" "), _c("td", {
+    }, [_vm._v("\n                        " + _vm._s(cart_temp.menu_lists_table.menu_name) + "\n                    ")]), _vm._v(" "), _c("td", {
       staticStyle: {
         width: "20%",
         padding: "3px",
         "text-align": "right"
       }
-    }, [_vm._v("\n                            " + _vm._s(cart_temp.qty) + "\n                        ")])]);
-  }), 0)])])])]);
+    }, [_vm._v("\n                        " + _vm._s(cart_temp.qty) + "\n                    ")]), _vm._v(" "), _c("td", {
+      staticStyle: {
+        width: "20%",
+        padding: "3px",
+        "text-align": "right"
+      }
+    }, [_vm._v("\n                        " + _vm._s(cart_temp.price) + "\n                    ")]), _vm._v(" "), _c("td", {
+      staticStyle: {
+        width: "20%",
+        padding: "3px",
+        "text-align": "right"
+      }
+    }, [_vm._v("\n                        " + _vm._s(_vm.amountCalc(cart_temp)) + "\n                    ")])]);
+  }), 0), _vm._v(" "), _c("table", {
+    staticClass: "table"
+  }, [_c("tr", {
+    staticClass: "header"
+  }, [_c("th", {
+    staticStyle: {
+      "font-size": "16px",
+      width: "50px"
+    }
+  }, [_vm._v("\n                        Subtotal\n                    ")]), _vm._v(" "), _c("th", {
+    staticStyle: {
+      "font-size": "16px",
+      width: "20%",
+      "text-align": "right"
+    }
+  }, [_vm._v("\n                        " + _vm._s(_vm.totalQtyCalc(_vm.cart_temps)) + "\n                    ")]), _vm._v(" "), _c("th", {
+    staticStyle: {
+      "font-size": "16px",
+      width: "20%",
+      "text-align": "right"
+    }
+  }, [_vm._v("\n                        " + _vm._s(_vm.totalPriceCalc(_vm.cart_temps)) + "\n                    ")]), _vm._v(" "), _c("th", {
+    staticStyle: {
+      "font-size": "16px",
+      width: "20%",
+      "text-align": "right"
+    }
+  }, [_vm._v("\n                        " + _vm._s(_vm.totalItem) + "\n                        " + _vm._s(_vm.totalAmountCalc(_vm.cart_temps)) + "\n                    ")])])])])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c("table", {
-    staticClass: "table",
-    staticStyle: {
-      width: "100%"
-    }
+    staticClass: "table"
   }, [_c("tr", {
     staticClass: "header"
   }, [_c("th", {
     staticStyle: {
-      "font-size": "18px",
-      width: "80px"
+      "font-size": "16px",
+      width: "50px"
     }
-  }, [_vm._v("\n                            Description\n                        ")]), _vm._v(" "), _c("th", {
+  }, [_vm._v("\n                        Description\n                    ")]), _vm._v(" "), _c("th", {
     staticStyle: {
-      "font-size": "18px",
+      "font-size": "16px",
       width: "20%",
       "text-align": "right"
     }
-  }, [_vm._v("\n                            Qty\n                        ")])])]);
+  }, [_vm._v("\n                        Qty\n                    ")]), _vm._v(" "), _c("th", {
+    staticStyle: {
+      "font-size": "16px",
+      width: "20%",
+      "text-align": "right"
+    }
+  }, [_vm._v("\n                        Price\n                    ")]), _vm._v(" "), _c("th", {
+    staticStyle: {
+      "font-size": "16px",
+      width: "20%",
+      "text-align": "right"
+    }
+  }, [_vm._v("\n                        Amount\n                    ")])])]);
 }];
 render._withStripped = true;
 

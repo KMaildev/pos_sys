@@ -3,11 +3,7 @@
         <div class="row">
             <div class="col-md-9">
                 <p>
-                    {{ user_name }}
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel sed hic facilis in sunt et neque
-                    maxime, commodi veniam delectus eum aut beatae mollitia dolor id, laboriosam voluptatem
-                    quibusdam!
-                    Sapiente?
+
                 </p>
             </div>
 
