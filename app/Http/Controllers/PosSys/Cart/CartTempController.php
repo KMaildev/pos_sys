@@ -75,4 +75,19 @@ class CartTempController extends Controller
         $cart_temp->update();
         return redirect()->back();
     }
+
+    public function MinusQty(Request $request)
+    {
+        $cart_temp_id = $request->cart_temp_id;
+        $cart_temp = CartTemp::findOrFail($cart_temp_id);
+        $min_qty = $cart_temp->qty;
+        if ($min_qty == 1) {
+            $cart_temp->qty = 1;
+        } else {
+            $cart_temp->qty = $min_qty - 1;
+        }
+
+        $cart_temp->update();
+        return redirect()->back();
+    }
 }

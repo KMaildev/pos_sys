@@ -5592,22 +5592,41 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var vue_numeric_keypad__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-numeric-keypad */ "./node_modules/vue-numeric-keypad/dist/vue-numeric-keypad.esm.js");
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "OrderItem",
+  components: {
+    VueNumericKeypad: vue_numeric_keypad__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
   props: ['cart_temps', 'user_name'],
   data: function data() {
     return {
       table_name: localStorage.getItem("table_name"),
       activeItemId: '',
-      menuName: ''
+      menuName: '',
+      qty: 0,
+      value: "",
+      show: 0,
+      options: {
+        keyRandomize: false,
+        randomizeClick: false,
+        fixDeleteKey: true,
+        stopPropagation: true
+      }
     };
   },
   methods: {
-    currentCartTemp: function currentCartTemp(cart_temp_id, menu_name) {
+    currentCartTemp: function currentCartTemp(cart_temp_id, menu_name, qty) {
       this.activeItemId = cart_temp_id;
       this.menuName = menu_name;
+      this.qty = qty;
       localStorage.setItem("activeItemId", cart_temp_id);
       localStorage.setItem("menuName", menu_name);
+      localStorage.setItem("current_qty", qty);
+    },
+    MinusQty: function MinusQty(cart_temp_id) {
+      this.$inertia.get("/minus_qty?cart_temp_id=".concat(cart_temp_id));
     },
     amountCalc: function amountCalc(cart_temp) {
       return cart_temp.price * cart_temp.qty;
@@ -5633,6 +5652,11 @@ __webpack_require__.r(__webpack_exports__);
       });
       return sum;
     }
+  },
+  created: function created() {
+    document.addEventListener('click', function () {
+      this.show = 0;
+    }.bind(this));
   }
 });
 
@@ -6038,7 +6062,7 @@ var render = function render() {
         return _vm.orderNote();
       }
     }
-  }, [_vm._v("\n                    Order Note\n                ")])]), _vm._v(" "), _vm._m(1), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                    Order Note\n                ")])]), _vm._v(" "), _c("div", {
     staticClass: "col-sm-2 col-lg-2 col-md-2"
   }, [_c("button", {
     staticClass: "edit_seat_btn",
@@ -6066,14 +6090,6 @@ var staticRenderFns = [function () {
   }, [_c("button", {
     staticClass: "service_btn"
   }, [_vm._v("\n                    Services\n                ")])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "col-sm-2 col-lg-2 col-md-2"
-  }, [_c("button", {
-    staticClass: "comment_btn"
-  }, [_vm._v("\n                    Change Qty\n                ")])]);
 }];
 render._withStripped = true;
 
@@ -6251,7 +6267,10 @@ var render = function render() {
       "class": _vm.activeItemId == cart_temp.id ? "active" : "",
       on: {
         click: function click($event) {
-          return _vm.currentCartTemp(cart_temp.id, cart_temp.menu_lists_table.menu_name);
+          return _vm.currentCartTemp(cart_temp.id, cart_temp.menu_lists_table.menu_name, cart_temp.qty);
+        },
+        dblclick: function dblclick($event) {
+          return _vm.MinusQty(cart_temp.id);
         }
       }
     }, [_c("td", {
@@ -36487,6 +36506,553 @@ function normalizeComponent(
     options: options
   }
 }
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-numeric-keypad/dist/vue-numeric-keypad.esm.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/vue-numeric-keypad/dist/vue-numeric-keypad.esm.js ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ entry_esm)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+if (!Object.entries) {
+  Object.entries = function (obj) {
+    var ownProps = Object.keys(obj),
+        i = ownProps.length,
+        resArray = new Array(i); // preallocate the Array
+
+    while (i--) resArray[i] = [ownProps[i], obj[ownProps[i]]];
+
+    return resArray;
+  };
+}
+
+const arr1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, "", 0, -1];
+const arr2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, "", -1];
+var script = {
+  name: "VueNumericKeypad",
+  props: {
+    id: {
+      type: String,
+      required: false
+    },
+    value: {
+      type: String,
+      default: "",
+      required: true
+    },
+    show: {
+      type: [Boolean, Number],
+      default: false,
+      required: true
+    },
+    encryptFunc: {
+      type: Function,
+      default: c => c
+    },
+    encryptedValue: {
+      type: Array,
+      default: () => []
+    },
+    options: {
+      type: Object,
+      default: () => ({}),
+      validator: function (value) {
+        const keyArrayDisable = (value.keyArray || []).some(key => {
+          switch (typeof key) {
+            case 'number':
+              return !Number.isInteger(key) || key < -1 || key > 9;
+
+            case 'string':
+              return key;
+
+            default:
+              return false;
+          }
+        });
+
+        if (keyArrayDisable) {
+          console.error("KeyArray can contain only an integer 'number' between -1 and 9 and an empty 'string'.");
+          return false;
+        }
+
+        const classDisable = Object.keys(value).some(key => /Class/.test(key) && /[^0-9A-z\-_ ]/.test(value[key]));
+
+        if (classDisable) {
+          console.error("Class name can contain only 'a-z' and 'A-Z', '0-9', '_', '-', ' '.");
+          return false;
+        }
+
+        return true;
+      },
+      required: false
+    }
+  },
+
+  data() {
+    const columns = Number(this.options.columns) || 3;
+    return {
+      encryptedChar: typeof this.options.encryptedChar === 'string' ? this.options.encryptedChar.substring(0, 1) : "0",
+      encrypt: Boolean(this.options.encrypt),
+      keyArray: this.options.keyArray || (columns === 3 ? arr1 : arr2),
+      keyRandomize: Boolean(this.options.keyRandomize === undefined || this.options.keyRandomize),
+      randomizeWhenClick: Boolean(this.options.randomizeWhenClick),
+      fixDeleteKey: Boolean(this.options.fixDeleteKey === undefined || this.options.fixDeleteKey),
+      stopPropagation: Boolean(this.options.stopPropagation === undefined || this.options.stopPropagation),
+      keypadClass: this.options.keypadClass || 'numeric-keypad',
+      buttonWrapClass: this.options.buttonWrapClass || 'numeric-keypad__button-wrap',
+      buttonClass: this.options.buttonClass || 'numeric-keypad__button',
+      deleteButtonClass: this.options.deleteButtonClass || 'numeric-keypad__button--delete',
+      blankButtonClass: this.options.blankButtonClass || 'numeric-keypad__button--blank',
+      activeButtonClass: this.options.activeButtonClass || 'numeric-keypad__button--active',
+      activeButtonIndexes: {},
+      activeButtonDelay: Number(this.options.activeButtonDelay) || 300,
+      pseudoClick: Boolean(this.options.pseudoClick),
+      pseudoClickDeleteKey: this.options.pseudoClickDeleteKey === undefined ? Boolean(this.options.pseudoClick) : Boolean(this.options.pseudoClickDeleteKey),
+      pseudoClickBlankKey: this.options.pseudoClickBlankKey === undefined ? Boolean(this.options.pseudoClick) : Boolean(this.options.pseudoClickBlankKey),
+      rows: Number(this.options.rows) || 4,
+      columns,
+      zIndex: Number(this.options.zIndex) || 1,
+      cellWidth: 0,
+      cellHeight: 0,
+      defaultStyleSheet: document.createElement('style'),
+      defaultStyle: ['all', 'button', 'wrap', 'none'].find(s => s === this.options.defaultStyle) || 'all',
+      keypadStylesIndex: null
+    };
+  },
+
+  watch: {
+    show: function () {
+      this.$nextTick(function () {
+        if (this.show) this.resize();
+      });
+      if (this.keyRandomize) this.randomize();
+    },
+    options: {
+      deep: true,
+
+      handler(options) {
+        if (typeof options !== 'object') return;
+        const columns = Number(options.columns) || 3;
+        this.encryptedChar = typeof options.encryptedChar === 'string' ? options.encryptedChar.substring(0, 1) : "0";
+        this.keyArray = options.keyArray || (columns === 3 ? arr1 : arr2);
+        this.keyRandomize = Boolean(options.keyRandomize === undefined || options.keyRandomize);
+        this.randomizeWhenClick = Boolean(options.randomizeWhenClick);
+        this.fixDeleteKey = Boolean(options.fixDeleteKey === undefined || options.fixDeleteKey);
+        this.stopPropagation = Boolean(options.stopPropagation === undefined || options.stopPropagation);
+        this.activeButtonDelay = Number(options.activeButtonDelay) || 300;
+        this.pseudoClick = Boolean(options.pseudoClick);
+        this.pseudoClickDeleteKey = options.pseudoClickDeleteKey === undefined ? Boolean(options.pseudoClick) : Boolean(options.pseudoClickDeleteKey);
+        this.pseudoClickBlankKey = options.pseudoClickBlankKey === undefined ? Boolean(options.pseudoClick) : Boolean(options.pseudoClickBlankKey);
+        this.rows = Number(options.rows) || 4;
+        this.zIndex = Number(options.zIndex) || 1;
+        const defaultStyle = ['all', 'button', 'wrap', 'none'].find(s => s === options.defaultStyle) || 'all';
+
+        if (this.defaultStyle !== defaultStyle) {
+          this.defaultStyle = defaultStyle;
+          document.head.removeChild(this.defaultStyleSheet);
+          this.defaultStyleSheet = document.createElement('style');
+
+          if (this.defaultStyle !== 'none') {
+            document.head.appendChild(this.defaultStyleSheet);
+            this.initDefaultStyles(this.defaultStyleSheet.sheet);
+          }
+        }
+
+        if (this.keyRandomize) this.randomize();
+      }
+
+    }
+  },
+  computed: {
+    keypadStyles: function () {
+      const fontSize = Math.round(Math.min(this.cellWidth, this.cellHeight) * 0.3);
+      const style = `
+        position: fixed;
+        z-index: ${this.zIndex};
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 40vh;
+        padding: 10px;
+        background-color: #fff;
+        border-radius: 12px 12px 0 0;
+        box-shadow: 0 -4px 4px rgba(0, 0, 0, 0.15);
+        color: #000;
+        overflow: hidden;
+      `;
+      return fontSize ? style + `\nfont-size: ${fontSize}px;` : style;
+    },
+    buttonWrapStyles: function () {
+      return `
+        display: flex;
+        witdth: 100%;
+        height: 100%;
+        justify-content: space-between;
+        align-content: space-between;
+        flex-wrap: wrap;
+        gridGap: 5px;
+      `;
+    },
+    buttonStyles: function () {
+      const width = `calc(${Math.round(1000 / this.columns) / 10}% - ${Math.ceil(5 * (this.columns - 1) / this.columns)}px)`;
+      const height = `calc(${Math.round(1000 / this.rows) / 10}% - ${Math.ceil(5 * (this.rows - 1) / this.rows)}px)`;
+      return `
+        flex: 0 0 auto;
+        display: flex;
+        width: ${width};
+        height: ${height};
+        justify-content: center;
+        align-items: center;
+        background-color: #fff;
+        border: 1px solid #000;
+        border-radius: 8px;
+        font-size: inherit;
+      `;
+    }
+  },
+  methods: {
+    click(key, idx) {
+      if (this.pseudoClick) {
+        if (!(key == -1 && !this.pseudoClickDeleteKey || key == '' && !this.pseudoClickBlankKey)) {
+          const l = this.keyArray.length;
+          const pIdx = Math.floor(Math.random() * (l - 1) + idx + 1) % l;
+          this.activeButton(pIdx);
+        }
+      }
+
+      this.activeButton(idx);
+      let newVal = this.value;
+      const encryptedValue = [...this.encryptedValue];
+
+      if (this.encrypt) {
+        if (key === -1) {
+          newVal = this.value.slice(0, -1);
+          encryptedValue.pop();
+        } else if (key !== '') {
+          newVal += this.encryptedChar;
+          encryptedValue.push(this.encryptFunc(key.toString()));
+        }
+      } else {
+        if (key === -1) {
+          newVal = this.value.slice(0, -1);
+        } else {
+          newVal += key;
+        }
+      }
+
+      this.$emit("update:value", String(newVal));
+      this.$emit("update:encryptedValue", encryptedValue);
+      if (this.keyRandomize && this.randomizeWhenClick) this.randomize();
+    },
+
+    randomize() {
+      let newkeyArray = [];
+      let delKeyCnt = 0;
+
+      for (let i = 0; i < this.keyArray.length; i++) {
+        let r = Math.random();
+
+        if (this.fixDeleteKey && this.keyArray[i] == -1) {
+          delKeyCnt++;
+          continue;
+        }
+
+        if (r < 0.5) newkeyArray.push(this.keyArray[i]);else newkeyArray.unshift(this.keyArray[i]);
+      }
+
+      if (delKeyCnt) {
+        for (let i = 0; i < delKeyCnt; i++) newkeyArray.push(-1);
+      }
+      this.keyArray = newkeyArray;
+    },
+
+    showKey(key) {
+      if (key === -1) {
+        return "del";
+      } else return key;
+    },
+
+    resize() {
+      this.cellWidth = this.$refs.button[0].offsetWidth;
+      this.cellHeight = this.$refs.button[0].offsetHeight;
+      const sheet = this.defaultStyleSheet.sheet;
+
+      if (sheet && this.keypadStylesIndex !== null) {
+        sheet.deleteRule(0);
+        sheet.insertRule(`.${this.keypadClass.trim().split(' ')[0]} {${this.keypadStyles}}`, 0);
+      }
+    },
+
+    setClass(key, idx) {
+      const classArr = [this.buttonClass];
+
+      if (key === -1) {
+        classArr.push(this.deleteButtonClass);
+      }
+
+      if (key === '') {
+        classArr.push(this.blankButtonClass);
+      }
+
+      if (this.activeButtonIndexes[idx]) {
+        classArr.push(this.activeButtonClass);
+      }
+
+      return classArr;
+    },
+
+    activeButton(idx) {
+      if (this.activeButtonIndexes[idx]) {
+        clearTimeout(this.activeButtonIndexes[idx]);
+      } else {
+        this.$refs.button[idx].classList.add(this.activeButtonClass);
+      }
+
+      this.activeButtonIndexes[idx] = setTimeout(() => {
+        this.$refs.button[idx].classList.remove(this.activeButtonClass);
+        clearTimeout(this.activeButtonIndexes[idx]);
+        delete this.activeButtonIndexes[idx];
+      }, this.activeButtonDelay);
+    },
+
+    initDefaultStyles(sheet) {
+      if (this.defaultStyle === 'none') return;
+      const test = /[^0-9A-z\-_ ]/;
+      let padIndex = 0;
+
+      if (this.defaultStyle !== 'button') {
+        if (!test.test(this.keypadClass)) {
+          this.keypadStylesIndex = padIndex;
+          sheet.insertRule(`.${this.keypadClass.trim().split(' ')[0]} {${this.keypadStyles}}`, padIndex++);
+        }
+
+        if (!test.test(this.buttonWrapClass)) {
+          sheet.insertRule(`.${this.buttonWrapClass.trim().split(' ')[0]} {${this.buttonWrapStyles}}`, padIndex++);
+        }
+      }
+
+      if (this.defaultStyle !== 'wrap') {
+        if (!test.test(this.buttonClass)) {
+          sheet.insertRule(`.${this.buttonClass.trim().split(' ')[0]} {${this.buttonStyles}}`, padIndex++);
+
+          if (!test.test(this.activeButtonClass)) {
+            sheet.insertRule(`.${this.buttonClass.trim().split(' ')[0]}.${this.activeButtonClass.trim().split(' ')[0]} {background-color: #eaeaea;}`, padIndex++);
+          }
+        }
+      }
+    }
+
+  },
+
+  mounted() {
+    window.addEventListener('resize', this.resize);
+
+    if (this.defaultStyle !== 'none') {
+      document.head.appendChild(this.defaultStyleSheet);
+      this.initDefaultStyles(this.defaultStyleSheet.sheet);
+    }
+
+    if (this.keyRandomize) this.randomize();
+    this.resize();
+  },
+
+  beforeDestroy() {
+    window.removeEventListener('resize', this.resize);
+  }
+
+};
+
+function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier /* server only */, shadowMode, createInjector, createInjectorSSR, createInjectorShadow) {
+    if (typeof shadowMode !== 'boolean') {
+        createInjectorSSR = createInjector;
+        createInjector = shadowMode;
+        shadowMode = false;
+    }
+    // Vue.extend constructor export interop.
+    const options = typeof script === 'function' ? script.options : script;
+    // render functions
+    if (template && template.render) {
+        options.render = template.render;
+        options.staticRenderFns = template.staticRenderFns;
+        options._compiled = true;
+        // functional template
+        if (isFunctionalTemplate) {
+            options.functional = true;
+        }
+    }
+    // scopedId
+    if (scopeId) {
+        options._scopeId = scopeId;
+    }
+    let hook;
+    if (moduleIdentifier) {
+        // server build
+        hook = function (context) {
+            // 2.3 injection
+            context =
+                context || // cached call
+                    (this.$vnode && this.$vnode.ssrContext) || // stateful
+                    (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext); // functional
+            // 2.2 with runInNewContext: true
+            if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+                context = __VUE_SSR_CONTEXT__;
+            }
+            // inject component styles
+            if (style) {
+                style.call(this, createInjectorSSR(context));
+            }
+            // register component module identifier for async chunk inference
+            if (context && context._registeredComponents) {
+                context._registeredComponents.add(moduleIdentifier);
+            }
+        };
+        // used by ssr in case component is cached and beforeCreate
+        // never gets called
+        options._ssrRegister = hook;
+    }
+    else if (style) {
+        hook = shadowMode
+            ? function (context) {
+                style.call(this, createInjectorShadow(context, this.$root.$options.shadowRoot));
+            }
+            : function (context) {
+                style.call(this, createInjector(context));
+            };
+    }
+    if (hook) {
+        if (options.functional) {
+            // register for functional component in vue file
+            const originalRender = options.render;
+            options.render = function renderWithStyleInjection(h, context) {
+                hook.call(context);
+                return originalRender(h, context);
+            };
+        }
+        else {
+            // inject component registration as beforeCreate hook
+            const existing = options.beforeCreate;
+            options.beforeCreate = existing ? [].concat(existing, hook) : [hook];
+        }
+    }
+    return script;
+}
+
+/* script */
+const __vue_script__ = script;
+/* template */
+
+var __vue_render__ = function () {
+  var _vm = this;
+
+  var _h = _vm.$createElement;
+
+  var _c = _vm._self._c || _h;
+
+  return _c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.show,
+      expression: "show"
+    }],
+    class: _vm.keypadClass,
+    attrs: {
+      "id": _vm.id
+    },
+    on: {
+      "click": function ($event) {
+        _vm.stopPropagation && $event.stopPropagation();
+      }
+    }
+  }, [_c('div', {
+    class: _vm.buttonWrapClass
+  }, _vm._l(_vm.keyArray, function (val, idx) {
+    return _c('button', {
+      key: idx,
+      ref: "button",
+      refInFor: true,
+      class: _vm.setClass(val, idx),
+      attrs: {
+        "type": "button"
+      },
+      on: {
+        "click": function ($event) {
+          return _vm.click(val, idx);
+        }
+      }
+    }, [_vm._v("\n      " + _vm._s(_vm.showKey(val)) + "\n    ")]);
+  }), 0), _vm._v(" "), _vm._t("default")], 2);
+};
+
+var __vue_staticRenderFns__ = [];
+/* style */
+
+const __vue_inject_styles__ = undefined;
+/* scoped */
+
+const __vue_scope_id__ = undefined;
+/* module identifier */
+
+const __vue_module_identifier__ = undefined;
+/* functional template */
+
+const __vue_is_functional_template__ = false;
+/* style inject */
+
+/* style inject SSR */
+
+/* style inject shadow dom */
+
+const __vue_component__ = /*#__PURE__*/normalizeComponent({
+  render: __vue_render__,
+  staticRenderFns: __vue_staticRenderFns__
+}, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, false, undefined, undefined, undefined);
+
+var component = __vue_component__;
+
+// Import vue component
+// IIFE injects install function into component, allowing component
+// to be registered via Vue.use() as well as Vue.component(),
+
+var entry_esm = /*#__PURE__*/(() => {
+  // Get component instance
+  const installable = component; // Attach install function executed by Vue.use()
+
+  installable.install = Vue => {
+    Vue.component('VueNumericKeypad', installable);
+  };
+
+  return installable;
+})(); // It's possible to expose named exports when writing components that can
+// also be used as directives, etc. - eg. import { RollupDemoDirective } from 'rollup-demo';
+// export const RollupDemoDirective = directive;
+
+
 
 
 /***/ }),

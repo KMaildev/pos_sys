@@ -1,8 +1,8 @@
 <template>
     <div>
+
         <div class="container-fluid">
             <div class="row">
-
                 <div class="col-sm-2 col-lg-2 col-md-2">
                     <button class="service_btn">
                         Services
@@ -14,7 +14,6 @@
                         Pay
                     </button>
                 </div>
-
             </div>
 
             <div class="row py-2">
@@ -37,12 +36,6 @@
                     </button>
                 </div>
 
-                <div class="col-sm-2 col-lg-2 col-md-2">
-                    <button class="comment_btn">
-                        Change Qty
-                    </button>
-                </div>
-
 
                 <div class="col-sm-2 col-lg-2 col-md-2">
                     <button @click="editSeat()" class="edit_seat_btn">
@@ -59,10 +52,12 @@
 
             </div>
         </div>
+
     </div>
 </template>
 <script>
 export default {
+
     name: "ButtonProcress",
 
     data() {
@@ -116,6 +111,7 @@ export default {
         orderNote() {
             const active_item = localStorage.getItem("activeItemId");
             const menuName = localStorage.getItem("menuName");
+
             if (active_item == null) {
                 this.alertSelectItemName();
             } else {

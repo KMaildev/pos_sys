@@ -1,5 +1,6 @@
 <template>
     <div class="col-xl-3 col-md-3 col-lg-3">
+
         <div class="" style="background-color: white;">
 
             <div class="card-header d-flex">
@@ -32,7 +33,8 @@
                 <tbody>
                     <tr v-for="cart_temp in cart_temps" :key="cart_temp.id"
                         :class="activeItemId == cart_temp.id ? 'active' : ''"
-                        @click="currentCartTemp(cart_temp.id, cart_temp.menu_lists_table.menu_name)">
+                        @click="currentCartTemp(cart_temp.id, cart_temp.menu_lists_table.menu_name, cart_temp.qty)"
+                        v-on:dblclick="MinusQty(cart_temp.id)">
 
                         <td style="width: 200px; padding: 3px;">
                             {{ cart_temp.menu_lists_table.menu_name }}
@@ -74,8 +76,12 @@
     </div>
 </template>
 <script>
+import VueNumericKeypad from "vue-numeric-keypad";
 export default {
     name: "OrderItem",
+    components: {
+        VueNumericKeypad,
+    },
 
     props: [
         'cart_temps',
@@ -88,15 +94,32 @@ export default {
             table_name: localStorage.getItem("table_name"),
             activeItemId: '',
             menuName: '',
+            qty: 0,
+
+            value: "",
+            show: 0,
+            options: {
+                keyRandomize: false,
+                randomizeClick: false,
+                fixDeleteKey: true,
+                stopPropagation: true,
+            },
         }
     },
 
     methods: {
-        currentCartTemp(cart_temp_id, menu_name) {
+        currentCartTemp(cart_temp_id, menu_name, qty) {
             this.activeItemId = cart_temp_id;
             this.menuName = menu_name;
+            this.qty = qty;
+
             localStorage.setItem("activeItemId", cart_temp_id);
             localStorage.setItem("menuName", menu_name);
+            localStorage.setItem("current_qty", qty);
+        },
+
+        MinusQty(cart_temp_id) {
+            this.$inertia.get(`/minus_qty?cart_temp_id=${cart_temp_id}`);
         },
 
         amountCalc(cart_temp) {
@@ -127,6 +150,12 @@ export default {
             return sum;
         },
     },
+
+    created() {
+        document.addEventListener('click', function () {
+            this.show = 0;
+        }.bind(this));
+    }
 
 }
 </script>
