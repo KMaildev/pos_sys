@@ -28,8 +28,11 @@
                         </th>
                     </tr>
                 </table>
+
                 <tbody>
-                    <tr v-for="cart_temp in cart_temps" :key="cart_temp.id" @click="orderNote()">
+                    <tr v-for="cart_temp in cart_temps" :key="cart_temp.id"
+                        :class="activeItemId == cart_temp.id ? 'active' : ''" @click="currentCartTemp(cart_temp.id)">
+
                         <td style="width: 200px; padding: 3px;">
                             {{ cart_temp.menu_lists_table.menu_name }}
                         </td>
@@ -78,13 +81,22 @@ export default {
         'cart_temps',
         'table_name',
         'user_name',
+        'table_id',
+        'activeItemId',
     ],
 
     created() {
         this.table_name = localStorage.getItem("table_name");
+        this.table_id = localStorage.getItem("table_name");
     },
 
     methods: {
+
+        currentCartTemp(cart_temp_id) {
+            this.activeItemId = cart_temp_id;
+        },
+
+
         amountCalc(cart_temp) {
             return cart_temp.price * cart_temp.qty;
         },
@@ -117,5 +129,7 @@ export default {
 }
 </script>
 <style>
-
+.active {
+    background-color: #e1e4e8;
+}
 </style>
