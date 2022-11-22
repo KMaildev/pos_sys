@@ -40,6 +40,7 @@ export default {
         'cart_temps',
         'user_name',
         'login_time',
+        'success',
     ],
 }
 </script>

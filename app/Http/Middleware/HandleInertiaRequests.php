@@ -39,6 +39,9 @@ class HandleInertiaRequests extends Middleware
         return array_merge(parent::share($request), [
             'user_name' => auth()->user()->name ?? '',
             'login_time' => auth()->user()->last_login_at ?? '',
+
+            'success' => session()->has('success') ? session()->get('success') : '',
+            'error' => session()->has('error') ? session()->get('error') : '',
         ]);
     }
 }

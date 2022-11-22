@@ -4,12 +4,15 @@
         <div class="" style="background-color: white;">
 
             <div class="card-header d-flex">
-                <h4 class="card-title mb-0 flex-grow-1 category_title" style="font-size: 20px; font-weight: bold;">
-                    TBL / {{ table_name }}
+                <h4 class="card-title mb-0 flex-grow-1 category_title"
+                    style="font-size: 20px; font-weight: bold; text-align: left;">
+                    TBL : {{ table_name }}
                 </h4>
-                <h4 class="card-title mb-0 flex-grow-1 category_title" style="font-size: 20px; font-weight: bold;">
-                    Guest : 10
+                <h4 class="card-title mb-0 flex-grow-1 category_title"
+                    style="font-size: 20px; font-weight: bold; text-align: right;">
+                    GUEST : <input type="number" style="width: 50px;" @click.stop="show = true" :value="value" readonly>
                 </h4>
+                <VueNumericKeypad :value.sync="value" :show.sync="show" :options="options" />
             </div>
 
             <div class="card-body" style="margin: 5px;">
@@ -88,7 +91,6 @@ export default {
         'user_name',
     ],
 
-
     data() {
         return {
             table_name: localStorage.getItem("table_name"),
@@ -96,7 +98,7 @@ export default {
             menuName: '',
             qty: 0,
 
-            value: "",
+            value: localStorage.getItem("guest_no"),
             show: 0,
             options: {
                 keyRandomize: false,
@@ -153,6 +155,7 @@ export default {
 
     created() {
         document.addEventListener('click', function () {
+            localStorage.setItem("guest_no", this.value);
             this.show = 0;
         }.bind(this));
     }

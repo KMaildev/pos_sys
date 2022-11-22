@@ -50,6 +50,12 @@
                     </button>
                 </div>
 
+                <div class="col-sm-2 col-lg-2 col-md-2">
+                    <button onclick="location.href='/pos_pin_logout'" class="signout_btn">
+                        SignOut
+                    </button>
+                </div>
+
             </div>
         </div>
 
@@ -68,11 +74,37 @@ export default {
 
     methods: {
         orderConfirm() {
-            const table_list_id = this.table_id;
-            if (table_list_id) {
-                this.$inertia.get(`/order_confirm?table_list_id=${table_list_id}`);
+            const table_list_id = localStorage.getItem("table_id");
+            const guest_no = localStorage.getItem("guest_no");
+            if (table_list_id == null || table_list_id == '' || table_list_id == undefined) {
+                swal({
+                    title: "Please Select Seat",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+            } else if (guest_no == null || guest_no == '' || guest_no == undefined) {
+                swal({
+                    title: "Please Enter Guest No",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
             } else {
-                this.alertMessage();
+                swal({
+                    title: "Order Process",
+                    text: "Are you sure want to order?",
+                    icon: "success",
+                    buttons: true,
+                    dangerMode: false,
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            this.$inertia.get(`/order_confirm?table_list_id=${table_list_id}&guest_no=${guest_no}`);
+                            this.orderSuccess();
+                        }
+                    });
+
             }
         },
 
@@ -161,6 +193,32 @@ export default {
                     }
                 });
         },
+
+        orderFailed() {
+            swal({
+                title: "Order Failed!!!",
+                text: "Order not placed due to some reason. Please Try Again!!!. Thank You !!!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+
+                });
+        },
+
+        orderSuccess() {
+            swal({
+                title: "Order Success",
+                text: "Your order has been placed!",
+                icon: "success",
+                buttons: true,
+                dangerMode: false,
+            })
+                .then((willDelete) => {
+
+                });
+        }
     },
 }
 </script>

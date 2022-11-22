@@ -5424,7 +5424,7 @@ __webpack_require__.r(__webpack_exports__);
     ButtonProcress: _components_ButtonProcress_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
   },
   name: "Index",
-  props: ['categories', 'menu_lists', 'category_title', 'type', 'category_id', 'cart_temps', 'user_name', 'login_time']
+  props: ['categories', 'menu_lists', 'category_title', 'type', 'category_id', 'cart_temps', 'user_name', 'login_time', 'success']
 });
 
 /***/ }),
@@ -5449,11 +5449,36 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     orderConfirm: function orderConfirm() {
-      var table_list_id = this.table_id;
-      if (table_list_id) {
-        this.$inertia.get("/order_confirm?table_list_id=".concat(table_list_id));
+      var _this = this;
+      var table_list_id = localStorage.getItem("table_id");
+      var guest_no = localStorage.getItem("guest_no");
+      if (table_list_id == null || table_list_id == '' || table_list_id == undefined) {
+        swal({
+          title: "Please Select Seat",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true
+        });
+      } else if (guest_no == null || guest_no == '' || guest_no == undefined) {
+        swal({
+          title: "Please Enter Guest No",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true
+        });
       } else {
-        this.alertMessage();
+        swal({
+          title: "Order Process",
+          text: "Are you sure want to order?",
+          icon: "success",
+          buttons: true,
+          dangerMode: false
+        }).then(function (willDelete) {
+          if (willDelete) {
+            _this.$inertia.get("/order_confirm?table_list_id=".concat(table_list_id, "&guest_no=").concat(guest_no));
+            _this.orderSuccess();
+          }
+        });
       }
     },
     editSeat: function editSeat() {
@@ -5463,7 +5488,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$inertia.get("/clear_all");
     },
     transactionCancel: function transactionCancel() {
-      var _this = this;
+      var _this2 = this;
       var active_item = localStorage.getItem("activeItemId");
       var menuName = localStorage.getItem("menuName");
       if (active_item == null) {
@@ -5477,7 +5502,7 @@ __webpack_require__.r(__webpack_exports__);
           dangerMode: true
         }).then(function (willDelete) {
           if (willDelete) {
-            _this.$inertia.get("/transaction_cancel/".concat(active_item));
+            _this2.$inertia.get("/transaction_cancel/".concat(active_item));
             localStorage.removeItem("activeItemId");
             localStorage.removeItem("menuName");
             swal("Your processing has been completed");
@@ -5486,7 +5511,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     orderNote: function orderNote() {
-      var _this2 = this;
+      var _this3 = this;
       var active_item = localStorage.getItem("activeItemId");
       var menuName = localStorage.getItem("menuName");
       if (active_item == null) {
@@ -5499,7 +5524,7 @@ __webpack_require__.r(__webpack_exports__);
           buttons: true,
           dangerMode: true
         }).then(function (value) {
-          _this2.$inertia.get("/order_note?remark=".concat(value, "&cart_temp_id=").concat(active_item));
+          _this3.$inertia.get("/order_note?remark=".concat(value, "&cart_temp_id=").concat(active_item));
           localStorage.removeItem("activeItemId");
           localStorage.removeItem("menuName");
           swal("Order Note: ".concat(value));
@@ -5528,6 +5553,24 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (willDelete) {
         if (willDelete) {}
       });
+    },
+    orderFailed: function orderFailed() {
+      swal({
+        title: "Order Failed!!!",
+        text: "Order not placed due to some reason. Please Try Again!!!. Thank You !!!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true
+      }).then(function (willDelete) {});
+    },
+    orderSuccess: function orderSuccess() {
+      swal({
+        title: "Order Success",
+        text: "Your order has been placed!",
+        icon: "success",
+        buttons: true,
+        dangerMode: false
+      }).then(function (willDelete) {});
     }
   }
 });
@@ -5606,7 +5649,7 @@ __webpack_require__.r(__webpack_exports__);
       activeItemId: '',
       menuName: '',
       qty: 0,
-      value: "",
+      value: localStorage.getItem("guest_no"),
       show: 0,
       options: {
         keyRandomize: false,
@@ -5655,6 +5698,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     document.addEventListener('click', function () {
+      localStorage.setItem("guest_no", this.value);
       this.show = 0;
     }.bind(this));
   }
@@ -6080,7 +6124,7 @@ var render = function render() {
         return _vm.mainPage();
       }
     }
-  }, [_vm._v("\n                    Main\n                ")])])])])]);
+  }, [_vm._v("\n                    Main\n                ")])]), _vm._v(" "), _vm._m(1)])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -6090,6 +6134,17 @@ var staticRenderFns = [function () {
   }, [_c("button", {
     staticClass: "service_btn"
   }, [_vm._v("\n                    Services\n                ")])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "col-sm-2 col-lg-2 col-md-2"
+  }, [_c("button", {
+    staticClass: "signout_btn",
+    attrs: {
+      onclick: "location.href='/pos_pin_logout'"
+    }
+  }, [_vm._v("\n                    SignOut\n                ")])]);
 }];
 render._withStripped = true;
 
@@ -6248,15 +6303,48 @@ var render = function render() {
     staticClass: "card-title mb-0 flex-grow-1 category_title",
     staticStyle: {
       "font-size": "20px",
-      "font-weight": "bold"
+      "font-weight": "bold",
+      "text-align": "left"
     }
-  }, [_vm._v("\n                TBL / " + _vm._s(_vm.table_name) + "\n            ")]), _vm._v(" "), _c("h4", {
+  }, [_vm._v("\n                TBL : " + _vm._s(_vm.table_name) + "\n            ")]), _vm._v(" "), _c("h4", {
     staticClass: "card-title mb-0 flex-grow-1 category_title",
     staticStyle: {
       "font-size": "20px",
-      "font-weight": "bold"
+      "font-weight": "bold",
+      "text-align": "right"
     }
-  }, [_vm._v("\n                Guest : 10\n            ")])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                GUEST : "), _c("input", {
+    staticStyle: {
+      width: "50px"
+    },
+    attrs: {
+      type: "number",
+      readonly: ""
+    },
+    domProps: {
+      value: _vm.value
+    },
+    on: {
+      click: function click($event) {
+        $event.stopPropagation();
+        _vm.show = true;
+      }
+    }
+  })]), _vm._v(" "), _c("VueNumericKeypad", {
+    attrs: {
+      value: _vm.value,
+      show: _vm.show,
+      options: _vm.options
+    },
+    on: {
+      "update:value": function updateValue($event) {
+        _vm.value = $event;
+      },
+      "update:show": function updateShow($event) {
+        _vm.show = $event;
+      }
+    }
+  })], 1), _vm._v(" "), _c("div", {
     staticClass: "card-body",
     staticStyle: {
       margin: "5px"

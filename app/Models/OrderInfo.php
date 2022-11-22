@@ -30,6 +30,7 @@ class OrderInfo extends Model
         'waiter_user_id',
         'created_at',
         'updated_at',
+        'guest_no',
     ];
 
     public function table_lists_table()
