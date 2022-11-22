@@ -64,6 +64,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/pos_menu/{type}/{category_id}', [PosMenuController::class, 'index'])->name('pos_menu');
     Route::get('/store_cart_temp', [CartTempController::class, 'store'])->name('store_cart_temp');
     Route::get('/clear_all', [CartTempController::class, 'clearAll'])->name('clear_all');
+    Route::get('/transaction_cancel/{id}', [CartTempController::class, 'transactionCancel'])->name('transaction_cancel');
+    Route::get('/order_note', [CartTempController::class, 'orderNote'])->name('order_note');
+
     Route::get('/order_confirm', [OrderConfirmController::class, 'store'])->name('order_confirm');
     Route::get('/pos_test_page', [TestController::class, 'index'])->name('pos_test_page');
 

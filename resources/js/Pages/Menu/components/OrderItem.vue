@@ -31,7 +31,8 @@
 
                 <tbody>
                     <tr v-for="cart_temp in cart_temps" :key="cart_temp.id"
-                        :class="activeItemId == cart_temp.id ? 'active' : ''" @click="currentCartTemp(cart_temp.id)">
+                        :class="activeItemId == cart_temp.id ? 'active' : ''"
+                        @click="currentCartTemp(cart_temp.id, cart_temp.menu_lists_table.menu_name)">
 
                         <td style="width: 200px; padding: 3px;">
                             {{ cart_temp.menu_lists_table.menu_name }}
@@ -63,7 +64,6 @@
                             {{ totalPriceCalc(cart_temps) }}
                         </th>
                         <th style="font-size: 16px; width: 20%; text-align: right;">
-                            {{ totalItem }}
                             {{ totalAmountCalc(cart_temps) }}
                         </th>
                     </tr>
@@ -79,23 +79,25 @@ export default {
 
     props: [
         'cart_temps',
-        'table_name',
         'user_name',
-        'table_id',
-        'activeItemId',
     ],
 
-    created() {
-        this.table_name = localStorage.getItem("table_name");
-        this.table_id = localStorage.getItem("table_name");
+
+    data() {
+        return {
+            table_name: localStorage.getItem("table_name"),
+            activeItemId: '',
+            menuName: '',
+        }
     },
 
     methods: {
-
-        currentCartTemp(cart_temp_id) {
+        currentCartTemp(cart_temp_id, menu_name) {
             this.activeItemId = cart_temp_id;
+            this.menuName = menu_name;
+            localStorage.setItem("activeItemId", cart_temp_id);
+            localStorage.setItem("menuName", menu_name);
         },
-
 
         amountCalc(cart_temp) {
             return cart_temp.price * cart_temp.qty;
@@ -130,6 +132,6 @@ export default {
 </script>
 <style>
 .active {
-    background-color: #e1e4e8;
+    background-color: #ccced0;
 }
 </style>
