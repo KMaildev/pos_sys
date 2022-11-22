@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Cashier\Main\CashierMainController;
+use App\Http\Controllers\Cashier\Order\CashierOrderController;
 use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\Customer\CustomerController;
 use App\Http\Controllers\Floor\FloorController;
@@ -67,11 +69,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/transaction_cancel/{id}', [CartTempController::class, 'transactionCancel'])->name('transaction_cancel');
     Route::get('/order_note', [CartTempController::class, 'orderNote'])->name('order_note');
     Route::get('/minus_qty', [CartTempController::class, 'MinusQty'])->name('minus_qty');
-
     Route::get('/order_confirm', [OrderConfirmController::class, 'store'])->name('order_confirm');
     Route::get('/pos_test_page', [TestController::class, 'index'])->name('pos_test_page');
-
     Route::get('/pos_pin_logout', [PinController::class, 'pinLogout'])->name('pos_pin_logout');
+
+    // Cashier 
+    Route::get('/cashier_main_page', [CashierMainController::class, 'index'])->name('cashier_main_page');
+    Route::get('/cashier_order', [CashierOrderController::class, 'index'])->name('cashier_order');
 
 
     // POS 

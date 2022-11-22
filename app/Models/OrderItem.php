@@ -24,4 +24,9 @@ class OrderItem extends Model
         'difference_time',
         'manager_remark',
     ];
+
+    public function menu_lists_table()
+    {
+        return $this->belongsTo(MenuList::class, 'menu_list_id', 'id');
+    }
 }

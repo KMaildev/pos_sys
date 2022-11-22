@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\PosSys\Pin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Department;
 use App\Models\LoginLog;
 use App\Models\User;
 use Carbon\Carbon;
@@ -45,7 +46,14 @@ class PinController extends Controller
 
             $userId = $user->id;
             Auth::loginUsingId($userId);
-            return redirect()->route('pos_main_page');
+
+            $department_id = auth()->user()->department_id;
+            $departmemt = Department::findOrFail($department_id);
+            if ($departmemt->title == 'Waiter') {
+                return redirect()->route('pos_main_page');
+            } else if ($departmemt->title == 'Cashier') {
+                return redirect()->route('cashier_main_page');
+            }
         } else {
             return redirect()->back()->with('error', 'PIN Code is not valid');
         }

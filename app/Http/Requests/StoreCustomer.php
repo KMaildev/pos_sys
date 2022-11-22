@@ -26,7 +26,7 @@ class StoreCustomer extends FormRequest
         return [
             'name' => 'required',
             'primary_number' => 'required|min:9|max:11|unique:customers,primary_number',
-            'email' => 'required|email|unique:customers,email',
+            // 'email' => 'required|email|unique:customers,email',
         ];
     }
 }

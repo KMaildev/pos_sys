@@ -190,3 +190,10 @@
     background-color: red;
     color: white;
 }
+
+.cashier_top_btn {
+    font-size: 20px;
+    width: 100%;
+    padding: 18px 32px !important;
+    color: white;
+}

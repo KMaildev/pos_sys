@@ -20,12 +20,6 @@
                     </a>
                 </li>
 
-                <li>
-                    <a href="{{ route('order_list.index') }}">
-                        <i data-feather="align-justify"></i>
-                        Complete order
-                    </a>
-                </li>
 
 
                 <li>
