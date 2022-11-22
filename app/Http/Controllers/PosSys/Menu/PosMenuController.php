@@ -11,7 +11,7 @@ use Inertia\Inertia;
 
 class PosMenuController extends Controller
 {
-    public function index($type, $category_id = null)
+    public function index(Request $request, $type = null, $category_id = null)
     {
         $categories = Category::where('type', $type)->get();
         if ($category_id == 'null') {

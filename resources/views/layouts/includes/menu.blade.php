@@ -11,6 +11,7 @@
                     </a>
                 </li>
 
+                <li class="menu-title" data-key="t-menu">Manager</li>
 
                 <li>
                     <a href="{{ route('order_list.index') }}">
@@ -18,6 +19,14 @@
                         Order List
                     </a>
                 </li>
+
+                <li>
+                    <a href="{{ route('order_list.index') }}">
+                        <i data-feather="align-justify"></i>
+                        Complete order
+                    </a>
+                </li>
+
 
                 <li>
                     <a href="{{ route('customer.index') }}">
