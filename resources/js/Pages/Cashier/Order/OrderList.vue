@@ -96,7 +96,7 @@ export default {
         },
 
         viewOrderDetail(id) {
-            this.$inertia.get(`/cashier_order?order_info_id=${id}`);
+            this.$inertia.get(`/view_order_detail/${id}`);
         }
     }
 }

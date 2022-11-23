@@ -31,6 +31,7 @@ class OrderInfo extends Model
         'created_at',
         'updated_at',
         'guest_no',
+        'change_amount',
     ];
 
     public function table_lists_table()

@@ -126,9 +126,4 @@ export default {
     height: 100%;
     border-color: gray;
 }
-
-.ScrollStyle {
-    max-height: 1000px;
-    overflow-y: scroll;
-}
 </style>

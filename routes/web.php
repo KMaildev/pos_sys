@@ -76,6 +76,8 @@ Route::middleware('auth')->group(function () {
     // Cashier 
     Route::get('/cashier_main_page', [CashierMainController::class, 'index'])->name('cashier_main_page');
     Route::get('/cashier_order', [CashierOrderController::class, 'index'])->name('cashier_order');
+    Route::get('/view_order_detail/{id}', [CashierOrderController::class, 'viewOrderDetail'])->name('view_order_detail');
+    Route::post('/preview_payment', [CashierOrderController::class, 'previewPayment'])->name('preview_payment');
 
 
     // POS 

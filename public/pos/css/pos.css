@@ -197,3 +197,9 @@
     padding: 18px 32px !important;
     color: white;
 }
+
+
+.ScrollStyle {
+    max-height: 1000px;
+    overflow-y: scroll;
+}
