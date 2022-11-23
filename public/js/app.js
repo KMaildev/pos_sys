@@ -5462,6 +5462,14 @@ __webpack_require__.r(__webpack_exports__);
     },
     submitPayment: function submitPayment() {
       this.$inertia.post('/preview_payment', this.form);
+    },
+    printInvoice: function printInvoice() {
+      printJS({
+        printable: "printArea",
+        type: "html",
+        css: ["http://localhost:8000/pos/css/bill.css"],
+        scanStyles: false
+      });
     }
   }
 });
@@ -6169,7 +6177,7 @@ var render = function render() {
       login_time: _vm.login_time
     }
   }, [_c("TopLink"), _vm._v(" "), _c("div", {
-    staticClass: "container-fluid ScrollStyle1"
+    staticClass: "container-fluid"
   }, [_c("div", {
     staticClass: "row py-4"
   }, [_c("div", {
@@ -6558,12 +6566,17 @@ var render = function render() {
   }, [_c("i", {
     staticClass: "fa fa-credit-card"
   }), _vm._v("\n                                    Preview\n                                ")])])])])]), _vm._v(" "), _c("div", {
-    staticClass: "col-md-4"
+    staticClass: "col-md-3"
+  }, [_c("div", {
+    attrs: {
+      id: "printArea"
+    }
+  }, [_c("center", [_c("div", {
+    staticClass: "bill"
   }, [_c("div", {
     staticClass: "receipt",
     staticStyle: {
-      "background-color": "white",
-      width: "100%"
+      "background-color": "white"
     }
   }, [_c("div", {
     staticClass: "mybill"
@@ -6572,42 +6585,42 @@ var render = function render() {
     staticStyle: {
       "font-size": "16px"
     }
-  }, [_vm._v("\n                                LV Restaurant\n                            ")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                                            LV Restaurant\n                                        ")]), _vm._v(" "), _c("div", {
     staticClass: "address",
     staticStyle: {
       "font-size": "16px"
     }
-  }, [_vm._v("\n                                FLoor 2 Building No 34 Myanmar\n                                "), _c("br"), _vm._v(" Phone No- 0192083910\n                            ")])]), _vm._v(" "), _c("br"), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                                            FLoor 2 Building No 34 Myanmar\n                                            "), _c("br"), _vm._v(" Phone No- 0192083910\n                                        ")])]), _vm._v(" "), _c("br"), _vm._v(" "), _c("div", {
     staticClass: "flex justify-between"
   }, [_c("div", {
     staticStyle: {
       "font-size": "16px"
     }
-  }, [_vm._v("\n                                Invoice:\n                                " + _vm._s((_vm$show_order_info$i2 = _vm.show_order_info.inv_no) !== null && _vm$show_order_info$i2 !== void 0 ? _vm$show_order_info$i2 : "-") + "\n                            ")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                                            " + _vm._s((_vm$show_order_info$i2 = _vm.show_order_info.inv_no) !== null && _vm$show_order_info$i2 !== void 0 ? _vm$show_order_info$i2 : "-") + "\n                                        ")]), _vm._v(" "), _c("div", {
     staticStyle: {
       "font-size": "16px"
     }
-  }, [_vm._v("\n                                Order No:\n                                " + _vm._s((_vm$show_order_info$o3 = _vm.show_order_info.order_no) !== null && _vm$show_order_info$o3 !== void 0 ? _vm$show_order_info$o3 : "-") + "\n                            ")])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                                            Order:\n                                            " + _vm._s((_vm$show_order_info$o3 = _vm.show_order_info.order_no) !== null && _vm$show_order_info$o3 !== void 0 ? _vm$show_order_info$o3 : "-") + "\n                                        ")])]), _vm._v(" "), _c("div", {
     staticClass: "flex justify-between"
   }, [_c("div", {
     staticStyle: {
       "font-size": "16px"
     }
-  }, [_vm._v("\n                                Date:\n                                " + _vm._s((_vm$show_order_info$o4 = _vm.show_order_info.order_date_time) !== null && _vm$show_order_info$o4 !== void 0 ? _vm$show_order_info$o4 : "-") + "\n                            ")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                                            Date:\n                                            " + _vm._s((_vm$show_order_info$o4 = _vm.show_order_info.order_date_time) !== null && _vm$show_order_info$o4 !== void 0 ? _vm$show_order_info$o4 : "-") + "\n                                        ")]), _vm._v(" "), _c("div", {
     staticStyle: {
       "font-size": "16px"
     }
-  }, [_vm._v("\n                                Table:\n                                " + _vm._s((_vm$show_order_info$t2 = _vm.show_order_info.table_lists_table.table_name) !== null && _vm$show_order_info$t2 !== void 0 ? _vm$show_order_info$t2 : "-") + "\n                            ")])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                                            Table:\n                                            " + _vm._s((_vm$show_order_info$t2 = _vm.show_order_info.table_lists_table.table_name) !== null && _vm$show_order_info$t2 !== void 0 ? _vm$show_order_info$t2 : "-") + "\n                                        ")])]), _vm._v(" "), _c("div", {
     staticClass: "flex justify-between"
   }, [_c("div", {
     staticStyle: {
       "font-size": "16px"
     }
-  }, [_vm._v("\n                                Customer:\n                                Mg Mg\n                            ")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                                            Customer:\n                                            Mg Mg\n                                        ")]), _vm._v(" "), _c("div", {
     staticStyle: {
       "font-size": "16px"
     }
-  }, [_vm._v("\n                                Guest:\n                                " + _vm._s((_vm$show_order_info$g2 = _vm.show_order_info.guest_no) !== null && _vm$show_order_info$g2 !== void 0 ? _vm$show_order_info$g2 : "-") + "\n                            ")])]), _vm._v(" "), _c("br"), _vm._v(" "), _c("table", {
+  }, [_vm._v("\n                                            Guest:\n                                            " + _vm._s((_vm$show_order_info$g2 = _vm.show_order_info.guest_no) !== null && _vm$show_order_info$g2 !== void 0 ? _vm$show_order_info$g2 : "-") + "\n                                        ")])]), _vm._v(" "), _c("br"), _vm._v(" "), _c("table", {
     staticClass: "table",
     staticStyle: {
       width: "100%"
@@ -6619,25 +6632,25 @@ var render = function render() {
       "font-size": "16px",
       width: "50px"
     }
-  }, [_vm._v("\n                                    Description\n                                ")]), _vm._v(" "), _c("th", {
+  }, [_vm._v("\n                                                Description\n                                            ")]), _vm._v(" "), _c("th", {
     staticStyle: {
       "font-size": "16px",
       width: "20%",
       "text-align": "right"
     }
-  }, [_vm._v("\n                                    Qty\n                                ")]), _vm._v(" "), _c("th", {
+  }, [_vm._v("\n                                                Qty\n                                            ")]), _vm._v(" "), _c("th", {
     staticStyle: {
       "font-size": "16px",
       width: "20%",
       "text-align": "right"
     }
-  }, [_vm._v("\n                                    Price\n                                ")]), _vm._v(" "), _c("th", {
+  }, [_vm._v("\n                                                Price\n                                            ")]), _vm._v(" "), _c("th", {
     staticStyle: {
       "font-size": "16px",
       width: "20%",
       "text-align": "right"
     }
-  }, [_vm._v("\n                                    Amount\n                                ")])]), _vm._v(" "), _vm._l(_vm.order_items, function (order_item) {
+  }, [_vm._v("\n                                                Amount\n                                            ")])]), _vm._v(" "), _vm._l(_vm.order_items, function (order_item) {
     return _c("tr", {
       key: order_item.id
     }, [_c("td", {
@@ -6645,25 +6658,25 @@ var render = function render() {
         width: "250px",
         padding: "3px"
       }
-    }, [_vm._v("\n                                    " + _vm._s(order_item.menu_lists_table.menu_name) + "\n                                ")]), _vm._v(" "), _c("td", {
+    }, [_vm._v("\n                                                " + _vm._s(order_item.menu_lists_table.menu_name) + "\n                                            ")]), _vm._v(" "), _c("td", {
       staticStyle: {
         width: "20%",
         padding: "3px",
         "text-align": "right"
       }
-    }, [_vm._v("\n                                    " + _vm._s(order_item.qty) + "\n                                ")]), _vm._v(" "), _c("td", {
+    }, [_vm._v("\n                                                " + _vm._s(order_item.qty) + "\n                                            ")]), _vm._v(" "), _c("td", {
       staticStyle: {
         width: "20%",
         padding: "3px",
         "text-align": "right"
       }
-    }, [_vm._v("\n                                    " + _vm._s(order_item.price) + "\n                                ")]), _vm._v(" "), _c("td", {
+    }, [_vm._v("\n                                                " + _vm._s(order_item.price) + "\n                                            ")]), _vm._v(" "), _c("td", {
       staticStyle: {
         width: "20%",
         padding: "3px",
         "text-align": "right"
       }
-    }, [_vm._v("\n                                    " + _vm._s(_vm.amountCalc(order_item)) + "\n                                ")])]);
+    }, [_vm._v("\n                                                " + _vm._s(_vm.amountCalc(order_item)) + "\n                                            ")])]);
   }), _vm._v(" "), _c("br"), _vm._v(" "), _c("tr", {}, [_c("td", {
     staticStyle: {
       "font-size": "16px"
@@ -6671,7 +6684,7 @@ var render = function render() {
     attrs: {
       colspan: "2"
     }
-  }, [_vm._v("\n                                    Total\n                                ")]), _vm._v(" "), _c("td", {
+  }, [_vm._v("\n                                                Total\n                                            ")]), _vm._v(" "), _c("td", {
     staticStyle: {
       "text-align": "center font-size: 16px"
     }
@@ -6679,14 +6692,14 @@ var render = function render() {
     staticStyle: {
       "text-align": "right"
     }
-  }, [_vm._v("\n                                    " + _vm._s(_vm.totalAmountCalc(_vm.order_items)) + "\n                                ")])]), _vm._v(" "), _c("tr", {}, [_c("td", {
+  }, [_vm._v("\n                                                " + _vm._s(_vm.totalAmountCalc(_vm.order_items)) + "\n                                            ")])]), _vm._v(" "), _c("tr", {}, [_c("td", {
     staticStyle: {
       "font-size": "16px"
     },
     attrs: {
       colspan: "2"
     }
-  }, [_vm._v("\n                                    Tax\n                                ")]), _vm._v(" "), _c("td", {
+  }, [_vm._v("\n                                                Tax\n                                            ")]), _vm._v(" "), _c("td", {
     staticStyle: {
       "text-align": "center font-size: 16px"
     }
@@ -6694,14 +6707,14 @@ var render = function render() {
     staticStyle: {
       "text-align": "right"
     }
-  }, [_vm._v("\n                                    " + _vm._s(_vm.form.tax) + "\n                                ")])]), _vm._v(" "), _c("tr", {}, [_c("td", {
+  }, [_vm._v("\n                                                " + _vm._s(_vm.form.tax) + "\n                                            ")])]), _vm._v(" "), _c("tr", {}, [_c("td", {
     staticStyle: {
       "font-size": "16px"
     },
     attrs: {
       colspan: "2"
     }
-  }, [_vm._v("\n                                    Disc\n                                ")]), _vm._v(" "), _c("td", {
+  }, [_vm._v("\n                                                Disc\n                                            ")]), _vm._v(" "), _c("td", {
     staticStyle: {
       "text-align": "center font-size: 16px"
     }
@@ -6709,14 +6722,14 @@ var render = function render() {
     staticStyle: {
       "text-align": "right"
     }
-  }, [_vm._v("\n                                    " + _vm._s(_vm.form.disc) + "\n                                ")])]), _vm._v(" "), _c("tr", {}, [_c("td", {
+  }, [_vm._v("\n                                                " + _vm._s(_vm.form.disc) + "\n                                            ")])]), _vm._v(" "), _c("tr", {}, [_c("td", {
     staticStyle: {
       "font-size": "16px"
     },
     attrs: {
       colspan: "2"
     }
-  }, [_vm._v("\n                                    Service Charges\n                                ")]), _vm._v(" "), _c("td", {
+  }, [_vm._v("\n                                                Service Charges\n                                            ")]), _vm._v(" "), _c("td", {
     staticStyle: {
       "text-align": "center font-size: 16px"
     }
@@ -6724,14 +6737,14 @@ var render = function render() {
     staticStyle: {
       "text-align": "right"
     }
-  }, [_vm._v("\n                                    " + _vm._s(_vm.form.service_charges) + "\n                                ")])]), _vm._v(" "), _c("tr", {}, [_c("td", {
+  }, [_vm._v("\n                                                " + _vm._s(_vm.form.service_charges) + "\n                                            ")])]), _vm._v(" "), _c("tr", {}, [_c("td", {
     staticStyle: {
       "font-size": "16px"
     },
     attrs: {
       colspan: "2"
     }
-  }, [_vm._v("\n                                    Net Amount\n                                ")]), _vm._v(" "), _c("td", {
+  }, [_vm._v("\n                                                Net Amount\n                                            ")]), _vm._v(" "), _c("td", {
     staticStyle: {
       "text-align": "center font-size: 16px"
     }
@@ -6739,14 +6752,14 @@ var render = function render() {
     staticStyle: {
       "text-align": "right"
     }
-  }, [_vm._v("\n                                    " + _vm._s(_vm.form.net_amount) + "\n                                ")])]), _vm._v(" "), _c("tr", {}, [_c("td", {
+  }, [_vm._v("\n                                                " + _vm._s(_vm.form.net_amount) + "\n                                            ")])]), _vm._v(" "), _c("tr", {}, [_c("td", {
     staticStyle: {
       "font-size": "16px"
     },
     attrs: {
       colspan: "2"
     }
-  }, [_vm._v("\n                                    Total Amount\n                                ")]), _vm._v(" "), _c("td", {
+  }, [_vm._v("\n                                                Total Amount\n                                            ")]), _vm._v(" "), _c("td", {
     staticStyle: {
       "text-align": "center font-size: 16px"
     }
@@ -6754,14 +6767,14 @@ var render = function render() {
     staticStyle: {
       "text-align": "right"
     }
-  }, [_vm._v("\n                                    " + _vm._s(_vm.form.received_amount) + "\n                                ")])]), _vm._v(" "), _c("tr", {}, [_c("td", {
+  }, [_vm._v("\n                                                " + _vm._s(_vm.form.received_amount) + "\n                                            ")])]), _vm._v(" "), _c("tr", {}, [_c("td", {
     staticStyle: {
       "font-size": "16px"
     },
     attrs: {
       colspan: "2"
     }
-  }, [_vm._v("\n                                    Pay Type\n                                ")]), _vm._v(" "), _c("td", {
+  }, [_vm._v("\n                                                Pay Type\n                                            ")]), _vm._v(" "), _c("td", {
     staticStyle: {
       "text-align": "center font-size: 16px"
     }
@@ -6769,19 +6782,24 @@ var render = function render() {
     staticStyle: {
       "text-align": "right"
     }
-  }, [_vm._v("\n                                    " + _vm._s(_vm.form.payment_type) + "\n                                ")])])], 2), _vm._v(" "), _c("p", {
+  }, [_vm._v("\n                                                " + _vm._s(_vm.form.payment_type) + "\n                                            ")])])], 2), _vm._v(" "), _c("p", {
     staticStyle: {
       "text-align": "center"
     }
-  }, [_vm._v("\n                            Thank You! "), _c("br"), _vm._v("\n                            Please visit again\n                        ")])]), _vm._v(" "), _c("br"), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                                        ** Thank You ** "), _c("br"), _vm._v("\n                                        Please visit again\n                                    ")])])])])], 1), _vm._v(" "), _c("br"), _vm._v(" "), _c("div", {
     staticClass: "d-grid gap-2"
   }, [_c("button", {
-    staticClass: "btn btn-success btn-lg",
+    staticClass: "btn btn-warning btn-lg",
     attrs: {
-      type: "submit"
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.printInvoice();
+      }
     }
   }, [_c("i", {
-    staticClass: "fa fa-credit-card"
+    staticClass: "fa fa-print"
   }), _vm._v("\n                            Print\n                        ")])])])])])], 1)], 1);
 };
 var staticRenderFns = [];

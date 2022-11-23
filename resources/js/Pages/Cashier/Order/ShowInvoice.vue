@@ -3,7 +3,7 @@
         <CashierMaster :user_name="user_name" :login_time="login_time">
             <TopLink></TopLink>
 
-            <div class="container-fluid ScrollStyle1">
+            <div class="container-fluid">
                 <div class="row py-4">
 
                     <div class="col-md-4">
@@ -196,192 +196,195 @@
                         </form>
                     </div>
 
-
-
                     <!-- Print Area  -->
-                    <div class="col-md-4">
-                        <div class="receipt" style="background-color: white; width: 100%;">
+                    <div class="col-md-3">
+                        <div id="printArea">
+                            <center>
+                                <div class="bill">
+                                    <div class="receipt" style="background-color: white;">
 
-                            <div class="mybill">
-                                <div class="brand" style="font-size: 16px;">
-                                    LV Restaurant
+                                        <div class="mybill">
+                                            <div class="brand" style="font-size: 16px;">
+                                                LV Restaurant
+                                            </div>
+                                            <div class="address" style="font-size: 16px;">
+                                                FLoor 2 Building No 34 Myanmar
+                                                <br> Phone No- 0192083910
+                                            </div>
+                                        </div>
+                                        <br>
+
+                                        <div class="flex justify-between">
+                                            <div style="font-size: 16px;">
+                                                {{ show_order_info.inv_no ?? '-' }}
+                                            </div>
+                                            <div style="font-size: 16px;">
+                                                Order:
+                                                {{ show_order_info.order_no ?? '-' }}
+                                            </div>
+                                        </div>
+
+                                        <div class="flex justify-between">
+                                            <div style="font-size: 16px;">
+                                                Date:
+                                                {{ show_order_info.order_date_time ?? '-' }}
+                                            </div>
+                                            <div style="font-size: 16px;">
+                                                Table:
+                                                {{ show_order_info.table_lists_table.table_name ?? '-' }}
+                                            </div>
+                                        </div>
+
+                                        <div class="flex justify-between">
+
+                                            <div style="font-size: 16px;">
+                                                Customer:
+                                                Mg Mg
+                                            </div>
+
+                                            <div style="font-size: 16px;">
+                                                Guest:
+                                                {{ show_order_info.guest_no ?? '-' }}
+                                            </div>
+                                        </div>
+
+                                        <br>
+
+                                        <table class="table" style="width: 100%">
+                                            <tr class="header">
+                                                <th style="font-size: 16px; width: 50px;">
+                                                    Description
+                                                </th>
+                                                <th style="font-size: 16px; width: 20%; text-align: right;">
+                                                    Qty
+                                                </th>
+                                                <th style="font-size: 16px; width: 20%; text-align: right;">
+                                                    Price
+                                                </th>
+                                                <th style="font-size: 16px; width: 20%; text-align: right;">
+                                                    Amount
+                                                </th>
+                                            </tr>
+
+                                            <tr v-for="order_item in order_items" :key="order_item.id">
+
+                                                <td style="width: 250px; padding: 3px;">
+                                                    {{ order_item.menu_lists_table.menu_name }}
+                                                </td>
+
+                                                <td style="width: 20%; padding: 3px; text-align: right;">
+                                                    {{ order_item.qty }}
+                                                </td>
+
+                                                <td style="width: 20%; padding: 3px; text-align: right;">
+                                                    {{ order_item.price }}
+                                                </td>
+
+                                                <td style="width: 20%; padding: 3px; text-align: right;">
+                                                    {{ amountCalc(order_item) }}
+                                                </td>
+
+                                            </tr>
+
+                                            <br>
+                                            <!-- Total  -->
+                                            <tr class="">
+                                                <td style="font-size: 16px;" colspan="2">
+                                                    Total
+                                                </td>
+                                                <td style="text-align: center font-size: 16px;"></td>
+
+                                                <td style="text-align: right;">
+                                                    {{ totalAmountCalc(order_items) }}
+                                                </td>
+                                            </tr>
+
+                                            <!-- Tax  -->
+                                            <tr class="">
+                                                <td style="font-size: 16px;" colspan="2">
+                                                    Tax
+                                                </td>
+                                                <td style="text-align: center font-size: 16px;"></td>
+
+                                                <td style="text-align: right;">
+                                                    {{ form.tax }}
+                                                </td>
+                                            </tr>
+
+                                            <!-- Disc -->
+                                            <tr class="">
+                                                <td style="font-size: 16px;" colspan="2">
+                                                    Disc
+                                                </td>
+                                                <td style="text-align: center font-size: 16px;"></td>
+
+                                                <td style="text-align: right;">
+                                                    {{ form.disc }}
+                                                </td>
+                                            </tr>
+
+                                            <!-- Services Charges -->
+                                            <tr class="">
+                                                <td style="font-size: 16px;" colspan="2">
+                                                    Service Charges
+                                                </td>
+                                                <td style="text-align: center font-size: 16px;"></td>
+
+                                                <td style="text-align: right;">
+                                                    {{ form.service_charges }}
+                                                </td>
+                                            </tr>
+
+                                            <!-- Net Amount  -->
+                                            <tr class="">
+                                                <td style="font-size: 16px;" colspan="2">
+                                                    Net Amount
+                                                </td>
+                                                <td style="text-align: center font-size: 16px;"></td>
+
+                                                <td style="text-align: right;">
+                                                    {{ form.net_amount }}
+                                                </td>
+                                            </tr>
+
+                                            <!-- Received -->
+                                            <tr class="">
+                                                <td style="font-size: 16px;" colspan="2">
+                                                    Total Amount
+                                                </td>
+                                                <td style="text-align: center font-size: 16px;"></td>
+
+                                                <td style="text-align: right;">
+                                                    {{ form.received_amount }}
+                                                </td>
+                                            </tr>
+
+                                            <!-- payment_type -->
+                                            <tr class="">
+                                                <td style="font-size: 16px;" colspan="2">
+                                                    Pay Type
+                                                </td>
+                                                <td style="text-align: center font-size: 16px;"></td>
+
+                                                <td style="text-align: right;">
+                                                    {{ form.payment_type }}
+                                                </td>
+                                            </tr>
+                                        </table>
+
+                                        <p style="text-align: center">
+                                            ** Thank You ** <br>
+                                            Please visit again
+                                        </p>
+
+                                    </div>
                                 </div>
-                                <div class="address" style="font-size: 16px;">
-                                    FLoor 2 Building No 34 Myanmar
-                                    <br> Phone No- 0192083910
-                                </div>
-                            </div>
-                            <br>
-
-                            <div class="flex justify-between">
-                                <div style="font-size: 16px;">
-                                    Invoice:
-                                    {{ show_order_info.inv_no ?? '-' }}
-                                </div>
-                                <div style="font-size: 16px;">
-                                    Order No:
-                                    {{ show_order_info.order_no ?? '-' }}
-                                </div>
-                            </div>
-
-                            <div class="flex justify-between">
-                                <div style="font-size: 16px;">
-                                    Date:
-                                    {{ show_order_info.order_date_time ?? '-' }}
-                                </div>
-                                <div style="font-size: 16px;">
-                                    Table:
-                                    {{ show_order_info.table_lists_table.table_name ?? '-' }}
-                                </div>
-                            </div>
-
-                            <div class="flex justify-between">
-
-                                <div style="font-size: 16px;">
-                                    Customer:
-                                    Mg Mg
-                                </div>
-
-                                <div style="font-size: 16px;">
-                                    Guest:
-                                    {{ show_order_info.guest_no ?? '-' }}
-                                </div>
-                            </div>
-
-                            <br>
-
-                            <table class="table" style="width: 100%">
-                                <tr class="header">
-                                    <th style="font-size: 16px; width: 50px;">
-                                        Description
-                                    </th>
-                                    <th style="font-size: 16px; width: 20%; text-align: right;">
-                                        Qty
-                                    </th>
-                                    <th style="font-size: 16px; width: 20%; text-align: right;">
-                                        Price
-                                    </th>
-                                    <th style="font-size: 16px; width: 20%; text-align: right;">
-                                        Amount
-                                    </th>
-                                </tr>
-
-                                <tr v-for="order_item in order_items" :key="order_item.id">
-
-                                    <td style="width: 250px; padding: 3px;">
-                                        {{ order_item.menu_lists_table.menu_name }}
-                                    </td>
-
-                                    <td style="width: 20%; padding: 3px; text-align: right;">
-                                        {{ order_item.qty }}
-                                    </td>
-
-                                    <td style="width: 20%; padding: 3px; text-align: right;">
-                                        {{ order_item.price }}
-                                    </td>
-
-                                    <td style="width: 20%; padding: 3px; text-align: right;">
-                                        {{ amountCalc(order_item) }}
-                                    </td>
-
-                                </tr>
-
-                                <br>
-                                <!-- Total  -->
-                                <tr class="">
-                                    <td style="font-size: 16px;" colspan="2">
-                                        Total
-                                    </td>
-                                    <td style="text-align: center font-size: 16px;"></td>
-
-                                    <td style="text-align: right;">
-                                        {{ totalAmountCalc(order_items) }}
-                                    </td>
-                                </tr>
-
-                                <!-- Tax  -->
-                                <tr class="">
-                                    <td style="font-size: 16px;" colspan="2">
-                                        Tax
-                                    </td>
-                                    <td style="text-align: center font-size: 16px;"></td>
-
-                                    <td style="text-align: right;">
-                                        {{ form.tax }}
-                                    </td>
-                                </tr>
-
-                                <!-- Disc -->
-                                <tr class="">
-                                    <td style="font-size: 16px;" colspan="2">
-                                        Disc
-                                    </td>
-                                    <td style="text-align: center font-size: 16px;"></td>
-
-                                    <td style="text-align: right;">
-                                        {{ form.disc }}
-                                    </td>
-                                </tr>
-
-                                <!-- Services Charges -->
-                                <tr class="">
-                                    <td style="font-size: 16px;" colspan="2">
-                                        Service Charges
-                                    </td>
-                                    <td style="text-align: center font-size: 16px;"></td>
-
-                                    <td style="text-align: right;">
-                                        {{ form.service_charges }}
-                                    </td>
-                                </tr>
-
-                                <!-- Net Amount  -->
-                                <tr class="">
-                                    <td style="font-size: 16px;" colspan="2">
-                                        Net Amount
-                                    </td>
-                                    <td style="text-align: center font-size: 16px;"></td>
-
-                                    <td style="text-align: right;">
-                                        {{ form.net_amount }}
-                                    </td>
-                                </tr>
-
-                                <!-- Received -->
-                                <tr class="">
-                                    <td style="font-size: 16px;" colspan="2">
-                                        Total Amount
-                                    </td>
-                                    <td style="text-align: center font-size: 16px;"></td>
-
-                                    <td style="text-align: right;">
-                                        {{ form.received_amount }}
-                                    </td>
-                                </tr>
-
-                                <!-- payment_type -->
-                                <tr class="">
-                                    <td style="font-size: 16px;" colspan="2">
-                                        Pay Type
-                                    </td>
-                                    <td style="text-align: center font-size: 16px;"></td>
-
-                                    <td style="text-align: right;">
-                                        {{ form.payment_type }}
-                                    </td>
-                                </tr>
-                            </table>
-
-                            <p style="text-align: center">
-                                Thank You! <br>
-                                Please visit again
-                            </p>
-
+                            </center>
                         </div>
                         <br>
                         <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-success btn-lg">
-                                <i class="fa fa-credit-card"></i>
+                            <button @click="printInvoice()" type="button" class="btn btn-warning btn-lg">
+                                <i class="fa fa-print"></i>
                                 Print
                             </button>
                         </div>
@@ -447,6 +450,17 @@ export default {
 
         submitPayment() {
             this.$inertia.post('/preview_payment', this.form);
+        },
+
+        printInvoice() {
+            printJS({
+                printable: "printArea",
+                type: "html",
+                css: [
+                    "http://localhost:8000/pos/css/bill.css"
+                ],
+                scanStyles: false
+            });
         }
     }
 }

@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="{{ asset('pos/libs/twitter-bootstrap-wizard/prettify.css') }}">
     <link rel="stylesheet" href="{{ asset('pos/css/pos.css') }}">
     <link rel="stylesheet" href="{{ asset('pos/css/bill.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/print/print.min.css') }}">
 
     <link href="{{ mix('/css/app.css') }}" rel="stylesheet" />
     @inertiaHead
@@ -50,6 +51,8 @@
 <script src="{{ asset('assets/js/sweetalert.min.js') }}"></script>
 <script src="{{ asset('assets/libs/pace-js/pace.min.js') }}"></script>
 <script src="{{ asset('assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js') }}"></script>
+
+<script src="{{ asset('assets/print/print.min.js') }}"></script>
 
 @routes
 <script src="{{ mix('/js/app.js') }}" defer></script>
