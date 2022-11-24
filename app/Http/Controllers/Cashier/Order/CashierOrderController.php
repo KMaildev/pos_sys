@@ -84,7 +84,7 @@ class CashierOrderController extends Controller
 
         BillInfo::create([
             'order_info_id' => $order_info_id,
-            'customer_id' => $request->customer,
+            'customer_id' => $request->customer ?? 0,
             'table_list_id' => $order_info->table_list_id,
 
             'bill_date_time' => date('Y-m-d h:i:s A'),
@@ -99,9 +99,9 @@ class CashierOrderController extends Controller
             'net_amount' => $request->net_amount,
             'received_amount' => $request->received_amount,
             'change_amount' => $request->change_amount,
-
             'cashier_user_id' => auth()->user()->id ?? 0,
-
+            'waiter_user_id' => $order_info->waiter_user_id,
+            'date_only' => date('Y-m-d'),
         ]);
     }
 }

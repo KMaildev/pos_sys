@@ -26,5 +26,32 @@ class BillInfo extends Model
         'created_at',
         'updated_at',
         'change_amount',
+        'waiter_user_id',
+        'date_only',
     ];
+
+    public function order_infos_table()
+    {
+        return $this->belongsTo(OrderInfo::class, 'order_info_id', 'id');
+    }
+
+    public function table_lists_table()
+    {
+        return $this->belongsTo(TableList::class, 'table_list_id', 'id');
+    }
+
+    public function customer_table()
+    {
+        return $this->belongsTo(Customer::class, 'customer_id', 'id');
+    }
+
+    public function cashier_user()
+    {
+        return $this->belongsTo(User::class, 'cashier_user_id', 'id');
+    }
+
+    public function waiter_user_table()
+    {
+        return $this->belongsTo(User::class, 'waiter_user_id', 'id');
+    }
 }

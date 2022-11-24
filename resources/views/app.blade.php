@@ -51,9 +51,8 @@
 <script src="{{ asset('assets/js/sweetalert.min.js') }}"></script>
 <script src="{{ asset('assets/libs/pace-js/pace.min.js') }}"></script>
 <script src="{{ asset('assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js') }}"></script>
-
 <script src="{{ asset('assets/print/print.min.js') }}"></script>
-
+<script src="{{ asset('assets/js/pages/dashboard.init.js') }}"></script>
 @routes
 <script src="{{ mix('/js/app.js') }}" defer></script>
 

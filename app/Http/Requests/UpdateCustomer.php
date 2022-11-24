@@ -27,7 +27,7 @@ class UpdateCustomer extends FormRequest
         return [
             'name' => 'required',
             'primary_number' => 'required|min:9|max:11|unique:customers,primary_number,' . $id,
-            'email' => 'required|email|unique:customers,email,' . $id,
+            // 'email' => 'required|email|unique:customers,email,' . $id,
         ];
     }
 }

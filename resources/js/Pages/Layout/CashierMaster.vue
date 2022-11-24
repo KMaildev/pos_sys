@@ -14,10 +14,10 @@
                     </div>
 
                     <div class="col-md-3">
-                        <button class="btn btn-lg btn-default float-end top_btn" type="button"
+                        <a href="/pos_pin_logout" class="btn btn-lg btn-default float-end top_btn" type="button"
                             style="background-color: #DCAE2C">
                             SignOut
-                        </button>
+                        </a>
                     </div>
                 </div>
             </header>

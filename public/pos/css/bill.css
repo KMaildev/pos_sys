@@ -1,15 +1,15 @@
 .receipt {
     padding: 5mm;
     width: 80mm;
-    justify-content: center;
+    /* justify-content: center; */
 }
 
 .bill {
     /* width: 100%;
     padding: 10px 10px;
     box-sizing: border-box; */
-    padding: 3mm;
-    width: 80mm;
+    /* padding: 3mm; */
+    /* width: 80mm; */
     justify-content: center;
 }
 
