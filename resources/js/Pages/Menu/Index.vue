@@ -8,9 +8,7 @@
             <!-- Main Category  -->
             <MainCategory :categories="categories"></MainCategory>
         </div>
-
         <ButtonProcress></ButtonProcress>
-
     </master>
 </template>
 <script>
@@ -19,7 +17,6 @@ import MainCategory from './components/MainCategory.vue';
 import MenuList from './components/MenuList.vue';
 import OrderItem from './components/OrderItem.vue';
 import ButtonProcress from './components/ButtonProcress.vue';
-
 
 export default {
     components: {

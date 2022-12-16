@@ -16,6 +16,11 @@ createInertiaApp({
         );
         Vue.component('Link', Link)
         new Vue({
+            data() {
+                return {
+                    cart: [],
+                }
+            },
             render: h => h(App, props),
         }).$mount(el)
     },

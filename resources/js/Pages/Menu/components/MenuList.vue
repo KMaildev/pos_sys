@@ -13,7 +13,7 @@
                         Data Not Found
                     </span>
                     <div class="col-3" v-for="menu_list in menu_lists" :key="menu_list.id">
-                        <button class="meal_btn" @click="cartTemp(menu_list.id, menu_list.price)"
+                        <button class="meal_btn" @click="addToCart(menu_list)"
                             :style="{ 'background-color': menu_list.category_table.background_color }">
                             {{ menu_list.menu_name }}
                         </button>
@@ -33,9 +33,26 @@ export default {
     ],
 
     methods: {
-        cartTemp(menu_list_id, price) {
-            this.$inertia.get(`/store_cart_temp?menu_list_id=${menu_list_id}&price=${price}`);
+
+        addToCart(menu_list) {
+            var cart = this.$root.cart;
+            var isInCart = cart.find(v => {
+                return v.id == menu_list.id;
+            });
+            if (isInCart) {
+                isInCart.qty++
+            } else {
+                cart.push({ ...menu_list, qty: 1 });
+            }
         },
+
+        // cartTemp(menu_list_id, price) {
+        //     this.$inertia.get(`/store_cart_temp?menu_list_id=${menu_list_id}&price=${price}`);
+        // },
+
+        // cartTemp(menu_list_id, price) {
+        //     this.$inertia.get(`/store_cart_temp?menu_list_id=${menu_list_id}&price=${price}`);
+        // },
     },
 
 }

@@ -75,6 +75,42 @@
                 </table>
 
             </div>
+
+
+            <table>
+                <tr>
+                    <th style="font-size: 16px; width: 50px;">
+                        Description
+                    </th>
+                    <th style="font-size: 16px; width: 20%; text-align: right;">
+                        Qty
+                    </th>
+                    <th style="font-size: 16px; width: 20%; text-align: right;">
+                        Price
+                    </th>
+                    <th style="font-size: 16px; width: 20%; text-align: right;">
+                        Amount
+                    </th>
+                </tr>
+
+                <tr v-for="(cart_list, index) in cart_lists" :key="index">
+                    <td>
+                        {{ cart_list.menu_name }}
+                    </td>
+
+                    <td>
+                        {{ cart_list.qty }}
+                    </td>
+
+                    <td>
+                        {{ cart_list.price }}
+                    </td>
+
+                    <td>
+                        {{ cart_list.qty * cart_list.price }}
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
 </template>
@@ -106,6 +142,8 @@ export default {
                 fixDeleteKey: true,
                 stopPropagation: true,
             },
+
+            cart_lists: [],
         }
     },
 
@@ -158,6 +196,8 @@ export default {
             localStorage.setItem("guest_no", this.value);
             this.show = 0;
         }.bind(this));
+
+        this.cart_lists = this.$root.cart;
     }
 
 }
