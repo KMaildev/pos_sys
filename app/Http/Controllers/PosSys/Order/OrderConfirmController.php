@@ -77,4 +77,15 @@ class OrderConfirmController extends Controller
             return redirect()->back()->with('error', 'Error');
         }
     }
+
+    public function store_test(Request $request)
+    {
+        $items = $request->cart_lists;
+        foreach ($items as $key => $value) {
+            CartTemp::create([
+                'remark' => $value['menu_name'],
+                'qty' => $value['qty'],
+            ]);
+        }
+    }
 }

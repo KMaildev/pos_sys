@@ -5817,10 +5817,16 @@ __webpack_require__.r(__webpack_exports__);
   name: "ButtonProcress",
   data: function data() {
     return {
-      table_id: localStorage.getItem("table_id")
+      table_id: localStorage.getItem("table_id"),
+      form: {
+        cart_lists: []
+      }
     };
   },
   methods: {
+    orderConfirmTest: function orderConfirmTest() {
+      this.$inertia.post('/order_confirm_test', this.form);
+    },
     orderConfirm: function orderConfirm() {
       var _this = this;
       var table_list_id = localStorage.getItem("table_id");
@@ -5945,6 +5951,9 @@ __webpack_require__.r(__webpack_exports__);
         dangerMode: false
       }).then(function (willDelete) {});
     }
+  },
+  created: function created() {
+    this.form.cart_lists = this.$root.cart;
   }
 });
 
@@ -8683,7 +8692,16 @@ var render = function render() {
         return _vm.orderConfirm();
       }
     }
-  }, [_vm._v("\n                    Pay\n                ")])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                    Pay\n                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-sm-2 col-lg-2 col-md-2"
+  }, [_c("button", {
+    staticClass: "pay_btn",
+    on: {
+      click: function click($event) {
+        return _vm.orderConfirmTest();
+      }
+    }
+  }, [_vm._v("\n                    Order Confirm\n                ")])])]), _vm._v(" "), _c("div", {
     staticClass: "row py-2"
   }, [_c("div", {
     staticClass: "col-sm-2 col-lg-2 col-md-2"

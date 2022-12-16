@@ -14,6 +14,12 @@
                         Pay
                     </button>
                 </div>
+
+                <div class="col-sm-2 col-lg-2 col-md-2">
+                    <button @click="orderConfirmTest()" class="pay_btn">
+                        Order Confirm
+                    </button>
+                </div>
             </div>
 
             <div class="row py-2">
@@ -69,10 +75,20 @@ export default {
     data() {
         return {
             table_id: localStorage.getItem("table_id"),
+
+            form: {
+                cart_lists: [],
+            }
         }
     },
 
     methods: {
+
+        orderConfirmTest() {
+            this.$inertia.post('/order_confirm_test', this.form);
+        },
+
+
         orderConfirm() {
             const table_list_id = localStorage.getItem("table_id");
             const guest_no = localStorage.getItem("guest_no");
@@ -220,6 +236,10 @@ export default {
                 });
         }
     },
+
+    created() {
+        this.form.cart_lists = this.$root.cart;
+    }
 }
 </script>
 <style>
