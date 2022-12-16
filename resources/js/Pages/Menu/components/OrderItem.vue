@@ -1,8 +1,6 @@
 <template>
     <div class="col-xl-3 col-md-3 col-lg-3">
-
         <div class="" style="background-color: white;">
-
             <div class="card-header d-flex">
                 <h4 class="card-title mb-0 flex-grow-1 category_title"
                     style="font-size: 20px; font-weight: bold; text-align: left;">
@@ -73,7 +71,6 @@
                         </th>
                     </tr>
                 </table>
-
             </div>
 
 

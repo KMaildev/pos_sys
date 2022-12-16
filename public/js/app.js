@@ -8640,7 +8640,7 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "row",
     staticStyle: {
-      height: "calc(600px - 25px)"
+      height: "calc(550px - 25px)"
     }
   }, [_c("OrderItem", {
     attrs: {
