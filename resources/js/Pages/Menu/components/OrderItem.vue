@@ -1,5 +1,5 @@
 <template>
-    <div class="col-xl-3 col-md-3 col-lg-3">
+    <div class="col-xl-4 col-md-4 col-lg-4">
         <div class="" style="background-color: white;">
             <div class="card-header d-flex">
                 <h4 class="card-title mb-0 flex-grow-1 category_title"
@@ -15,99 +15,51 @@
 
             <div class="card-body" style="margin: 5px;">
                 <table class="table">
-                    <tr class="header">
-                        <th style="font-size: 16px; width: 50px;">
-                            Description
-                        </th>
-                        <th style="font-size: 16px; width: 20%; text-align: right;">
-                            Qty
-                        </th>
-                        <th style="font-size: 16px; width: 20%; text-align: right;">
-                            Price
-                        </th>
-                        <th style="font-size: 16px; width: 20%; text-align: right;">
-                            Amount
-                        </th>
-                    </tr>
+                    <thead class="table-light">
+                        <tr>
+                            <th style="width: 40%; font-size: 18px;">
+                                Items
+                            </th>
+                            <th class="text-center" style="width: 25%; font-size: 18px;">
+                                Quantity
+                            </th>
+                            <th class="text-center" style="width: 20%; font-size: 18px;">
+                                Price
+                            </th>
+                            <th class="text-center" style="width: 20%; font-size: 18px;">
+                                Total
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(cart_list, index) in cart_lists" :key="index">
+                            <td v-on:click="addRemark()">
+                                {{ cart_list.menu_name }}
+                            </td>
+
+                            <td class="text-center">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" :value="cart_list.qty"
+                                        style="width: 10px; font-size: 15px;">
+                                    <span class="input-group-text" @click="reduceQty(cart_list, index)">
+                                        <i class="fa fa-minus fa-lg"></i>
+                                    </span>
+                                </div>
+                            </td>
+
+                            <td style="text-align: center;" v-on:click="itemRemove(index)">
+                                {{ cart_list.price }}
+                            </td>
+
+                            <td style="text-align: right;" v-on:click="itemRemove(index)">
+                                {{ cart_list.qty * cart_list.price }}
+                            </td>
+                        </tr>
+
+                    </tbody>
                 </table>
 
-                <tbody>
-                    <tr v-for="cart_temp in cart_temps" :key="cart_temp.id"
-                        :class="activeItemId == cart_temp.id ? 'active' : ''"
-                        @click="currentCartTemp(cart_temp.id, cart_temp.menu_lists_table.menu_name, cart_temp.qty)"
-                        v-on:dblclick="MinusQty(cart_temp.id)">
-
-                        <td style="width: 200px; padding: 3px;">
-                            {{ cart_temp.menu_lists_table.menu_name }}
-                        </td>
-
-                        <td style="width: 20%; padding: 3px; text-align: right;">
-                            {{ cart_temp.qty }}
-                        </td>
-
-                        <td style="width: 20%; padding: 3px; text-align: right;">
-                            {{ cart_temp.price }}
-                        </td>
-
-                        <td style="width: 20%; padding: 3px; text-align: right;">
-                            {{ amountCalc(cart_temp) }}
-                        </td>
-                    </tr>
-                </tbody>
-
-                <table class="table">
-                    <tr class="header">
-                        <th style="font-size: 16px; width: 50px;">
-                            Subtotal
-                        </th>
-                        <th style="font-size: 16px; width: 20%; text-align: right;">
-                            {{ totalQtyCalc(cart_temps) }}
-                        </th>
-                        <th style="font-size: 16px; width: 20%; text-align: right;">
-                            {{ totalPriceCalc(cart_temps) }}
-                        </th>
-                        <th style="font-size: 16px; width: 20%; text-align: right;">
-                            {{ totalAmountCalc(cart_temps) }}
-                        </th>
-                    </tr>
-                </table>
             </div>
-
-
-            <table>
-                <tr>
-                    <th style="font-size: 16px; width: 50px;">
-                        Description
-                    </th>
-                    <th style="font-size: 16px; width: 20%; text-align: right;">
-                        Qty
-                    </th>
-                    <th style="font-size: 16px; width: 20%; text-align: right;">
-                        Price
-                    </th>
-                    <th style="font-size: 16px; width: 20%; text-align: right;">
-                        Amount
-                    </th>
-                </tr>
-
-                <tr v-for="(cart_list, index) in cart_lists" :key="index">
-                    <td>
-                        {{ cart_list.menu_name }}
-                    </td>
-
-                    <td>
-                        {{ cart_list.qty }}
-                    </td>
-
-                    <td>
-                        {{ cart_list.price }}
-                    </td>
-
-                    <td>
-                        {{ cart_list.qty * cart_list.price }}
-                    </td>
-                </tr>
-            </table>
         </div>
     </div>
 </template>
@@ -120,18 +72,14 @@ export default {
     },
 
     props: [
-        'cart_temps',
         'user_name',
     ],
 
     data() {
         return {
             table_name: localStorage.getItem("table_name"),
-            activeItemId: '',
-            menuName: '',
-            qty: 0,
-
             value: localStorage.getItem("guest_no"),
+
             show: 0,
             options: {
                 keyRandomize: false,
@@ -145,22 +93,21 @@ export default {
     },
 
     methods: {
-        currentCartTemp(cart_temp_id, menu_name, qty) {
-            this.activeItemId = cart_temp_id;
-            this.menuName = menu_name;
-            this.qty = qty;
-
-            localStorage.setItem("activeItemId", cart_temp_id);
-            localStorage.setItem("menuName", menu_name);
-            localStorage.setItem("current_qty", qty);
+        itemRemove(index) {
+            var cart = this.$root.cart;
+            cart.splice(index, 1);
         },
 
-        MinusQty(cart_temp_id) {
-            this.$inertia.get(`/minus_qty?cart_temp_id=${cart_temp_id}`);
+        addRemark() {
+            alert('Remark')
         },
 
-        amountCalc(cart_temp) {
-            return cart_temp.price * cart_temp.qty;
+        reduceQty(cart_list, index) {
+            if (cart_list.qty > 1) {
+                cart_list.qty--;
+            } else {
+                // this.itemRemove(index);
+            }
         },
 
         totalQtyCalc(cart_temps) {

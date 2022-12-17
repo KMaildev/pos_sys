@@ -1,5 +1,5 @@
 <template>
-    <div class="col-xl-6 col-md-6 col-lg-6 col-sm-6">
+    <div class="col-xl-5 col-md-5 col-lg-5 col-sm-5">
         <div class="card">
             <h4 class="card-title mb-0 flex-grow-1 category_title">
                 Category
@@ -33,7 +33,6 @@ export default {
     ],
 
     methods: {
-
         addToCart(menu_list) {
             var cart = this.$root.cart;
             var isInCart = cart.find(v => {
@@ -45,14 +44,6 @@ export default {
                 cart.push({ ...menu_list, qty: 1 });
             }
         },
-
-        // cartTemp(menu_list_id, price) {
-        //     this.$inertia.get(`/store_cart_temp?menu_list_id=${menu_list_id}&price=${price}`);
-        // },
-
-        // cartTemp(menu_list_id, price) {
-        //     this.$inertia.get(`/store_cart_temp?menu_list_id=${menu_list_id}&price=${price}`);
-        // },
     },
 
 }

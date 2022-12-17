@@ -2,7 +2,7 @@
     <master :user_name="user_name" :login_time="login_time">
         <div class="row" style="height: calc(550px - 25px);">
             <!-- Ordre Item  -->
-            <OrderItem :cart_temps="cart_temps" :user_name="user_name"></OrderItem>
+            <OrderItem :user_name="user_name"></OrderItem>
             <!-- Menu Meal List  -->
             <MenuList :menu_lists="menu_lists" :category_title="category_title"></MenuList>
             <!-- Main Category  -->
@@ -34,7 +34,6 @@ export default {
         'category_title',
         'type',
         'category_id',
-        'cart_temps',
         'user_name',
         'login_time',
         'success',

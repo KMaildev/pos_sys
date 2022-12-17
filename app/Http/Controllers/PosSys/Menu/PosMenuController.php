@@ -28,20 +28,10 @@ class PosMenuController extends Controller
             ->where('categorie_id', $category_id)
             ->get();
 
-
-        // Cart Temp 
-        $session_id = session()->getId();
-        $user_id = auth()->user()->id ?? 0;
-        $cart_temps = CartTemp::with('menu_lists_table')
-            ->where('session_id', $session_id)
-            ->where('user_id', $user_id)
-            ->get();
-
         return Inertia::render('Menu/Index', [
             'categories' => $categories,
             'category_title' => $category_title,
             'menu_lists' => $menu_lists,
-            'cart_temps' => $cart_temps,
             'type' => $type,
             'category_id' => $category_id,
             'user_name' => auth()->user()->name ?? 0,
