@@ -1,5 +1,5 @@
 <template>
-    <div class="col-xl-3 col-md-3 col-lg-3">
+    <div class="col-xl-3 col-md-3 col-lg-3 col-sm-12">
         <div class="d-flex justify-content-between">
             <button class="main_category_food_btn" @click="loadCategoryAndMenuListPos('Food')">
                 Food
@@ -13,11 +13,13 @@
                 Bar
             </button>
         </div>
-        <button class="category_btn" v-for="category in categories" :key="category.id"
-            @click="loadCategoryAndMenuListPos(category.type, category.id)"
-            :style="{ 'background-color': category.background_color }">
-            {{ category.title }}
-        </button>
+        <div style="background-color: red; padding: 20px; height: 500px;">
+            <button class="category_btn" v-for="category in categories" :key="category.id"
+                @click="loadCategoryAndMenuListPos(category.type, category.id)"
+                :style="{ 'background-color': category.background_color }">
+                {{ category.title }}
+            </button>
+        </div>
     </div>
 </template>
 <script>

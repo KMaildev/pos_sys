@@ -1,6 +1,6 @@
 <template>
     <master :user_name="user_name" :login_time="login_time">
-        <div class="row" style="height: calc(550px - 25px);">
+        <div class="row">
             <!-- Ordre Item  -->
             <OrderItem :user_name="user_name"></OrderItem>
             <!-- Menu Meal List  -->

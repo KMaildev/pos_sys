@@ -14,12 +14,23 @@
 
                         <div class="mb-3 row">
                             <label for="html5-text-input" class="col-md-3 col-form-label">
-                                Menu Name
+                                Menu Name (Eng)
                             </label>
-                            <div class="col-md-9">
+                            <div class="col-md-3">
                                 <input class="form-control @error('menu_name') is-invalid @enderror" type="text"
                                     name="menu_name" value="{{ old('menu_name') }}" />
                                 @error('menu_name')
+                                    <div class="invalid-feedback"> {{ $message }} </div>
+                                @enderror
+                            </div>
+
+                            <label for="html5-text-input" class="col-md-3 col-form-label" style="text-align: right">
+                                Menu Name (Myanmar)
+                            </label>
+                            <div class="col-md-3">
+                                <input class="form-control @error('menu_name_mm') is-invalid @enderror" type="text"
+                                    name="menu_name_mm" value="{{ old('menu_name_mm') }}" />
+                                @error('menu_name_mm')
                                     <div class="invalid-feedback"> {{ $message }} </div>
                                 @enderror
                             </div>

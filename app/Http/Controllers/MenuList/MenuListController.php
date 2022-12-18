@@ -21,6 +21,7 @@ class MenuListController extends Controller
         $menu_lists = MenuList::query();
         if (request('q')) {
             $menu_lists->where('menu_name', 'Like', '%' . request('q') . '%');
+            $menu_lists->orWhere('menu_name_mm', 'Like', '%' . request('q') . '%');
             $menu_lists->orWhere('price', 'Like', '%' . request('q') . '%');
         }
         $menu_lists = $menu_lists->orderBy('categorie_id', 'ASC')->paginate(20);
@@ -48,6 +49,7 @@ class MenuListController extends Controller
     {
         $menu = new MenuList();
         $menu->menu_name = $request->menu_name;
+        $menu->menu_name_mm = $request->menu_name_mm;
         $menu->price = $request->price;
         $menu->categorie_id = $request->categorie_id;
         $menu->save();
@@ -89,6 +91,7 @@ class MenuListController extends Controller
     {
         $menu = MenuList::findOrFail($id);
         $menu->menu_name = $request->menu_name;
+        $menu->menu_name_mm = $request->menu_name_mm;
         $menu->price = $request->price;
         $menu->categorie_id = $request->categorie_id;
         $menu->update();

@@ -58,6 +58,7 @@
                                 <tr class="tablebg">
                                     <th class="text-center" style="width: 1%;">#</th>
                                     <th class="text-center">Menu Name</th>
+                                    <th class="text-center">Menu Name MM</th>
                                     <th class="text-center">Price</th>
                                     <th class="text-center">Category</th>
                                     <th class="text-center">Type</th>
@@ -73,6 +74,10 @@
 
                                         <td class="text-center">
                                             {{ $menu_list->menu_name ?? '' }}
+                                        </td>
+
+                                        <td class="text-center">
+                                            {{ $menu_list->menu_name_mm ?? '' }}
                                         </td>
 
                                         <td class="text-center">

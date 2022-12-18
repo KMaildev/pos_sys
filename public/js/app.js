@@ -8611,10 +8611,7 @@ var render = function render() {
       login_time: _vm.login_time
     }
   }, [_c("div", {
-    staticClass: "row",
-    staticStyle: {
-      height: "calc(550px - 25px)"
-    }
+    staticClass: "row"
   }, [_c("OrderItem", {
     attrs: {
       user_name: _vm.user_name
@@ -8715,7 +8712,7 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "col-xl-3 col-md-3 col-lg-3"
+    staticClass: "col-xl-3 col-md-3 col-lg-3 col-sm-12"
   }, [_c("div", {
     staticClass: "d-flex justify-content-between"
   }, [_c("button", {
@@ -8739,7 +8736,13 @@ var render = function render() {
         return _vm.loadCategoryAndMenuListPos("Bar");
       }
     }
-  }, [_vm._v("\n            Bar\n        ")])]), _vm._v(" "), _vm._l(_vm.categories, function (category) {
+  }, [_vm._v("\n            Bar\n        ")])]), _vm._v(" "), _c("div", {
+    staticStyle: {
+      "background-color": "red",
+      padding: "20px",
+      height: "500px"
+    }
+  }, _vm._l(_vm.categories, function (category) {
     return _c("button", {
       key: category.id,
       staticClass: "category_btn",
@@ -8751,8 +8754,8 @@ var render = function render() {
           return _vm.loadCategoryAndMenuListPos(category.type, category.id);
         }
       }
-    }, [_vm._v("\n        " + _vm._s(category.title) + "\n    ")]);
-  })], 2);
+    }, [_vm._v("\n            " + _vm._s(category.title) + "\n        ")]);
+  }), 0)]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
