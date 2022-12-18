@@ -66,16 +66,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/pos_main_page', [MainController::class, 'index'])->name('pos_main_page');
     Route::get('/pos_table_lists', [TableListTableListController::class, 'index'])->name('pos_table_lists');
     Route::get('/pos_menu/{type}/{category_id}', [PosMenuController::class, 'index'])->name('pos_menu');
-    Route::get('/store_cart_temp', [CartTempController::class, 'store'])->name('store_cart_temp');
-    Route::get('/clear_all', [CartTempController::class, 'clearAll'])->name('clear_all');
-    Route::get('/transaction_cancel/{id}', [CartTempController::class, 'transactionCancel'])->name('transaction_cancel');
-    Route::get('/order_note', [CartTempController::class, 'orderNote'])->name('order_note');
-    Route::get('/minus_qty', [CartTempController::class, 'MinusQty'])->name('minus_qty');
-    Route::get('/order_confirm', [OrderConfirmController::class, 'store'])->name('order_confirm');
-
-    Route::post('/order_confirm_test', [OrderConfirmController::class, 'store_test'])->name('order_confirm_test');
-
-
+    Route::post('/order_confirm', [OrderConfirmController::class, 'store'])->name('order_confirm');
     Route::get('/pos_test_page', [TestController::class, 'index'])->name('pos_test_page');
     Route::get('/pos_pin_logout', [PinController::class, 'pinLogout'])->name('pos_pin_logout');
 

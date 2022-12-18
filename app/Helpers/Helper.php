@@ -7,7 +7,7 @@ use App\Models\OrderItem;
 
 class Helper
 {
-    public function updateOrderInfoTotalAmount($order_info_id)
+    public static function updateOrderInfoTotalAmount($order_info_id)
     {
         $order_items = OrderItem::where('order_info_id', $order_info_id)->get();
         $total_amount_arr = [];

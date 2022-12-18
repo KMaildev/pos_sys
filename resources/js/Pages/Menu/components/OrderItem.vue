@@ -33,25 +33,27 @@
                     </thead>
                     <tbody>
                         <tr v-for="(cart_list, index) in cart_lists" :key="index">
-                            <td v-on:click="addRemark()">
+                            <td v-on:click="addRemark(cart_list)">
                                 {{ cart_list.menu_name }}
+                                <br>
+                                Remark: {{ cart_list.remark }}
                             </td>
 
                             <td class="text-center">
                                 <div class="input-group">
                                     <input type="text" class="form-control" :value="cart_list.qty"
-                                        style="width: 10px; font-size: 15px;">
+                                        style="width: 10px; font-size: 15px;" readonly>
                                     <span class="input-group-text" @click="reduceQty(cart_list, index)">
                                         <i class="fa fa-minus fa-lg"></i>
                                     </span>
                                 </div>
                             </td>
 
-                            <td style="text-align: center;" v-on:click="itemRemove(index)">
+                            <td style="text-align: center;" v-on:dblclick="itemRemove(index)">
                                 {{ cart_list.price }}
                             </td>
 
-                            <td style="text-align: right;" v-on:click="itemRemove(index)">
+                            <td style="text-align: right;" v-on:dblclick="itemRemove(index)">
                                 {{ cart_list.qty * cart_list.price }}
                             </td>
                         </tr>
@@ -94,12 +96,28 @@ export default {
 
     methods: {
         itemRemove(index) {
-            var cart = this.$root.cart;
-            cart.splice(index, 1);
+            swal({
+                title: "Confirm Your Action",
+                text: "Would you like to delete this product ?",
+                buttons: true,
+                dangerMode: false,
+            }).then((willDelete) => {
+                if (willDelete) {
+                    var cart = this.$root.cart;
+                    cart.splice(index, 1);
+                }
+            });
         },
 
-        addRemark() {
-            alert('Remark')
+        addRemark(cart_list) {
+            swal({
+                title: "Order Note",
+                content: 'input',
+                buttons: true,
+                dangerMode: true,
+            }).then((value) => {
+                cart_list.remark = value;
+            });
         },
 
         reduceQty(cart_list, index) {

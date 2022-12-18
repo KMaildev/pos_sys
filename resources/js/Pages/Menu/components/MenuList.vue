@@ -41,7 +41,7 @@ export default {
             if (isInCart) {
                 isInCart.qty++
             } else {
-                cart.push({ ...menu_list, qty: 1 });
+                cart.push({ ...menu_list, qty: 1, remark: '' });
             }
         },
     },

@@ -5819,42 +5819,46 @@ __webpack_require__.r(__webpack_exports__);
     return {
       table_id: localStorage.getItem("table_id"),
       form: {
+        table_list_id: null,
+        guest_no: null,
         cart_lists: []
       }
     };
   },
   methods: {
-    orderConfirmTest: function orderConfirmTest() {
-      this.$inertia.post('/order_confirm_test', this.form);
-    },
     orderConfirm: function orderConfirm() {
       var _this = this;
-      var table_list_id = localStorage.getItem("table_id");
-      var guest_no = localStorage.getItem("guest_no");
-      if (table_list_id == null || table_list_id == '' || table_list_id == undefined) {
+      if (this.form.table_list_id == null || this.form.table_list_id == '' || this.form.table_list_id == undefined) {
         swal({
           title: "Please Select Seat",
           icon: "warning",
           buttons: true,
           dangerMode: true
         });
-      } else if (guest_no == null || guest_no == '' || guest_no == undefined) {
+      } else if (this.form.guest_no == null || this.form.guest_no == '' || this.form.guest_no == undefined) {
         swal({
           title: "Please Enter Guest No",
           icon: "warning",
           buttons: true,
           dangerMode: true
         });
+      } else if (this.form.cart_lists.length == 0 || this.form.cart_lists.length === '0') {
+        swal({
+          title: "You need to added the items you want to order.",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true
+        });
       } else {
         swal({
-          title: "Order Process",
+          title: "Confirm Your Order",
           text: "Are you sure want to order?",
-          icon: "success",
           buttons: true,
           dangerMode: false
         }).then(function (willDelete) {
           if (willDelete) {
-            _this.$inertia.get("/order_confirm?table_list_id=".concat(table_list_id, "&guest_no=").concat(guest_no));
+            _this.$inertia.post('/order_confirm', _this.form);
+            _this.clearAll();
             _this.orderSuccess();
           }
         });
@@ -5864,51 +5868,8 @@ __webpack_require__.r(__webpack_exports__);
       this.$inertia.get("/pos_table_lists");
     },
     clearAll: function clearAll() {
-      this.$inertia.get("/clear_all");
-    },
-    transactionCancel: function transactionCancel() {
-      var _this2 = this;
-      var active_item = localStorage.getItem("activeItemId");
-      var menuName = localStorage.getItem("menuName");
-      if (active_item == null) {
-        this.alertSelectItemName();
-      } else {
-        swal({
-          title: menuName,
-          text: "Are you sure want to cancel?",
-          icon: "warning",
-          buttons: true,
-          dangerMode: true
-        }).then(function (willDelete) {
-          if (willDelete) {
-            _this2.$inertia.get("/transaction_cancel/".concat(active_item));
-            localStorage.removeItem("activeItemId");
-            localStorage.removeItem("menuName");
-            swal("Your processing has been completed");
-          }
-        });
-      }
-    },
-    orderNote: function orderNote() {
-      var _this3 = this;
-      var active_item = localStorage.getItem("activeItemId");
-      var menuName = localStorage.getItem("menuName");
-      if (active_item == null) {
-        this.alertSelectItemName();
-      } else {
-        swal({
-          title: menuName,
-          text: "Enter Order Note",
-          content: 'input',
-          buttons: true,
-          dangerMode: true
-        }).then(function (value) {
-          _this3.$inertia.get("/order_note?remark=".concat(value, "&cart_temp_id=").concat(active_item));
-          localStorage.removeItem("activeItemId");
-          localStorage.removeItem("menuName");
-          swal("Order Note: ".concat(value));
-        });
-      }
+      var cart = this.$root.cart;
+      cart.splice(0, cart.length);
     },
     mainPage: function mainPage() {
       this.$inertia.get("/pos_main_page");
@@ -5954,6 +5915,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.form.cart_lists = this.$root.cart;
+    this.form.table_list_id = localStorage.getItem("table_id");
+    this.form.guest_no = localStorage.getItem("guest_no");
   }
 });
 
@@ -6010,7 +5973,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         isInCart.qty++;
       } else {
         cart.push(_objectSpread(_objectSpread({}, menu_list), {}, {
-          qty: 1
+          qty: 1,
+          remark: ''
         }));
       }
     }
@@ -6054,11 +6018,28 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     itemRemove: function itemRemove(index) {
-      var cart = this.$root.cart;
-      cart.splice(index, 1);
+      var _this = this;
+      swal({
+        title: "Confirm Your Action",
+        text: "Would you like to delete this product ?",
+        buttons: true,
+        dangerMode: false
+      }).then(function (willDelete) {
+        if (willDelete) {
+          var cart = _this.$root.cart;
+          cart.splice(index, 1);
+        }
+      });
     },
-    addRemark: function addRemark() {
-      alert('Remark');
+    addRemark: function addRemark(cart_list) {
+      swal({
+        title: "Order Note",
+        content: 'input',
+        buttons: true,
+        dangerMode: true
+      }).then(function (value) {
+        cart_list.remark = value;
+      });
     },
     reduceQty: function reduceQty(cart_list, index) {
       if (cart_list.qty > 1) {
@@ -8673,8 +8654,8 @@ var render = function render() {
   return _c("div", [_c("div", {
     staticClass: "container-fluid"
   }, [_c("div", {
-    staticClass: "row"
-  }, [_vm._m(0), _vm._v(" "), _c("div", {
+    staticClass: "row py-2"
+  }, [_c("div", {
     staticClass: "col-sm-2 col-lg-2 col-md-2"
   }, [_c("button", {
     staticClass: "pay_btn",
@@ -8683,18 +8664,7 @@ var render = function render() {
         return _vm.orderConfirm();
       }
     }
-  }, [_vm._v("\n                    Pay\n                ")])]), _vm._v(" "), _c("div", {
-    staticClass: "col-sm-2 col-lg-2 col-md-2"
-  }, [_c("button", {
-    staticClass: "pay_btn",
-    on: {
-      click: function click($event) {
-        return _vm.orderConfirmTest();
-      }
-    }
-  }, [_vm._v("\n                    Order Confirm\n                ")])])]), _vm._v(" "), _c("div", {
-    staticClass: "row py-2"
-  }, [_c("div", {
+  }, [_vm._v("\n                    Order Confirm\n                ")])]), _vm._v(" "), _c("div", {
     staticClass: "col-sm-2 col-lg-2 col-md-2"
   }, [_c("button", {
     staticClass: "print_btn",
@@ -8704,24 +8674,6 @@ var render = function render() {
       }
     }
   }, [_vm._v("\n                    Clear All\n                ")])]), _vm._v(" "), _c("div", {
-    staticClass: "col-sm-2 col-lg-2 col-md-2"
-  }, [_c("button", {
-    staticClass: "print_btn",
-    on: {
-      click: function click($event) {
-        return _vm.transactionCancel();
-      }
-    }
-  }, [_vm._v("\n                    Cancel\n                ")])]), _vm._v(" "), _c("div", {
-    staticClass: "col-sm-2 col-lg-2 col-md-2"
-  }, [_c("button", {
-    staticClass: "comment_btn",
-    on: {
-      click: function click($event) {
-        return _vm.orderNote();
-      }
-    }
-  }, [_vm._v("\n                    Order Note\n                ")])]), _vm._v(" "), _c("div", {
     staticClass: "col-sm-2 col-lg-2 col-md-2"
   }, [_c("button", {
     staticClass: "edit_seat_btn",
@@ -8739,28 +8691,9 @@ var render = function render() {
         return _vm.mainPage();
       }
     }
-  }, [_vm._v("\n                    Main\n                ")])]), _vm._v(" "), _vm._m(1)])])]);
+  }, [_vm._v("\n                    Main\n                ")])])])])]);
 };
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "col-sm-2 col-lg-2 col-md-2"
-  }, [_c("button", {
-    staticClass: "service_btn"
-  }, [_vm._v("\n                    Services\n                ")])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "col-sm-2 col-lg-2 col-md-2"
-  }, [_c("button", {
-    staticClass: "signout_btn",
-    attrs: {
-      onclick: "location.href='/pos_pin_logout'"
-    }
-  }, [_vm._v("\n                    SignOut\n                ")])]);
-}];
+var staticRenderFns = [];
 render._withStripped = true;
 
 
@@ -8972,10 +8905,10 @@ var render = function render() {
     }, [_c("td", {
       on: {
         click: function click($event) {
-          return _vm.addRemark();
+          return _vm.addRemark(cart_list);
         }
       }
-    }, [_vm._v("\n                            " + _vm._s(cart_list.menu_name) + "\n                        ")]), _vm._v(" "), _c("td", {
+    }, [_vm._v("\n                            " + _vm._s(cart_list.menu_name) + "\n                            "), _c("br"), _vm._v("\n                            Remark: " + _vm._s(cart_list.remark) + "\n                        ")]), _vm._v(" "), _c("td", {
       staticClass: "text-center"
     }, [_c("div", {
       staticClass: "input-group"
@@ -8986,7 +8919,8 @@ var render = function render() {
         "font-size": "15px"
       },
       attrs: {
-        type: "text"
+        type: "text",
+        readonly: ""
       },
       domProps: {
         value: cart_list.qty
@@ -9005,7 +8939,7 @@ var render = function render() {
         "text-align": "center"
       },
       on: {
-        click: function click($event) {
+        dblclick: function dblclick($event) {
           return _vm.itemRemove(index);
         }
       }
@@ -9014,7 +8948,7 @@ var render = function render() {
         "text-align": "right"
       },
       on: {
-        click: function click($event) {
+        dblclick: function dblclick($event) {
           return _vm.itemRemove(index);
         }
       }
