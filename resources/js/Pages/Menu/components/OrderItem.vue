@@ -1,68 +1,65 @@
 <template>
-    <div class="col-xl-4 col-md-4 col-lg-4">
-        <div class="" style="background-color: white;">
-            <div class="card-header d-flex">
-                <h4 class="card-title mb-0 flex-grow-1 category_title"
-                    style="font-size: 20px; font-weight: bold; text-align: left;">
-                    TBL : {{ table_name }}
-                </h4>
-                <h4 class="card-title mb-0 flex-grow-1 category_title"
-                    style="font-size: 20px; font-weight: bold; text-align: right;">
-                    GUEST : <input type="number" style="width: 50px;" @click.stop="show = true" :value="value" readonly>
-                </h4>
-                <VueNumericKeypad :value.sync="value" :show.sync="show" :options="options" />
-            </div>
+    <div class="col-xl-4 col-md-4 col-lg-4" style="height: 600px;">
+        <div class="card-header d-flex">
+            <h4 class="card-title mb-0 flex-grow-1 category_title"
+                style="font-size: 20px; font-weight: bold; text-align: left;">
+                TBL : {{ table_name }}
+            </h4>
+            <h4 class="card-title mb-0 flex-grow-1 category_title"
+                style="font-size: 20px; font-weight: bold; text-align: right;">
+                GUEST : <input type="number" style="width: 50px;" @click.stop="show = true" :value="value" readonly>
+            </h4>
+            <VueNumericKeypad :value.sync="value" :show.sync="show" :options="options" />
+        </div>
 
-            <div class="card-body overflow-auto" style="margin: 5px; max-height: calc(500px);">
-                <table class="table">
-                    <thead class="table-light">
-                        <tr>
-                            <th style="width: 40%; font-size: 18px;">
-                                Items
-                            </th>
-                            <th class="text-center" style="width: 25%; font-size: 18px;">
-                                Quantity
-                            </th>
-                            <th class="text-center" style="width: 20%; font-size: 18px;">
-                                Price
-                            </th>
-                            <th class="text-center" style="width: 20%; font-size: 18px;">
-                                Total
-                            </th>
-                        </tr>
-                    </thead>
+        <div class="card-body overflow-auto" style="margin: 5px; max-height: calc(530px);">
+            <table class="table">
+                <thead class="table-light">
+                    <tr>
+                        <th style="width: 40%; font-size: 18px;">
+                            Items
+                        </th>
+                        <th class="text-center" style="width: 25%; font-size: 18px;">
+                            Quantity
+                        </th>
+                        <th class="text-center" style="width: 20%; font-size: 18px;">
+                            Price
+                        </th>
+                        <th class="text-center" style="width: 20%; font-size: 18px;">
+                            Total
+                        </th>
+                    </tr>
+                </thead>
 
-                    <tbody>
-                        <tr v-for="(cart_list, index) in cart_lists" :key="index">
-                            <td v-on:click="addRemark(cart_list)">
-                                {{ cart_list.menu_name }}
-                                <br>
-                                Remark: {{ cart_list.remark }}
-                            </td>
+                <tbody>
+                    <tr v-for="(cart_list, index) in cart_lists" :key="index">
+                        <td v-on:click="addRemark(cart_list)">
+                            {{ cart_list.menu_name }}
+                            <br>
+                            Remark: {{ cart_list.remark }}
+                        </td>
 
-                            <td class="text-center">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" :value="cart_list.qty"
-                                        style="width: 10px; font-size: 15px;" readonly>
-                                    <span class="input-group-text" @click="reduceQty(cart_list, index)">
-                                        <i class="fa fa-minus fa-lg"></i>
-                                    </span>
-                                </div>
-                            </td>
+                        <td class="text-center">
+                            <div class="input-group">
+                                <input type="text" class="form-control" :value="cart_list.qty"
+                                    style="width: 10px; font-size: 15px;" readonly>
+                                <span class="input-group-text" @click="reduceQty(cart_list, index)">
+                                    <i class="fa fa-minus fa-lg"></i>
+                                </span>
+                            </div>
+                        </td>
 
-                            <td style="text-align: center;" v-on:dblclick="itemRemove(index)">
-                                {{ cart_list.price }}
-                            </td>
+                        <td style="text-align: center;" v-on:dblclick="itemRemove(index)">
+                            {{ cart_list.price }}
+                        </td>
 
-                            <td style="text-align: right;" v-on:dblclick="itemRemove(index)">
-                                {{ cart_list.qty * cart_list.price }}
-                            </td>
-                        </tr>
+                        <td style="text-align: right;" v-on:dblclick="itemRemove(index)">
+                            {{ cart_list.qty * cart_list.price }}
+                        </td>
+                    </tr>
 
-                    </tbody>
-                </table>
-
-            </div>
+                </tbody>
+            </table>
         </div>
     </div>
 </template>

@@ -1,7 +1,20 @@
 <template>
     <div>
         <div class="container-fluid">
-            <div class="row py-2">
+            <div class="row">
+
+                <div class="col-sm-4 col-lg-4 col-md-4 total_footer">
+                    <div class="card-header d-flex">
+                        <h4 class="card-title mb-0 flex-grow-1 category_title"
+                            style="font-size: 20px; font-weight: bold; text-align: left;">
+                            Total
+                        </h4>
+                        <h4 class="card-title mb-0 flex-grow-1 category_title"
+                            style="font-size: 20px; font-weight: bold; text-align: right;">
+                            {{ totalAmountCalc(this.form.cart_lists) }}
+                        </h4>
+                    </div>
+                </div>
 
                 <div class="col-sm-2 col-lg-2 col-md-2">
                     <button @click="orderConfirm()" class="pay_btn">
@@ -38,6 +51,7 @@ export default {
     data() {
         return {
             table_id: localStorage.getItem("table_id"),
+            total_amount: 0,
             form: {
                 table_list_id: null,
                 guest_no: null,
@@ -157,7 +171,15 @@ export default {
                 .then((willDelete) => {
 
                 });
-        }
+        },
+
+        totalAmountCalc(cart_lists) {
+            let sum = 0;
+            cart_lists.forEach(function (item) {
+                sum += (parseFloat(item.price) * parseFloat(item.qty));
+            });
+            return sum;
+        },
     },
 
     created() {

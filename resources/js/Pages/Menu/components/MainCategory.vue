@@ -1,5 +1,5 @@
 <template>
-    <div class="col-xl-3 col-md-3 col-lg-3 col-sm-12">
+    <div class="col-xl-3 col-md-3 col-lg-3 col-sm-12" style="height: 600px;">
         <div class="d-flex justify-content-between">
             <button class="main_category_food_btn" @click="loadCategoryAndMenuListPos('Food')">
                 Food
