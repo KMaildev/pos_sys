@@ -8816,7 +8816,7 @@ var render = function render() {
   }, [_vm._v("\n                    Data Not Found\n                ")]) : _vm._e(), _vm._v(" "), _vm._l(_vm.menu_lists, function (menu_list) {
     return _c("div", {
       key: menu_list.id,
-      staticClass: "col-3"
+      staticClass: "col-6"
     }, [_c("button", {
       staticClass: "meal_btn",
       style: {

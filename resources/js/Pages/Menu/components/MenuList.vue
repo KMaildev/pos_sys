@@ -7,12 +7,13 @@
                     - {{ category_title }}
                 </span>
             </h4>
-            <div class="table-responsive overflow-auto" data-simplebar style="max-height: calc(500px); padding-top: 5px;">
+            <div class="table-responsive overflow-auto" data-simplebar
+                style="max-height: calc(500px); padding-top: 5px;">
                 <div class="row g-2">
                     <span class="data_not_found" v-if="menu_lists.length == 0">
                         Data Not Found
                     </span>
-                    <div class="col-3" v-for="menu_list in menu_lists" :key="menu_list.id">
+                    <div class="col-6" v-for="menu_list in menu_lists" :key="menu_list.id">
                         <button class="meal_btn" @click="addToCart(menu_list)"
                             :style="{ 'background-color': menu_list.category_table.background_color }">
                             {{ menu_list.menu_name }}
