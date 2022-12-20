@@ -1,6 +1,5 @@
 <template>
     <div>
-
         <div class="container-fluid">
             <div class="row py-2">
 
@@ -29,7 +28,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 </template>
 <script>
@@ -92,8 +90,17 @@ export default {
         },
 
         clearAll() {
-            var cart = this.$root.cart;
-            cart.splice(0, cart.length);
+            swal({
+                title: "Confirm Your Action",
+                text: "Are you sure want to All Clear?",
+                buttons: true,
+                dangerMode: false,
+            }).then((willDelete) => {
+                if (willDelete) {
+                    var cart = this.$root.cart;
+                    cart.splice(0, cart.length);
+                }
+            });
         },
 
         mainPage() {

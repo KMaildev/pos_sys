@@ -13,7 +13,7 @@
                 <VueNumericKeypad :value.sync="value" :show.sync="show" :options="options" />
             </div>
 
-            <div class="card-body" style="margin: 5px;">
+            <div class="card-body overflow-auto" style="margin: 5px; max-height: calc(500px);">
                 <table class="table">
                     <thead class="table-light">
                         <tr>
@@ -31,6 +31,7 @@
                             </th>
                         </tr>
                     </thead>
+
                     <tbody>
                         <tr v-for="(cart_list, index) in cart_lists" :key="index">
                             <td v-on:click="addRemark(cart_list)">

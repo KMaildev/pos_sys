@@ -5868,8 +5868,18 @@ __webpack_require__.r(__webpack_exports__);
       this.$inertia.get("/pos_table_lists");
     },
     clearAll: function clearAll() {
-      var cart = this.$root.cart;
-      cart.splice(0, cart.length);
+      var _this2 = this;
+      swal({
+        title: "Confirm Your Action",
+        text: "Are you sure want to All Clear?",
+        buttons: true,
+        dangerMode: false
+      }).then(function (willDelete) {
+        if (willDelete) {
+          var cart = _this2.$root.cart;
+          cart.splice(0, cart.length);
+        }
+      });
     },
     mainPage: function mainPage() {
       this.$inertia.get("/pos_main_page");
@@ -8737,10 +8747,9 @@ var render = function render() {
       }
     }
   }, [_vm._v("\n            Bar\n        ")])]), _vm._v(" "), _c("div", {
+    staticClass: "overflow-auto",
     staticStyle: {
-      "background-color": "red",
-      padding: "20px",
-      height: "500px"
+      "max-height": "calc(500px)"
     }
   }, _vm._l(_vm.categories, function (category) {
     return _c("button", {
@@ -8792,9 +8801,9 @@ var render = function render() {
       expression: "category_title"
     }]
   }, [_vm._v("\n                - " + _vm._s(_vm.category_title) + "\n            ")])]), _vm._v(" "), _c("div", {
-    staticClass: "table-responsive",
+    staticClass: "table-responsive overflow-auto",
     staticStyle: {
-      "max-height": "calc(600px - 25px)",
+      "max-height": "calc(500px)",
       "padding-top": "5px"
     },
     attrs: {
@@ -8896,9 +8905,10 @@ var render = function render() {
       }
     }
   })], 1), _vm._v(" "), _c("div", {
-    staticClass: "card-body",
+    staticClass: "card-body overflow-auto",
     staticStyle: {
-      margin: "5px"
+      margin: "5px",
+      "max-height": "calc(500px)"
     }
   }, [_c("table", {
     staticClass: "table"

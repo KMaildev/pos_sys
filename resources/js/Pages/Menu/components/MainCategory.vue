@@ -13,7 +13,7 @@
                 Bar
             </button>
         </div>
-        <div style="background-color: red; padding: 20px; height: 500px;">
+        <div class="overflow-auto" style="max-height: calc(500px)">
             <button class="category_btn" v-for="category in categories" :key="category.id"
                 @click="loadCategoryAndMenuListPos(category.type, category.id)"
                 :style="{ 'background-color': category.background_color }">
@@ -22,6 +22,7 @@
         </div>
     </div>
 </template>
+
 <script>
 export default {
     name: "MainCategory",
