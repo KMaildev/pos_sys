@@ -12,6 +12,8 @@ use App\Http\Controllers\Hr\EmployeeController;
 use App\Http\Controllers\Hr\PermissionController;
 use App\Http\Controllers\Hr\RoleController;
 use App\Http\Controllers\Ingredients\IngredientsController;
+use App\Http\Controllers\Inventory\FixedAssetsController;
+use App\Http\Controllers\Inventory\VariableAssetsController;
 use App\Http\Controllers\MenuList\MenuListController;
 use App\Http\Controllers\Order\OrderListController;
 use App\Http\Controllers\Pos\MenuControlController;
@@ -22,6 +24,7 @@ use App\Http\Controllers\PosSys\Order\OrderConfirmController;
 use App\Http\Controllers\PosSys\Pin\PinController;
 use App\Http\Controllers\PosSys\TableList\TableListController as TableListTableListController;
 use App\Http\Controllers\PosSys\Test\TestController;
+use App\Http\Controllers\System\StoreController;
 use App\Http\Controllers\Table\TableListController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -40,6 +43,7 @@ Route::get('/admin', function () {
 Auth::routes(['register' => false]);
 Route::middleware('auth')->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
     Route::resource('category', CategoryController::class);
     Route::resource('menu_list', MenuListController::class);
 
@@ -60,6 +64,13 @@ Route::middleware('auth')->group(function () {
     Route::resource('department', DepartmentController::class);
     Route::resource('permission', PermissionController::class);
     Route::resource('role', RoleController::class);
+
+    // Inventory 
+    Route::resource('fixed_assets', FixedAssetsController::class);
+    Route::resource('variable_assets', VariableAssetsController::class);
+
+    // System 
+    Route::resource('store', StoreController::class);
 
 
     // POSSYS

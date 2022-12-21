@@ -5861,7 +5861,7 @@ __webpack_require__.r(__webpack_exports__);
           if (willDelete) {
             _this.$inertia.post('/order_confirm', _this.form);
             _this.orderSuccess();
-            _this.clearAll();
+            _this.clearAllNoAlert();
           }
         });
       }
@@ -5882,6 +5882,10 @@ __webpack_require__.r(__webpack_exports__);
           cart.splice(0, cart.length);
         }
       });
+    },
+    clearAllNoAlert: function clearAllNoAlert() {
+      var cart = this.$root.cart;
+      cart.splice(0, cart.length);
     },
     mainPage: function mainPage() {
       this.$inertia.get("/pos_main_page");
@@ -6024,7 +6028,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       table_name: localStorage.getItem("table_name"),
-      value: '',
+      value: localStorage.getItem("guest_no"),
       show: 0,
       options: {
         keyRandomize: false,
@@ -8917,11 +8921,9 @@ var render = function render() {
       width: "50px"
     },
     attrs: {
-      type: "number",
+      type: "button",
+      value: _vm.value,
       readonly: ""
-    },
-    domProps: {
-      value: _vm.value
     },
     on: {
       click: function click($event) {

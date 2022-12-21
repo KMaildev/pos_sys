@@ -3,7 +3,9 @@
 
         <div id="sidebar-menu">
             <ul class="metismenu list-unstyled" id="side-menu">
-                <li class="menu-title" data-key="t-menu">Menu</li>
+                <li class="menu-title" data-key="t-menu" style="font-size: 18px;">
+                    Menu
+                </li>
                 <li>
                     <a href="{{ route('home') }}">
                         <i data-feather="home"></i>
@@ -11,7 +13,9 @@
                     </a>
                 </li>
 
-                <li class="menu-title" data-key="t-menu">Manager</li>
+                <li class="menu-title" data-key="t-menu" style="font-size: 18px;">
+                    Manager
+                </li>
 
                 <li>
                     <a href="{{ route('order_list.index') }}">
@@ -19,7 +23,6 @@
                         Order List
                     </a>
                 </li>
-
 
 
                 <li>
@@ -64,6 +67,81 @@
                     </a>
                 </li>
 
+                <li class="menu-title" data-key="t-menu" style="font-size: 18px;">
+                    Inventory
+                </li>
+
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow">
+                        <i data-feather="shopping-cart"></i>
+                        <span data-key="t-ecommerce">
+                            Assets
+                        </span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li>
+                            <a href="{{ route('fixed_assets.index') }}" key="t-products">
+                                Fixed Inventory
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{{ route('variable_assets.index') }}" key="t-products">
+                                Variable Inventory
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow">
+                        <i data-feather="shopping-cart"></i>
+                        <span data-key="t-ecommerce">
+                            Inventory Request
+                        </span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li>
+                            <a href="ecommerce-products.html" key="t-products">
+                                Fixed Inventory
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="ecommerce-products.html" key="t-products">
+                                Variable Inventory
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow">
+                        <i data-feather="shopping-cart"></i>
+                        <span data-key="t-ecommerce">
+                            Inventory Damage
+                        </span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li>
+                            <a href="ecommerce-products.html" key="t-products">
+                                Fixed Inventory
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="ecommerce-products.html" key="t-products">
+                                Variable Inventory
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+
+                <li class="menu-title" data-key="t-menu" style="font-size: 18px;">
+                    HR
+                </li>
+
                 <li>
                     <a href="{{ route('employee.index') }}">
                         <i data-feather="users"></i>
@@ -89,6 +167,18 @@
                     <a href="{{ route('permission.index') }}">
                         <i data-feather="user-x"></i>
                         Permission
+                    </a>
+                </li>
+
+
+                <li class="menu-title" data-key="t-menu" style="font-size: 18px;">
+                    System
+                </li>
+
+                <li>
+                    <a href="{{ route('store.index') }}">
+                        <i data-feather="user-x"></i>
+                        Store
                     </a>
                 </li>
 

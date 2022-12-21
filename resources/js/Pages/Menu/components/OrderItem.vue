@@ -7,7 +7,7 @@
             </h4>
             <h4 class="card-title mb-0 flex-grow-1 category_title"
                 style="font-size: 20px; font-weight: bold; text-align: right;">
-                GUEST : <input type="number" style="width: 50px;" @click.stop="show = true" :value="value" readonly>
+                GUEST : <input type="button" style="width: 50px;" @click.stop="show = true" :value="value" readonly>
             </h4>
             <VueNumericKeypad :value.sync="value" :show.sync="show" :options="options" />
         </div>
@@ -78,7 +78,7 @@ export default {
     data() {
         return {
             table_name: localStorage.getItem("table_name"),
-            value: '',
+            value: localStorage.getItem("guest_no"),
 
             show: 0,
             options: {

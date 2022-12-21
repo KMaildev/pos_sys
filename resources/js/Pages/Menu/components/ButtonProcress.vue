@@ -95,7 +95,7 @@ export default {
                     if (willDelete) {
                         this.$inertia.post('/order_confirm', this.form);
                         this.orderSuccess();
-                        this.clearAll();
+                        this.clearAllNoAlert();
                     }
                 });
             }
@@ -117,6 +117,11 @@ export default {
                     cart.splice(0, cart.length);
                 }
             });
+        },
+
+        clearAllNoAlert() {
+            var cart = this.$root.cart;
+            cart.splice(0, cart.length);
         },
 
         mainPage() {

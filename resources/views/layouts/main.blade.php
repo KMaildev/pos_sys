@@ -5,6 +5,7 @@
 <div class="main-content">
     <div class="page-content">
         <div class="container-fluid">
+            @include('layouts.includes.alert')
             @yield('content')
         </div>
     </div>
