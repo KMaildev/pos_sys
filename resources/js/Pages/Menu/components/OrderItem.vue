@@ -78,7 +78,7 @@ export default {
     data() {
         return {
             table_name: localStorage.getItem("table_name"),
-            value: localStorage.getItem("guest_no"),
+            value: '',
 
             show: 0,
             options: {

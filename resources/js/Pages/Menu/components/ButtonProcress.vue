@@ -54,7 +54,7 @@ export default {
             total_amount: 0,
             form: {
                 table_list_id: null,
-                guest_no: null,
+                guest_no: '',
                 cart_lists: [],
             }
         }
@@ -62,6 +62,8 @@ export default {
 
     methods: {
         orderConfirm() {
+            this.form.guest_no = localStorage.getItem("guest_no");
+
             if (this.form.table_list_id == null || this.form.table_list_id == '' || this.form.table_list_id == undefined) {
                 swal({
                     title: "Please Select Seat",
@@ -92,8 +94,8 @@ export default {
                 }).then((willDelete) => {
                     if (willDelete) {
                         this.$inertia.post('/order_confirm', this.form);
-                        this.clearAll();
                         this.orderSuccess();
+                        this.clearAll();
                     }
                 });
             }

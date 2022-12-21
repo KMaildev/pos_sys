@@ -5821,7 +5821,7 @@ __webpack_require__.r(__webpack_exports__);
       total_amount: 0,
       form: {
         table_list_id: null,
-        guest_no: null,
+        guest_no: '',
         cart_lists: []
       }
     };
@@ -5829,6 +5829,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     orderConfirm: function orderConfirm() {
       var _this = this;
+      this.form.guest_no = localStorage.getItem("guest_no");
       if (this.form.table_list_id == null || this.form.table_list_id == '' || this.form.table_list_id == undefined) {
         swal({
           title: "Please Select Seat",
@@ -5859,8 +5860,8 @@ __webpack_require__.r(__webpack_exports__);
         }).then(function (willDelete) {
           if (willDelete) {
             _this.$inertia.post('/order_confirm', _this.form);
-            _this.clearAll();
             _this.orderSuccess();
+            _this.clearAll();
           }
         });
       }
@@ -6023,7 +6024,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       table_name: localStorage.getItem("table_name"),
-      value: localStorage.getItem("guest_no"),
+      value: '',
       show: 0,
       options: {
         keyRandomize: false,
