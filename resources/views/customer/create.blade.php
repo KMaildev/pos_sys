@@ -101,8 +101,7 @@
                                 Remark
                             </label>
                             <div class="col-md-9">
-                                <input class="form-control @error('remark') is-invalid @enderror" type="text"
-                                    name="remark" value="{{ old('remark') }}" />
+                                <textarea class="form-control @error('remark') is-invalid @enderror" rows="3" name="remark">{{ old('remark') }}</textarea>
                                 @error('remark')
                                     <div class="invalid-feedback"> {{ $message }} </div>
                                 @enderror
