@@ -176,11 +176,19 @@
                 </li>
 
                 <li>
+                    <a href="{{ route('taxrate.index') }}">
+                        <i data-feather="user-x"></i>
+                        Taxrate
+                    </a>
+                </li>
+
+                <li>
                     <a href="{{ route('store.index') }}">
                         <i data-feather="user-x"></i>
                         Store
                     </a>
                 </li>
+
 
 
             </ul>

@@ -25,6 +25,7 @@ use App\Http\Controllers\PosSys\Pin\PinController;
 use App\Http\Controllers\PosSys\TableList\TableListController as TableListTableListController;
 use App\Http\Controllers\PosSys\Test\TestController;
 use App\Http\Controllers\System\StoreController;
+use App\Http\Controllers\System\TaxrateController;
 use App\Http\Controllers\Table\TableListController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -71,6 +72,7 @@ Route::middleware('auth')->group(function () {
 
     // System 
     Route::resource('store', StoreController::class);
+    Route::resource('taxrate', TaxrateController::class);
 
 
     // POSSYS
