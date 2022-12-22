@@ -53,19 +53,111 @@
                     </div>
 
                     <div class="table-responsive">
-                        <table class="table table-bordered mydatatable">
+                        <table class="table table-bordered mydatatable" style="margin-bottom: 100px;">
                             <thead class="table-light">
                                 <tr class="tablebg">
                                     <th class="text-center" style="width: 1%;">#</th>
-                                    <th class="text-center">Inventory Code</th>
-                                    <th class="text-center">Description</th>
-                                    <th class="text-center">Unit</th>
-                                    <th class="text-center">Store</th>
-                                    <th class="text-center">Actions</th>
+                                    <th class="text-center">
+                                        Invoice
+                                    </th>
+                                    <th class="text-center">
+                                        Date
+                                    </th>
+                                    <th class="text-center">
+                                        Supplier
+                                    </th>
+                                    <th class="text-center">
+                                        Representative
+                                    </th>
+                                    <th class="text-center">
+                                        Remark
+                                    </th>
+                                    <th class="text-center">
+                                        Amount
+                                    </th>
+                                    <th class="text-center">
+                                        Actions
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach ($fixed_purchases as $key => $fixed_purchase)
+                                    <tr>
+                                        <td>
+                                            {{ $key + 1 }}
+                                        </td>
 
+                                        <td class="text-center">
+                                            {{ $fixed_purchase->invoice_no ?? '' }}
+                                        </td>
+
+                                        <td class="text-center">
+                                            {{ $fixed_purchase->purchase_date ?? '' }}
+                                        </td>
+
+                                        <td class="text-center">
+                                            {{ $fixed_purchase->supplier_table->name ?? '' }}
+                                        </td>
+
+                                        <td class="text-center">
+                                            {{ $fixed_purchase->representative_table->name ?? '' }}
+                                        </td>
+
+                                        <td class="text-center">
+                                            {{ $fixed_purchase->remark ?? '' }}
+                                        </td>
+
+                                        <td style="text-align: right">
+                                            @php
+                                                $amount = $fixed_purchase->total_amount;
+                                                echo number_format($amount, 2);
+                                            @endphp
+                                        </td>
+
+                                        <td class="text-center">
+                                            <div class="dropdown">
+                                                <a href="#"
+                                                    class="dropdown-toggle card-drop btn btn-sm btn-primary text-white"
+                                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                                    Action
+                                                </a>
+                                                <ul class="dropdown-menu dropdown-menu-end">
+
+                                                    <li>
+                                                        <a href="{{ route('payment_method.edit', $fixed_purchase->id) }}"
+                                                            class="dropdown-item">
+                                                            <i class="mdi mdi-pencil font-size-16 text-success me-1"></i>
+                                                            View
+                                                        </a>
+                                                    </li>
+
+                                                    <li>
+                                                        <a href="{{ route('payment_method.edit', $fixed_purchase->id) }}"
+                                                            class="dropdown-item">
+                                                            <i class="mdi mdi-pencil font-size-16 text-success me-1"></i>
+                                                            Edit
+                                                        </a>
+                                                    </li>
+
+                                                    <li>
+                                                        <form
+                                                            action="{{ route('payment_method.destroy', $fixed_purchase->id) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="dropdown-item del_confirm"
+                                                                id="confirm-text">
+                                                                <i
+                                                                    class="mdi mdi-trash-can font-size-16 text-danger me-1"></i>
+                                                                Delete
+                                                            </button>
+                                                        </form>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

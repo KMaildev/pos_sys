@@ -1,227 +1,299 @@
 @extends('layouts.main')
 @section('content')
     <div class="row">
-        <div class="col-lg-12">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">
-                        Fixed Assets Purchase
-                    </h4>
-                </div>
-                <div class="card-body p-4">
-
-                    <div class="row p-sm-3 p-0">
-                        <div class="col-md-6">
-                            <div class="row mb-2">
-                                <label for="html5-text-input" class="col-md-3 col-form-label">
-                                    Supplier
-                                </label>
-                                <div class="col-md-9">
-                                    <select name="supplier_id" class="form-control select2" id="supplierId">
-                                        <option value="">
-                                            Select Supplier
-                                        </option>
-                                        @foreach ($suppliers as $supplier)
-                                            <option value="{{ $supplier->id }}">
-                                                {{ $supplier->name ?? $supplier->phone }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    @error('supplier_id')
-                                        <div class="invalid-feedback"> {{ $message }} </div>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="row mb-2">
-                                <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">
-                                    Shop Name
-                                </label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" readonly id="shopName">
-                                </div>
-                            </div>
-
-                            <div class="row mb-2">
-                                <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">
-                                    Phone
-                                </label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" readonly id="phone">
-                                </div>
-                            </div>
-
-                            <div class="row mb-2">
-                                <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">
-                                    Address
-                                </label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" readonly id="address">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-
-                            <div class="row mb-2">
-                                <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">
-                                    Invoice No
-                                </label>
-                                <div class="col-sm-9">
-                                    <input class="form-control @error('invoice_no') is-invalid @enderror" type="text"
-                                        name="invoice_no" value="{{ old('invoice_no') }}" />
-                                    @error('invoice_no')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="row mb-2">
-                                <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">
-                                    Pruchase Date
-                                </label>
-                                <div class="col-sm-9">
-                                    <input class="form-control date_picker @error('purchase_date') is-invalid @enderror"
-                                        type="text" name="purchase_date" value="{{ old('purchase_date') }}" />
-                                    @error('purchase_date')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="row mb-2">
-                                <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">
-                                    Remark
-                                </label>
-                                <div class="col-sm-9">
-                                    <textarea class="form-control @error('remark') is-invalid @enderror" rows="3" name="remark">{{ old('remark') }}</textarea>
-                                    @error('remark')
-                                        <div class="invalid-feedback"> {{ $message }} </div>
-                                    @enderror
-                                </div>
-                            </div>
-
-                        </div>
+        <form action="{{ route('fixed_purchase.store') }}" method="post" id="create-form" enctype="multipart/form-data"
+            autocomplete="off">
+            @csrf
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">
+                            Fixed Assets Purchase
+                        </h4>
                     </div>
+                    <div class="card-body p-4">
 
-                    <hr class="mx-n4">
-
-                    <div class="row">
-                        <table class="table table-bordered mydatatable">
-                            <thead class="table-light">
-                                <tr class="tablebg">
-                                    <th class="text-center" style="width: 1%;">
-                                        #
-                                    </th>
-
-                                    <th class="text-center" style="width: 10%;">
-                                        Fixed Assets
-                                    </th>
-
-                                    <th class="text-center" style="width: 10%;">
-                                        Description
-                                    </th>
-
-                                    <th class="text-center" style="width: 7%;">
-                                        Unit
-                                    </th>
-
-                                    <th class="text-center" style="width: 10%;">
-                                        Quantity
-                                    </th>
-
-                                    <th class="text-center" style="width: 10%;">
-                                        Cost
-                                    </th>
-
-                                    <th class="text-center" style="width: 10%;">
-                                        Amount
-                                    </th>
-
-                                    <th class="text-center" style="width: 10%;">
-                                        Remark
-                                    </th>
-
-                                    <th class="text-center" style="width: 1%;">
-                                        Actions
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td></td>
-                                    {{-- Fixed Assets --}}
-                                    <td>
-                                        <select class="form-select select2" name="fixed_asset_id" id="fixedAssetsId">
+                        <div class="row p-sm-3 p-0">
+                            <div class="col-md-6">
+                                <div class="row mb-2">
+                                    <label for="html5-text-input" class="col-md-3 col-form-label">
+                                        Supplier
+                                    </label>
+                                    <div class="col-md-9">
+                                        <select name="supplier_id" class="form-control select2" id="supplierId">
                                             <option value="">
-                                                Select Items
+                                                Select Supplier
                                             </option>
-                                            @foreach ($fixed_assets as $fixed_asset)
-                                                <option value="{{ $fixed_asset->id }}">
-                                                    {{ $fixed_asset->inventory_code ?? '' }}
+                                            @foreach ($suppliers as $supplier)
+                                                <option value="{{ $supplier->id }}">
+                                                    {{ $supplier->name ?? $supplier->phone }}
                                                 </option>
                                             @endforeach
                                         </select>
+                                        @error('supplier_id')
+                                            <div class="invalid-feedback"> {{ $message }} </div>
+                                        @enderror
+                                    </div>
+                                </div>
 
-                                        <input type="hidden" id="FixedAssetsName" class="form-control" readonly>
-                                    </td>
+                                <div class="row mb-2">
+                                    <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">
+                                        Shop Name
+                                    </label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" readonly id="shopName">
+                                    </div>
+                                </div>
 
-                                    {{-- Description --}}
-                                    <td>
-                                        <input type="text" id="Description" class="form-control" readonly>
-                                    </td>
+                                <div class="row mb-2">
+                                    <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">
+                                        Phone
+                                    </label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" readonly id="phone">
+                                    </div>
+                                </div>
 
-                                    {{-- Unit --}}
-                                    <td>
-                                        <input type="text" id="Unit" class="form-control" readonly>
-                                    </td>
+                                <div class="row mb-2">
+                                    <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">
+                                        Address
+                                    </label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" readonly id="address">
+                                    </div>
+                                </div>
+                            </div>
 
-                                    {{-- Quantity --}}
-                                    <td>
-                                        <input type="text" class="form-control" id="Qty"
-                                            oninput="SetCalculator()" style="text-align: right">
-                                    </td>
+                            <div class="col-md-6">
 
-                                    {{-- Cost --}}
-                                    <td>
-                                        <input type="text" class="form-control" id="Cost"
-                                            oninput="SetCalculator()" style="text-align: right">
-                                    </td>
+                                <div class="row mb-2">
+                                    <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">
+                                        Invoice No
+                                    </label>
+                                    <div class="col-sm-9">
+                                        <input class="form-control @error('invoice_no') is-invalid @enderror" type="text"
+                                            name="invoice_no" value="{{ old('invoice_no') }}" />
+                                        @error('invoice_no')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
 
-                                    {{-- Amount --}}
-                                    <td>
-                                        <input type="text" class="form-control" id="Amount"
-                                            style="text-align: right">
-                                    </td>
+                                <div class="row mb-2">
+                                    <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">
+                                        Pruchase Date
+                                    </label>
+                                    <div class="col-sm-9">
+                                        <input class="form-control date_picker @error('purchase_date') is-invalid @enderror"
+                                            type="text" name="purchase_date" value="{{ old('purchase_date') }}" />
+                                        @error('purchase_date')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
 
-                                    {{-- Remark --}}
-                                    <td>
-                                        <input type="text" class="form-control" id="Remark">
-                                    </td>
+                                <div class="row mb-2">
+                                    <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">
+                                        Remark
+                                    </label>
+                                    <div class="col-sm-9">
+                                        <textarea class="form-control @error('remark') is-invalid @enderror" rows="3" name="remark">{{ old('remark') }}</textarea>
+                                        @error('remark')
+                                            <div class="invalid-feedback"> {{ $message }} </div>
+                                        @enderror
+                                    </div>
+                                </div>
 
-                                    {{-- Amount --}}
-                                    <td>
-                                        <button class="btn btn-primary" onclick="setPurchaseInvoiceCart()">
-                                            <i class="fa fa-plus"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                            <tbody id="TempLists"></tbody>
-                        </table>
+                            </div>
+                        </div>
+
+                        <hr class="mx-n4">
+
+                        <div class="row">
+                            <table class="table table-bordered mydatatable">
+                                <thead class="table-light">
+                                    <tr class="tablebg">
+                                        <th class="text-center" style="width: 1%;">
+                                            #
+                                        </th>
+
+                                        <th class="text-center" style="width: 10%;">
+                                            Fixed Assets
+                                        </th>
+
+                                        <th class="text-center" style="width: 10%;">
+                                            Description
+                                        </th>
+
+                                        <th class="text-center" style="width: 7%;">
+                                            Unit
+                                        </th>
+
+                                        <th class="text-center" style="width: 10%;">
+                                            Quantity
+                                        </th>
+
+                                        <th class="text-center" style="width: 10%;">
+                                            Cost
+                                        </th>
+
+                                        <th class="text-center" style="width: 10%;">
+                                            Amount
+                                        </th>
+
+                                        <th class="text-center" style="width: 10%;">
+                                            Remark
+                                        </th>
+
+                                        <th class="text-center" style="width: 1%;">
+                                            Actions
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td></td>
+                                        {{-- Fixed Assets --}}
+                                        <td>
+                                            <select class="form-select select2" name="fixed_asset_id" id="fixedAssetsId">
+                                                <option value="">
+                                                    Select Items
+                                                </option>
+                                                @foreach ($fixed_assets as $fixed_asset)
+                                                    <option value="{{ $fixed_asset->id }}">
+                                                        {{ $fixed_asset->inventory_code ?? '' }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+
+                                            <input type="hidden" id="FixedAssetsName" class="form-control" readonly>
+                                        </td>
+
+                                        {{-- Description --}}
+                                        <td>
+                                            <input type="text" id="Description" class="form-control" readonly>
+                                        </td>
+
+                                        {{-- Unit --}}
+                                        <td>
+                                            <input type="text" id="Unit" class="form-control" readonly>
+                                        </td>
+
+                                        {{-- Quantity --}}
+                                        <td>
+                                            <input type="text" class="form-control" id="Qty"
+                                                oninput="SetCalculator()" style="text-align: right">
+                                        </td>
+
+                                        {{-- Cost --}}
+                                        <td>
+                                            <input type="text" class="form-control" id="Cost"
+                                                oninput="SetCalculator()" style="text-align: right">
+                                        </td>
+
+                                        {{-- Amount --}}
+                                        <td>
+                                            <input type="text" class="form-control" id="Amount"
+                                                style="text-align: right">
+                                        </td>
+
+                                        {{-- Remark --}}
+                                        <td>
+                                            <input type="text" class="form-control" id="Remark">
+                                        </td>
+
+                                        {{-- Amount --}}
+                                        <td>
+                                            <button type="button" class="btn btn-primary"
+                                                onclick="setPurchaseInvoiceCart()">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody id="TempLists"></tbody>
+                            </table>
+                        </div>
+
+                        <div class="row p-sm-3 p-0">
+                            <div class="col-md-6">
+                                <dl class="row mb-2">
+                                    <div class="row mb-2">
+                                        <label for="horizontal-firstname-input" class="col-sm-4 col-form-label">
+                                            Attachment Files
+                                        </label>
+                                        <div class="col-sm-8">
+                                            <input class="form-control @error('attachments') is-invalid @enderror"
+                                                type="file" name="attachments[]" multiple />
+                                            @error('attachments')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </dl>
+                            </div>
+
+                            <div class="col-md-6">
+                                <dl class="row mb-2">
+
+                                    <div class="row mb-3">
+                                        <label class="col-sm-4 col-form-label">
+                                            Total Amount
+                                        </label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" style="text-align: right;"
+                                                id="totalAmountShow" readonly>
+                                            <input type="hidden" value="0" name="total_amount"
+                                                id="totalAmountSave">
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label class="col-sm-4 col-form-label">
+                                            Representative
+                                        </label>
+                                        <div class="col-sm-8">
+                                            <select class="select2 form-select form-select-sm" data-allow-clear="false"
+                                                name="representative_id">
+                                                <option value="">-- Select Representative --</option>
+                                                @foreach ($users as $user)
+                                                    <option value="{{ $user->id }}">
+                                                        {{ $user->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            @error('representative_id')
+                                                <div class="invalid-feedback"> {{ $message }} </div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="row py-3">
+                                        <div class="col-md-12">
+                                            <button type="submit" class="btn btn-primary w-md" style='float: right;'>
+                                                Save
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </dl>
+                            </div>
+                        </div>
+
                     </div>
-
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 @endsection
 @section('script')
-    {!! JsValidator::formRequest('App\Http\Requests\StoreCategory', '#create-form') !!}
+    {!! JsValidator::formRequest('App\Http\Requests\StoreFixedPurchase', '#create-form') !!}
 
     <script>
         function SetCalculator() {
@@ -283,7 +355,7 @@
                     let items = '';
                     var totalAmount = 0;
                     $.each(JSON.parse(data), function(key, value) {
-                        totalAmount += value.qty * value.cif_usd;
+                        totalAmount += value.qty * value.cost;
                         let k = key + 1;
                         items += '<tr>';
                         items += '<td>' + k + '</td>' //Sr.No	
