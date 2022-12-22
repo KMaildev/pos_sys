@@ -4,13 +4,14 @@
         <div class="col-xl-12">
             <div class="card mb-4">
                 <h5 class="card-header">
-                    Taxrate
+                    Payment Method Edit
                 </h5>
 
                 <div class="card-body">
-                    <form class="form-horizontal" action="{{ route('taxrate.store') }}" method="POST" autocomplete="off"
-                        id="create-form" role="form">
+                    <form class="form-horizontal" action="{{ route('payment_method.update', $store->id) }}" method="POST"
+                        autocomplete="off" id="create-form" role="form">
                         @csrf
+                        @method('PUT')
 
                         <div class="mb-3 row">
                             <label for="html5-text-input" class="col-md-3 col-form-label">
@@ -18,7 +19,7 @@
                             </label>
                             <div class="col-md-9">
                                 <input class="form-control @error('name') is-invalid @enderror" type="text"
-                                    name="name" value="{{ old('name') }}" />
+                                    name="name" value="{{ $store->name ?? '' }}" />
                                 @error('name')
                                     <div class="invalid-feedback"> {{ $message }} </div>
                                 @enderror
@@ -27,12 +28,12 @@
 
                         <div class="mb-3 row">
                             <label for="html5-text-input" class="col-md-3 col-form-label">
-                                Taxrate
+                                Remark
                             </label>
                             <div class="col-md-9">
-                                <input class="form-control @error('taxrate') is-invalid @enderror" type="text"
-                                    name="taxrate" value="{{ old('taxrate') }}" />
-                                @error('taxrate')
+                                <input class="form-control @error('remark') is-invalid @enderror" type="text"
+                                    name="remark" value="{{ $store->remark ?? '' }}" />
+                                @error('remark')
                                     <div class="invalid-feedback"> {{ $message }} </div>
                                 @enderror
                             </div>
@@ -44,14 +45,16 @@
                             </label>
                             <div class="col-md-9">
                                 <select name="status" class="form-control">
-                                    <option value="Active">Active</option>
-                                    <option value="Inactive">Inactive</option>
+                                    <option value="Active" @if ('Active' == $store->status) selected @endif>Active</option>
+                                    <option value="Inactive" @if ('Inactive' == $store->status) selected @endif>Inactive
+                                    </option>
                                 </select>
                                 @error('status')
                                     <div class="invalid-feedback"> {{ $message }} </div>
                                 @enderror
                             </div>
                         </div>
+
 
                         <div class="row justify-content-end">
                             <div class="col-sm-9">
@@ -60,7 +63,7 @@
                                         Save
                                     </button>
 
-                                    <a href="{{ route('taxrate.index') }}" class="btn btn-success w-md">
+                                    <a href="{{ route('payment_method.index') }}" class="btn btn-success w-md">
                                         Back
                                     </a>
                                 </div>
@@ -74,5 +77,5 @@
     </div>
 @endsection
 @section('script')
-    {!! JsValidator::formRequest('App\Http\Requests\StoreTaxrate', '#create-form') !!}
+    {!! JsValidator::formRequest('App\Http\Requests\UpdatePaymentMethod', '#create-form') !!}
 @endsection

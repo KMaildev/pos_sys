@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateTaxrate extends FormRequest
+class UpdatePaymentMethod extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,10 +23,8 @@ class UpdateTaxrate extends FormRequest
      */
     public function rules()
     {
-        $id = $this->route('taxrate');
         return [
-            'name' => 'required|unique:taxrates,name,' . $id,
-            'taxrate' => 'required|numeric',
+            'name' => 'required',
             'status' => 'required',
         ];
     }

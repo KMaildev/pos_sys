@@ -4,11 +4,11 @@
         <div class="col-xl-12">
             <div class="card mb-4">
                 <h5 class="card-header">
-                    Taxrate
+                    Payment Method
                 </h5>
 
                 <div class="card-body">
-                    <form class="form-horizontal" action="{{ route('taxrate.store') }}" method="POST" autocomplete="off"
+                    <form class="form-horizontal" action="{{ route('payment_method.store') }}" method="POST" autocomplete="off"
                         id="create-form" role="form">
                         @csrf
 
@@ -27,12 +27,12 @@
 
                         <div class="mb-3 row">
                             <label for="html5-text-input" class="col-md-3 col-form-label">
-                                Taxrate
+                                Remark
                             </label>
                             <div class="col-md-9">
-                                <input class="form-control @error('taxrate') is-invalid @enderror" type="text"
-                                    name="taxrate" value="{{ old('taxrate') }}" />
-                                @error('taxrate')
+                                <input class="form-control @error('remark') is-invalid @enderror" type="text"
+                                    name="remark" value="{{ old('remark') }}" />
+                                @error('remark')
                                     <div class="invalid-feedback"> {{ $message }} </div>
                                 @enderror
                             </div>
@@ -60,7 +60,7 @@
                                         Save
                                     </button>
 
-                                    <a href="{{ route('taxrate.index') }}" class="btn btn-success w-md">
+                                    <a href="{{ route('payment_method.index') }}" class="btn btn-success w-md">
                                         Back
                                     </a>
                                 </div>
@@ -74,5 +74,5 @@
     </div>
 @endsection
 @section('script')
-    {!! JsValidator::formRequest('App\Http\Requests\StoreTaxrate', '#create-form') !!}
+    {!! JsValidator::formRequest('App\Http\Requests\StorePaymentMethod', '#create-form') !!}
 @endsection

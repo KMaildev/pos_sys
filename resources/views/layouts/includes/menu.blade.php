@@ -176,6 +176,13 @@
                 </li>
 
                 <li>
+                    <a href="{{ route('payment_method.index') }}">
+                        <i data-feather="user-x"></i>
+                        Payment Method
+                    </a>
+                </li>
+
+                <li>
                     <a href="{{ route('taxrate.index') }}">
                         <i data-feather="user-x"></i>
                         Taxrate
@@ -188,7 +195,6 @@
                         Store
                     </a>
                 </li>
-
 
 
             </ul>
