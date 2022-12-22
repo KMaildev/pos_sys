@@ -24,11 +24,13 @@ use App\Http\Controllers\PosSys\Order\OrderConfirmController;
 use App\Http\Controllers\PosSys\Pin\PinController;
 use App\Http\Controllers\PosSys\TableList\TableListController as TableListTableListController;
 use App\Http\Controllers\PosSys\Test\TestController;
+use App\Http\Controllers\Purchase\FixedPurchaseController;
 use App\Http\Controllers\Supplier\SupplierController;
 use App\Http\Controllers\System\PaymentMethodController;
 use App\Http\Controllers\System\StoreController;
 use App\Http\Controllers\System\TaxrateController;
 use App\Http\Controllers\Table\TableListController;
+use App\Http\Controllers\Tempo\TempFixedPurchaseItemController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -53,7 +55,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('floor', FloorController::class);
     Route::resource('table_list', TableListController::class);
     Route::resource('customer', CustomerController::class);
+
     Route::resource('supplier', SupplierController::class);
+    Route::get('get_supplier_by_id/{id}', [SupplierController::class, 'getSupplierById'])->name('get_supplier_by_id');
+
+
     Route::get('table_search_find_by_floor/{floor_id}', [TableListController::class, 'index'])->name('table_search_find_by_floor');
     Route::get('load_table_pos', [TableListController::class, 'loadTablePos'])->name('load_table_pos');
     Route::resource('ingredients', IngredientsController::class);
@@ -71,13 +77,21 @@ Route::middleware('auth')->group(function () {
 
     // Inventory 
     Route::resource('fixed_asset', FixedAssetsController::class);
+    Route::get('get_fixed_by_id/{id}', [FixedAssetsController::class, 'getFixedById'])->name('get_fixed_by_id');
     Route::resource('variable_asset', VariableAssetsController::class);
+
+    // Purchase 
+    Route::resource('fixed_purchase', FixedPurchaseController::class);
+    Route::post('store_temp_fixed_purchase_item', [TempFixedPurchaseItemController::class, 'store'])->name('store_temp_fixed_purchase_item');
+    Route::get('get_temp_fixed_purchase_item', [TempFixedPurchaseItemController::class, 'index'])->name('get_temp_fixed_purchase_item');
+    Route::get('remove_temp_fixed_purchase_item/{id}', [TempFixedPurchaseItemController::class, 'remove'])->name('remove_temp_fixed_purchase_item');
+
+
 
     // System 
     Route::resource('store', StoreController::class);
     Route::resource('taxrate', TaxrateController::class);
     Route::resource('payment_method', PaymentMethodController::class);
-
 
     // POSSYS
     Route::get('/pos_main_page', [MainController::class, 'index'])->name('pos_main_page');

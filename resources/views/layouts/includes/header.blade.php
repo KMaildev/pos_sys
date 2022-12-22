@@ -21,7 +21,24 @@
 
     <link href="{{ asset('assets/libs/choices.js/public/assets/styles/choices.min.css') }}" rel="stylesheet"
         type="text/css" />
+
+    <link href="{{ asset('assets/select2/css/select2.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="{{ asset('assets/datetime/jquery.datetimepicker.css') }}">
 </head>
+<style>
+    .select2-selection__rendered {
+        line-height: 31px !important;
+    }
+
+    .select2-container .select2-selection--single {
+        height: 35px !important;
+    }
+
+    .select2-selection__arrow {
+        height: 34px !important;
+    }
+</style>
 
 <body data-topbar="dark">
     <!-- <body data-layout="horizontal"> -->

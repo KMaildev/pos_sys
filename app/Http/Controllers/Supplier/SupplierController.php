@@ -116,4 +116,10 @@ class SupplierController extends Controller
         $floor->delete();
         return redirect()->back()->with('success', 'Your processing has been completed.');
     }
+
+    public function getSupplierById($id)
+    {
+        $supplier_data = Supplier::findOrFail($id);
+        return json_encode($supplier_data);
+    }
 }

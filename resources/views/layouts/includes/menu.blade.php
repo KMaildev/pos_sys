@@ -24,7 +24,6 @@
                     </a>
                 </li>
 
-
                 <li>
                     <a href="{{ route('customer.index') }}">
                         <i data-feather="user-check"></i>
@@ -110,7 +109,7 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li>
-                            <a href="{{ route('fixed_asset.index') }}" key="t-products">
+                            <a href="{{ route('fixed_purchase.index') }}" key="t-products">
                                 Fixed Purchase
                             </a>
                         </li>

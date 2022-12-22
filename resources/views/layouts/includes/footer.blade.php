@@ -29,9 +29,13 @@
 <script src="{{ asset('assets/libs/twitter-bootstrap-wizard/jquery.bootstrap.wizard.min.js') }}"></script>
 <script src="{{ asset('assets/libs/twitter-bootstrap-wizard/prettify.js') }}"></script>
 <script src="{{ asset('assets/js/pages/form-wizard.init.js') }}"></script>
-
 <script type="text/javascript" src="{{ url('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
 <script src="{{ asset('assets/js/sweetalert.min.js') }}"></script>
+
+<script src="{{ asset('assets/select2/js/select2.min.js') }}"></script>
+
+<script src="{{ asset('assets/datetime/jquery.datetimepicker.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/js/custom.js') }}"></script>
 
 @include('layouts.js.javascript')
 <script>
@@ -53,6 +57,10 @@
                     }
                 });
         });
+
+        // Select 2
+        $('.select2').select2();
+
     });
 </script>
 @yield('script')

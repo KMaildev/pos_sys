@@ -111,4 +111,10 @@ class FixedAssetsController extends Controller
         $floor->delete();
         return redirect()->back()->with('success', 'Successfully Processed!');
     }
+
+    public function getFixedById($id)
+    {
+        $fixed_asset_data = FixedAssets::findOrFail($id);
+        return json_encode($fixed_asset_data);
+    }
 }
