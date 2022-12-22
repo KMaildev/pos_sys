@@ -23,7 +23,7 @@ class UpdateFixedAssets extends FormRequest
      */
     public function rules()
     {
-        $id = $this->route('fixed_assets');
+        $id = $this->route('fixed_asset');
         return [
             'inventory_code' => 'required|unique:fixed_assets,inventory_code,' . $id,
             'description' => 'required',

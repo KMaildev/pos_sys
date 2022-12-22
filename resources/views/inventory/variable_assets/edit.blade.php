@@ -8,7 +8,7 @@
                 </h5>
 
                 <div class="card-body">
-                    <form class="form-horizontal" action="{{ route('variable_assets.update', $fixed_asset->id) }}"
+                    <form class="form-horizontal" action="{{ route('variable_asset.update', $fixed_asset->id) }}"
                         method="POST" autocomplete="off" id="create-form" role="form">
                         @csrf
                         @method('PUT')
@@ -81,7 +81,7 @@
                                         Save
                                     </button>
 
-                                    <a href="{{ route('variable_assets.index') }}" class="btn btn-success w-md">
+                                    <a href="{{ route('variable_asset.index') }}" class="btn btn-success w-md">
                                         Back
                                     </a>
                                 </div>

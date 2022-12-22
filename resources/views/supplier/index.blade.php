@@ -4,7 +4,7 @@
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                 <h4 class="mb-sm-0 font-size-18">
-                    Fixed Inventory
+                    Supplier
                 </h4>
 
                 <div class="page-title-right">
@@ -15,7 +15,7 @@
                             </a>
                         </li>
                         <li class="breadcrumb-item active">
-                            Fixed Inventory
+                            Supplier
                         </li>
                     </ol>
                 </div>
@@ -31,7 +31,7 @@
 
                     <div class="row mb-2">
                         <div class="col-sm-4">
-                            <form action="{{ route('fixed_asset.index') }}" method="get" autocomplete="off">
+                            <form action="{{ route('supplier.index') }}" method="get" autocomplete="off">
                                 <div class="search-box me-2 mb-2 d-inline-block">
                                     <div class="position-relative">
                                         <input type="text" class="form-control" placeholder="Search..." name="q">
@@ -43,7 +43,7 @@
 
                         <div class="col-sm-8">
                             <div class="text-sm-end">
-                                <a href="{{ route('fixed_asset.create') }}"
+                                <a href="{{ route('supplier.create') }}"
                                     class="btn btn-primary aves-effect waves-light mb-2 me-2">
                                     <i class="mdi mdi-plus me-1"></i>
                                     Create
@@ -57,34 +57,48 @@
                             <thead class="table-light">
                                 <tr class="tablebg">
                                     <th class="text-center" style="width: 1%;">#</th>
-                                    <th class="text-center">Inventory Code</th>
-                                    <th class="text-center">Description</th>
-                                    <th class="text-center">Unit</th>
-                                    <th class="text-center">Store</th>
+                                    <th class="text-center">Name</th>
+                                    <th class="text-center">Shop Name</th>
+                                    <th class="text-center">Phone</th>
+                                    <th class="text-center">Email</th>
+                                    <th class="text-center">Address</th>
+                                    <th class="text-center">Remark</th>
                                     <th class="text-center">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($fixed_assets as $key => $fixed_asset)
+                                @foreach ($suppliers as $key => $supplier)
                                     <tr>
                                         <td>
                                             {{ $key + 1 }}
                                         </td>
 
                                         <td class="text-center">
-                                            {{ $fixed_asset->inventory_code ?? '' }}
+                                            {{ $supplier->name ?? '' }}
                                         </td>
 
                                         <td class="text-center">
-                                            {{ $fixed_asset->description ?? '' }}
+                                            {{ $supplier->shop_name ?? '' }}
                                         </td>
 
                                         <td class="text-center">
-                                            {{ $fixed_asset->unit ?? '' }}
+                                            <a href="tel:{{ $supplier->phone ?? '' }}">
+                                                {{ $supplier->phone ?? '' }}
+                                            </a>
                                         </td>
 
                                         <td class="text-center">
-                                            {{ $fixed_asset->store_table->name ?? '' }}
+                                            <a href="mailto:{{ $supplier->email ?? '' }}">
+                                                {{ $supplier->email ?? '' }}
+                                            </a>
+                                        </td>
+
+                                        <td class="text-center">
+                                            {{ $supplier->address ?? '' }}
+                                        </td>
+
+                                        <td class="text-center">
+                                            {{ $supplier->remark ?? '' }}
                                         </td>
 
                                         <td class="text-center">
@@ -96,7 +110,7 @@
                                                 </a>
                                                 <ul class="dropdown-menu dropdown-menu-end" style="">
                                                     <li>
-                                                        <a href="{{ route('fixed_asset.edit', $fixed_asset->id) }}"
+                                                        <a href="{{ route('supplier.edit', $supplier->id) }}"
                                                             class="dropdown-item">
                                                             <i class="mdi mdi-pencil font-size-16 text-success me-1"></i>
                                                             Edit
@@ -104,7 +118,7 @@
                                                     </li>
 
                                                     <li>
-                                                        <form action="{{ route('fixed_asset.destroy', $fixed_asset->id) }}"
+                                                        <form action="{{ route('supplier.destroy', $supplier->id) }}"
                                                             method="POST">
                                                             @csrf
                                                             @method('DELETE')

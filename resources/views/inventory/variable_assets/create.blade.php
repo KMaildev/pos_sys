@@ -8,7 +8,7 @@
                 </h5>
 
                 <div class="card-body">
-                    <form class="form-horizontal" action="{{ route('variable_assets.store') }}" method="POST"
+                    <form class="form-horizontal" action="{{ route('variable_asset.store') }}" method="POST"
                         autocomplete="off" id="create-form" role="form">
                         @csrf
 
@@ -79,7 +79,7 @@
                                         Save
                                     </button>
 
-                                    <a href="{{ route('variable_assets.index') }}" class="btn btn-success w-md">
+                                    <a href="{{ route('variable_asset.index') }}" class="btn btn-success w-md">
                                         Back
                                     </a>
                                 </div>

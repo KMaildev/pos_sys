@@ -33,6 +33,13 @@
                 </li>
 
                 <li>
+                    <a href="{{ route('supplier.index') }}">
+                        <i data-feather="user-check"></i>
+                        Supplier
+                    </a>
+                </li>
+
+                <li>
                     <a href="{{ route('category.index') }}">
                         <i data-feather="check"></i>
                         Category
@@ -80,14 +87,37 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li>
-                            <a href="{{ route('fixed_assets.index') }}" key="t-products">
+                            <a href="{{ route('fixed_asset.index') }}" key="t-products">
                                 Fixed Inventory
                             </a>
                         </li>
 
                         <li>
-                            <a href="{{ route('variable_assets.index') }}" key="t-products">
+                            <a href="{{ route('variable_asset.index') }}" key="t-products">
                                 Variable Inventory
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow">
+                        <i data-feather="shopping-cart"></i>
+                        <span data-key="t-ecommerce">
+                            Purchase
+                        </span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li>
+                            <a href="{{ route('fixed_asset.index') }}" key="t-products">
+                                Fixed Purchase
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{{ route('variable_asset.index') }}" key="t-products">
+                                Variable Purchase
                             </a>
                         </li>
                     </ul>

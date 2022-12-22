@@ -8,7 +8,7 @@
                 </h5>
 
                 <div class="card-body">
-                    <form class="form-horizontal" action="{{ route('fixed_assets.update', $fixed_asset->id) }}" method="POST"
+                    <form class="form-horizontal" action="{{ route('fixed_asset.update', $fixed_asset->id) }}" method="POST"
                         autocomplete="off" id="create-form" role="form">
                         @csrf
                         @method('PUT')
@@ -81,7 +81,7 @@
                                         Save
                                     </button>
 
-                                    <a href="{{ route('fixed_assets.index') }}" class="btn btn-success w-md">
+                                    <a href="{{ route('fixed_asset.index') }}" class="btn btn-success w-md">
                                         Back
                                     </a>
                                 </div>
@@ -95,5 +95,5 @@
     </div>
 @endsection
 @section('script')
-    {!! JsValidator::formRequest('App\Http\Requests\StoreFixedAssets', '#create-form') !!}
+    {!! JsValidator::formRequest('App\Http\Requests\UpdateFixedAssets', '#create-form') !!}
 @endsection

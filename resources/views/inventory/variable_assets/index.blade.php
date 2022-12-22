@@ -31,7 +31,7 @@
 
                     <div class="row mb-2">
                         <div class="col-sm-4">
-                            <form action="{{ route('variable_assets.index') }}" method="get" autocomplete="off">
+                            <form action="{{ route('variable_asset.index') }}" method="get" autocomplete="off">
                                 <div class="search-box me-2 mb-2 d-inline-block">
                                     <div class="position-relative">
                                         <input type="text" class="form-control" placeholder="Search..." name="q">
@@ -43,7 +43,7 @@
 
                         <div class="col-sm-8">
                             <div class="text-sm-end">
-                                <a href="{{ route('variable_assets.create') }}"
+                                <a href="{{ route('variable_asset.create') }}"
                                     class="btn btn-primary aves-effect waves-light mb-2 me-2">
                                     <i class="mdi mdi-plus me-1"></i>
                                     Create
@@ -96,7 +96,7 @@
                                                 </a>
                                                 <ul class="dropdown-menu dropdown-menu-end" style="">
                                                     <li>
-                                                        <a href="{{ route('variable_assets.edit', $variable_asset->id) }}"
+                                                        <a href="{{ route('variable_asset.edit', $variable_asset->id) }}"
                                                             class="dropdown-item">
                                                             <i class="mdi mdi-pencil font-size-16 text-success me-1"></i>
                                                             Edit
@@ -105,7 +105,7 @@
 
                                                     <li>
                                                         <form
-                                                            action="{{ route('variable_assets.destroy', $variable_asset->id) }}"
+                                                            action="{{ route('variable_asset.destroy', $variable_asset->id) }}"
                                                             method="POST">
                                                             @csrf
                                                             @method('DELETE')

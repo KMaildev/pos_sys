@@ -24,6 +24,7 @@ use App\Http\Controllers\PosSys\Order\OrderConfirmController;
 use App\Http\Controllers\PosSys\Pin\PinController;
 use App\Http\Controllers\PosSys\TableList\TableListController as TableListTableListController;
 use App\Http\Controllers\PosSys\Test\TestController;
+use App\Http\Controllers\Supplier\SupplierController;
 use App\Http\Controllers\System\PaymentMethodController;
 use App\Http\Controllers\System\StoreController;
 use App\Http\Controllers\System\TaxrateController;
@@ -52,6 +53,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('floor', FloorController::class);
     Route::resource('table_list', TableListController::class);
     Route::resource('customer', CustomerController::class);
+    Route::resource('supplier', SupplierController::class);
     Route::get('table_search_find_by_floor/{floor_id}', [TableListController::class, 'index'])->name('table_search_find_by_floor');
     Route::get('load_table_pos', [TableListController::class, 'loadTablePos'])->name('load_table_pos');
     Route::resource('ingredients', IngredientsController::class);
@@ -68,8 +70,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('role', RoleController::class);
 
     // Inventory 
-    Route::resource('fixed_assets', FixedAssetsController::class);
-    Route::resource('variable_assets', VariableAssetsController::class);
+    Route::resource('fixed_asset', FixedAssetsController::class);
+    Route::resource('variable_asset', VariableAssetsController::class);
 
     // System 
     Route::resource('store', StoreController::class);
