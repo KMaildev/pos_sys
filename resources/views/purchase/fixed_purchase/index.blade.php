@@ -4,7 +4,7 @@
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                 <h4 class="mb-sm-0 font-size-18">
-                    Fixed Assets Purchase
+                    Fixed Assets Purchase Edit
                 </h4>
 
                 <div class="page-title-right">
@@ -132,7 +132,7 @@
                                                     </li>
 
                                                     <li>
-                                                        <a href="{{ route('payment_method.edit', $fixed_purchase->id) }}"
+                                                        <a href="{{ route('fixed_purchase.edit', $fixed_purchase->id) }}"
                                                             class="dropdown-item">
                                                             <i class="mdi mdi-pencil font-size-16 text-success me-1"></i>
                                                             Edit
@@ -141,7 +141,7 @@
 
                                                     <li>
                                                         <form
-                                                            action="{{ route('payment_method.destroy', $fixed_purchase->id) }}"
+                                                            action="{{ route('fixed_purchase.destroy', $fixed_purchase->id) }}"
                                                             method="POST">
                                                             @csrf
                                                             @method('DELETE')

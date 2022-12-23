@@ -25,7 +25,8 @@
                                                 Select Supplier
                                             </option>
                                             @foreach ($suppliers as $supplier)
-                                                <option value="{{ $supplier->id }}">
+                                                <option value="{{ $supplier->id }}"
+                                                    @if ($supplier->id == $fixed_purchase->supplier_id) selected @endif>
                                                     {{ $supplier->name ?? $supplier->phone }}
                                                 </option>
                                             @endforeach
@@ -72,7 +73,7 @@
                                     </label>
                                     <div class="col-sm-9">
                                         <input class="form-control @error('invoice_no') is-invalid @enderror" type="text"
-                                            name="invoice_no" value="{{ old('invoice_no') }}" />
+                                            name="invoice_no" value="{{ $fixed_purchase->invoice_no ?? '' }}" />
                                         @error('invoice_no')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -87,7 +88,8 @@
                                     </label>
                                     <div class="col-sm-9">
                                         <input class="form-control date_picker @error('purchase_date') is-invalid @enderror"
-                                            type="text" name="purchase_date" value="{{ old('purchase_date') }}" />
+                                            type="text" name="purchase_date"
+                                            value="{{ $fixed_purchase->purchase_date ?? '' }}" />
                                         @error('purchase_date')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -101,7 +103,7 @@
                                         Remark
                                     </label>
                                     <div class="col-sm-9">
-                                        <textarea class="form-control @error('remark') is-invalid @enderror" rows="3" name="remark">{{ old('remark') }}</textarea>
+                                        <textarea class="form-control @error('remark') is-invalid @enderror" rows="3" name="remark">{{ $fixed_purchase->remark ?? '' }}</textarea>
                                         @error('remark')
                                             <div class="invalid-feedback"> {{ $message }} </div>
                                         @enderror
@@ -213,6 +215,11 @@
                                                 <i class="fa fa-plus"></i>
                                             </button>
                                         </td>
+                                    </tr>
+                                </tbody>
+                                <tbody>
+                                    <tr>
+                                        
                                     </tr>
                                 </tbody>
                                 <tbody id="TempLists"></tbody>
@@ -426,6 +433,22 @@
         });
 
 
+        $('select[id="fixedAssetsId"]').on('change', function() {
+            var fixedAssetsId = $(this).val();
+            if (fixedAssetsId) {
+                $.ajax({
+                    url: `/get_fixed_by_id/${fixedAssetsId}`,
+                    type: "GET",
+                    dataType: "json",
+                    success: function(data) {
+                        Description.value = data.description;
+                        Unit.value = data.unit;
+                        FixedAssetsName.value = data.inventory_code;
+                    }
+                });
+            }
+        });
+
 
         $('select[id="supplierId"]').on('change', function() {
             var supplierId = $(this).val();
@@ -443,21 +466,21 @@
             }
         });
 
-
-        $('select[id="fixedAssetsId"]').on('change', function() {
-            var fixedAssetsId = $(this).val();
-            if (fixedAssetsId) {
+        function autoGetSupplierData() {
+            var supplierId = '{{ $fixed_purchase->supplier_id }}'
+            if (supplierId) {
                 $.ajax({
-                    url: `/get_fixed_by_id/${fixedAssetsId}`,
+                    url: `/get_supplier_by_id/${supplierId}`,
                     type: "GET",
                     dataType: "json",
                     success: function(data) {
-                        Description.value = data.description;
-                        Unit.value = data.unit;
-                        FixedAssetsName.value = data.inventory_code;
+                        shopName.value = data.shop_name;
+                        address.value = data.address;
+                        phone.value = data.phone;
                     }
                 });
             }
-        });
+        }
+        autoGetSupplierData();
     </script>
 @endsection

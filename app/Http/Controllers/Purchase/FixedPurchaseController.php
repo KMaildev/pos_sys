@@ -125,7 +125,13 @@ class FixedPurchaseController extends Controller
      */
     public function edit($id)
     {
-        //
+        $fixed_assets = FixedAssets::all();
+        $suppliers = Supplier::all();
+        $users = User::all();
+
+        $fixed_purchase = FixedPurchase::findOrFail($id);
+        $fixed_purchase_items = FixedPurchaseItem::where('fixed_purchase_id', $id)->get();
+        return view('purchase.fixed_purchase.edit', compact('fixed_assets', 'suppliers', 'users', 'fixed_purchase', 'fixed_purchase_items'));
     }
 
     /**
@@ -148,6 +154,8 @@ class FixedPurchaseController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $fixed_purchase = FixedPurchase::findOrFail($id);
+        $fixed_purchase->delete();
+        return redirect()->back()->with('success', 'Your processing has been completed.');
     }
 }
