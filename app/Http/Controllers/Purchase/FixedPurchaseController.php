@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Purchase;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreFixedPurchase;
+use App\Http\Requests\UpdateFIxedPurchase;
 use App\Models\FixedAssets;
 use App\Models\FixedPurchase;
 use App\Models\FixedPurchaseFiles;
@@ -84,8 +85,6 @@ class FixedPurchaseController extends Controller
             FixedPurchaseItem::insert($insert);
             TempFixedPurchaseItem::where('session_id', session()->getId())->delete();
 
-
-
             if ($request->hasFile('attachments')) {
                 foreach ($request->file('attachments') as $key => $file) {
                     $path = $file->store('public/attachments');
@@ -97,6 +96,7 @@ class FixedPurchaseController extends Controller
                     $upload[$key]['fixed_purchase_id'] = $fixed_purchase_id;
                     $upload[$key]['created_at'] =  date('Y-m-d H:i:s');
                     $upload[$key]['updated_at'] =  date('Y-m-d H:i:s');
+                    $upload[$key]['date_at'] =  date('Y-m-d H:i:s');
                 }
                 FixedPurchaseFiles::insert($upload);
             }
@@ -114,7 +114,11 @@ class FixedPurchaseController extends Controller
      */
     public function show($id)
     {
-        //
+        $fixed_purchase = FixedPurchase::findOrFail($id);
+        $fixed_purchase_items = FixedPurchaseItem::where('fixed_purchase_id', $id)->get();
+        $fixed_purchase_files = FixedPurchaseFiles::where('fixed_purchase_id', $id)->get();
+
+        return view('purchase.fixed_purchase.show', compact('fixed_purchase', 'fixed_purchase_items', 'fixed_purchase_files'));
     }
 
     /**
@@ -141,9 +145,58 @@ class FixedPurchaseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateFIxedPurchase $request, $id)
     {
-        //
+        $session_id = session()->getId();
+        $rowCount = TempFixedPurchaseItem::where('session_id', $session_id)
+            ->count();
+
+        $purchase_order = FixedPurchase::findOrFail($id);
+        $purchase_order->supplier_id = $request->supplier_id;
+        $purchase_order->invoice_no = $request->invoice_no;
+        $purchase_order->purchase_date = $request->purchase_date;
+        $purchase_order->remark = $request->remark;
+        $purchase_order->total_amount = $request->total_amount;
+        $purchase_order->user_id = auth()->user()->id ?? 0;
+        $purchase_order->representative_id = $request->representative_id;
+        $purchase_order->date_at = date('Y-m-d');
+        $purchase_order->save();
+        $fixed_purchase_id = $purchase_order->id;
+
+        if ($rowCount > 0) {
+            $temp_fixed_purchase_items = TempFixedPurchaseItem::where('session_id', $session_id)
+                ->get();
+            foreach ($temp_fixed_purchase_items as $key => $value) {
+                $insert[$key]['fixed_asset_id'] = $value['temp_id'];
+                $insert[$key]['qty'] = $value['qty'];
+                $insert[$key]['cost'] = $value['cost'];
+                $insert[$key]['remark'] = $value['remark'];
+                $insert[$key]['fixed_purchase_id'] = $fixed_purchase_id;
+                $insert[$key]['user_id'] = auth()->user()->id ?? 0;
+                $insert[$key]['created_at'] =  date('Y-m-d H:i:s');
+                $insert[$key]['updated_at'] =  date('Y-m-d H:i:s');
+            }
+            FixedPurchaseItem::insert($insert);
+            TempFixedPurchaseItem::where('session_id', session()->getId())->delete();
+        }
+
+        if ($request->hasFile('attachments')) {
+            foreach ($request->file('attachments') as $key => $file) {
+                $path = $file->store('public/attachments');
+                $original_name = $file->getClientOriginalName();
+
+                $upload[$key]['attachments'] = $path;
+                $upload[$key]['original_name'] = $original_name;
+                $upload[$key]['user_id'] = auth()->user()->id ?? 0;
+                $upload[$key]['fixed_purchase_id'] = $fixed_purchase_id;
+                $upload[$key]['created_at'] =  date('Y-m-d H:i:s');
+                $upload[$key]['updated_at'] =  date('Y-m-d H:i:s');
+                $upload[$key]['date_at'] =  date('Y-m-d H:i:s');
+            }
+            FixedPurchaseFiles::insert($upload);
+        }
+
+        return redirect()->back()->with('success', 'Your processing has been completed.');
     }
 
     /**

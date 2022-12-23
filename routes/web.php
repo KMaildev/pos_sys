@@ -25,6 +25,7 @@ use App\Http\Controllers\PosSys\Pin\PinController;
 use App\Http\Controllers\PosSys\TableList\TableListController as TableListTableListController;
 use App\Http\Controllers\PosSys\Test\TestController;
 use App\Http\Controllers\Purchase\FixedPurchaseController;
+use App\Http\Controllers\Purchase\FixedPurchaseItemController;
 use App\Http\Controllers\Supplier\SupplierController;
 use App\Http\Controllers\System\PaymentMethodController;
 use App\Http\Controllers\System\StoreController;
@@ -82,6 +83,9 @@ Route::middleware('auth')->group(function () {
 
     // Purchase 
     Route::resource('fixed_purchase', FixedPurchaseController::class);
+    Route::resource('fixed_purchase_item', FixedPurchaseItemController::class);
+    Route::get('fixed_purchase_item_delete/{id}', [FixedPurchaseItemController::class, 'delete'])->name('fixed_purchase_item_delete');
+
     Route::post('store_temp_fixed_purchase_item', [TempFixedPurchaseItemController::class, 'store'])->name('store_temp_fixed_purchase_item');
     Route::get('get_temp_fixed_purchase_item', [TempFixedPurchaseItemController::class, 'index'])->name('get_temp_fixed_purchase_item');
     Route::get('remove_temp_fixed_purchase_item/{id}', [TempFixedPurchaseItemController::class, 'remove'])->name('remove_temp_fixed_purchase_item');

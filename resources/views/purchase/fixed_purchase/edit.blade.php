@@ -1,14 +1,15 @@
 @extends('layouts.main')
 @section('content')
     <div class="row">
-        <form action="{{ route('fixed_purchase.store') }}" method="post" id="create-form" enctype="multipart/form-data"
-            autocomplete="off">
+        <form action="{{ route('fixed_purchase.update', $fixed_purchase->id) }}" method="post" id="create-form"
+            enctype="multipart/form-data" autocomplete="off">
             @csrf
+            @method('PUT')
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">
-                            Fixed Assets Purchase
+                            Fixed Assets Purchase Edit
                         </h4>
                     </div>
                     <div class="card-body p-4">
@@ -218,9 +219,61 @@
                                     </tr>
                                 </tbody>
                                 <tbody>
-                                    <tr>
-                                        
-                                    </tr>
+                                    @php
+                                        $amount_total = [];
+                                    @endphp
+                                    @foreach ($fixed_purchase_items as $key => $fixed_purchase_item)
+                                        <tr>
+                                            <td>
+                                                {{ $key + 1 }}
+                                            </td>
+
+                                            <td>
+                                                {{ $fixed_purchase_item->fixed_asset_table->inventory_code ?? '' }}
+                                            </td>
+
+                                            <td>
+                                                {{ $fixed_purchase_item->fixed_asset_table->description ?? '' }}
+                                            </td>
+
+                                            <td>
+                                                {{ $fixed_purchase_item->fixed_asset_table->unit ?? '' }}
+                                            </td>
+
+                                            <td style="text-align: right">
+                                                @php
+                                                    $qty = $fixed_purchase_item->qty ?? 0;
+                                                    echo number_format($qty, 2);
+                                                @endphp
+                                            </td>
+
+                                            <td style="text-align: right">
+                                                @php
+                                                    $cost = $fixed_purchase_item->cost ?? 0;
+                                                    echo number_format($cost, 2);
+                                                @endphp
+                                            </td>
+
+                                            <td style="text-align: right">
+                                                @php
+                                                    $amount = $qty * $cost;
+                                                    echo number_format($amount, 2);
+                                                    $amount_total[] = $amount;
+                                                @endphp
+                                            </td>
+
+                                            <td>
+                                                {{ $fixed_purchase_item->remark ?? '' }}
+                                            </td>
+
+                                            <td>
+                                                <a href="{{ route('fixed_purchase_item_delete', $fixed_purchase_item->id) }}"
+                                                    type="button" class="btn btn-danger">
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                                 <tbody id="TempLists"></tbody>
                             </table>
@@ -254,8 +307,13 @@
                                             Total Amount
                                         </label>
                                         <div class="col-sm-8">
+                                            @php
+                                                $total_amount = array_sum($amount_total);
+                                            @endphp
+
                                             <input type="text" class="form-control" style="text-align: right;"
                                                 id="totalAmountShow" readonly>
+
                                             <input type="hidden" value="0" name="total_amount"
                                                 id="totalAmountSave">
                                         </div>
@@ -270,7 +328,8 @@
                                                 name="representative_id">
                                                 <option value="">-- Select Representative --</option>
                                                 @foreach ($users as $user)
-                                                    <option value="{{ $user->id }}">
+                                                    <option value="{{ $user->id }}"
+                                                        @if ($user->id == $fixed_purchase->representative_id) selected @endif>
                                                         {{ $user->name }}
                                                     </option>
                                                 @endforeach
@@ -300,7 +359,7 @@
     </div>
 @endsection
 @section('script')
-    {!! JsValidator::formRequest('App\Http\Requests\StoreFixedPurchase', '#create-form') !!}
+    {!! JsValidator::formRequest('App\Http\Requests\UpdateFIxedPurchase', '#create-form') !!}
 
     <script>
         function SetCalculator() {
@@ -358,7 +417,6 @@
                 url: url,
                 method: "GET",
                 success: function(data) {
-                    console.log(data);
                     let items = '';
                     var totalAmount = 0;
                     $.each(JSON.parse(data), function(key, value) {
@@ -412,13 +470,16 @@
                         items += '</tr>';
                     });
                     $('#TempLists').html(items);
-                    totalAmountShow.value = (totalAmount).toLocaleString('en');
-                    totalAmountSave.value = totalAmount;
+                    var oldTotalAmount = '{{ $total_amount }}';
+                    var showTotalAmount = +oldTotalAmount + +totalAmount;
+                    totalAmountShow.value = (showTotalAmount).toLocaleString('en');
+                    totalAmountSave.value = showTotalAmount;
                 }
             });
         }
-
         getTempData();
+
+
 
         // RemoveItem
         $(document).on("click", ".remove_item", function() {

@@ -124,9 +124,9 @@
                                                 <ul class="dropdown-menu dropdown-menu-end">
 
                                                     <li>
-                                                        <a href="{{ route('payment_method.edit', $fixed_purchase->id) }}"
+                                                        <a href="{{ route('fixed_purchase.show', $fixed_purchase->id) }}"
                                                             class="dropdown-item">
-                                                            <i class="mdi mdi-pencil font-size-16 text-success me-1"></i>
+                                                            <i class="fa fa-eye font-size-16 text-success me-1"></i>
                                                             View
                                                         </a>
                                                     </li>

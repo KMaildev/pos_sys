@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class FixedPurchaseItem extends Model
 {
     use HasFactory;
+
+    public function fixed_asset_table()
+    {
+        return $this->belongsTo(FixedAssets::class, 'fixed_asset_id', 'id');
+    }
 }

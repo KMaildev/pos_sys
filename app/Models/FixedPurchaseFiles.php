@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class FixedPurchaseFiles extends Model
 {
     use HasFactory;
+
+    public function user_table()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 }
