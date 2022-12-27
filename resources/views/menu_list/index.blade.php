@@ -100,6 +100,15 @@
                                                     Action
                                                 </a>
                                                 <ul class="dropdown-menu dropdown-menu-end" style="">
+
+                                                    <li>
+                                                        <a href="{{ route('add_ingredients', $menu_list->id) }}"
+                                                            class="dropdown-item">
+                                                            <i class="mdi mdi-pencil font-size-16 text-success me-1"></i>
+                                                            Add Ingredients
+                                                        </a>
+                                                    </li>
+
                                                     <li>
                                                         <a href="{{ route('menu_list.edit', $menu_list->id) }}"
                                                             class="dropdown-item">

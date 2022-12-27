@@ -68,6 +68,9 @@ Route::middleware('auth')->group(function () {
     Route::get('table_search_find_by_floor/{floor_id}', [TableListController::class, 'index'])->name('table_search_find_by_floor');
     Route::get('load_table_pos', [TableListController::class, 'loadTablePos'])->name('load_table_pos');
     Route::resource('ingredients', IngredientsController::class);
+    Route::get('add_ingredients/{id}', [IngredientsController::class, 'addIngredients'])->name('add_ingredients');
+    Route::get('ingredients_by_id/{id}', [IngredientsController::class, 'ingredientsByIdJson'])->name('ingredients_by_id');
+    
     Route::resource('order_list', OrderListController::class);
     Route::get('get_order_list_ajax', [OrderListController::class, 'getOrderListAjax'])->name('get_order_list_ajax');
 

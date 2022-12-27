@@ -54,7 +54,7 @@
                                 Category
                             </label>
                             <div class="col-md-9">
-                                <select name="categorie_id" class="form-control" required>
+                                <select name="categorie_id" class="form-control select2" required>
                                     <option value="">
                                         -- Select Category --
                                     </option>

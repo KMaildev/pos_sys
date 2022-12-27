@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreIngredients;
 use App\Http\Requests\UpdateIngredients;
 use App\Models\Ingredients;
+use App\Models\MenuList;
 use Illuminate\Http\Request;
 
 class IngredientsController extends Controller
@@ -103,6 +104,13 @@ class IngredientsController extends Controller
         $category = Ingredients::findOrFail($id);
         $category->delete();
         return redirect()->back()->with('success', 'Your processing has been completed.');
+    }
+
+    public function addIngredients($id)
+    {
+        $menu_list = MenuList::findOrFail($id);
+        $ingredients = Ingredients::all();
+        return view('ingredients.add_ingredients', compact('menu_list', 'ingredients'));
     }
 
 
