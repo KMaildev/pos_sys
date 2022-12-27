@@ -131,13 +131,13 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li>
-                            <a href="ecommerce-products.html" key="t-products">
+                            <a href="#" key="t-products">
                                 Fixed Inventory
                             </a>
                         </li>
 
                         <li>
-                            <a href="ecommerce-products.html" key="t-products">
+                            <a href="#" key="t-products">
                                 Variable Inventory
                             </a>
                         </li>
@@ -153,7 +153,7 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li>
-                            <a href="ecommerce-products.html" key="t-products">
+                            <a href="{{ route('fixed_damage.index') }}" key="t-products">
                                 Fixed Inventory
                             </a>
                         </li>

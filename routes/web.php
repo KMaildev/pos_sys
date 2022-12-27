@@ -6,6 +6,7 @@ use App\Http\Controllers\Cashier\Main\CashierMainController;
 use App\Http\Controllers\Cashier\Order\CashierOrderController;
 use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\Customer\CustomerController;
+use App\Http\Controllers\Damage\FixedDamageController;
 use App\Http\Controllers\Floor\FloorController;
 use App\Http\Controllers\Hr\DepartmentController;
 use App\Http\Controllers\Hr\EmployeeController;
@@ -98,12 +99,13 @@ Route::middleware('auth')->group(function () {
     Route::get('variable_attachment_files/{id}', [VariablePurchaseController::class, 'attachmentFiles'])->name('variable_attachment_files');
     Route::post('variable_attachment_files_delete/{id}', [VariablePurchaseController::class, 'attachmentFilesDelete'])->name('variable_attachment_files_delete');
 
-
     // Purchase Add Delete  
     Route::post('store_temp_fixed_purchase_item', [TempFixedPurchaseItemController::class, 'store'])->name('store_temp_fixed_purchase_item');
     Route::get('get_temp_fixed_purchase_item', [TempFixedPurchaseItemController::class, 'index'])->name('get_temp_fixed_purchase_item');
     Route::get('remove_temp_fixed_purchase_item/{id}', [TempFixedPurchaseItemController::class, 'remove'])->name('remove_temp_fixed_purchase_item');
 
+    // Inventory Damage
+    Route::resource('fixed_damage', FixedDamageController::class);
 
 
     // System 
