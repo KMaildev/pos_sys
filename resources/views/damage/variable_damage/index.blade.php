@@ -4,7 +4,7 @@
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                 <h4 class="mb-sm-0 font-size-18">
-                    Fixed Assets Damage
+                    Variable Assets Damage
                 </h4>
 
                 <div class="page-title-right">
@@ -15,7 +15,7 @@
                             </a>
                         </li>
                         <li class="breadcrumb-item active">
-                            Fixed Assets Damage
+                            Variable Assets Damage
                         </li>
                     </ol>
                 </div>
@@ -31,7 +31,7 @@
 
                     <div class="row mb-2">
                         <div class="col-sm-4">
-                            <form action="{{ route('fixed_damage.index') }}" method="get" autocomplete="off">
+                            <form action="{{ route('variable_damage.index') }}" method="get" autocomplete="off">
                                 <div class="search-box me-2 mb-2 d-inline-block">
                                     <div class="position-relative">
                                         <input type="text" class="form-control" placeholder="Search..." name="q">
@@ -43,7 +43,7 @@
 
                         <div class="col-sm-8">
                             <div class="text-sm-end">
-                                <a href="{{ route('fixed_damage.create') }}"
+                                <a href="{{ route('variable_damage.create') }}"
                                     class="btn btn-primary aves-effect waves-light mb-2 me-2">
                                     <i class="mdi mdi-plus me-1"></i>
                                     Create
@@ -68,44 +68,45 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($fixed_damages as $key => $fixed_damage)
+                                @foreach ($variable_damages as $key => $variable_damage)
                                     <tr>
                                         <td class="text-center">
                                             {{ $key + 1 }}
                                         </td>
 
                                         <td class="text-center">
-                                            {{ $fixed_damage->fixed_asset_table->inventory_code }}
+                                            {{ $variable_damage->variable_asset_table->inventory_code }}
                                         </td>
 
                                         <td class="text-center">
-                                            {{ $fixed_damage->fixed_asset_table->fixed_purchase_items->sum('qty') }}
+                                            {{ $variable_damage->variable_asset_table->variable_purchase_items->sum('qty') }}
                                         </td>
 
                                         <td class="text-center">
-                                            {{ $fixed_damage->damage_qty ?? 0 }}
+                                            {{ $variable_damage->damage_qty ?? 0 }}
                                         </td>
 
                                         <td class="text-center">
-                                            {{ $fixed_damage->causes_of_accidents ?? '' }}
+                                            {{ $variable_damage->causes_of_accidents ?? '' }}
                                         </td>
 
 
                                         <td class="text-center">
-                                            {{ $fixed_damage->compensation ?? '' }}
+                                            {{ $variable_damage->compensation ?? '' }}
                                         </td>
 
                                         <td class="text-center">
-                                            @if ($fixed_damage->voucher_attach)
-                                                <img src="{{ Storage::url($fixed_damage->voucher_attach) }}" alt=""
+                                            @if ($variable_damage->voucher_attach)
+                                                <img src="{{ Storage::url($variable_damage->voucher_attach) }}"
+                                                    alt=""
                                                     style="width: 50px; height: 50px; background-position: center; background-size: contain, cover;">
                                             @endif
                                         </td>
 
                                         <td class="text-center">
                                             @php
-                                                $total_qty = $fixed_damage->fixed_asset_table->fixed_purchase_items->sum('qty');
-                                                $damage_qty = $fixed_damage->damage_qty ?? 0;
+                                                $total_qty = $variable_damage->variable_asset_table->variable_purchase_items->sum('qty');
+                                                $damage_qty = $variable_damage->damage_qty ?? 0;
                                                 $left_qty = $total_qty - $damage_qty;
                                                 echo number_format($left_qty);
                                             @endphp
@@ -121,7 +122,7 @@
                                                 <ul class="dropdown-menu dropdown-menu-end" style="">
 
                                                     <li>
-                                                        <a href="{{ route('fixed_damage.show', $fixed_damage->id) }}"
+                                                        <a href="{{ route('variable_damage.show', $variable_damage->id) }}"
                                                             class="dropdown-item">
                                                             <i class="fa fa-eye font-size-16 text-success me-1"></i>
                                                             View
@@ -129,7 +130,7 @@
                                                     </li>
 
                                                     <li>
-                                                        <a href="{{ route('fixed_damage.edit', $fixed_damage->id) }}"
+                                                        <a href="{{ route('variable_damage.edit', $variable_damage->id) }}"
                                                             class="dropdown-item">
                                                             <i class="mdi mdi-pencil font-size-16 text-success me-1"></i>
                                                             Edit
@@ -138,7 +139,7 @@
 
                                                     <li>
                                                         <form
-                                                            action="{{ route('fixed_damage.destroy', $fixed_damage->id) }}"
+                                                            action="{{ route('variable_damage.destroy', $variable_damage->id) }}"
                                                             method="POST">
                                                             @csrf
                                                             @method('DELETE')

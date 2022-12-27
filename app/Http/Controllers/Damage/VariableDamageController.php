@@ -3,15 +3,14 @@
 namespace App\Http\Controllers\Damage;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreFixedDamage;
-use App\Http\Requests\UpdateFixedDemage;
-use App\Models\FixedAssets;
-use App\Models\FixedDamage;
-use App\Models\FixedDamangeFile;
-use App\Models\FixedPurchase;
+use App\Http\Requests\StoreVariableDamage;
+use App\Http\Requests\UpdateVariableDamage;
+use App\Models\VariableAssets;
+use App\Models\VariableDamage;
+use App\Models\VariableDamangeFile;
 use Illuminate\Http\Request;
 
-class FixedDamageController extends Controller
+class VariableDamageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,14 +19,14 @@ class FixedDamageController extends Controller
      */
     public function index()
     {
-        $fixed_damages = FixedDamage::query();
+        $variable_damages = VariableDamage::query();
         if (request('q')) {
-            $fixed_damages->where('causes_of_accidents', 'Like', '%' . request('q') . '%');
-            $fixed_damages->orWhere('compensation', 'Like', '%' . request('q') . '%');
-            $fixed_damages->orWhere('remark', 'Like', '%' . request('q') . '%');
+            $variable_damages->where('causes_of_accidents', 'Like', '%' . request('q') . '%');
+            $variable_damages->orWhere('compensation', 'Like', '%' . request('q') . '%');
+            $variable_damages->orWhere('remark', 'Like', '%' . request('q') . '%');
         }
-        $fixed_damages = $fixed_damages->get();
-        return view('damage.fixed_damage.index', compact('fixed_damages'));
+        $variable_damages = $variable_damages->get();
+        return view('damage.variable_damage.index', compact('variable_damages'));
     }
 
     /**
@@ -37,8 +36,8 @@ class FixedDamageController extends Controller
      */
     public function create()
     {
-        $fixed_assets = FixedAssets::all();
-        return view('damage.fixed_damage.create', compact('fixed_assets'));
+        $variable_assets = VariableAssets::all();
+        return view('damage.variable_damage.create', compact('variable_assets'));
     }
 
     /**
@@ -47,15 +46,15 @@ class FixedDamageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreFixedDamage $request)
+    public function store(StoreVariableDamage $request)
     {
 
         if ($request->hasFile('voucher_attach')) {
             $voucher_attach = $request->file('voucher_attach');
             $voucher_attach = $voucher_attach->store('public/voucher_attach');
         }
-        $store = new FixedDamage();
-        $store->fixed_asset_id = $request->fixed_asset_id;
+        $store = new VariableDamage();
+        $store->variable_asset_id = $request->variable_asset_id;
         $store->damage_qty = $request->damage_qty;
         $store->causes_of_accidents = $request->causes_of_accidents;
         $store->compensation = $request->compensation;
@@ -65,7 +64,7 @@ class FixedDamageController extends Controller
         $store->voucher_attach = $voucher_attach ?? '';
         $store->damage_date = $request->damage_date;
         $store->save();
-        $fixed_damage_id = $store->id;
+        $variable_damage_id = $store->id;
 
         if ($request->hasFile('proof_photo')) {
             foreach ($request->file('proof_photo') as $key => $file) {
@@ -75,12 +74,12 @@ class FixedDamageController extends Controller
                 $upload[$key]['attachments'] = $path;
                 $upload[$key]['original_name'] = $original_name;
                 $upload[$key]['user_id'] = auth()->user()->id ?? 0;
-                $upload[$key]['fixed_damage_id'] = $fixed_damage_id;
+                $upload[$key]['variable_damage_id'] = $variable_damage_id;
                 $upload[$key]['created_at'] =  date('Y-m-d H:i:s');
                 $upload[$key]['updated_at'] =  date('Y-m-d H:i:s');
                 $upload[$key]['date_at'] =  date('Y-m-d H:i:s');
             }
-            FixedDamangeFile::insert($upload);
+            VariableDamangeFile::insert($upload);
         }
 
         return redirect()->back()->with('success', 'Successfully Processed!');
@@ -94,10 +93,10 @@ class FixedDamageController extends Controller
      */
     public function show($id)
     {
-        $fixed_damage = FixedDamage::findOrFail($id);
-        $fixed_damange_files = FixedDamangeFile::where('fixed_damage_id', $id)
+        $variable_damage = VariableDamage::findOrFail($id);
+        $variable_damange_files = VariableDamangeFile::where('variable_damage_id', $id)
             ->get();
-        return view('damage.fixed_damage.show', compact('fixed_damange_files', 'fixed_damage'));
+        return view('damage.variable_damage.show', compact('variable_damange_files', 'variable_damage'));
     }
 
     /**
@@ -108,9 +107,9 @@ class FixedDamageController extends Controller
      */
     public function edit($id)
     {
-        $fixed_assets = FixedAssets::all();
-        $fixed_damage = FixedDamage::findOrFail($id);
-        return view('damage.fixed_damage.edit', compact('fixed_assets', 'fixed_damage'));
+        $variable_assets = VariableAssets::all();
+        $variable_damage = VariableDamage::findOrFail($id);
+        return view('damage.variable_damage.edit', compact('variable_assets', 'variable_damage'));
     }
 
     /**
@@ -120,14 +119,14 @@ class FixedDamageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateFixedDemage $request, $id)
+    public function update(UpdateVariableDamage $request, $id)
     {
         if ($request->hasFile('voucher_attach')) {
             $voucher_attach = $request->file('voucher_attach');
             $voucher_attach = $voucher_attach->store('public/voucher_attach');
         }
-        $store = FixedDamage::findOrFail($id);
-        $store->fixed_asset_id = $request->fixed_asset_id;
+        $store = VariableDamage::findOrFail($id);
+        $store->variable_asset_id = $request->variable_asset_id;
         $store->damage_qty = $request->damage_qty;
         $store->causes_of_accidents = $request->causes_of_accidents;
         $store->compensation = $request->compensation;
@@ -137,7 +136,7 @@ class FixedDamageController extends Controller
         $store->voucher_attach = $voucher_attach ?? $store->voucher_attach;
         $store->damage_date = $request->damage_date;
         $store->update();
-        $fixed_damage_id = $store->id;
+        $variable_damage_id = $store->id;
 
         if ($request->hasFile('proof_photo')) {
             foreach ($request->file('proof_photo') as $key => $file) {
@@ -147,12 +146,12 @@ class FixedDamageController extends Controller
                 $upload[$key]['attachments'] = $path;
                 $upload[$key]['original_name'] = $original_name;
                 $upload[$key]['user_id'] = auth()->user()->id ?? 0;
-                $upload[$key]['fixed_damage_id'] = $fixed_damage_id;
+                $upload[$key]['variable_damage_id'] = $variable_damage_id;
                 $upload[$key]['created_at'] =  date('Y-m-d H:i:s');
                 $upload[$key]['updated_at'] =  date('Y-m-d H:i:s');
                 $upload[$key]['date_at'] =  date('Y-m-d H:i:s');
             }
-            FixedDamangeFile::insert($upload);
+            VariableDamangeFile::insert($upload);
         }
 
         return redirect()->back()->with('success', 'Successfully Processed!');
@@ -166,7 +165,7 @@ class FixedDamageController extends Controller
      */
     public function destroy($id)
     {
-        $delete = FixedDamage::findOrFail($id);
+        $delete = VariableDamage::findOrFail($id);
         $delete->delete();
         return redirect()->back()->with('success', 'Successfully Processed!');
     }

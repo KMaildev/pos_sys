@@ -159,7 +159,7 @@
                         </li>
 
                         <li>
-                            <a href="ecommerce-products.html" key="t-products">
+                            <a href="{{ route('variable_damage.index') }}" key="t-products">
                                 Variable Inventory
                             </a>
                         </li>

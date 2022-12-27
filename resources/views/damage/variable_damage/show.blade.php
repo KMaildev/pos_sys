@@ -4,7 +4,7 @@
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                 <h4 class="mb-sm-0 font-size-18">
-                    Fixed Assets Damage
+                    Variable Assets Damage
                 </h4>
 
                 <div class="page-title-right">
@@ -15,7 +15,7 @@
                             </a>
                         </li>
                         <li class="breadcrumb-item active">
-                            Fixed Assets Damage
+                            Variable Assets Damage
                         </li>
                     </ol>
                 </div>
@@ -30,7 +30,7 @@
                 <div class="card-body">
                     <div class="table-responsive">
                         <h5>
-                            Fixed Assets Damage
+                            Variable Assets Damage
                         </h5>
                         <table class="table table-bordered mydatatable">
                             <thead class="table-light">
@@ -47,37 +47,37 @@
                             <tbody>
                                 <tr>
                                     <td class="text-center">
-                                        {{ $fixed_damage->fixed_asset_table->inventory_code }}
+                                        {{ $variable_damage->variable_asset_table->inventory_code }}
                                     </td>
 
                                     <td class="text-center">
-                                        {{ $fixed_damage->fixed_asset_table->fixed_purchase_items->sum('qty') }}
+                                        {{ $variable_damage->variable_asset_table->variable_purchase_items->sum('qty') }}
                                     </td>
 
                                     <td class="text-center">
-                                        {{ $fixed_damage->damage_qty ?? 0 }}
+                                        {{ $variable_damage->damage_qty ?? 0 }}
                                     </td>
 
                                     <td class="text-center">
-                                        {{ $fixed_damage->causes_of_accidents ?? '' }}
+                                        {{ $variable_damage->causes_of_accidents ?? '' }}
                                     </td>
 
 
                                     <td class="text-center">
-                                        {{ $fixed_damage->compensation ?? '' }}
+                                        {{ $variable_damage->compensation ?? '' }}
                                     </td>
 
                                     <td class="text-center">
-                                        @if ($fixed_damage->voucher_attach)
-                                            <img src="{{ Storage::url($fixed_damage->voucher_attach) }}" alt=""
+                                        @if ($variable_damage->voucher_attach)
+                                            <img src="{{ Storage::url($variable_damage->voucher_attach) }}" alt=""
                                                 style="width: 50px; height: 50px; background-position: center; background-size: contain, cover;">
                                         @endif
                                     </td>
 
                                     <td class="text-center">
                                         @php
-                                            $total_qty = $fixed_damage->fixed_asset_table->fixed_purchase_items->sum('qty');
-                                            $damage_qty = $fixed_damage->damage_qty ?? 0;
+                                            $total_qty = $variable_damage->variable_asset_table->variable_purchase_items->sum('qty');
+                                            $damage_qty = $variable_damage->damage_qty ?? 0;
                                             $left_qty = $total_qty - $damage_qty;
                                             echo number_format($left_qty);
                                         @endphp
@@ -118,34 +118,35 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($fixed_damange_files as $key => $fixed_damange_file)
+                                @foreach ($variable_damange_files as $key => $variable_damange_file)
                                     <tr>
                                         <td>
                                             {{ $key + 1 }}
                                         </td>
 
                                         <td class="text-center">
-                                            {{ $fixed_damange_file->original_name ?? '' }}
+                                            {{ $variable_damange_file->original_name ?? '' }}
                                         </td>
 
                                         <td class="text-center">
-                                            <a href="{{ Storage::url($fixed_damange_file->attachments) }}"
-                                                download="{{ $fixed_damange_file->original_name }}">
+                                            <a href="{{ Storage::url($variable_damange_file->attachments) }}"
+                                                download="{{ $variable_damange_file->original_name }}">
                                                 <i class="fa fa-download fa-lg text-danger"></i>
                                                 <strong>Download</strong>
                                             </a>
                                         </td>
 
                                         <td class="text-center">
-                                            {{ $fixed_damange_file->date_at ?? '' }}
+                                            {{ $variable_damange_file->date_at ?? '' }}
                                         </td>
 
                                         <td class="text-center">
-                                            {{ $fixed_damange_file->user_table->name ?? '' }}
+                                            {{ $variable_damange_file->user_table->name ?? '' }}
                                         </td>
 
                                         <td class="text-center">
-                                            <form action="{{ route('attachment_files_delete', $fixed_damange_file->id) }}"
+                                            <form
+                                                action="{{ route('attachment_files_delete', $variable_damange_file->id) }}"
                                                 method="POST">
                                                 @csrf
                                                 <button type="submit" class="btn btn-danger del_confirm" id="confirm-text">

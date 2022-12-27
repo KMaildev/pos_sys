@@ -7,6 +7,7 @@ use App\Http\Controllers\Cashier\Order\CashierOrderController;
 use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\Customer\CustomerController;
 use App\Http\Controllers\Damage\FixedDamageController;
+use App\Http\Controllers\Damage\VariableDamageController;
 use App\Http\Controllers\Floor\FloorController;
 use App\Http\Controllers\Hr\DepartmentController;
 use App\Http\Controllers\Hr\EmployeeController;
@@ -106,6 +107,7 @@ Route::middleware('auth')->group(function () {
 
     // Inventory Damage
     Route::resource('fixed_damage', FixedDamageController::class);
+    Route::resource('variable_damage', VariableDamageController::class);
 
 
     // System 
