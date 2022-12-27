@@ -13,4 +13,9 @@ class VariableAssets extends Model
     {
         return $this->belongsTo(Store::class, 'store_id', 'id');
     }
+
+    public function variable_purchase_items()
+    {
+        return $this->hasMany(VariablePurchaseItem::class, 'fixed_asset_id', 'id');
+    }
 }

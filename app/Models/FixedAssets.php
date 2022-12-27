@@ -13,4 +13,9 @@ class FixedAssets extends Model
     {
         return $this->belongsTo(Store::class, 'store_id', 'id');
     }
+
+    public function fixed_purchase_items()
+    {
+        return $this->hasMany(FixedPurchaseItem::class, 'fixed_asset_id', 'id');
+    }
 }

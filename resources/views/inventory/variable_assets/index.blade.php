@@ -61,6 +61,7 @@
                                     <th class="text-center">Description</th>
                                     <th class="text-center">Unit</th>
                                     <th class="text-center">Store</th>
+                                    <th class="text-center">Qty</th>
                                     <th class="text-center">Actions</th>
                                 </tr>
                             </thead>
@@ -85,6 +86,10 @@
 
                                         <td class="text-center">
                                             {{ $variable_asset->store_table->name ?? '' }}
+                                        </td>
+
+                                        <td class="text-center">
+                                            {{ $variable_asset->variable_purchase_items->sum('qty') }}
                                         </td>
 
                                         <td class="text-center">
