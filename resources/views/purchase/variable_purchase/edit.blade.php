@@ -1,14 +1,15 @@
 @extends('layouts.main')
 @section('content')
     <div class="row">
-        <form action="{{ route('fixed_purchase.store') }}" method="post" id="create-form" enctype="multipart/form-data"
-            autocomplete="off">
+        <form action="{{ route('variable_purchase.update', $fixed_purchase->id) }}" method="post" id="create-form"
+            enctype="multipart/form-data" autocomplete="off">
             @csrf
+            @method('PUT')
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">
-                            Fixed Assets Purchase
+                            Variable Assets Purchase Edit
                         </h4>
                     </div>
                     <div class="card-body p-4">
@@ -25,7 +26,8 @@
                                                 Select Supplier
                                             </option>
                                             @foreach ($suppliers as $supplier)
-                                                <option value="{{ $supplier->id }}">
+                                                <option value="{{ $supplier->id }}"
+                                                    @if ($supplier->id == $fixed_purchase->supplier_id) selected @endif>
                                                     {{ $supplier->name ?? $supplier->phone }}
                                                 </option>
                                             @endforeach
@@ -72,7 +74,7 @@
                                     </label>
                                     <div class="col-sm-9">
                                         <input class="form-control @error('invoice_no') is-invalid @enderror" type="text"
-                                            name="invoice_no" value="{{ old('invoice_no') }}" />
+                                            name="invoice_no" value="{{ $fixed_purchase->invoice_no ?? '' }}" />
                                         @error('invoice_no')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -87,7 +89,8 @@
                                     </label>
                                     <div class="col-sm-9">
                                         <input class="form-control date_picker @error('purchase_date') is-invalid @enderror"
-                                            type="text" name="purchase_date" value="{{ old('purchase_date') }}" />
+                                            type="text" name="purchase_date"
+                                            value="{{ $fixed_purchase->purchase_date ?? '' }}" />
                                         @error('purchase_date')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -101,7 +104,7 @@
                                         Remark
                                     </label>
                                     <div class="col-sm-9">
-                                        <textarea class="form-control @error('remark') is-invalid @enderror" rows="3" name="remark">{{ old('remark') }}</textarea>
+                                        <textarea class="form-control @error('remark') is-invalid @enderror" rows="3" name="remark">{{ $fixed_purchase->remark ?? '' }}</textarea>
                                         @error('remark')
                                             <div class="invalid-feedback"> {{ $message }} </div>
                                         @enderror
@@ -122,7 +125,7 @@
                                         </th>
 
                                         <th class="text-center" style="width: 10%;">
-                                            Fixed Assets
+                                            Variable Assets
                                         </th>
 
                                         <th class="text-center" style="width: 10%;">
@@ -171,7 +174,8 @@
                                             </select>
 
                                             <input type="hidden" id="FixedAssetsName" class="form-control" readonly>
-                                            <input type="hidden" id="Status" class="form-control" readonly value="fixed_purchase">
+                                            <input type="hidden" id="Status" class="form-control" readonly
+                                                value="variable_purchase">
                                         </td>
 
                                         {{-- Description --}}
@@ -216,6 +220,63 @@
                                         </td>
                                     </tr>
                                 </tbody>
+                                <tbody>
+                                    @php
+                                        $amount_total = [];
+                                    @endphp
+                                    @foreach ($fixed_purchase_items as $key => $fixed_purchase_item)
+                                        <tr>
+                                            <td>
+                                                {{ $key + 1 }}
+                                            </td>
+
+                                            <td>
+                                                {{ $fixed_purchase_item->variable_assets_table->inventory_code ?? '' }}
+                                            </td>
+
+                                            <td>
+                                                {{ $fixed_purchase_item->variable_assets_table->description ?? '' }}
+                                            </td>
+
+                                            <td>
+                                                {{ $fixed_purchase_item->variable_assets_table->unit ?? '' }}
+                                            </td>
+
+                                            <td style="text-align: right">
+                                                @php
+                                                    $qty = $fixed_purchase_item->qty ?? 0;
+                                                    echo number_format($qty, 2);
+                                                @endphp
+                                            </td>
+
+                                            <td style="text-align: right">
+                                                @php
+                                                    $cost = $fixed_purchase_item->cost ?? 0;
+                                                    echo number_format($cost, 2);
+                                                @endphp
+                                            </td>
+
+                                            <td style="text-align: right">
+                                                @php
+                                                    $amount = $qty * $cost;
+                                                    echo number_format($amount, 2);
+                                                    $amount_total[] = $amount;
+                                                @endphp
+                                            </td>
+
+                                            <td>
+                                                {{ $fixed_purchase_item->remark ?? '' }}
+                                            </td>
+
+                                            <td>
+                                                <a href="{{ route('variable_purchase_item_delete', $fixed_purchase_item->id) }}"
+                                                    type="button" class="btn btn-danger">
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
                                 <tbody id="TempLists"></tbody>
                             </table>
                         </div>
@@ -248,8 +309,13 @@
                                             Total Amount
                                         </label>
                                         <div class="col-sm-8">
+                                            @php
+                                                $total_amount = array_sum($amount_total);
+                                            @endphp
+
                                             <input type="text" class="form-control" style="text-align: right;"
                                                 id="totalAmountShow" readonly>
+
                                             <input type="hidden" value="0" name="total_amount"
                                                 id="totalAmountSave">
                                         </div>
@@ -264,7 +330,8 @@
                                                 name="representative_id">
                                                 <option value="">-- Select Representative --</option>
                                                 @foreach ($users as $user)
-                                                    <option value="{{ $user->id }}">
+                                                    <option value="{{ $user->id }}"
+                                                        @if ($user->id == $fixed_purchase->representative_id) selected @endif>
                                                         {{ $user->name }}
                                                     </option>
                                                 @endforeach
@@ -294,7 +361,7 @@
     </div>
 @endsection
 @section('script')
-    {!! JsValidator::formRequest('App\Http\Requests\StoreFixedPurchase', '#create-form') !!}
+    {!! JsValidator::formRequest('App\Http\Requests\UpdateVariablePurchase', '#create-form') !!}
 
     <script>
         function SetCalculator() {
@@ -353,7 +420,7 @@
             $.ajax({
                 url: url,
                 data: {
-                    status: 'fixed_purchase',
+                    status: 'variable_purchase',
                 },
                 method: "GET",
                 success: function(data) {
@@ -410,13 +477,16 @@
                         items += '</tr>';
                     });
                     $('#TempLists').html(items);
-                    totalAmountShow.value = (totalAmount).toLocaleString('en');
-                    totalAmountSave.value = totalAmount;
+                    var oldTotalAmount = '{{ $total_amount }}';
+                    var showTotalAmount = +oldTotalAmount + +totalAmount;
+                    totalAmountShow.value = (showTotalAmount).toLocaleString('en');
+                    totalAmountSave.value = showTotalAmount;
                 }
             });
         }
-
         getTempData();
+
+
 
         // RemoveItem
         $(document).on("click", ".remove_item", function() {
@@ -428,24 +498,6 @@
                     getTempData();
                 }
             });
-        });
-
-
-
-        $('select[id="supplierId"]').on('change', function() {
-            var supplierId = $(this).val();
-            if (supplierId) {
-                $.ajax({
-                    url: `/get_supplier_by_id/${supplierId}`,
-                    type: "GET",
-                    dataType: "json",
-                    success: function(data) {
-                        shopName.value = data.shop_name;
-                        address.value = data.address;
-                        phone.value = data.phone;
-                    }
-                });
-            }
         });
 
 
@@ -464,5 +516,39 @@
                 });
             }
         });
+
+
+        $('select[id="supplierId"]').on('change', function() {
+            var supplierId = $(this).val();
+            if (supplierId) {
+                $.ajax({
+                    url: `/get_supplier_by_id/${supplierId}`,
+                    type: "GET",
+                    dataType: "json",
+                    success: function(data) {
+                        shopName.value = data.shop_name;
+                        address.value = data.address;
+                        phone.value = data.phone;
+                    }
+                });
+            }
+        });
+
+        function autoGetSupplierData() {
+            var supplierId = '{{ $fixed_purchase->supplier_id }}'
+            if (supplierId) {
+                $.ajax({
+                    url: `/get_supplier_by_id/${supplierId}`,
+                    type: "GET",
+                    dataType: "json",
+                    success: function(data) {
+                        shopName.value = data.shop_name;
+                        address.value = data.address;
+                        phone.value = data.phone;
+                    }
+                });
+            }
+        }
+        autoGetSupplierData();
     </script>
 @endsection

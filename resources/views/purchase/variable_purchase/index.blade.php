@@ -4,7 +4,7 @@
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                 <h4 class="mb-sm-0 font-size-18">
-                    Fixed Assets Purchase Edit
+                    Variable Assets Purchase
                 </h4>
 
                 <div class="page-title-right">
@@ -15,7 +15,7 @@
                             </a>
                         </li>
                         <li class="breadcrumb-item active">
-                            Fixed Assets Purchase
+                            Variable Assets Purchase
                         </li>
                     </ol>
                 </div>
@@ -31,7 +31,7 @@
 
                     <div class="row mb-2">
                         <div class="col-sm-4">
-                            <form action="{{ route('fixed_purchase.index') }}" method="get" autocomplete="off">
+                            <form action="{{ route('variable_purchase.index') }}" method="get" autocomplete="off">
                                 <div class="search-box me-2 mb-2 d-inline-block">
                                     <div class="position-relative">
                                         <input type="text" class="form-control" placeholder="Search..." name="q">
@@ -43,7 +43,7 @@
 
                         <div class="col-sm-8">
                             <div class="text-sm-end">
-                                <a href="{{ route('fixed_purchase.create') }}"
+                                <a href="{{ route('variable_purchase.create') }}"
                                     class="btn btn-primary aves-effect waves-light mb-2 me-2">
                                     <i class="mdi mdi-plus me-1"></i>
                                     Create
@@ -124,7 +124,7 @@
                                                 <ul class="dropdown-menu dropdown-menu-end">
 
                                                     <li>
-                                                        <a href="{{ route('fixed_purchase.show', $fixed_purchase->id) }}"
+                                                        <a href="{{ route('variable_purchase.show', $fixed_purchase->id) }}"
                                                             class="dropdown-item">
                                                             <i class="fa fa-eye font-size-16 text-success me-1"></i>
                                                             View
@@ -133,7 +133,7 @@
 
 
                                                     <li>
-                                                        <a href="{{ route('attachment_files', $fixed_purchase->id) }}"
+                                                        <a href="{{ route('variable_attachment_files', $fixed_purchase->id) }}"
                                                             class="dropdown-item">
                                                             <i class="fa fa-eye font-size-16 text-success me-1"></i>
                                                             Attachment
@@ -141,7 +141,7 @@
                                                     </li>
 
                                                     <li>
-                                                        <a href="{{ route('fixed_purchase.edit', $fixed_purchase->id) }}"
+                                                        <a href="{{ route('variable_purchase.edit', $fixed_purchase->id) }}"
                                                             class="dropdown-item">
                                                             <i class="mdi mdi-pencil font-size-16 text-success me-1"></i>
                                                             Edit
@@ -150,7 +150,7 @@
 
                                                     <li>
                                                         <form
-                                                            action="{{ route('fixed_purchase.destroy', $fixed_purchase->id) }}"
+                                                            action="{{ route('variable_purchase.destroy', $fixed_purchase->id) }}"
                                                             method="POST">
                                                             @csrf
                                                             @method('DELETE')

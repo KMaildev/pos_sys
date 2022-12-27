@@ -1,14 +1,14 @@
 @extends('layouts.main')
 @section('content')
     <div class="row">
-        <form action="{{ route('fixed_purchase.store') }}" method="post" id="create-form" enctype="multipart/form-data"
+        <form action="{{ route('variable_purchase.store') }}" method="post" id="create-form" enctype="multipart/form-data"
             autocomplete="off">
             @csrf
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">
-                            Fixed Assets Purchase
+                            Variable Assets Purchase
                         </h4>
                     </div>
                     <div class="card-body p-4">
@@ -122,7 +122,7 @@
                                         </th>
 
                                         <th class="text-center" style="width: 10%;">
-                                            Fixed Assets
+                                            Variable Assets
                                         </th>
 
                                         <th class="text-center" style="width: 10%;">
@@ -171,7 +171,8 @@
                                             </select>
 
                                             <input type="hidden" id="FixedAssetsName" class="form-control" readonly>
-                                            <input type="hidden" id="Status" class="form-control" readonly value="fixed_purchase">
+                                            <input type="hidden" id="Status" class="form-control" readonly
+                                                value="variable_purchase">
                                         </td>
 
                                         {{-- Description --}}
@@ -294,7 +295,7 @@
     </div>
 @endsection
 @section('script')
-    {!! JsValidator::formRequest('App\Http\Requests\StoreFixedPurchase', '#create-form') !!}
+    {!! JsValidator::formRequest('App\Http\Requests\StoreVariablePurchase', '#create-form') !!}
 
     <script>
         function SetCalculator() {
@@ -353,7 +354,7 @@
             $.ajax({
                 url: url,
                 data: {
-                    status: 'fixed_purchase',
+                    status: 'variable_purchase',
                 },
                 method: "GET",
                 success: function(data) {

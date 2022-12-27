@@ -3,19 +3,18 @@
 namespace App\Http\Controllers\Purchase;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreFixedPurchase;
-use App\Http\Requests\UpdateFIxedPurchase;
-use App\Models\FixedAssets;
-use App\Models\FixedPurchase;
-use App\Models\FixedPurchaseFiles;
-use App\Models\FixedPurchaseItem;
+use App\Http\Requests\StoreVariablePurchase;
+use App\Http\Requests\UpdateVariablePurchase;
 use App\Models\Supplier;
 use App\Models\TempFixedPurchaseItem;
 use App\Models\User;
 use App\Models\VariableAssets;
+use App\Models\VariablePurchase;
+use App\Models\VariablePurchaseFiles;
+use App\Models\VariablePurchaseItem;
 use Illuminate\Http\Request;
 
-class FixedPurchaseController extends Controller
+class VariablePurchaseController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,14 +23,14 @@ class FixedPurchaseController extends Controller
      */
     public function index()
     {
-        $fixed_purchases = FixedPurchase::query();
+        $fixed_purchases = VariablePurchase::query();
         if (request('q')) {
             $fixed_purchases->where('invoice_no', 'Like', '%' . request('q') . '%');
             $fixed_purchases->orWhere('purchase_date', 'Like', '%' . request('q') . '%');
             $fixed_purchases->orWhere('remark', 'Like', '%' . request('q') . '%');
         }
         $fixed_purchases = $fixed_purchases->get();
-        return view('purchase.fixed_purchase.index', compact('fixed_purchases'));
+        return view('purchase.variable_purchase.index', compact('fixed_purchases'));
     }
 
     /**
@@ -44,7 +43,7 @@ class FixedPurchaseController extends Controller
         $fixed_assets = VariableAssets::all();
         $suppliers = Supplier::all();
         $users = User::all();
-        return view('purchase.fixed_purchase.create', compact('fixed_assets', 'suppliers', 'users'));
+        return view('purchase.variable_purchase.create', compact('fixed_assets', 'suppliers', 'users'));
     }
 
     /**
@@ -53,14 +52,14 @@ class FixedPurchaseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreFixedPurchase $request)
+    public function store(StoreVariablePurchase $request)
     {
         $session_id = session()->getId();
         $rowCount = TempFixedPurchaseItem::where('session_id', $session_id)
-            ->where('status', 'fixed_purchase')
+            ->where('status', 'variable_purchase')
             ->count();
         if ($rowCount > 0) {
-            $purchase_order = new FixedPurchase();
+            $purchase_order = new VariablePurchase();
             $purchase_order->supplier_id = $request->supplier_id;
             $purchase_order->invoice_no = $request->invoice_no;
             $purchase_order->purchase_date = $request->purchase_date;
@@ -70,22 +69,22 @@ class FixedPurchaseController extends Controller
             $purchase_order->representative_id = $request->representative_id;
             $purchase_order->date_at = date('Y-m-d');
             $purchase_order->save();
-            $fixed_purchase_id = $purchase_order->id;
+            $variable_purchase_id = $purchase_order->id;
 
             $temp_fixed_purchase_items = TempFixedPurchaseItem::where('session_id', $session_id)
-                ->where('status', 'fixed_purchase')
+                ->where('status', 'variable_purchase')
                 ->get();
             foreach ($temp_fixed_purchase_items as $key => $value) {
                 $insert[$key]['fixed_asset_id'] = $value['temp_id'];
                 $insert[$key]['qty'] = $value['qty'];
                 $insert[$key]['cost'] = $value['cost'];
                 $insert[$key]['remark'] = $value['remark'];
-                $insert[$key]['fixed_purchase_id'] = $fixed_purchase_id;
+                $insert[$key]['variable_purchase_id'] = $variable_purchase_id;
                 $insert[$key]['user_id'] = auth()->user()->id ?? 0;
                 $insert[$key]['created_at'] =  date('Y-m-d H:i:s');
                 $insert[$key]['updated_at'] =  date('Y-m-d H:i:s');
             }
-            FixedPurchaseItem::insert($insert);
+            VariablePurchaseItem::insert($insert);
             TempFixedPurchaseItem::where('session_id', session()->getId())->delete();
 
             if ($request->hasFile('attachments')) {
@@ -96,12 +95,12 @@ class FixedPurchaseController extends Controller
                     $upload[$key]['attachments'] = $path;
                     $upload[$key]['original_name'] = $original_name;
                     $upload[$key]['user_id'] = auth()->user()->id ?? 0;
-                    $upload[$key]['fixed_purchase_id'] = $fixed_purchase_id;
+                    $upload[$key]['variable_purchase_id'] = $variable_purchase_id;
                     $upload[$key]['created_at'] =  date('Y-m-d H:i:s');
                     $upload[$key]['updated_at'] =  date('Y-m-d H:i:s');
                     $upload[$key]['date_at'] =  date('Y-m-d H:i:s');
                 }
-                FixedPurchaseFiles::insert($upload);
+                VariablePurchaseFiles::insert($upload);
             }
 
             return redirect()->back()->with('success', 'Your processing has been completed.');
@@ -117,11 +116,11 @@ class FixedPurchaseController extends Controller
      */
     public function show($id)
     {
-        $fixed_purchase = FixedPurchase::findOrFail($id);
-        $fixed_purchase_items = FixedPurchaseItem::where('fixed_purchase_id', $id)->get();
-        $fixed_purchase_files = FixedPurchaseFiles::where('fixed_purchase_id', $id)->get();
+        $fixed_purchase = VariablePurchase::findOrFail($id);
+        $fixed_purchase_items = VariablePurchaseItem::where('variable_purchase_id', $id)->get();
+        $fixed_purchase_files = VariablePurchaseFiles::where('variable_purchase_id', $id)->get();
 
-        return view('purchase.fixed_purchase.show', compact('fixed_purchase', 'fixed_purchase_items', 'fixed_purchase_files'));
+        return view('purchase.variable_purchase.show', compact('fixed_purchase', 'fixed_purchase_items', 'fixed_purchase_files'));
     }
 
     /**
@@ -132,13 +131,13 @@ class FixedPurchaseController extends Controller
      */
     public function edit($id)
     {
-        $fixed_assets = FixedAssets::all();
+        $fixed_assets = VariableAssets::all();
         $suppliers = Supplier::all();
         $users = User::all();
 
-        $fixed_purchase = FixedPurchase::findOrFail($id);
-        $fixed_purchase_items = FixedPurchaseItem::where('fixed_purchase_id', $id)->get();
-        return view('purchase.fixed_purchase.edit', compact('fixed_assets', 'suppliers', 'users', 'fixed_purchase', 'fixed_purchase_items'));
+        $fixed_purchase = VariablePurchase::findOrFail($id);
+        $fixed_purchase_items = VariablePurchaseItem::where('variable_purchase_id', $id)->get();
+        return view('purchase.variable_purchase.edit', compact('fixed_assets', 'suppliers', 'users', 'fixed_purchase', 'fixed_purchase_items'));
     }
 
     /**
@@ -148,14 +147,14 @@ class FixedPurchaseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateFIxedPurchase $request, $id)
+    public function update(UpdateVariablePurchase $request, $id)
     {
         $session_id = session()->getId();
         $rowCount = TempFixedPurchaseItem::where('session_id', $session_id)
-            ->where('status', 'fixed_purchase')
+            ->where('status', 'variable_purchase')
             ->count();
 
-        $purchase_order = FixedPurchase::findOrFail($id);
+        $purchase_order = VariablePurchase::findOrFail($id);
         $purchase_order->supplier_id = $request->supplier_id;
         $purchase_order->invoice_no = $request->invoice_no;
         $purchase_order->purchase_date = $request->purchase_date;
@@ -165,23 +164,23 @@ class FixedPurchaseController extends Controller
         $purchase_order->representative_id = $request->representative_id;
         $purchase_order->date_at = date('Y-m-d');
         $purchase_order->save();
-        $fixed_purchase_id = $purchase_order->id;
+        $variable_purchase_id = $purchase_order->id;
 
         if ($rowCount > 0) {
             $temp_fixed_purchase_items = TempFixedPurchaseItem::where('session_id', $session_id)
-                ->where('status', 'fixed_purchase')
+                ->where('status', 'variable_purchase')
                 ->get();
             foreach ($temp_fixed_purchase_items as $key => $value) {
                 $insert[$key]['fixed_asset_id'] = $value['temp_id'];
                 $insert[$key]['qty'] = $value['qty'];
                 $insert[$key]['cost'] = $value['cost'];
                 $insert[$key]['remark'] = $value['remark'];
-                $insert[$key]['fixed_purchase_id'] = $fixed_purchase_id;
+                $insert[$key]['variable_purchase_id'] = $variable_purchase_id;
                 $insert[$key]['user_id'] = auth()->user()->id ?? 0;
                 $insert[$key]['created_at'] =  date('Y-m-d H:i:s');
                 $insert[$key]['updated_at'] =  date('Y-m-d H:i:s');
             }
-            FixedPurchaseItem::insert($insert);
+            VariablePurchaseItem::insert($insert);
             TempFixedPurchaseItem::where('session_id', session()->getId())->delete();
         }
 
@@ -193,12 +192,12 @@ class FixedPurchaseController extends Controller
                 $upload[$key]['attachments'] = $path;
                 $upload[$key]['original_name'] = $original_name;
                 $upload[$key]['user_id'] = auth()->user()->id ?? 0;
-                $upload[$key]['fixed_purchase_id'] = $fixed_purchase_id;
+                $upload[$key]['variable_purchase_id'] = $variable_purchase_id;
                 $upload[$key]['created_at'] =  date('Y-m-d H:i:s');
                 $upload[$key]['updated_at'] =  date('Y-m-d H:i:s');
                 $upload[$key]['date_at'] =  date('Y-m-d H:i:s');
             }
-            FixedPurchaseFiles::insert($upload);
+            VariablePurchaseFiles::insert($upload);
         }
 
         return redirect()->back()->with('success', 'Your processing has been completed.');
@@ -212,7 +211,7 @@ class FixedPurchaseController extends Controller
      */
     public function destroy($id)
     {
-        $fixed_purchase = FixedPurchase::findOrFail($id);
+        $fixed_purchase = VariablePurchase::findOrFail($id);
         $fixed_purchase->delete();
         return redirect()->back()->with('success', 'Your processing has been completed.');
     }
@@ -220,14 +219,14 @@ class FixedPurchaseController extends Controller
 
     public function attachmentFiles($id)
     {
-        $fixed_purchase = FixedPurchase::findOrFail($id);
-        $fixed_purchase_files = FixedPurchaseFiles::where('fixed_purchase_id', $id)->get();
-        return view('purchase.fixed_purchase.attachment_files', compact('fixed_purchase', 'fixed_purchase_files'));
+        $fixed_purchase = VariablePurchase::findOrFail($id);
+        $fixed_purchase_files = VariablePurchaseFiles::where('variable_purchase_id', $id)->get();
+        return view('purchase.variable_purchase.attachment_files', compact('fixed_purchase', 'fixed_purchase_files'));
     }
 
     public function attachmentFilesDelete($id)
     {
-        $fixed_purchase = FixedPurchaseFiles::findOrFail($id);
+        $fixed_purchase = VariablePurchaseFiles::findOrFail($id);
         $fixed_purchase->delete();
         return redirect()->back()->with('success', 'Your processing has been completed.');
     }

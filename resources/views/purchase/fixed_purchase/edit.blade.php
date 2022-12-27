@@ -174,6 +174,8 @@
                                             </select>
 
                                             <input type="hidden" id="FixedAssetsName" class="form-control" readonly>
+                                            <input type="hidden" id="Status" class="form-control" readonly
+                                                value="fixed_purchase">
                                         </td>
 
                                         {{-- Description --}}
@@ -375,6 +377,8 @@
             var qty = document.getElementById("Qty").value;
             var cost = document.getElementById("Cost").value;
             var remark = document.getElementById("Remark").value;
+            var status = document.getElementById("Status").value;
+
 
             if (fixedAssetsId == null || fixedAssetsId == "") {
                 alert("Please Select Item");
@@ -403,6 +407,7 @@
                     qty: qty,
                     cost: cost,
                     remark: remark,
+                    status: status,
                 },
                 success: function(data) {
                     getTempData();
@@ -415,6 +420,9 @@
             var url = '{{ url('get_temp_fixed_purchase_item') }}';
             $.ajax({
                 url: url,
+                data: {
+                    status: 'fixed_purchase',
+                },
                 method: "GET",
                 success: function(data) {
                     let items = '';

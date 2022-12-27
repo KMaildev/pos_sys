@@ -26,6 +26,8 @@ use App\Http\Controllers\PosSys\TableList\TableListController as TableListTableL
 use App\Http\Controllers\PosSys\Test\TestController;
 use App\Http\Controllers\Purchase\FixedPurchaseController;
 use App\Http\Controllers\Purchase\FixedPurchaseItemController;
+use App\Http\Controllers\Purchase\VariablePurchaseController;
+use App\Http\Controllers\Purchase\VariablePurchaseItemController;
 use App\Http\Controllers\Supplier\SupplierController;
 use App\Http\Controllers\System\PaymentMethodController;
 use App\Http\Controllers\System\StoreController;
@@ -81,11 +83,23 @@ Route::middleware('auth')->group(function () {
     Route::get('get_fixed_by_id/{id}', [FixedAssetsController::class, 'getFixedById'])->name('get_fixed_by_id');
     Route::resource('variable_asset', VariableAssetsController::class);
 
-    // Purchase 
+    // Purchase Group
+    // Fixed Purchase 
     Route::resource('fixed_purchase', FixedPurchaseController::class);
     Route::resource('fixed_purchase_item', FixedPurchaseItemController::class);
     Route::get('fixed_purchase_item_delete/{id}', [FixedPurchaseItemController::class, 'delete'])->name('fixed_purchase_item_delete');
+    Route::get('attachment_files/{id}', [FixedPurchaseController::class, 'attachmentFiles'])->name('attachment_files');
+    Route::post('attachment_files_delete/{id}', [FixedPurchaseController::class, 'attachmentFilesDelete'])->name('attachment_files_delete');
 
+    // Variable Purchase 
+    Route::resource('variable_purchase', VariablePurchaseController::class);
+    Route::resource('variable_purchase_item', VariablePurchaseItemController::class);
+    Route::get('variable_purchase_item_delete/{id}', [VariablePurchaseItemController::class, 'delete'])->name('variable_purchase_item_delete');
+    Route::get('variable_attachment_files/{id}', [VariablePurchaseController::class, 'attachmentFiles'])->name('variable_attachment_files');
+    Route::post('variable_attachment_files_delete/{id}', [VariablePurchaseController::class, 'attachmentFilesDelete'])->name('variable_attachment_files_delete');
+
+
+    // Purchase Add Delete  
     Route::post('store_temp_fixed_purchase_item', [TempFixedPurchaseItemController::class, 'store'])->name('store_temp_fixed_purchase_item');
     Route::get('get_temp_fixed_purchase_item', [TempFixedPurchaseItemController::class, 'index'])->name('get_temp_fixed_purchase_item');
     Route::get('remove_temp_fixed_purchase_item/{id}', [TempFixedPurchaseItemController::class, 'remove'])->name('remove_temp_fixed_purchase_item');

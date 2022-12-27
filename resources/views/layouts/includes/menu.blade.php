@@ -115,7 +115,7 @@
                         </li>
 
                         <li>
-                            <a href="{{ route('variable_asset.index') }}" key="t-products">
+                            <a href="{{ route('variable_purchase.index') }}" key="t-products">
                                 Variable Purchase
                             </a>
                         </li>

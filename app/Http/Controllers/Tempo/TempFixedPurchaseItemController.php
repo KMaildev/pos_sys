@@ -10,11 +10,13 @@ use Illuminate\Http\Request;
 class TempFixedPurchaseItemController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
         $session_id = session()->getId();
+        $status = $request->status;
         $temp_fixed_purchase_items = TempFixedPurchaseItem::with('fixed_assets_table')
             ->where('session_id', $session_id)
+            ->where('status', $status)
             ->get();
         echo json_encode($temp_fixed_purchase_items);
     }
@@ -28,6 +30,7 @@ class TempFixedPurchaseItemController extends Controller
         $temp->qty = $request->qty;
         $temp->cost = $request->cost;
         $temp->remark = $request->remark ?? '';
+        $temp->status = $request->status ?? '';
         $temp->session_id = session()->getId();
         $temp->user_id = auth()->user()->id ?? 0;
         $temp->save();
