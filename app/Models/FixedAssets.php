@@ -18,4 +18,9 @@ class FixedAssets extends Model
     {
         return $this->hasMany(FixedPurchaseItem::class, 'fixed_asset_id', 'id');
     }
+
+    public function fixed_damages_table()
+    {
+        return $this->hasMany(FixedDamage::class, 'fixed_asset_id', 'id');
+    }
 }

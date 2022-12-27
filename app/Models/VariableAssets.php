@@ -18,4 +18,9 @@ class VariableAssets extends Model
     {
         return $this->hasMany(VariablePurchaseItem::class, 'fixed_asset_id', 'id');
     }
+
+    public function variable_damages_table()
+    {
+        return $this->hasMany(VariableDamage::class, 'variable_asset_id', 'id');
+    }
 }

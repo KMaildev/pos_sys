@@ -62,6 +62,7 @@
                                     <th class="text-center">Unit</th>
                                     <th class="text-center">Store</th>
                                     <th class="text-center">Qty</th>
+                                    <th class="text-center">Damage</th>
                                     <th class="text-center">Actions</th>
                                 </tr>
                             </thead>
@@ -90,6 +91,10 @@
 
                                         <td class="text-center">
                                             {{ $fixed_asset->fixed_purchase_items->sum('qty') }}
+                                        </td>
+
+                                        <td class="text-center">
+                                            {{ $fixed_asset->fixed_damages_table->sum('damage_qty') }}
                                         </td>
 
                                         <td class="text-center">
