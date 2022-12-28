@@ -20,6 +20,7 @@ use App\Http\Controllers\MenuList\MenuListController;
 use App\Http\Controllers\Order\OrderListController;
 use App\Http\Controllers\Pos\MenuControlController;
 use App\Http\Controllers\PosSys\Cart\CartTempController;
+use App\Http\Controllers\PosSys\Guest\GuestController;
 use App\Http\Controllers\PosSys\Main\MainController;
 use App\Http\Controllers\PosSys\Menu\PosMenuController;
 use App\Http\Controllers\PosSys\Order\OrderConfirmController;
@@ -125,6 +126,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/order_confirm', [OrderConfirmController::class, 'store'])->name('order_confirm');
     Route::get('/pos_test_page', [TestController::class, 'index'])->name('pos_test_page');
     Route::get('/pos_pin_logout', [PinController::class, 'pinLogout'])->name('pos_pin_logout');
+    Route::get('/pos_guest_index', [GuestController::class, 'index'])->name('pos_guest_index');
 
     // Cashier 
     Route::get('/cashier_main_page', [CashierMainController::class, 'index'])->name('cashier_main_page');

@@ -51,6 +51,7 @@ class PinController extends Controller
             $departmemt = Department::findOrFail($department_id);
             if ($departmemt->title == 'Waiter') {
                 return redirect()->route('pos_table_lists');
+                // return redirect()->route('pos_main_page');
             } else if ($departmemt->title == 'Cashier') {
                 return redirect()->route('cashier_main_page');
             }

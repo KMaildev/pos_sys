@@ -23,10 +23,24 @@
 .table_btn {
     font-size: 24px;
     width: 100%;
-    padding: 20px 32px;
+    padding: 10px 25px;
     background-color: #2a66a3;
     margin: 10px;
     color: white;
+
+    /* background-color: #04AA6D;
+    border: none;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px 10px;
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+    border-radius: 50%; */
 }
 
 
@@ -96,7 +110,7 @@
     text-align: center;
     /* min-width: 100%; */
     padding: 10px;
-    background-color: #5C2B16;
+    background-color: #0e3284;
     color: white;
 }
 
@@ -106,7 +120,7 @@
     text-align: left;
     min-width: 100%;
     padding: 2px;
-    background-color: #5C2B16;
+    background-color: #0e3284;
     color: white;
     padding-left: 10px;
 }
@@ -120,30 +134,8 @@
     padding: 20px 32px;
 }
 
-.pay_btn {
-    font-size: 20px;
-    width: 100%;
-    min-width: 100%;
-    padding: 18px 32px;
-    background-color: #48726b;
-    color: white;
-}
 
-.total_footer {
-    padding: 15px 30px;
-    background-color: #5C2B16;
-    color: white;
-    width: 100%;
-}
 
-.edit_seat_btn {
-    font-size: 20px;
-    width: 100%;
-    min-width: 100%;
-    padding: 18px 32px;
-    background-color: #c9841e;
-    color: white;
-}
 
 .service_btn {
     font-size: 20px;
@@ -156,12 +148,14 @@
 
 .clear_btn {
     font-size: 20px;
-    width: 100%;
-    min-width: 100%;
-    padding: 18px 32px;
+    width: 90%;
+    min-width: 90%;
+    padding: 14px 20px;
     background-color: #045FC1;
     color: white;
 }
+
+
 
 
 .comment_btn {
@@ -185,7 +179,7 @@
 
 .top_btn {
     font-size: 20px;
-    width: 300px;
+    width: 280px;
     padding: 18px 32px !important;
     background-color: #DCAE2C;
     color: white;
@@ -211,4 +205,95 @@
 .ScrollStyle {
     max-height: 1000px;
     overflow-y: scroll;
+}
+
+
+
+
+
+
+
+
+/* Button Procress  */
+
+.total_footer {
+    padding: 10px 10px;
+    background-color: #0e3284;
+    color: white;
+    width: 100%;
+}
+
+.footer_title {
+    font-size: 16px;
+    width: 100%;
+    padding: 17px 17px;
+    background-color: #0e3284;
+    color: white;
+}
+
+
+.pay_btn {
+    font-size: 16px;
+    width: 100%;
+    min-width: 100%;
+    padding: 12px 18px;
+    background-color: #48726b;
+    color: white;
+}
+
+.clear_all {
+    font-size: 16px;
+    width: 100%;
+    min-width: 100%;
+    padding: 12px 18px;
+    background-color: #045FC1;
+    color: white;
+}
+
+.edit_seat_btn {
+    font-size: 16px;
+    width: 100%;
+    min-width: 100%;
+    padding: 12px 18px;
+    background-color: #c9841e;
+    color: white;
+}
+
+.guest_detail_btn {
+    font-size: 16px;
+    width: 100%;
+    min-width: 100%;
+    padding: 12px 18px;
+    background-color: #46300e;
+    color: white;
+}
+
+.split_bill_btn {
+    font-size: 16px;
+    width: 100%;
+    min-width: 100%;
+    padding: 12px 18px;
+    background-color: #48901c;
+    color: white;
+}
+
+.promotion_btn {
+    font-size: 16px;
+    width: 100%;
+    min-width: 100%;
+    padding: 12px 18px;
+    background-color: #1d7fda;
+    color: white;
+}
+
+/* Guest Detail  */
+
+.guest_title {
+    font-size: 20px;
+    color: black;
+    text-align: center;
+    /* min-width: 100%; */
+    padding: 10px;
+    background-color: #0e3284;
+    color: white;
 }

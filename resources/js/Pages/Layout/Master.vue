@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>
-            <header id="page-topbar" style="background-color: #000000;">
+            <header id="page-topbar" style="background-color: #0e3284;">
                 <div class="navbar-header">
                     <div class="col-md-9">
                         <button class="btn btn-lg btn-default top_btn" type="button" style="background-color: #DCAE2C">

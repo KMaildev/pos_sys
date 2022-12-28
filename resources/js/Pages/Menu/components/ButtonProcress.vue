@@ -3,36 +3,59 @@
         <div class="container-fluid">
             <div class="row">
 
-                <div class="col-sm-4 col-lg-4 col-md-4 total_footer">
-                    <div class="card-header d-flex">
-                        <h4 class="card-title mb-0 flex-grow-1 category_title"
-                            style="font-size: 20px; font-weight: bold; text-align: left;">
+                <div class="col-sm-4 col-lg-4 col-md-4 py-2">
+                    <div class="d-flex bd-highlight">
+                        <h4 class="card-title mb-0 flex-grow-1 footer_title"
+                            style="font-size: 16px; font-weight: bold; text-align: left;">
                             Total
                         </h4>
-                        <h4 class="card-title mb-0 flex-grow-1 category_title"
-                            style="font-size: 20px; font-weight: bold; text-align: right;">
+                        <h4 class="card-title mb-0 flex-grow-1 footer_title"
+                            style="font-size: 16px; font-weight: bold; text-align: right;">
                             {{ totalAmountCalc(this.form.cart_lists) }}
                         </h4>
                     </div>
                 </div>
 
-                <div class="col-sm-2 col-lg-2 col-md-2">
-                    <button @click="orderConfirm()" class="pay_btn">
-                        Order Confirm
-                    </button>
+                <div class="col-sm-8 col-lg-8 col-md-8">
+                    <div class="d-flex bd-highlight">
+                        <div class="p-2 flex-fill bd-highlight">
+                            <button @click="orderConfirm()" class="pay_btn">
+                                Order Confirm
+                            </button>
+                        </div>
+
+                        <div class="p-2 flex-fill bd-highlight">
+                            <button @click="clearAll()" class="clear_all">
+                                Clear All
+                            </button>
+                        </div>
+
+                        <div class="p-2 flex-fill bd-highlight">
+                            <button @click="editSeat()" class="edit_seat_btn">
+                                Edit Seat
+                            </button>
+                        </div>
+
+                        <div class="p-2 flex-fill bd-highlight">
+                            <button @click="guestDetailIndex()" class="guest_detail_btn">
+                                Gust Details
+                            </button>
+                        </div>
+
+                        <div class="p-2 flex-fill bd-highlight">
+                            <button class="split_bill_btn">
+                                Split bill
+                            </button>
+                        </div>
+
+                        <div class="p-2 flex-fill bd-highlight">
+                            <button class="promotion_btn">
+                                Promotion
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="col-sm-2 col-lg-2 col-md-2">
-                    <button @click="clearAll()" class="print_btn">
-                        Clear All
-                    </button>
-                </div>
-
-                <div class="col-sm-2 col-lg-2 col-md-2">
-                    <button @click="editSeat()" class="edit_seat_btn">
-                        Edit Seat
-                    </button>
-                </div>
             </div>
         </div>
     </div>
@@ -98,6 +121,11 @@ export default {
         editSeat() {
             this.$inertia.get(`/pos_table_lists`);
         },
+
+        guestDetailIndex() {
+            this.$inertia.get(`/pos_guest_index`);
+        },
+
 
         clearAll() {
             swal({

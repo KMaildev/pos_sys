@@ -24,7 +24,7 @@
                     </h2>
                 </div>
 
-                <div class="col-md-2 col-lg-2 col-sm-2" v-for="table_lists in floor.table_lists_table"
+                <div class="col-md-1 col-lg-1 col-sm-1" v-for="table_lists in floor.table_lists_table"
                     :key="table_lists.id">
                     <button class="table_btn" @click="setTableName(table_lists.id, table_lists.table_name)">
                         {{ table_lists.table_name }}

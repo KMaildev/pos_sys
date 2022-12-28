@@ -56,6 +56,7 @@ class OrderConfirmController extends Controller
                 'qty' => $value['qty'],
                 'price' => $value['price'],
                 'remark' => $value['remark'],
+                'menu_name' => $value['menu_name'],
                 'order_info_id' => $order_info_id,
                 'waiter_user_id' => $user_id,
             ]);

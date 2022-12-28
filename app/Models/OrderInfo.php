@@ -53,4 +53,9 @@ class OrderInfo extends Model
     {
         return $this->belongsTo(User::class, 'cashier_user_id', 'id');
     }
+
+    public function order_items_table()
+    {
+        return $this->hasMany(OrderItem::class, 'order_info_id', 'id');
+    }
 }

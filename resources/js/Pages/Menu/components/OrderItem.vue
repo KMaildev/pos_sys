@@ -61,10 +61,9 @@
                         </td>
 
                         <td style="text-align: center;" @click="itemRemove(index)">
-                            <i class="fa fa-trash text-danger fa-lg" style="font-size: 25px;"></i>
+                            <i class="fa-solid fa-xmark text-danger " style="font-size: 25px;"></i>
                         </td>
                     </tr>
-
                 </tbody>
             </table>
         </div>

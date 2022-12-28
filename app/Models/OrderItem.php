@@ -23,6 +23,7 @@ class OrderItem extends Model
         'preparation_user_id',
         'difference_time',
         'manager_remark',
+        'menu_name',
     ];
 
     public function menu_lists_table()
