@@ -1,6 +1,9 @@
 <template>
     <master :user_name="user_name" :login_time="login_time">
         <div class="row">
+            <div class="col-xl-12 col-md-12 col-lg-12 col-sm-12 py-1">
+                <AlphabetSearch></AlphabetSearch>
+            </div>
             <!-- Ordre Item  -->
             <OrderItem :user_name="user_name"></OrderItem>
             <!-- Menu Meal List  -->
@@ -17,6 +20,7 @@ import MainCategory from './components/MainCategory.vue';
 import MenuList from './components/MenuList.vue';
 import OrderItem from './components/OrderItem.vue';
 import ButtonProcress from './components/ButtonProcress.vue';
+import AlphabetSearch from './search/AlphabetSearch.vue';
 
 export default {
     components: {
@@ -25,6 +29,7 @@ export default {
         MenuList,
         OrderItem,
         ButtonProcress,
+        AlphabetSearch,
     },
     name: "Index",
 

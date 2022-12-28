@@ -1,5 +1,5 @@
 <template>
-    <div class="col-xl-5 col-md-5 col-lg-5 col-sm-5" style="height: 600px;">
+    <div class="col-xl-5 col-md-5 col-lg-5 col-sm-5" style="height: 580px;">
         <div class="card">
             <h4 class="card-title mb-0 flex-grow-1 category_title">
                 Category

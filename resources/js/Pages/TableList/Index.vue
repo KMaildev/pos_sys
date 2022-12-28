@@ -1,6 +1,6 @@
 <template>
     <master :user_name="user_name" :login_time="login_time">
-        <div class="row py-2">
+        <div class="row">
             <div class="col-md-4 col-lg-4 col-sm-12">
                 <form @submit.prevent="searchTableName">
                     <input v-model="q" type="text" class="form-control form-control-lg bg-white search-inp"
@@ -17,7 +17,7 @@
         </div>
 
         <div class="ScrollStyle">
-            <div class="row py-3" v-for="floor in floors" :key="floor.id">
+            <div class="row" v-for="floor in floors" :key="floor.id">
                 <div class="col-md-12 col-lg-12 col-sm-12">
                     <h2 class="card-title floor_name">
                         {{ floor.title }}
@@ -65,7 +65,7 @@ export default {
                 let category_id = null;
                 localStorage.setItem("table_id", table_id);
                 localStorage.setItem("table_name", table_name);
-                this.$inertia.get(`/pos_menu/${type}/${category_id}`);
+                this.$inertia.get(`/pos_menu?type=${type}&&category_id=${category_id}`);
                 this.audioPlay()
             } else {
                 this.alertMessage();
