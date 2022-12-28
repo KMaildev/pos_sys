@@ -28,6 +28,9 @@
                         <th class="text-center" style="width: 20%; font-size: 18px;">
                             Total
                         </th>
+                        <th class="text-center" style="width: 20%; font-size: 18px;">
+                            Action
+                        </th>
                     </tr>
                 </thead>
 
@@ -55,6 +58,10 @@
 
                         <td style="text-align: right;" v-on:dblclick="itemRemove(index)">
                             {{ cart_list.qty * cart_list.price }}
+                        </td>
+
+                        <td style="text-align: center;" @click="itemRemove(index)">
+                            <i class="fa fa-trash text-danger fa-lg" style="font-size: 25px;"></i>
                         </td>
                     </tr>
 

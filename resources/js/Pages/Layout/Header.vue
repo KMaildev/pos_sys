@@ -15,9 +15,9 @@
                 </div>
 
                 <div class="d-flex">
-                    <button @click="orderConfirm()" class="top_btn">
-                        Ready for your next entry
-                    </button>
+                    <a href="/pos_pin_logout" class="top_btn">
+                        SignOut
+                    </a>
                 </div>
             </div>
         </header>

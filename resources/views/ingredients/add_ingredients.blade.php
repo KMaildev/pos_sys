@@ -160,8 +160,8 @@
 
                                     {{-- 1 kg Price --}}
                                     <td>
-                                        <input type="text" class="form-control" name="kg_price" oninput="SetCalculator()"
-                                            id="oneKgPrice">
+                                        <input type="text" class="form-control" name="one_kg_price"
+                                            oninput="SetCalculator()" id="oneKgPrice">
                                     </td>
 
                                     {{-- 1 kg Per Price --}}

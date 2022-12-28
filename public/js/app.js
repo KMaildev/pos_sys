@@ -8445,18 +8445,20 @@ var render = function render() {
         return _vm.orderConfirm();
       }
     }
-  }, [_vm._v("\n                    12/11/2022 16:05:12PM\n                ")])]), _vm._v(" "), _c("div", {
-    staticClass: "d-flex"
-  }, [_c("button", {
-    staticClass: "top_btn",
-    on: {
-      click: function click($event) {
-        return _vm.orderConfirm();
-      }
-    }
-  }, [_vm._v("\n                    Ready for your next entry\n                ")])])])])]);
+  }, [_vm._v("\n                    12/11/2022 16:05:12PM\n                ")])]), _vm._v(" "), _vm._m(0)])])]);
 };
-var staticRenderFns = [];
+var staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "d-flex"
+  }, [_c("a", {
+    staticClass: "top_btn",
+    attrs: {
+      href: "/pos_pin_logout"
+    }
+  }, [_vm._v("\n                    SignOut\n                ")])]);
+}];
 render._withStripped = true;
 
 
@@ -9006,7 +9008,21 @@ var render = function render() {
           return _vm.itemRemove(index);
         }
       }
-    }, [_vm._v("\n                        " + _vm._s(cart_list.qty * cart_list.price) + "\n                    ")])]);
+    }, [_vm._v("\n                        " + _vm._s(cart_list.qty * cart_list.price) + "\n                    ")]), _vm._v(" "), _c("td", {
+      staticStyle: {
+        "text-align": "center"
+      },
+      on: {
+        click: function click($event) {
+          return _vm.itemRemove(index);
+        }
+      }
+    }, [_c("i", {
+      staticClass: "fa fa-trash text-danger fa-lg",
+      staticStyle: {
+        "font-size": "25px"
+      }
+    })])]);
   }), 0)])])]);
 };
 var staticRenderFns = [function () {
@@ -9037,7 +9053,13 @@ var staticRenderFns = [function () {
       width: "20%",
       "font-size": "18px"
     }
-  }, [_vm._v("\n                        Total\n                    ")])])]);
+  }, [_vm._v("\n                        Total\n                    ")]), _vm._v(" "), _c("th", {
+    staticClass: "text-center",
+    staticStyle: {
+      width: "20%",
+      "font-size": "18px"
+    }
+  }, [_vm._v("\n                        Action\n                    ")])])]);
 }];
 render._withStripped = true;
 
