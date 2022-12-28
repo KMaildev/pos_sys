@@ -33,12 +33,6 @@
                         Edit Seat
                     </button>
                 </div>
-
-                <div class="col-sm-2 col-lg-2 col-md-2">
-                    <button @click="mainPage()" class="clear_btn">
-                        Main
-                    </button>
-                </div>
             </div>
         </div>
     </div>
@@ -122,10 +116,6 @@ export default {
         clearAllNoAlert() {
             var cart = this.$root.cart;
             cart.splice(0, cart.length);
-        },
-
-        mainPage() {
-            this.$inertia.get(`/pos_main_page`);
         },
 
         alertMessage() {

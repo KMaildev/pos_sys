@@ -13,10 +13,6 @@
                     @click="searchFloorById(floors_category.id)">
                     {{ floors_category.title }}
                 </button>
-
-                <button @click="MainPage()" class="floor_button">
-                    Main
-                </button>
             </div>
         </div>
 
@@ -65,7 +61,7 @@ export default {
     methods: {
         setTableName(table_id, table_name) {
             if (table_id && table_name) {
-                let type = 'Bar';
+                let type = 'Beverage';
                 let category_id = null;
                 localStorage.setItem("table_id", table_id);
                 localStorage.setItem("table_name", table_name);
@@ -101,10 +97,6 @@ export default {
                     if (willDelete) {
                     }
                 });
-        },
-
-        MainPage() {
-            this.$inertia.get(`/pos_main_page`);
         },
     }
 }

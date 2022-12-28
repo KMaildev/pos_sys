@@ -14,27 +14,20 @@
                     </div>
 
                     <div class="col-md-3">
-                        <button class="btn btn-lg btn-default float-end top_btn" type="button"
+                        <a href="/pos_pin_logout" class="btn btn-lg btn-default float-end top_btn"
                             style="background-color: #DCAE2C">
-                            Ready for your next entry
-                        </button>
+                            SignOut
+                        </a>
                     </div>
                 </div>
             </header>
         </div>
-
-        <!-- <Header></Header> -->
         <slot />
     </div>
 </template>
 <script>
-import Header from "./Header";
 export default {
     name: "Master",
-    components: {
-        Header
-    },
-
     props: [
         'user_name',
         'login_time',

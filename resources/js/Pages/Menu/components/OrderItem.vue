@@ -158,12 +158,14 @@ export default {
         },
     },
 
-    created() {
+    mounted() {
         document.addEventListener('click', function () {
             localStorage.setItem("guest_no", this.value);
             this.show = 0;
         }.bind(this));
+    },
 
+    created() {
         this.cart_lists = this.$root.cart;
     }
 

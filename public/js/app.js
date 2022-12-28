@@ -5727,13 +5727,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _Header__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Header */ "./resources/js/Pages/Layout/Header.vue");
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Master",
-  components: {
-    Header: _Header__WEBPACK_IMPORTED_MODULE_0__["default"]
-  },
   props: ['user_name', 'login_time']
 });
 
@@ -5886,9 +5881,6 @@ __webpack_require__.r(__webpack_exports__);
     clearAllNoAlert: function clearAllNoAlert() {
       var cart = this.$root.cart;
       cart.splice(0, cart.length);
-    },
-    mainPage: function mainPage() {
-      this.$inertia.get("/pos_main_page");
     },
     alertMessage: function alertMessage() {
       swal({
@@ -6093,11 +6085,13 @@ __webpack_require__.r(__webpack_exports__);
       return sum;
     }
   },
-  created: function created() {
+  mounted: function mounted() {
     document.addEventListener('click', function () {
       localStorage.setItem("guest_no", this.value);
       this.show = 0;
     }.bind(this));
+  },
+  created: function created() {
     this.cart_lists = this.$root.cart;
   }
 });
@@ -6131,7 +6125,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     setTableName: function setTableName(table_id, table_name) {
       if (table_id && table_name) {
-        var type = 'Bar';
+        var type = 'Beverage';
         var category_id = null;
         localStorage.setItem("table_id", table_id);
         localStorage.setItem("table_name", table_name);
@@ -6161,9 +6155,6 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (willDelete) {
         if (willDelete) {}
       });
-    },
-    MainPage: function MainPage() {
-      this.$inertia.get("/pos_main_page");
     }
   }
 });
@@ -8513,15 +8504,15 @@ var staticRenderFns = [function () {
     _c = _vm._self._c;
   return _c("div", {
     staticClass: "col-md-3"
-  }, [_c("button", {
+  }, [_c("a", {
     staticClass: "btn btn-lg btn-default float-end top_btn",
     staticStyle: {
       "background-color": "#DCAE2C"
     },
     attrs: {
-      type: "button"
+      href: "/pos_pin_logout"
     }
-  }, [_vm._v("\n                        Ready for your next entry\n                    ")])]);
+  }, [_vm._v("\n                        SignOut\n                    ")])]);
 }];
 render._withStripped = true;
 
@@ -8722,16 +8713,7 @@ var render = function render() {
         return _vm.editSeat();
       }
     }
-  }, [_vm._v("\n                    Edit Seat\n                ")])]), _vm._v(" "), _c("div", {
-    staticClass: "col-sm-2 col-lg-2 col-md-2"
-  }, [_c("button", {
-    staticClass: "clear_btn",
-    on: {
-      click: function click($event) {
-        return _vm.mainPage();
-      }
-    }
-  }, [_vm._v("\n                    Main\n                ")])])])])]);
+  }, [_vm._v("\n                    Edit Seat\n                ")])])])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -9120,7 +9102,7 @@ var render = function render() {
     }
   })])]), _vm._v(" "), _c("div", {
     staticClass: "col-md-8 col-lg-8 col-sm-12"
-  }, [_vm._l(_vm.floors_categories, function (floors_category) {
+  }, _vm._l(_vm.floors_categories, function (floors_category) {
     return _c("button", {
       key: floors_category.id,
       staticClass: "floor_button",
@@ -9130,14 +9112,7 @@ var render = function render() {
         }
       }
     }, [_vm._v("\n                " + _vm._s(floors_category.title) + "\n            ")]);
-  }), _vm._v(" "), _c("button", {
-    staticClass: "floor_button",
-    on: {
-      click: function click($event) {
-        return _vm.MainPage();
-      }
-    }
-  }, [_vm._v("\n                Main\n            ")])], 2)]), _vm._v(" "), _c("div", {
+  }), 0)]), _vm._v(" "), _c("div", {
     staticClass: "ScrollStyle"
   }, [_vm._l(_vm.floors, function (floor) {
     return _c("div", {
