@@ -7,6 +7,8 @@ use App\Models\BillInfo;
 use App\Models\Customer;
 use App\Models\OrderInfo;
 use App\Models\OrderItem;
+use App\Models\PaymentMethod;
+use App\Models\Taxrate;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -47,14 +49,20 @@ class CashierOrderController extends Controller
             ->first();
 
         $customers = Customer::all();
+        $payment_methods = PaymentMethod::all();
+        $taxrates = Taxrate::all();
+
 
         return Inertia::render('Cashier/Order/ShowInvoice', [
             'show_order_info' => $show_order_info,
             'order_items' => $order_items,
             'customers' => $customers,
             'bill_infos' => $bill_infos,
+            'payment_methods' => $payment_methods,
+            'taxrates' => $taxrates,
         ]);
     }
+
 
     public function previewPayment(Request $request)
     {

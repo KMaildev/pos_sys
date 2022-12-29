@@ -13,6 +13,7 @@ use App\Http\Controllers\Hr\DepartmentController;
 use App\Http\Controllers\Hr\EmployeeController;
 use App\Http\Controllers\Hr\PermissionController;
 use App\Http\Controllers\Hr\RoleController;
+use App\Http\Controllers\Ingredients\IngredientListController;
 use App\Http\Controllers\Ingredients\IngredientsController;
 use App\Http\Controllers\Inventory\FixedAssetsController;
 use App\Http\Controllers\Inventory\VariableAssetsController;
@@ -71,6 +72,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('ingredients', IngredientsController::class);
     Route::get('add_ingredients/{id}', [IngredientsController::class, 'addIngredients'])->name('add_ingredients');
     Route::get('ingredients_by_id/{id}', [IngredientsController::class, 'ingredientsByIdJson'])->name('ingredients_by_id');
+
+    Route::resource('ingredient_list', IngredientListController::class);
+    Route::get('get_ingredient_list', [IngredientListController::class, 'index'])->name('get_ingredient_list');
+    Route::post('store_ingredient_list', [IngredientListController::class, 'store'])->name('store_ingredient_list');
+    Route::get('remove_ingredient_list/{id}', [IngredientListController::class, 'destroy'])->name('remove_ingredient_list');
 
     Route::resource('order_list', OrderListController::class);
     Route::get('get_order_list_ajax', [OrderListController::class, 'getOrderListAjax'])->name('get_order_list_ajax');

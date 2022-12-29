@@ -138,6 +138,9 @@
                                         @error('ingredient_id')
                                             <div class="invalid-feedback"> {{ $message }} </div>
                                         @enderror
+                                        <input type="hidden" id="Name" class="form-control" readonly>
+                                        <input type="hidden" id="MenuId" class="form-control"
+                                            value="{{ $menu_list->id }}">
                                     </td>
 
                                     {{-- Unit --}}
@@ -181,12 +184,14 @@
                                     </td>
 
                                     <td>
-                                        <button type="button" class="btn btn-primary" onclick="setPurchaseInvoiceCart()">
+                                        <button type="button" class="btn btn-primary" onclick="addIngredient()">
                                             <i class="fa fa-plus"></i>
                                         </button>
                                     </td>
                                 </tr>
                             </tbody>
+
+                            <tbody id="ingredientLists"></tbody>
                         </table>
                     </div>
                 </div>
@@ -212,7 +217,6 @@
             TotalAmount.value = amountTotal;
         }
 
-
         $('select[id="ingredientId"]').on('change', function() {
             var ingredientId = $(this).val();
             if (ingredientId) {
@@ -221,11 +225,146 @@
                     type: "GET",
                     dataType: "json",
                     success: function(data) {
-                        console.log(data);
                         Unit.value = data.unit;
+                        Name.value = data.name;
                     }
                 });
             }
+        });
+
+        function addIngredient() {
+            var MenuId = document.getElementById("MenuId").value;
+            var ingredientId = document.getElementById("ingredientId").value;
+            var Name = document.getElementById("Name").value;
+            var qty = document.getElementById("Qty").value;
+            var GramToKg = document.getElementById("GramToKg").value;
+            var oneKgPrice = document.getElementById("oneKgPrice").value;
+            var priceKg = document.getElementById("priceKg").value;
+            var TotalAmount = document.getElementById("TotalAmount").value;
+            var Unit = document.getElementById("Unit").value;
+            var oneKgPerPrice = document.getElementById("oneKgPerPrice").value;
+
+            if (ingredientId == null || ingredientId == "") {
+                alert("Please Select");
+                return false;
+            } else if (qty == null || qty == "" || isNaN(qty)) {
+                alert("Qty: Enter Numeric value only.");
+                return false;
+            } else if (MenuId == null || MenuId == "" || isNaN(MenuId)) {
+                return false;
+            }
+
+            var url = '{{ url('store_ingredient_list') }}';
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                method: 'POST',
+                url: url,
+                data: {
+                    menu_list_id: MenuId,
+                    ingredient_id: ingredientId,
+                    ingredient_name: Name,
+                    qty: qty,
+                    one_kg_price: oneKgPrice,
+                    price_kg: priceKg,
+                    total_amount: TotalAmount,
+                    gram_to_kg: GramToKg,
+                    unit: Unit,
+                    one_kg_per_price: oneKgPerPrice,
+                },
+                success: function(data) {
+                    getIngredientLists();
+                },
+                error: function(data) {}
+            });
+        }
+
+        function getIngredientLists() {
+            var url = '{{ url('get_ingredient_list') }}';
+            var menu_list_id = '{{ $menu_list->id }}'
+            $.ajax({
+                url: url,
+                data: {
+                    menu_list_id: menu_list_id,
+                },
+                method: "GET",
+                success: function(data) {
+                    let items = '';
+                    var totalAmount = 0;
+                    $.each(JSON.parse(data), function(key, value) {
+                        let k = key + 1;
+                        items += '<tr>';
+                        items += '<td>' + k + '</td>' //Sr.No	
+
+                        // Ingredients
+                        items += '<td>'
+                        items += value.ingredient_name;
+                        items += '</td>'
+
+                        // Unit 
+                        items += '<td>'
+                        items += value.unit;
+                        items += '</td>'
+
+                        // Quantity
+                        items += '<td>'
+                        items += value.qty;
+                        items += '</td>'
+
+                        // Gram to Kg	
+                        items += '<td>'
+                        items += value.gram_to_kg;
+                        items += '</td>'
+
+                        // 1kg Price	
+                        items += '<td>'
+                        items += value.one_kg_price;
+                        items += '</td>'
+
+                        // 1kg per Price	
+                        items += '<td>'
+                        items += value.one_kg_per_price;
+                        items += '</td>'
+
+                        // Price/ Kg	
+                        items += '<td>'
+                        items += value.price_kg;
+                        items += '</td>'
+
+                        // Amount
+                        items += '<td>'
+                        items += value.total_amount;
+                        items += '</td>'
+
+                        items += '<td>'
+                        items +=
+                            '<button type="button" class="btn btn-danger remove_item" data-id="' +
+                            value.id + '"><i class="fa fa-trash"></i></button>'
+                        items += '</td>'
+
+                        items += '</tr>';
+                    });
+                    $('#ingredientLists').html(items);
+                }
+            });
+        }
+
+        getIngredientLists();
+
+        // RemoveItem
+        $(document).on("click", ".remove_item", function() {
+            var id = $(this).data('id');
+            $.ajax({
+                url: `/remove_ingredient_list/${id}`,
+                method: "GET",
+                success: function(data) {
+                    getIngredientLists();
+                }
+            });
         });
     </script>
 @endsection

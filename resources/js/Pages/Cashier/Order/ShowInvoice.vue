@@ -113,10 +113,17 @@
                                         <td style="font-size: 12px;" colspan="2">
                                             Tax
                                         </td>
-                                        <td style="text-align: center font-size: 12px;"></td>
-
+                                        <td>
+                                            <select class="form-control" v-model="form.tax"
+                                                @change="calculateTax($event)">
+                                                <option :value="taxrate.taxrate" v-for="taxrate in taxrates"
+                                                    :key="taxrate.id">
+                                                    {{ taxrate.name }}
+                                                </option>
+                                            </select>
+                                        </td>
                                         <td style="text-align: right;">
-                                            <input type="text" class="billInput" v-model="form.tax">
+                                            <input type="text" class="billInput" :value="taxAmount">
                                         </td>
                                     </tr>
 
@@ -150,7 +157,6 @@
                                             Net Amount
                                         </td>
                                         <td style="text-align: center font-size: 12px;"></td>
-
                                         <td style="text-align: right;">
                                             <input type="text" class="billInput" v-model="form.net_amount">
                                         </td>
@@ -162,7 +168,6 @@
                                             Total Amount
                                         </td>
                                         <td style="text-align: center font-size: 12px;"></td>
-
                                         <td style="text-align: right;">
                                             <input type="text" class="billInput" v-model="form.received_amount">
                                         </td>
@@ -560,8 +565,10 @@
 
                                         <td style="text-align: right;">
                                             <select class="form-control" v-model="form.payment_type">
-                                                <option value="CashDown">CashDown</option>
-                                                <option value="KPay">KPay</option>
+                                                <option :value="payment_method.name"
+                                                    v-for="payment_method in payment_methods" :key="payment_method.id">
+                                                    {{ payment_method.name }}
+                                                </option>
                                             </select>
                                         </td>
                                     </tr>
@@ -625,6 +632,8 @@ export default {
         'order_items',
         'bill_infos',
         'customers',
+        'payment_methods',
+        'taxrates',
     ],
 
     data() {
@@ -644,6 +653,9 @@ export default {
                 payment_type: this.show_order_info.payment_type,
                 show_order_info: this.show_order_info.id,
             },
+
+            tax_amount_value: 0,
+            taxAmount: 0,
         }
     },
 
@@ -677,8 +689,24 @@ export default {
                 ],
                 scanStyles: false
             });
+        },
+
+        calcTotalAmount() {
+            var order_items = this.order_items;
+            let sum = 0;
+            order_items.forEach(function (item) {
+                sum += (parseFloat(item.price) * parseFloat(item.qty));
+            });
+            return sum;
+        },
+
+        calculateTax(e) {
+            let cartValue = this.calcTotalAmount();
+            var taxRate = e.target.value;
+            this.taxAmount = cartValue * (taxRate / 100);
         }
-    }
+    },
+
 }
 </script>
 <style>

@@ -5615,7 +5615,7 @@ __webpack_require__.r(__webpack_exports__);
     TopLink: _Shared_TopLink_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   name: "ShowInvoice",
-  props: ['user_name', 'login_time', 'show_order_info', 'order_items', 'bill_infos', 'customers'],
+  props: ['user_name', 'login_time', 'show_order_info', 'order_items', 'bill_infos', 'customers', 'payment_methods', 'taxrates'],
   data: function data() {
     return {
       customers: {
@@ -5631,7 +5631,9 @@ __webpack_require__.r(__webpack_exports__);
         change_amount: this.show_order_info.change_amount,
         payment_type: this.show_order_info.payment_type,
         show_order_info: this.show_order_info.id
-      }
+      },
+      tax_amount_value: 0,
+      taxAmount: 0
     };
   },
   methods: {
@@ -5658,6 +5660,19 @@ __webpack_require__.r(__webpack_exports__);
         css: ["https://pos-sys.skgroupmm.com/pos/css/bill.css"],
         scanStyles: false
       });
+    },
+    calcTotalAmount: function calcTotalAmount() {
+      var order_items = this.order_items;
+      var sum = 0;
+      order_items.forEach(function (item) {
+        sum += parseFloat(item.price) * parseFloat(item.qty);
+      });
+      return sum;
+    },
+    calculateTax: function calculateTax(e) {
+      var cartValue = this.calcTotalAmount();
+      var taxRate = e.target.value;
+      this.taxAmount = cartValue * (taxRate / 100);
     }
   }
 });
@@ -5712,6 +5727,11 @@ __webpack_require__.r(__webpack_exports__);
         sum += parseFloat(item.price) * parseFloat(item.qty);
       });
       return sum;
+    },
+    goBackPosScreen: function goBackPosScreen() {
+      var type = 'Beverage';
+      var category_id = null;
+      this.$inertia.get("/pos_menu?type=".concat(type, "&&category_id=").concat(category_id));
     }
   }
 });
@@ -7456,33 +7476,45 @@ var render = function render() {
     attrs: {
       colspan: "2"
     }
-  }, [_vm._v("\n                                        Tax\n                                    ")]), _vm._v(" "), _c("td", {
-    staticStyle: {
-      "text-align": "center font-size: 12px"
-    }
-  }), _vm._v(" "), _c("td", {
-    staticStyle: {
-      "text-align": "right"
-    }
-  }, [_c("input", {
+  }, [_vm._v("\n                                        Tax\n                                    ")]), _vm._v(" "), _c("td", [_c("select", {
     directives: [{
       name: "model",
       rawName: "v-model",
       value: _vm.form.tax,
       expression: "form.tax"
     }],
+    staticClass: "form-control",
+    on: {
+      change: [function ($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.form, "tax", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }, function ($event) {
+        return _vm.calculateTax($event);
+      }]
+    }
+  }, _vm._l(_vm.taxrates, function (taxrate) {
+    return _c("option", {
+      key: taxrate.id,
+      domProps: {
+        value: taxrate.taxrate
+      }
+    }, [_vm._v("\n                                                " + _vm._s(taxrate.name) + "\n                                            ")]);
+  }), 0)]), _vm._v(" "), _c("td", {
+    staticStyle: {
+      "text-align": "right"
+    }
+  }, [_c("input", {
     staticClass: "billInput",
     attrs: {
       type: "text"
     },
     domProps: {
-      value: _vm.form.tax
-    },
-    on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "tax", $event.target.value);
-      }
+      value: _vm.taxAmount
     }
   })])]), _vm._v(" "), _c("tr", {}, [_c("td", {
     staticStyle: {
@@ -8279,15 +8311,14 @@ var render = function render() {
         _vm.$set(_vm.form, "payment_type", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
       }
     }
-  }, [_c("option", {
-    attrs: {
-      value: "CashDown"
-    }
-  }, [_vm._v("CashDown")]), _vm._v(" "), _c("option", {
-    attrs: {
-      value: "KPay"
-    }
-  }, [_vm._v("KPay")])])])])], 2), _vm._v(" "), _c("div", {
+  }, _vm._l(_vm.payment_methods, function (payment_method) {
+    return _c("option", {
+      key: payment_method.id,
+      domProps: {
+        value: payment_method.name
+      }
+    }, [_vm._v("\n                                                " + _vm._s(payment_method.name) + "\n                                            ")]);
+  }), 0)])])], 2), _vm._v(" "), _c("div", {
     staticClass: "d-grid gap-2"
   }, [_c("button", {
     staticClass: "btn btn-success btn-lg",
@@ -8421,12 +8452,24 @@ var render = function render() {
     }
   }, [_c("div", {
     staticClass: "row"
-  }, _vm._l(_vm.order_infos, function (order_info) {
+  }, [_c("div", {
+    staticClass: "col-xl-12 col-md-12 col-lg-12 py-2"
+  }, [_c("div", {
+    staticClass: "col-xl-2 col-md-2 col-lg-2"
+  }, [_c("button", {
+    staticClass: "pay_btn",
+    on: {
+      click: function click($event) {
+        return _vm.goBackPosScreen();
+      }
+    }
+  }, [_vm._v("\n                    Back\n                ")])])]), _vm._v(" "), _vm._l(_vm.order_infos, function (order_info) {
     return _c("div", {
       key: order_info.id,
       staticClass: "col-xl-3 col-md-3 col-lg-3",
       staticStyle: {
-        height: "220px"
+        height: "330px",
+        "max-height": "330px"
       }
     }, [_c("div", {
       staticClass: "card-header d-flex"
@@ -8514,7 +8557,7 @@ var render = function render() {
         "text-align": "right"
       }
     }, [_vm._v("\n                    Total : " + _vm._s(_vm.totalAmountCalc(order_info.order_items_table)) + "\n                ")])])]);
-  }), 0)]);
+  })], 2)]);
 };
 var staticRenderFns = [];
 render._withStripped = true;

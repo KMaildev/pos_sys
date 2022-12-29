@@ -1,8 +1,15 @@
 <template>
     <master :user_name="user_name" :login_time="login_time">
         <div class="row">
-            <div class="col-xl-3 col-md-3 col-lg-3" style="height: 220px;" v-for="order_info in order_infos"
-                :key="order_info.id">
+            <div class="col-xl-12 col-md-12 col-lg-12 py-2">
+                <div class="col-xl-2 col-md-2 col-lg-2">
+                    <button class="pay_btn" @click="goBackPosScreen()">
+                        Back
+                    </button>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-3 col-lg-3" style="height: 330px; max-height: 330px;"
+                v-for="order_info in order_infos" :key="order_info.id">
                 <div class="card-header d-flex">
                     <h4 class="card-title mb-0 flex-grow-1 guest_title"
                         style="font-size: 16px; font-weight: bold; text-align: left;">
@@ -107,6 +114,12 @@ export default {
                 sum += (parseFloat(item.price) * parseFloat(item.qty));
             });
             return sum;
+        },
+
+        goBackPosScreen() {
+            let type = 'Beverage';
+            let category_id = null;
+            this.$inertia.get(`/pos_menu?type=${type}&&category_id=${category_id}`);
         },
     }
 }
