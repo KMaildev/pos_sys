@@ -1,39 +1,9 @@
 <template>
-    <master :user_name="user_name" :login_time="login_time">
-        <div class="row">
-            <div class="col-md-4 col-lg-4 col-sm-12">
-                <form @submit.prevent="searchTableName">
-                    <input v-model="q" type="text" class="form-control form-control-lg bg-white search-inp"
-                        placeholder="Search Table Name">
-                </form>
-            </div>
-
-            <div class="col-md-8 col-lg-8 col-sm-12">
-                <button class="floor_button" v-for="floors_category in floors_categories" :key="floors_category.id"
-                    @click="searchFloorById(floors_category.id)">
-                    {{ floors_category.title }}
-                </button>
-            </div>
-        </div>
-
-        <div class="ScrollStyle">
-            <div class="row" v-for="floor in floors" :key="floor.id">
-                <div class="col-md-12 col-lg-12 col-sm-12">
-                    <h2 class="card-title floor_name">
-                        {{ floor.title }}
-                    </h2>
-                </div>
-
-                <div class="col-md-1 col-lg-1 col-sm-1" v-for="table_lists in floor.table_lists_table"
-                    :key="table_lists.id">
-                    <button class="table_btn" @click="setTableName(table_lists.id, table_lists.table_name)">
-                        {{ table_lists.table_name }}
-                    </button>
-                </div>
-            </div>
-            <hr>
-        </div>
-    </master>
+    <div>
+        <master :user_name="user_name" :login_time="login_time">
+            <h1 style="color: white;">Table</h1>
+        </master>
+    </div>
 </template>
 <script>
 
@@ -101,21 +71,3 @@ export default {
     }
 }
 </script>
-<style>
-.floor_name {
-    font-size: 25px;
-    font-weight: bold;
-    color: black;
-}
-
-.search-inp {
-    font-size: 20px;
-    width: 100%;
-    padding: 10px 32px;
-    background-color: #5C2B16;
-    margin: 2px;
-    color: white;
-    height: 100%;
-    border-color: gray;
-}
-</style>

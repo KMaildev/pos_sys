@@ -897,7 +897,7 @@ body[data-layout=horizontal] .footer {
 
 #sidebar-menu ul li a {
     display: block;
-    padding: .675rem 1.5rem;
+    padding: 22px;
     color: var(--bs-sidebar-menu-item-color);
     position: relative;
     font-size: .845rem;
