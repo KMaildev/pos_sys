@@ -1,7 +1,29 @@
 <template>
     <div>
-        <header id="page-topbar">
+        <header id="page-topbar" style="background-color: #000000;">
             <div class="navbar-header">
+                <div class="d-flex">
+                    <div class="navbar-brand-box">
+                        <span class="logo-lg">
+                            <img :src="'/data/logo/logo_v1.png'" style="width: 98%;">
+                        </span>
+                    </div>
+                </div>
+
+
+                <div class="d-flex">
+
+                    <div class="d-flex align-items-start flex-column bd-highlight"
+                        style="width: 200px; background-color: #4D4D4D;">
+                        <div class="p-2 bd-highlight">
+                            Name: Mg Mg
+                        </div>
+                        <div class="p-2 bd-highlight">
+                            Position: Manager
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </header>
 
@@ -11,7 +33,8 @@
                     <ul class="metismenu list-unstyled d-flex align-items-end flex-column" id="side-menu">
 
                         <li style="width: 90%;">
-                            <Link :href="route('pos_table_lists')" class="btn btn-default menubtn">
+                            <Link :href="route('pos_table_lists')" class="btn btn-default menubtn"
+                                :class="currentRoute == 'pos_table_lists' ? 'bg_color' : ''">
                             <i class="fa fa-table text-white" style="font-size: 23px;"></i>
                             &nbsp;&nbsp;&nbsp;
                             Reservation
@@ -49,7 +72,7 @@
                             <div class="d-flex align-items-end" style="height: 200px;">
                                 <div class="mt-auto" style="width: 100%">
                                     <a href="/pos_pin_logout" class="btn btn-default menubtn">
-                                        <i class="fa fa-table text-white" style="font-size: 23px;"></i>
+                                        <i class="fa-solid fa-lock text-white" style="font-size: 23px;"></i>
                                         &nbsp;&nbsp;&nbsp;
                                         Sign Out
                                     </a>
@@ -107,5 +130,13 @@ export default {
     font-size: 18px !important;
     font-weight: bold;
     border-radius: 20px 0px 0px 20px;
+}
+
+.bg_color {
+    background-color: #4D4D4D;
+}
+
+.bg_color:hover {
+    background-color: #4D4D4D;
 }
 </style>

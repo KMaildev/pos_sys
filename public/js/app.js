@@ -8709,7 +8709,29 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("div", [_vm._m(0), _vm._v(" "), _c("div", {
+  return _c("div", [_c("header", {
+    staticStyle: {
+      "background-color": "#000000"
+    },
+    attrs: {
+      id: "page-topbar"
+    }
+  }, [_c("div", {
+    staticClass: "navbar-header"
+  }, [_c("div", {
+    staticClass: "d-flex"
+  }, [_c("div", {
+    staticClass: "navbar-brand-box"
+  }, [_c("span", {
+    staticClass: "logo-lg"
+  }, [_c("img", {
+    staticStyle: {
+      width: "98%"
+    },
+    attrs: {
+      src: "/data/logo/logo_v1.png"
+    }
+  })])])]), _vm._v(" "), _vm._m(0)])]), _vm._v(" "), _c("div", {
     staticClass: "vertical-menu py-5",
     staticStyle: {
       "background-color": "#333333"
@@ -8734,6 +8756,7 @@ var render = function render() {
     }
   }, [_c("Link", {
     staticClass: "btn btn-default menubtn",
+    "class": _vm.currentRoute == "pos_table_lists" ? "bg_color" : "",
     attrs: {
       href: _vm.route("pos_table_lists")
     }
@@ -8753,13 +8776,19 @@ var render = function render() {
 var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("header", {
-    attrs: {
-      id: "page-topbar"
+  return _c("div", {
+    staticClass: "d-flex"
+  }, [_c("div", {
+    staticClass: "d-flex align-items-start flex-column bd-highlight",
+    staticStyle: {
+      width: "200px",
+      "background-color": "#4D4D4D"
     }
   }, [_c("div", {
-    staticClass: "navbar-header"
-  })]);
+    staticClass: "p-2 bd-highlight"
+  }, [_vm._v("\n                        Name: Mg Mg\n                    ")]), _vm._v(" "), _c("div", {
+    staticClass: "p-2 bd-highlight"
+  }, [_vm._v("\n                        Position: Manager\n                    ")])])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
@@ -8837,7 +8866,7 @@ var staticRenderFns = [function () {
       href: "/pos_pin_logout"
     }
   }, [_c("i", {
-    staticClass: "fa fa-table text-white",
+    staticClass: "fa-solid fa-lock text-white",
     staticStyle: {
       "font-size": "23px"
     }
@@ -15249,7 +15278,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.menubtn {\n    width: 100%;\n    background-color: #717171;\n    color: white !important;\n    text-align: left;\n    font-size: 18px !important;\n    font-weight: bold;\n    border-radius: 20px 0px 0px 20px;\n}\n.menubtn:hover {\n    width: 100%;\n    background-color: #717171;\n    color: white !important;\n    text-align: left;\n    font-size: 18px !important;\n    font-weight: bold;\n    border-radius: 20px 0px 0px 20px;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.menubtn {\n    width: 100%;\n    background-color: #717171;\n    color: white !important;\n    text-align: left;\n    font-size: 18px !important;\n    font-weight: bold;\n    border-radius: 20px 0px 0px 20px;\n}\n.menubtn:hover {\n    width: 100%;\n    background-color: #717171;\n    color: white !important;\n    text-align: left;\n    font-size: 18px !important;\n    font-weight: bold;\n    border-radius: 20px 0px 0px 20px;\n}\n.bg_color {\n    background-color: #4D4D4D;\n}\n.bg_color:hover {\n    background-color: #4D4D4D;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

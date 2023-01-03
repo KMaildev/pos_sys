@@ -926,15 +926,15 @@ body[data-layout=horizontal] .footer {
 }
 
 #sidebar-menu ul li a:hover {
-    color: var(--bs-sidebar-menu-item-hover-color)
+    /* color: var(--bs-sidebar-menu-item-hover-color) */
 }
 
 #sidebar-menu ul li a:hover i {
-    color: var(--bs-sidebar-menu-item-hover-color)
+    /* color: var(--bs-sidebar-menu-item-hover-color) */
 }
 
 #sidebar-menu ul li a:hover svg {
-    color: var(--bs-sidebar-menu-item-hover-color)
+    /* color: var(--bs-sidebar-menu-item-hover-color) */
 }
 
 #sidebar-menu ul li .badge {
