@@ -12,17 +12,39 @@
 
 
                 <div class="d-flex">
-
-                    <div class="d-flex align-items-start flex-column bd-highlight"
-                        style="width: 200px; background-color: #4D4D4D;">
-                        <div class="p-2 bd-highlight">
-                            Name: Mg Mg
-                        </div>
-                        <div class="p-2 bd-highlight">
-                            Position: Manager
+                    <div class="main-box">
+                        <div style="background-color: #4D4D4D;">
+                            <p style="text-align: left;" class="name-text">
+                                Name:
+                                <span style="float: right;">
+                                    {{ user_name }}
+                                </span>
+                            </p>
+                            <p class="position-text" style="text-align: left;">
+                                Position:
+                                <span style="float: right;">
+                                    Waiter
+                                </span>
+                            </p>
                         </div>
                     </div>
 
+                    <div class="main-box" style="margin-left: 10px;">
+                        <div style="background-color: #4D4D4D;">
+                            <p style="text-align: left;" class="name-text">
+                                Date:
+                                <span style="float: right;">
+                                    {{ currentDate }}
+                                </span>
+                            </p>
+                            <p class="position-text" style="text-align: left;">
+                                Time:
+                                <span style="float: right;">
+                                    {{ currentTime }}
+                                </span>
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </header>
@@ -100,14 +122,19 @@ export default {
     name: "Master",
     props: [
         'user_name',
-        'login_time',
     ],
-
     data() {
         return {
             currentRoute: route().current(),
+            currentDate: new Date().toISOString().slice(0, 10),
+            currentTime: '',
         }
     },
+
+    created() {
+        var date = new Date();
+        this.currentTime = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+    }
 
 };
 </script>
@@ -138,5 +165,38 @@ export default {
 
 .bg_color:hover {
     background-color: #4D4D4D;
+}
+
+.main-box {
+    width: 250px;
+    height: auto;
+    border: 1px solid #c3c3c3;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+}
+
+.main-box div {
+    width: 250px;
+    height: 70px;
+}
+
+.name-text {
+    font-size: 18px;
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 7px;
+    margin: 0px;
+    font-weight: bold;
+}
+
+.position-text {
+    font-size: 18px;
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin: 0px;
+    font-weight: bold;
 }
 </style>

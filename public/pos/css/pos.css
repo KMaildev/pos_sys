@@ -1,12 +1,12 @@
 .floor_button {
-    font-size: 20px;
     width: 200px;
-    padding: 10px 32px;
-    background-color: #5C2B16;
+    padding: 20px 30px;
     margin: 2px;
-    color: white;
-    height: 100%;
-    border-color: white;
+    background-color: #808080;
+    color: white !important;
+    font-size: 20px !important;
+    font-weight: bold;
+    border-radius: 15px 15px 0px 0px;
 }
 
 .main-category {
