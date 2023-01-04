@@ -68,10 +68,9 @@ export default {
         setTableName(table_id, table_name) {
             if (table_id && table_name) {
                 let type = 'Beverage';
-                let category_id = null;
                 localStorage.setItem("table_id", table_id);
                 localStorage.setItem("table_name", table_name);
-                this.$inertia.get(`/pos_menu?type=${type}&&category_id=${category_id}`);
+                this.$inertia.get(`/pos_menu?type=${type}`);
                 this.audioPlay()
             } else {
                 this.alertMessage();

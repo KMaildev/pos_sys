@@ -65,7 +65,8 @@
 
                         <br>
                         <li style="width: 90%;">
-                            <a href="#" class="btn btn-default menubtn">
+                            <a @click="linkMenu()" class="btn btn-default menubtn"
+                                :class="currentRoute == 'pos_menu' ? 'bg_color' : ''">
                                 <i class="fa fa-kitchen-set text-white" style="font-size: 23px;"></i>
                                 &nbsp;&nbsp;&nbsp;
                                 Menu
@@ -129,6 +130,12 @@ export default {
             currentDate: new Date().toISOString().slice(0, 10),
             currentTime: '',
         }
+    },
+    methods: {
+        linkMenu() {
+            let type = 'Beverage';
+            this.$inertia.get(`/pos_menu?type=${type}`);
+        },
     },
 
     created() {

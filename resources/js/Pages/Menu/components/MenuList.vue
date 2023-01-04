@@ -23,7 +23,6 @@
                         {{ menu_list.menu_name_mm }}
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
