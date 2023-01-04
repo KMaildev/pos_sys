@@ -6220,7 +6220,7 @@ __webpack_require__.r(__webpack_exports__);
       q: ''
     };
   },
-  props: ['floors', 'floors_categories', 'user_name'],
+  props: ['table_lists', 'floors_categories', 'user_name'],
   methods: {
     setTableName: function setTableName(table_id, table_name) {
       if (table_id && table_name) {
@@ -9725,45 +9725,64 @@ var render = function render() {
     }, [_vm._v("\n                " + _vm._s(floors_category.title) + "\n            ")]);
   }), 0), _vm._v(" "), _c("div", {
     staticClass: "ScrollStyle"
-  }, [_vm._l(_vm.floors, function (floor) {
+  }, [_c("div", {
+    staticClass: "row py-2"
+  }, _vm._l(_vm.table_lists, function (table_list) {
+    var _table_list$order_inf;
     return _c("div", {
-      key: floor.id,
-      staticClass: "row py-2"
-    }, _vm._l(floor.table_lists_table, function (table_lists) {
-      return _c("div", {
-        key: table_lists.id,
-        staticClass: "col-md-2 col-lg-2 col-sm-2 mb-4"
-      }, [_c("div", {
-        staticClass: "imgcontainer",
-        on: {
-          click: function click($event) {
-            return _vm.setTableName(table_lists.id, table_lists.table_name);
-          }
+      key: table_list.id,
+      staticClass: "col-md-2 col-lg-2 col-sm-2 mb-4"
+    }, [_c("div", {
+      staticClass: "imgcontainer",
+      on: {
+        click: function click($event) {
+          return _vm.setTableName(table_list.id, table_list.table_name);
         }
-      }, [_c("img", {
-        staticStyle: {
-          width: "100%"
-        },
-        attrs: {
-          src: "/data/table_avaiblable.png"
-        }
-      }), _vm._v(" "), _c("div", {
-        staticClass: "centered"
-      }, [_c("h6", {
-        staticStyle: {
-          "font-size": "20px",
-          "font-weight": "bold",
-          color: "black"
-        }
-      }, [_vm._v("\n                                " + _vm._s(table_lists.table_name) + "\n                            ")]), _vm._v(" "), _c("p", {
-        staticStyle: {
-          "font-size": "20px",
-          "font-weight": "bold",
-          color: "black"
-        }
-      }, [_vm._v("\n                                Available\n                            ")])])])]);
-    }), 0);
-  }), _vm._v(" "), _c("hr")], 2)])], 1);
+      }
+    }, [table_list.order_infos_table ? _c("div", [_c("img", {
+      staticStyle: {
+        width: "100%"
+      },
+      attrs: {
+        src: "/data/table_unavailable.png"
+      }
+    }), _vm._v(" "), _c("div", {
+      staticClass: "centered"
+    }, [_c("h6", {
+      staticStyle: {
+        "font-size": "20px",
+        "font-weight": "bold",
+        color: "black"
+      }
+    }, [_vm._v("\n                                    " + _vm._s(table_list.table_name) + "\n                                ")]), _vm._v(" "), _c("p", {
+      staticStyle: {
+        "font-size": "20px",
+        "font-weight": "bold",
+        color: "black"
+      }
+    }, [_vm._v("\n                                    " + _vm._s((_table_list$order_inf = table_list.order_infos_table.guest_no) !== null && _table_list$order_inf !== void 0 ? _table_list$order_inf : "") + " M\n                                ")])])]) : _c("div", [_c("img", {
+      staticStyle: {
+        width: "100%"
+      },
+      attrs: {
+        src: "/data/table_avaiblable.png"
+      }
+    }), _vm._v(" "), _c("div", {
+      staticClass: "centered"
+    }, [_c("h6", {
+      staticStyle: {
+        "font-size": "20px",
+        "font-weight": "bold",
+        color: "black"
+      }
+    }, [_vm._v("\n                                    " + _vm._s(table_list.table_name) + "\n                                ")]), _vm._v(" "), _c("p", {
+      staticStyle: {
+        "font-size": "20px",
+        "font-weight": "bold",
+        color: "black"
+      }
+    }, [_vm._v("\n                                    Available\n                                ")])])])])]);
+  }), 0)])])], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;

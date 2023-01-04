@@ -4,6 +4,7 @@ namespace App\Http\Controllers\PosSys\TableList;
 
 use App\Http\Controllers\Controller;
 use App\Models\Floor;
+use App\Models\TableList;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -19,22 +20,16 @@ class TableListController extends Controller
     {
         $floors_categories = Floor::all();
 
-        $floors = Floor::with('table_lists_table')->get();
-        if ($request->table_name) {
-            $floors = Floor::with('table_lists_table')
-                ->whereRelation('table_lists_table', 'table_name', 'like', "%{$request->table_name}%")
-                ->get();
-        }
+        $floor = Floor::first();
+        $floor_id = $request->floor_id ?? $floor->id;
 
-        if ($request->floor_id) {
-            $floors = Floor::with('table_lists_table')
-                ->where('id', $request->floor_id)
-                ->get();
-        }
+        $table_lists = TableList::with('order_infos_table')
+            ->where('floor_id', $floor_id)
+            ->get();
 
         return Inertia::render('TableList/Index', [
-            'floors' => $floors,
             'floors_categories' => $floors_categories,
+            'table_lists' => $table_lists,
         ]);
     }
 

@@ -10,23 +10,34 @@
             </div>
 
             <div class="ScrollStyle">
-                <div class="row py-2" v-for="floor in floors" :key="floor.id">
-                    <div class="col-md-2 col-lg-2 col-sm-2 mb-4" v-for="table_lists in floor.table_lists_table"
-                        :key="table_lists.id">
-                        <div class="imgcontainer" @click="setTableName(table_lists.id, table_lists.table_name)">
-                            <img :src="'/data/table_avaiblable.png'" style="width: 100%;">
-                            <div class="centered">
-                                <h6 style="font-size: 20px; font-weight: bold; color: black;">
-                                    {{ table_lists.table_name }}
-                                </h6>
-                                <p style="font-size: 20px; font-weight: bold; color: black">
-                                    Available
-                                </p>
+                <div class="row py-2">
+                    <div class="col-md-2 col-lg-2 col-sm-2 mb-4" v-for="table_list in table_lists" :key="table_list.id">
+                        <div class="imgcontainer" @click="setTableName(table_list.id, table_list.table_name)">
+                            <div v-if="table_list.order_infos_table">
+                                <img :src="'/data/table_unavailable.png'" style="width: 100%;">
+                                <div class="centered">
+                                    <h6 style="font-size: 20px; font-weight: bold; color: black;">
+                                        {{ table_list.table_name }}
+                                    </h6>
+                                    <p style="font-size: 20px; font-weight: bold; color: black">
+                                        {{ table_list.order_infos_table.guest_no ?? '' }} M
+                                    </p>
+                                </div>
+                            </div>
+                            <div v-else>
+                                <img :src="'/data/table_avaiblable.png'" style="width: 100%;">
+                                <div class="centered">
+                                    <h6 style="font-size: 20px; font-weight: bold; color: black;">
+                                        {{ table_list.table_name }}
+                                    </h6>
+                                    <p style="font-size: 20px; font-weight: bold; color: black">
+                                        Available
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <hr>
             </div>
         </master>
     </div>
@@ -48,7 +59,7 @@ export default {
     },
 
     props: [
-        'floors',
+        'table_lists',
         'floors_categories',
         'user_name',
     ],
