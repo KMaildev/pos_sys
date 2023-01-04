@@ -3,6 +3,8 @@
         <div class="row">
             <!-- Main Category  -->
             <MainCategory :categories="categories"></MainCategory>
+
+            <OrderItem></OrderItem>
         </div>
     </master>
 </template>

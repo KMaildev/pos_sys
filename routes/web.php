@@ -129,6 +129,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/pos_main_page', [MainController::class, 'index'])->name('pos_main_page');
     Route::get('/pos_table_lists', [TableListTableListController::class, 'index'])->name('pos_table_lists');
     Route::get('/pos_menu', [PosMenuController::class, 'index'])->name('pos_menu');
+    Route::get('/pos_menu_lists', [PosMenuController::class, 'menuLists'])->name('pos_menu_lists');
+
     Route::post('/order_confirm', [OrderConfirmController::class, 'store'])->name('order_confirm');
     Route::get('/pos_test_page', [TestController::class, 'index'])->name('pos_test_page');
     Route::get('/pos_pin_logout', [PinController::class, 'pinLogout'])->name('pos_pin_logout');

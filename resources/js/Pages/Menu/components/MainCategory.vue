@@ -1,16 +1,16 @@
 <template>
     <div class="col-xl-6 col-md-6 col-lg-6 col-sm-12" style="height: 580px;">
         <div class="d-flex">
-            <button class="floor_button" @click="loadCategoryAndMenuListPos('Food')">
-                Food
-            </button>
-            <button class="floor_button" @click="loadCategoryAndMenuListPos('Beverage')">
-                Beverage
-            </button>
+            <MainMenu></MainMenu>
         </div>
 
-        <div class="row overflow-auto" style="max-height: calc(550px)">
-            <div class="col-md-4 col-lg-4 col-sm-12" v-for="category in categories" :key="category.id">
+        <div class="row gx-3 gy-2 align-items-center py-2">
+            <SearchForm></SearchForm>
+        </div>
+
+        <div class="row py-2 overflow-auto" style="max-height: calc(500px)">
+            <div class="col-md-4 col-lg-4 col-sm-12" v-for="category in categories" :key="category.id"
+                @click="loadMenuListPos(category.id)">
                 <div class="card main-menu-box" :style="{ 'background-color': category.background_color }">
                     <h6 class="centered">
                         {{ category.title }}
@@ -22,16 +22,24 @@
 </template>
 
 <script>
+import MainMenu from './MainMenu.vue';
+import SearchForm from './SearchForm.vue';
+
 export default {
     name: "MainCategory",
+
+    components: {
+        MainMenu,
+        SearchForm,
+    },
 
     props: [
         'categories',
     ],
 
     methods: {
-        loadCategoryAndMenuListPos(type) {
-            this.$inertia.get(`/pos_menu?type=${type}`);
+        loadMenuListPos(categorie_id) {
+            this.$inertia.get(`/pos_menu_lists?categorie_id=${categorie_id}`);
         },
     },
 }
