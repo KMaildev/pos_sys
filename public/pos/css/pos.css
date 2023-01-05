@@ -110,7 +110,7 @@
     text-align: center;
     /* min-width: 100%; */
     padding: 10px;
-    background-color: #0e3284;
+    background-color: #808080;
     color: white;
 }
 
@@ -216,6 +216,14 @@
 
 /* Button Procress  */
 
+.go_back {
+    width: 100%;
+    padding: 10px;
+    background-color: #CCEDE4;
+    color: black !important;
+    font-size: 18px !important;
+}
+
 .total_footer {
     padding: 10px 10px;
     background-color: #0e3284;
@@ -227,54 +235,64 @@
     font-size: 16px;
     width: 100%;
     padding: 17px 17px;
-    background-color: #0e3284;
+    background-color: #808080;
     color: white;
 }
 
 
 .pay_btn {
-    font-size: 16px;
     width: 100%;
-    min-width: 100%;
-    padding: 12px 18px;
-    background-color: #48726b;
-    color: white;
+    padding: 20px;
+    margin: 3px;
+    background-color: #CCEDE4;
+    color: black !important;
+    font-size: 18px !important;
 }
 
+
+
 .clear_all {
-    font-size: 16px;
     width: 100%;
-    min-width: 100%;
-    padding: 12px 18px;
-    background-color: #045FC1;
-    color: white;
+    padding: 20px;
+    margin: 3px;
+    background-color: #F4D0F4;
+    color: black !important;
+    font-size: 18px !important;
+}
+
+.centered {
+    font-weight: bold;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .edit_seat_btn {
-    font-size: 16px;
     width: 100%;
-    min-width: 100%;
-    padding: 12px 18px;
-    background-color: #c9841e;
-    color: white;
+    padding: 20px;
+    margin: 3px;
+    background-color: #A5D3E2;
+    color: black !important;
+    font-size: 18px !important;
 }
 
 .guest_detail_btn {
-    font-size: 16px;
     width: 100%;
-    min-width: 100%;
-    padding: 12px 18px;
-    background-color: #46300e;
-    color: white;
+    padding: 20px;
+    margin: 3px;
+    background-color: #A8A6DB;
+    color: black !important;
+    font-size: 18px !important;
 }
 
 .split_bill_btn {
-    font-size: 16px;
     width: 100%;
-    min-width: 100%;
-    padding: 12px 18px;
-    background-color: #48901c;
-    color: white;
+    padding: 20px;
+    margin: 3px;
+    background-color: #FCE6C4;
+    color: black !important;
+    font-size: 18px !important;
 }
 
 .promotion_btn {

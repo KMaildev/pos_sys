@@ -14,7 +14,7 @@
                     <div class="col-md-2 col-lg-2 col-sm-2 mb-4" v-for="table_list in table_lists" :key="table_list.id">
                         <div class="imgcontainer" @click="setTableName(table_list.id, table_list.table_name)">
                             <div v-if="table_list.order_infos_table">
-                                <img :src="'/data/table_unavailable.png'" style="width: 100%;">
+                                <img :src="'/data/table_unavailable.png'" style="width: 80%;">
                                 <div class="centered">
                                     <h6 style="font-size: 20px; font-weight: bold; color: black;">
                                         {{ table_list.table_name }}
@@ -25,7 +25,7 @@
                                 </div>
                             </div>
                             <div v-else>
-                                <img :src="'/data/table_avaiblable.png'" style="width: 100%;">
+                                <img :src="'/data/table_avaiblable.png'" style="width: 80%;">
                                 <div class="centered">
                                     <h6 style="font-size: 20px; font-weight: bold; color: black;">
                                         {{ table_list.table_name }}

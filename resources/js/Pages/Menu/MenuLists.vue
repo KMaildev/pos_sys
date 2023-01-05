@@ -7,17 +7,19 @@
                 </div>
 
                 <div class="row gx-3 gy-2 align-items-center py-2">
-                    <div class="hstack gap-3">
-                        <input class="form-control me-auto form-control-lg" type="text">
-                        <button type="button" class="btn btn-secondary btn-lg">
-                            Search
-                        </button>
-                        <div class="vr"></div>
-                        <button @click="linkMenu()" type="button" class="btn btn-outline-secondary btn-lg"
-                            style="background-color: #F09033; color: black">
-                            Back
-                        </button>
-                    </div>
+                    <form @submit.prevent="search">
+                        <div class="hstack gap-3">
+                            <input class="form-control me-auto form-control-lg" type="text" v-model="form.q">
+                            <button type="submit" class="btn btn-secondary btn-lg">
+                                Search
+                            </button>
+                            <div class="vr"></div>
+                            <button @click="linkMenu()" type="button" class="btn btn-outline-secondary btn-lg"
+                                style="background-color: #F09033; color: black">
+                                Back
+                            </button>
+                        </div>
+                    </form>
                 </div>
 
                 <div class="card-body overflow-auto" style="max-height: calc(500px);">
@@ -56,7 +58,7 @@
                                 </td>
 
                                 <td class="text-center">
-                                    <button class="order_btn btn btn-default btn-lg" @click="addToCart(menu_list)">
+                                    <button class="order_btn btn btn-lg" @click="addToCart(menu_list)">
                                         Order
                                     </button>
                                 </td>
@@ -87,6 +89,14 @@ export default {
         'user_name',
     ],
 
+    data() {
+        return {
+            form: {
+                q: this.q,
+            }
+        }
+    },
+
     methods: {
         addToCart(menu_list) {
             var cart = this.$root.cart;
@@ -100,6 +110,10 @@ export default {
             }
         },
 
+        search() {
+            this.$inertia.get(`/pos_menu_lists_search?search=${this.form.q}`);
+        },
+
         linkMenu() {
             let type = 'Beverage';
             this.$inertia.get(`/pos_menu?type=${type}`);
@@ -109,6 +123,11 @@ export default {
 </script>
 <style>
 .order_btn {
+    background-color: #F2F2F2;
+    color: black;
+}
+
+.order_btn:hover {
     background-color: #F2F2F2;
     color: black;
 }

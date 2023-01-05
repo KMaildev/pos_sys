@@ -130,6 +130,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/pos_table_lists', [TableListTableListController::class, 'index'])->name('pos_table_lists');
     Route::get('/pos_menu', [PosMenuController::class, 'index'])->name('pos_menu');
     Route::get('/pos_menu_lists', [PosMenuController::class, 'menuLists'])->name('pos_menu_lists');
+    Route::get('/pos_menu_lists_search', [PosMenuController::class, 'menuListsSearch'])->name('pos_menu_lists_search');
 
     Route::post('/order_confirm', [OrderConfirmController::class, 'store'])->name('order_confirm');
     Route::get('/pos_test_page', [TestController::class, 'index'])->name('pos_test_page');

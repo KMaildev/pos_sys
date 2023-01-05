@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Dashboard | Dason - Admin & Dashboard Template</title>
+    <title>POS</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- plugin css -->
     <link href="{{ asset('pos/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css') }}" rel="stylesheet"
@@ -41,6 +41,9 @@
     <!-- apexcharts -->
     <script src="assets/libs/apexcharts/apexcharts.min.js"></script>
     <!-- Plugins js-->
+
+    <script src="{{ asset('assets/js/sweetalert.min.js') }}"></script>
+    <script src="{{ asset('assets/print/print.min.js') }}"></script>
     @routes
 </body>
 

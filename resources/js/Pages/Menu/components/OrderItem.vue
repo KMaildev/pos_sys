@@ -1,80 +1,97 @@
 <template>
-    <div class="col-xl-4 col-md-4 col-lg-4" style="height: 580px;">
-        <div class="card-header d-flex">
-            <h4 class="card-title mb-0 flex-grow-1 category_title"
-                style="font-size: 20px; font-weight: bold; text-align: left;">
-                TBL : {{ table_name }}
-            </h4>
-            <h4 class="card-title mb-0 flex-grow-1 category_title"
-                style="font-size: 20px; font-weight: bold; text-align: right;">
-                GUEST : <input type="button" style="width: 50px;" @click.stop="show = true" :value="value" readonly>
-            </h4>
-            <VueNumericKeypad :value.sync="value" :show.sync="show" :options="options" />
-        </div>
+    <div class="col-md-6 col-lg-6 col-sm-12" style="height: 580px;">
+        <div class="row">
+            <div class="col-md-3 col-md-3 col-sm-12" style="margin: 0px">
+                <ButtonOperation></ButtonOperation>
+            </div>
 
-        <div class="card-body overflow-auto" style="margin: 5px; max-height: calc(530px);">
-            <table class="table">
-                <thead class="table-light">
-                    <tr>
-                        <th style="width: 40%; font-size: 18px;">
-                            Items
-                        </th>
-                        <th class="text-center" style="width: 25%; font-size: 18px;">
-                            Quantity
-                        </th>
-                        <th class="text-center" style="width: 20%; font-size: 18px;">
-                            Price
-                        </th>
-                        <th class="text-center" style="width: 20%; font-size: 18px;">
-                            Total
-                        </th>
-                        <th class="text-center" style="width: 20%; font-size: 18px;">
-                            Action
-                        </th>
-                    </tr>
-                </thead>
+            <div class="col-md-9 col-lg-9 col-sm-12" style="margin: 0px">
+                <div class="card-header d-flex">
+                    <h4 class="card-title mb-0 flex-grow-1 category_title"
+                        style="font-size: 20px; font-weight: bold; text-align: left;">
+                        TBL : {{ table_name }}
+                    </h4>
+                    <h4 class="card-title mb-0 flex-grow-1 category_title"
+                        style="font-size: 20px; font-weight: bold; text-align: right;">
+                        GUEST : <input type="button" style="width: 50px;" @click.stop="show = true" :value="value"
+                            readonly>
+                    </h4>
+                    <VueNumericKeypad :value.sync="value" :show.sync="show" :options="options" />
+                </div>
 
-                <tbody>
-                    <tr v-for="(cart_list, index) in cart_lists" :key="index">
-                        <td v-on:click="addRemark(cart_list)">
-                            {{ cart_list.menu_name }}
-                            <br>
-                            Remark: {{ cart_list.remark }}
-                        </td>
+                <div class="card-body overflow-auto"
+                    style="max-height: calc(530px); height: 580px; background-color: white;">
+                    <table class="table">
+                        <thead class="table-light">
+                            <tr>
+                                <th style="width: 40%; font-size: 18px;">
+                                    Description
+                                </th>
+                                <th class="text-center" style="width: 25%; font-size: 18px;">
+                                    Quantity
+                                </th>
+                                <th class="text-center" style="width: 20%; font-size: 18px;">
+                                    Amount
+                                </th>
+                                <th class="text-center" style="width: 20%; font-size: 18px;">
+                                    Action
+                                </th>
+                            </tr>
+                        </thead>
 
-                        <td class="text-center">
-                            <div class="input-group">
-                                <input type="text" class="form-control" :value="cart_list.qty"
-                                    style="width: 10px; font-size: 15px;" readonly>
-                                <span class="input-group-text" @click="reduceQty(cart_list, index)">
-                                    <i class="fa fa-minus fa-lg"></i>
-                                </span>
-                            </div>
-                        </td>
+                        <tbody style="background-color: white;">
+                            <tr v-for="(cart_list, index) in cart_lists" :key="index">
+                                <td v-on:click="addRemark(cart_list)">
+                                    {{ cart_list.menu_name }}
+                                    <br>
+                                    Remark: {{ cart_list.remark }}
+                                </td>
 
-                        <td style="text-align: center;" v-on:dblclick="itemRemove(index)">
-                            {{ cart_list.price }}
-                        </td>
+                                <td class="text-center">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" :value="cart_list.qty"
+                                            style="width: 10px; font-size: 15px;" readonly>
+                                        <span class="input-group-text" @click="reduceQty(cart_list, index)">
+                                            <i class="fa fa-minus fa-lg"></i>
+                                        </span>
+                                    </div>
+                                </td>
 
-                        <td style="text-align: right;" v-on:dblclick="itemRemove(index)">
-                            {{ cart_list.qty * cart_list.price }}
-                        </td>
+                                <td style="text-align: right;" v-on:dblclick="itemRemove(index)">
+                                    {{ cart_list.qty * cart_list.price }}
+                                </td>
 
-                        <td style="text-align: center;" @click="itemRemove(index)">
-                            <i class="fa-solid fa-xmark text-danger " style="font-size: 25px;"></i>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                                <td style="text-align: center;" @click="itemRemove(index)">
+                                    <i class="fa-solid fa-xmark text-danger " style="font-size: 25px;"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="d-flex bd-highlight">
+                    <h4 class="card-title mb-0 flex-grow-1 footer_title"
+                        style="font-size: 16px; font-weight: bold; text-align: left;">
+                        Total
+                    </h4>
+                    <h4 class="card-title mb-0 flex-grow-1 footer_title"
+                        style="font-size: 16px; font-weight: bold; text-align: right;">
+                        {{ totalAmountCalc(this.cart_lists) }}
+                    </h4>
+                </div>
+            </div>
         </div>
     </div>
 </template>
 <script>
+
 import VueNumericKeypad from "vue-numeric-keypad";
+import ButtonOperation from './ButtonOperation.vue';
 export default {
     name: "OrderItem",
     components: {
         VueNumericKeypad,
+        ButtonOperation,
     },
 
     props: [

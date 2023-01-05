@@ -35,6 +35,20 @@ class PosMenuController extends Controller
 
 
 
+    public function menuListsSearch(Request $request)
+    {
+        $search = $request->search;
+        $menu_lists = MenuList::query()
+            ->where('menu_name', 'LIKE', "%{$search}%")
+            ->orWhere('menu_name_mm', 'LIKE', "%{$search}%")
+            ->get();
+        return Inertia::render('Menu/MenuLists', [
+            'menu_lists' => $menu_lists,
+            'user_name' => auth()->user()->name ?? 0,
+        ]);
+    }
+
+
 
 
 

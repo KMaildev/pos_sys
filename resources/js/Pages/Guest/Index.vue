@@ -3,31 +3,28 @@
         <div class="row">
             <div class="col-xl-12 col-md-12 col-lg-12 py-2">
                 <div class="col-xl-2 col-md-2 col-lg-2">
-                    <button class="pay_btn" @click="goBackPosScreen()">
+                    <button class="go_back" @click="goBackPosScreen()">
                         Back
                     </button>
                 </div>
             </div>
-            <div class="col-xl-3 col-md-3 col-lg-3" style="height: 330px; max-height: 330px;"
+            <div class="col-xl-3 col-md-3 col-lg-3" style="height: 300px; max-height: 300px;"
                 v-for="order_info in order_infos" :key="order_info.id">
                 <div class="card-header d-flex">
-                    <h4 class="card-title mb-0 flex-grow-1 guest_title"
-                        style="font-size: 16px; font-weight: bold; text-align: left;">
+                    <h4 class="card-title mb-0 flex-grow-1 guest_title" style="font-size: 13px; text-align: left;">
                         TBL : {{ order_info.table_lists_table.table_name }}
                     </h4>
 
-                    <h4 class="card-title mb-0 flex-grow-1 guest_title"
-                        style="font-size: 16px; font-weight: bold; text-align: left;">
+                    <h4 class="card-title mb-0 flex-grow-1 guest_title" style="font-size: 13px; text-align: left;">
                         <i class="fa fa-clock"></i> {{ order_info.order_time }}
                     </h4>
 
-                    <h4 class="card-title mb-0 flex-grow-1 guest_title"
-                        style="font-size: 16px; font-weight: bold; text-align: right;">
+                    <h4 class="card-title mb-0 flex-grow-1 guest_title" style="font-size: 13px; text-align: right;">
                         GUEST : {{ order_info.guest_no }}
                     </h4>
                 </div>
 
-                <div class="card-body overflow-auto" style="max-height: calc(200px);">
+                <div class="card-body overflow-auto" style="max-height: calc(210px);">
                     <table class="table">
                         <thead class="table-light">
                             <tr>
@@ -46,7 +43,7 @@
                             </tr>
                         </thead>
 
-                        <tbody>
+                        <tbody style="background-color: white;">
                             <tr v-for="order_item in order_info.order_items_table" :key="order_item.id">
                                 <td>
                                     {{ order_item.menu_name }}
@@ -72,12 +69,12 @@
 
                 <div class="card-header d-flex">
                     <h4 class="card-title mb-0 flex-grow-1 guest_title"
-                        style="font-size: 16px; font-weight: bold; text-align: left;">
+                        style="font-size: 13px; font-weight: bold; text-align: left;">
                         <i class="fa fa-user"></i> {{ order_info.waiter_user_table.name }}
                     </h4>
 
                     <h4 class="card-title mb-0 flex-grow-1 guest_title"
-                        style="font-size: 16px; font-weight: bold; text-align: right;">
+                        style="font-size: 13px; font-weight: bold; text-align: right;">
                         Total : {{ totalAmountCalc(order_info.order_items_table) }}
                     </h4>
                 </div>
@@ -118,8 +115,7 @@ export default {
 
         goBackPosScreen() {
             let type = 'Beverage';
-            let category_id = null;
-            this.$inertia.get(`/pos_menu?type=${type}&&category_id=${category_id}`);
+            this.$inertia.get(`/pos_menu?type=${type}`);
         },
     }
 }
