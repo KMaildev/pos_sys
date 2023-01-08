@@ -54,7 +54,7 @@
                 <div id="sidebar-menu">
                     <ul class="metismenu list-unstyled d-flex align-items-end flex-column" id="side-menu">
 
-                        <li style="width: 90%;">
+                        <li style="width: 90%; margin-bottom: 10px;">
                             <Link :href="route('pos_table_lists')" class="btn btn-default menubtn"
                                 :class="currentRoute == 'pos_table_lists' ? 'bg_color' : ''">
                             <i class="fa fa-table text-white" style="font-size: 23px;"></i>
@@ -63,8 +63,7 @@
                             </Link>
                         </li>
 
-                        <br>
-                        <li style="width: 90%;">
+                        <li style="width: 90%; margin-bottom: 10px;">
                             <a @click="linkMenu()" class="btn btn-default menubtn"
                                 :class="currentRoute == 'pos_menu' ? 'bg_color' : ''">
                                 <i class="fa fa-kitchen-set text-white" style="font-size: 23px;"></i>
@@ -73,8 +72,7 @@
                             </a>
                         </li>
 
-                        <br>
-                        <li style="width: 90%;">
+                        <li style="width: 90%; margin-bottom: 10px;">
                             <a href="#" class="btn btn-default menubtn">
                                 <i class="fa-solid fa-dollar-sign text-white" style="font-size: 23px;"></i>
                                 &nbsp;&nbsp;&nbsp;
@@ -82,8 +80,7 @@
                             </a>
                         </li>
 
-                        <br>
-                        <li style="width: 90%;">
+                        <li style="width: 90%; margin-bottom: 10px;">
                             <a href="#" class="btn btn-default menubtn">
                                 <i class="fa fa-chart-line text-white" style="font-size: 23px;"></i>
                                 &nbsp;&nbsp;&nbsp;

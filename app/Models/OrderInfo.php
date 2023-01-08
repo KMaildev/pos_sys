@@ -32,6 +32,8 @@ class OrderInfo extends Model
         'updated_at',
         'guest_no',
         'change_amount',
+        'order_minutes',
+        'order_user_name',
     ];
 
     public function table_lists_table()

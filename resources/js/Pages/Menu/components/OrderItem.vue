@@ -7,16 +7,37 @@
 
             <div class="col-md-9 col-lg-9 col-sm-12" style="margin: 0px">
                 <div class="card-header d-flex">
-                    <h4 class="card-title mb-0 flex-grow-1 category_title"
+                    <div class="card-title mb-0 flex-grow-1 category_title"
                         style="font-size: 20px; font-weight: bold; text-align: left;">
-                        TBL : {{ table_name }}
-                    </h4>
-                    <h4 class="card-title mb-0 flex-grow-1 category_title"
+
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-dark btn-lg">
+                                <i class="fas fa-chair"></i>
+                            </button>
+
+                            <button type="button" class="btn btn btn-lg text-black" style="background-color: white;">
+                                {{ table_name }}
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="card-title mb-0 flex-grow-1 category_title"
                         style="font-size: 20px; font-weight: bold; text-align: right;">
-                        GUEST : <input type="button" style="width: 50px;" @click.stop="show = true" :value="value"
-                            readonly>
-                    </h4>
-                    <VueNumericKeypad :value.sync="value" :show.sync="show" :options="options" />
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-dark btn-lg" v-on:click="reduceGuestNo()">
+                                <i class="fas fa-arrow-circle-down"></i>
+                            </button>
+
+                            <button type="button" class="btn btn btn-lg text-black" style="background-color: white;">
+                                {{ value }}
+                            </button>
+
+                            <button type="button" class="btn btn-dark btn-lg" v-on:click="addGuestNo()">
+                                <i class="fas fa-arrow-alt-circle-up "></i>
+                            </button>
+                        </div>
+                    </div>
+
                 </div>
 
                 <div class="card-body overflow-auto"
@@ -102,7 +123,6 @@ export default {
         return {
             table_name: localStorage.getItem("table_name"),
             value: localStorage.getItem("guest_no"),
-
             show: 0,
             options: {
                 keyRandomize: false,
@@ -172,13 +192,21 @@ export default {
             });
             return sum;
         },
-    },
 
-    mounted() {
-        document.addEventListener('click', function () {
+        addGuestNo() {
+            this.value++;
             localStorage.setItem("guest_no", this.value);
-            this.show = 0;
-        }.bind(this));
+        },
+
+        reduceGuestNo() {
+            var guest_n = this.value;
+            if (guest_n > 1) {
+                this.value--;
+                localStorage.setItem("guest_no", this.value);
+            } else {
+            }
+
+        }
     },
 
     created() {

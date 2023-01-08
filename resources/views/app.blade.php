@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="{{ asset('pos/css/bill.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/print/print.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/fontawesome/css/all.min.css') }}">
+
     <link href="{{ mix('/css/app.css') }}" rel="stylesheet" />
     <script src="{{ mix('/js/app.js') }}" defer></script>
     @inertiaHead

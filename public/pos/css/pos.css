@@ -281,9 +281,10 @@
     width: 100%;
     padding: 20px;
     margin: 3px;
-    background-color: #A8A6DB;
-    color: black !important;
-    font-size: 18px !important;
+    background-color: #808080;
+    color: white !important;
+    font-size: 20px !important;
+    border-radius: 15px 15px 0px 0px;
 }
 
 .split_bill_btn {
@@ -312,6 +313,6 @@
     text-align: center;
     /* min-width: 100%; */
     padding: 10px;
-    background-color: #0e3284;
+    background-color: #717171;
     color: white;
 }

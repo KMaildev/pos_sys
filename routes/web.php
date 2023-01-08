@@ -25,6 +25,7 @@ use App\Http\Controllers\PosSys\Guest\GuestController;
 use App\Http\Controllers\PosSys\Main\MainController;
 use App\Http\Controllers\PosSys\Menu\PosMenuController;
 use App\Http\Controllers\PosSys\Order\OrderConfirmController;
+use App\Http\Controllers\PosSys\Ordered\OrderedController;
 use App\Http\Controllers\PosSys\Pin\PinController;
 use App\Http\Controllers\PosSys\TableList\TableListController as TableListTableListController;
 use App\Http\Controllers\PosSys\Test\TestController;
@@ -136,6 +137,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/pos_test_page', [TestController::class, 'index'])->name('pos_test_page');
     Route::get('/pos_pin_logout', [PinController::class, 'pinLogout'])->name('pos_pin_logout');
     Route::get('/pos_guest_index', [GuestController::class, 'index'])->name('pos_guest_index');
+
+    Route::get('/ordered_detail/{id}', [OrderedController::class, 'orderedDetail'])->name('ordered_detail');
+
+
+
 
     // Cashier 
     Route::get('/cashier_main_page', [CashierMainController::class, 'index'])->name('cashier_main_page');

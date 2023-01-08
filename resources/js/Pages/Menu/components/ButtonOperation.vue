@@ -9,9 +9,6 @@
                 Edit <br> Seat
             </button>
 
-            <button @click="guestDetailIndex()" class="guest_detail_btn">
-                Gust <br> Details
-            </button>
 
             <button @click="clearAll()" class="clear_all">
                 Clear <br> All
@@ -83,10 +80,6 @@ export default {
 
         editSeat() {
             this.$inertia.get(`/pos_table_lists`);
-        },
-
-        guestDetailIndex() {
-            this.$inertia.get(`/pos_guest_index`);
         },
 
 

@@ -36,11 +36,6 @@
                             </button>
                         </div>
 
-                        <div class="p-2 flex-fill bd-highlight">
-                            <button @click="guestDetailIndex()" class="guest_detail_btn">
-                                Gust Details
-                            </button>
-                        </div>
 
                         <div class="p-2 flex-fill bd-highlight">
                             <button class="split_bill_btn">
@@ -121,11 +116,6 @@ export default {
         editSeat() {
             this.$inertia.get(`/pos_table_lists`);
         },
-
-        guestDetailIndex() {
-            this.$inertia.get(`/pos_guest_index`);
-        },
-
 
         clearAll() {
             swal({

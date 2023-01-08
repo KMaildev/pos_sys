@@ -9,7 +9,6 @@ use Inertia\Inertia;
 
 class GuestController extends Controller
 {
-
     public function index(Request $request)
     {
         $order_infos = OrderInfo::with('table_lists_table', 'waiter_user_table', 'order_items_table')
