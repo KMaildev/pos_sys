@@ -305,6 +305,15 @@
     color: white;
 }
 
+.additional_order {
+    font-size: 16px;
+    width: 100%;
+    min-width: 100%;
+    padding: 12px 18px;
+    background-color: #f7d83d;
+    color: black;
+}
+
 /* Guest Detail  */
 
 .guest_title {
@@ -315,4 +324,14 @@
     padding: 10px;
     background-color: #717171;
     color: white;
+}
+
+.current_table {
+    width: 200px;
+    padding: 20px 30px;
+    margin: 2px;
+    background-color: #717171;
+    color: white !important;
+    font-size: 20px !important;
+    text-align: center;
 }

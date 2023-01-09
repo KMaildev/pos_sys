@@ -22,11 +22,13 @@ class PosMenuController extends Controller
         ]);
     }
 
+
     public function menuLists(Request $request)
     {
         $categorie_id = $request->categorie_id;
         $menu_lists = MenuList::where('categorie_id', $categorie_id)
             ->get();
+
         return Inertia::render('Menu/MenuLists', [
             'menu_lists' => $menu_lists,
             'user_name' => auth()->user()->name ?? 0,

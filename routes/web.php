@@ -129,18 +129,17 @@ Route::middleware('auth')->group(function () {
     // POSSYS
     Route::get('/pos_main_page', [MainController::class, 'index'])->name('pos_main_page');
     Route::get('/pos_table_lists', [TableListTableListController::class, 'index'])->name('pos_table_lists');
+    Route::get('/table_transfer', [TableListTableListController::class, 'tableTransfer'])->name('table_transfer');
+    Route::get('/confirm_table_transfer', [TableListTableListController::class, 'confirmTableTransfer'])->name('confirm_table_transfer');
+
     Route::get('/pos_menu', [PosMenuController::class, 'index'])->name('pos_menu');
     Route::get('/pos_menu_lists', [PosMenuController::class, 'menuLists'])->name('pos_menu_lists');
     Route::get('/pos_menu_lists_search', [PosMenuController::class, 'menuListsSearch'])->name('pos_menu_lists_search');
-
     Route::post('/order_confirm', [OrderConfirmController::class, 'store'])->name('order_confirm');
     Route::get('/pos_test_page', [TestController::class, 'index'])->name('pos_test_page');
     Route::get('/pos_pin_logout', [PinController::class, 'pinLogout'])->name('pos_pin_logout');
     Route::get('/pos_guest_index', [GuestController::class, 'index'])->name('pos_guest_index');
-
     Route::get('/ordered_detail/{id}', [OrderedController::class, 'orderedDetail'])->name('ordered_detail');
-
-
 
 
     // Cashier 

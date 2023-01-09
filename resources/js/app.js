@@ -15,6 +15,7 @@ createInertiaApp({
             }
         );
         Vue.component('Link', Link)
+
         new Vue({
             data() {
                 return {

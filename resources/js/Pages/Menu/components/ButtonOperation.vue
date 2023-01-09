@@ -1,6 +1,7 @@
 <template>
     <div>
         <div class="d-flex flex-column">
+
             <button @click="orderConfirm()" class="pay_btn">
                 Order <br> Confirm
             </button>
@@ -9,15 +10,55 @@
                 Edit <br> Seat
             </button>
 
-
             <button @click="clearAll()" class="clear_all">
                 Clear <br> All
             </button>
-
-            <button class="split_bill_btn">
-                Split <br> bill
-            </button>
+     
         </div>
+
+        <div id="printArea">
+            <center>
+                <div class="bill">
+                    <div class="receipt" style="background-color: #4D4D4D">
+                        <div class="d-flex justify-content-between">
+                            <span style="text-align: left; font-size: 12px; color: #4D4D4D">
+                                TBL: {{ table_name }}
+                            </span>
+
+                            <span style="text-align: right; font-size: 12px; color: #4D4D4D">
+                                Date & Time : {{currentTime}}
+                            </span>
+                        </div>
+
+                        <table class="">
+                            <tr class="header">
+                                <th style="width: 40%; font-size: 18px; color: #4D4D4D">
+                                    Description
+                                </th>
+                                <th class="text-center" style="width: 25%; font-size: 18px; color: #4D4D4D">
+                                    Qty
+                                </th>
+                            </tr>
+
+                            <tbody style="background-color: #4D4D4D  color: #4D4D4D">
+                                <tr v-for="(cart_list, index) in cart_lists" :key="index">
+                                    <td style="color: #4D4D4D">
+                                        {{ cart_list.menu_name }}
+                                        <br>
+                                        Remark: {{ cart_list.remark }}
+                                    </td>
+
+                                    <td class="text-right" style="color: #4D4D4D">
+                                        {{cart_list.qty}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </center>
+        </div>
+
     </div>
 </template>
 <script>
@@ -27,13 +68,16 @@ export default {
 
     data() {
         return {
+            table_name: localStorage.getItem("table_name"),
+            currentTime: '',
             table_id: localStorage.getItem("table_id"),
             total_amount: 0,
+            cart_lists: [],
             form: {
                 table_list_id: null,
                 guest_no: '',
                 cart_lists: [],
-            }
+            },
         }
     },
 
@@ -70,6 +114,7 @@ export default {
                     dangerMode: false,
                 }).then((willDelete) => {
                     if (willDelete) {
+                        this.printInvoice();
                         this.$inertia.post('/order_confirm', this.form);
                         this.orderSuccess();
                         this.clearAllNoAlert();
@@ -78,6 +123,17 @@ export default {
             }
         },
 
+        printInvoice() {
+            printJS({
+                printable: "printArea",
+                type: "html",
+                css: [
+                    "https://pos-sys.skgroupmm.com/pos/css/bill.css"
+                ],
+                scanStyles: false
+            });
+        },
+    
         editSeat() {
             this.$inertia.get(`/pos_table_lists`);
         },
@@ -167,6 +223,11 @@ export default {
         this.form.cart_lists = this.$root.cart;
         this.form.table_list_id = localStorage.getItem("table_id");
         this.form.guest_no = localStorage.getItem("guest_no");
+
+        this.cart_lists = this.$root.cart;
+
+        var date = new Date();
+        this.currentTime = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
     }
 }
 </script>

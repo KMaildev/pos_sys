@@ -47,5 +47,4 @@
     <script src="{{ asset('assets/print/print.min.js') }}"></script>
     @routes
 </body>
-
 </html>

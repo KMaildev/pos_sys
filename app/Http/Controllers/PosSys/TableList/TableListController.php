@@ -4,9 +4,11 @@ namespace App\Http\Controllers\PosSys\TableList;
 
 use App\Http\Controllers\Controller;
 use App\Models\Floor;
+use App\Models\OrderInfo;
 use App\Models\TableList;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
 class TableListController extends Controller
@@ -27,75 +29,47 @@ class TableListController extends Controller
             ->where('floor_id', $floor_id)
             ->get();
 
+
         return Inertia::render('TableList/Index', [
             'floors_categories' => $floors_categories,
             'table_lists' => $table_lists,
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function tableTransfer(Request $request)
     {
-        //
+        // Current Table 
+        $id = $request->order_info_id ?? 1;
+        $order_infos = OrderInfo::with('table_lists_table', 'waiter_user_table')
+            ->findOrFail($id);
+
+
+        // Floor & Table Lists 
+        $floors_categories = Floor::all();
+        $floor = Floor::first();
+        $floor_id = $request->floor_id ?? $floor->id;
+
+        $table_lists = TableList::with('order_infos_table')
+            ->where('floor_id', $floor_id)
+            ->get();
+
+        return Inertia::render('Ordered/TableTransfer', [
+            'order_infos' => $order_infos,
+            'floors_categories' => $floors_categories,
+            'table_lists' => $table_lists,
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function confirmTableTransfer(Request $request)
     {
-        //
-    }
+        $order_info_id = $request->order_info_id;
+        $table_id = $request->table_id;
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+        $menu = OrderInfo::findOrFail($order_info_id);
+        $menu->table_list_id = $table_id;
+        $menu->update();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return Redirect::route('pos_table_lists');
     }
 }

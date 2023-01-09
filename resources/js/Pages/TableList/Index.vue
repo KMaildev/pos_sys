@@ -103,10 +103,6 @@ export default {
             }
         },
 
-        myfunction() {
-            alert(1)
-        },
-
         searchTableName() {
             this.$inertia.get(`/pos_table_lists?table_name=${this.q}`);
         },
