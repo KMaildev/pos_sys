@@ -6460,7 +6460,11 @@ __webpack_require__.r(__webpack_exports__);
     },
     search: function search() {
       $('#showEngSearchModal').modal('hide');
+      $('#showMMSearchModal').modal('hide');
       this.$inertia.get("/pos_menu_lists_search?search=".concat(this.search_keyword));
+    },
+    showMMSearch: function showMMSearch() {
+      $('#showMMSearchModal').modal('show');
     }
   }
 });
@@ -10269,7 +10273,12 @@ var render = function render() {
       }
     }
   }), _vm._v(" "), _c("span", {
-    staticClass: "input-group-text"
+    staticClass: "input-group-text",
+    on: {
+      click: function click($event) {
+        return _vm.showMMSearch();
+      }
+    }
   }, [_vm._v("\n                MM\n            ")]), _vm._v(" "), _c("span", {
     staticClass: "input-group-text",
     on: {
@@ -10667,6 +10676,475 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fa-sharp fa-solid fa-delete-left"
+  })])])])])])])])]), _vm._v(" "), _c("div", {
+    staticClass: "modal fade",
+    attrs: {
+      id: "showMMSearchModal",
+      "data-bs-backdrop": "static",
+      "data-bs-keyboard": "false",
+      tabindex: "-1",
+      "aria-labelledby": "staticBackdropLabel",
+      "aria-hidden": "true"
+    }
+  }, [_c("div", {
+    staticClass: "modal-dialog modal-dialog-centered"
+  }, [_c("div", {
+    staticClass: "modal-content"
+  }, [_vm._m(1), _vm._v(" "), _c("div", {
+    staticClass: "modal-body"
+  }, [_c("div", {
+    staticClass: "container-fluid"
+  }, [_c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-md-12"
+  }, [_c("form", {
+    on: {
+      submit: function submit($event) {
+        $event.preventDefault();
+        return _vm.search.apply(null, arguments);
+      }
+    }
+  }, [_c("div", {
+    staticClass: "input-group"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.search_keyword,
+      expression: "search_keyword"
+    }],
+    staticClass: "form-control form-control-lg",
+    attrs: {
+      type: "text",
+      readonly: "true"
+    },
+    domProps: {
+      value: _vm.search_keyword
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.search_keyword = $event.target.value;
+      }
+    }
+  }), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-secondary btn-lg",
+    attrs: {
+      type: "submit"
+    }
+  }, [_vm._v("\n                                            Search\n                                        ")])])])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char a",
+    staticStyle: {
+      "background-color": "#6CD5F0"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("က");
+      }
+    }
+  }, [_vm._v("\n                                    က\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char b",
+    staticStyle: {
+      "background-color": "#CA4445"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("ခ");
+      }
+    }
+  }, [_vm._v("\n                                    ခ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char c",
+    staticStyle: {
+      "background-color": "#E59B2F"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("ဂ");
+      }
+    }
+  }, [_vm._v("\n                                    ဂ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char d",
+    staticStyle: {
+      "background-color": "#EBD942"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("ဃ");
+      }
+    }
+  }, [_vm._v("\n                                    ဃ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char e",
+    staticStyle: {
+      "background-color": "#AF4196"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("င");
+      }
+    }
+  }, [_vm._v("\n                                    င\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char f",
+    staticStyle: {
+      "background-color": "##63C151"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("စ");
+      }
+    }
+  }, [_vm._v("\n                                    စ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char g",
+    staticStyle: {
+      "background-color": "#804FA1"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("ဆ");
+      }
+    }
+  }, [_vm._v("\n                                    ဆ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char h",
+    staticStyle: {
+      "background-color": "#D8489F"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("ဇ");
+      }
+    }
+  }, [_vm._v("\n                                    ဇ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char i",
+    staticStyle: {
+      "background-color": "#3B86BD"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("ဈ");
+      }
+    }
+  }, [_vm._v("\n                                    ဈ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char g",
+    staticStyle: {
+      "background-color": "#68CB61"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("ည");
+      }
+    }
+  }, [_vm._v("\n                                    ည\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char k",
+    staticStyle: {
+      "background-color": "#54C3EF"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("ဋ");
+      }
+    }
+  }, [_vm._v("\n                                    ဋ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char l",
+    staticStyle: {
+      "background-color": "#D65456"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("ဌ");
+      }
+    }
+  }, [_vm._v("\n                                    ဌ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char m",
+    staticStyle: {
+      "background-color": "#54C3EF"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("ဍ");
+      }
+    }
+  }, [_vm._v("\n                                    ဍ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char n",
+    staticStyle: {
+      "background-color": "#D14F4F"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("ဎ");
+      }
+    }
+  }, [_vm._v("\n                                    ဎ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char n",
+    staticStyle: {
+      "background-color": "#D14F4F"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("ဏ");
+      }
+    }
+  }, [_vm._v("\n                                    ဏ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char o",
+    staticStyle: {
+      "background-color": "#E39B2F"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("တ");
+      }
+    }
+  }, [_vm._v("\n                                    တ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char p",
+    staticStyle: {
+      "background-color": "#E2C92C"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("ထ");
+      }
+    }
+  }, [_vm._v("\n                                    ထ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char q",
+    staticStyle: {
+      "background-color": "#AB4090"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("ဒ");
+      }
+    }
+  }, [_vm._v("\n                                    ဒ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char r",
+    staticStyle: {
+      "background-color": "#63C254"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("ဓ");
+      }
+    }
+  }, [_vm._v("\n                                    ဓ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char s",
+    staticStyle: {
+      "background-color": "#8E58AE"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("န");
+      }
+    }
+  }, [_vm._v("\n                                    န\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char t",
+    staticStyle: {
+      "background-color": "#D8489F"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("ပ");
+      }
+    }
+  }, [_vm._v("\n                                    ပ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char u",
+    staticStyle: {
+      "background-color": "#3A83BB"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("ဖ");
+      }
+    }
+  }, [_vm._v("\n                                    ဖ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char v",
+    staticStyle: {
+      "background-color": "#63C151"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("ဗ");
+      }
+    }
+  }, [_vm._v("\n                                    ဗ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char w",
+    staticStyle: {
+      "background-color": "#54C3EF"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("ဘ");
+      }
+    }
+  }, [_vm._v("\n                                    ဘ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char x",
+    staticStyle: {
+      "background-color": "#CB4747"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("မ");
+      }
+    }
+  }, [_vm._v("\n                                    မ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char y",
+    staticStyle: {
+      "background-color": "#C94244"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("ယ");
+      }
+    }
+  }, [_vm._v("\n                                    ယ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char z",
+    staticStyle: {
+      "background-color": "#AB4090"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("ရ");
+      }
+    }
+  }, [_vm._v("\n                                    ရ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char z",
+    staticStyle: {
+      "background-color": "#AB4090"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("လ");
+      }
+    }
+  }, [_vm._v("\n                                    လ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char z",
+    staticStyle: {
+      "background-color": "#AB4090"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("ဝ");
+      }
+    }
+  }, [_vm._v("\n                                    ဝ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char z",
+    staticStyle: {
+      "background-color": "#AB4090"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("သ");
+      }
+    }
+  }, [_vm._v("\n                                    သ\n                                ")])])]), _vm._v(" "), _c("div", {
+    staticClass: "row d-flex justify-content-center"
+  }, [_c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char z",
+    staticStyle: {
+      "background-color": "#AB4090"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("ဟ");
+      }
+    }
+  }, [_vm._v("\n                                    ဟ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char z",
+    staticStyle: {
+      "background-color": "#AB4090"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("ဠ");
+      }
+    }
+  }, [_vm._v("\n                                    ဠ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char z",
+    staticStyle: {
+      "background-color": "#AB4090"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("အ");
+      }
+    }
+  }, [_vm._v("\n                                    အ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char z",
+    staticStyle: {
+      "background-color": "#AB4090"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.removeAlphabetSearch();
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fa-sharp fa-solid fa-delete-left"
   })])])])])])])])])]);
 };
 var staticRenderFns = [function () {
@@ -10684,6 +11162,35 @@ var staticRenderFns = [function () {
     },
     attrs: {
       id: "exampleModalLabel"
+    }
+  }, [_vm._v("\n                        Search\n                    ")]), _vm._v(" "), _c("button", {
+    staticClass: "btn-close",
+    staticStyle: {
+      color: "white"
+    },
+    attrs: {
+      type: "button",
+      "data-bs-dismiss": "modal",
+      "aria-label": "Close"
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-x fa-2xl"
+  })])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "modal-header",
+    staticStyle: {
+      "background-color": "black"
+    }
+  }, [_c("h5", {
+    staticClass: "modal-title",
+    staticStyle: {
+      color: "white"
+    },
+    attrs: {
+      id: "exampleModalLabelMM"
     }
   }, [_vm._v("\n                        Search\n                    ")]), _vm._v(" "), _c("button", {
     staticClass: "btn-close",

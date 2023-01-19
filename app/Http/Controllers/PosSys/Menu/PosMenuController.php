@@ -52,9 +52,6 @@ class PosMenuController extends Controller
 
 
 
-
-
-
     public function index_backup(Request $request, $type = null, $category_id = null)
     {
         $categories = Category::where('type', $type)->get();
