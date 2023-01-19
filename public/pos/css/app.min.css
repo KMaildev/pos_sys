@@ -47,7 +47,7 @@
     --bs-white: #fff;
     --bs-link-color: #1c84ee;
     --bs-link-hover-color: #1c84ee;
-    --bs-border-color: #e9e9ef;
+    --bs-border-color: black;
     --bs-card-logo-dark: block;
     --bs-card-logo-light: none;
     --bs-table-color: #495057;
@@ -301,8 +301,8 @@
     right: 0;
     left: 0;
     z-index: 1002;
-    background-color: var(--bs-header-bg);
-    border-bottom: 1px solid var(--bs-border-color);
+    background-color: black;
+    border-bottom: black;
     -webkit-box-shadow: 0 .25rem .75rem rgba(18, 38, 63, .08);
     box-shadow: 0 .25rem .75rem rgba(18, 38, 63, .08)
 }

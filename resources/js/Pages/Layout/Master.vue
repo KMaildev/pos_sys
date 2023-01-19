@@ -3,9 +3,9 @@
         <header id="page-topbar" style="background-color: #000000;">
             <div class="navbar-header">
                 <div class="d-flex">
-                    <div class="navbar-brand-box">
+                    <div class="navbar-brand-box" style="background-color: black;">
                         <span class="logo-lg">
-                            <img :src="'/data/logo/logo_v1.png'" style="width: 98%;">
+                            <img :src="'/data/logo/dark_logo.jpeg'" style="width: 98%;">
                         </span>
                     </div>
                 </div>
@@ -174,7 +174,6 @@ export default {
 .main-box {
     width: 250px;
     height: auto;
-    border: 1px solid #c3c3c3;
     display: flex;
     flex-wrap: wrap;
     align-content: center;

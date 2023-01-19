@@ -6439,14 +6439,28 @@ __webpack_require__.r(__webpack_exports__);
   name: "SearchForm",
   data: function data() {
     return {
+      search_keyword: null,
+      abcd_arr: [],
       form: {
         q: this.q
       }
     };
   },
   methods: {
+    showEngSearch: function showEngSearch() {
+      $('#showEngSearchModal').modal('show');
+    },
+    searchAlphabetSearch: function searchAlphabetSearch(keyword) {
+      this.abcd_arr.push(keyword);
+      this.search_keyword = this.abcd_arr.join("");
+    },
+    removeAlphabetSearch: function removeAlphabetSearch() {
+      this.abcd_arr = [];
+      this.search_keyword = this.abcd_arr.join("");
+    },
     search: function search() {
-      this.$inertia.get("/pos_menu_lists_search?search=".concat(this.form.q));
+      $('#showEngSearchModal').modal('hide');
+      this.$inertia.get("/pos_menu_lists_search?search=".concat(this.search_keyword));
     }
   }
 });
@@ -6631,21 +6645,33 @@ window.Swal = (sweetalert2__WEBPACK_IMPORTED_MODULE_1___default());
   },
   data: function data() {
     return {
-      q: ''
+      q: '',
+      value: localStorage.getItem("guest_no")
     };
   },
   props: ['table_lists', 'floors_categories', 'user_name'],
   methods: {
-    setTableName: function setTableName(table_id, table_name) {
-      if (table_id && table_name) {
-        var type = 'Beverage';
-        localStorage.setItem("table_id", table_id);
-        localStorage.setItem("table_name", table_name);
-        this.$inertia.get("/pos_menu?type=".concat(type));
-        this.audioPlay();
-      } else {
-        this.alertMessage();
-      }
+    showGuestsNumberModal: function showGuestsNumberModal(table_id, table_name) {
+      localStorage.setItem("table_id", table_id);
+      localStorage.setItem("table_name", table_name);
+      $('#numberOfGuestsModal').modal('show');
+    },
+    addGuestNo: function addGuestNo() {
+      this.value++;
+      localStorage.setItem("guest_no", this.value);
+    },
+    reduceGuestNo: function reduceGuestNo() {
+      var guest_n = this.value;
+      if (guest_n > 1) {
+        this.value--;
+        localStorage.setItem("guest_no", this.value);
+      } else {}
+    },
+    setTableName: function setTableName() {
+      $('#numberOfGuestsModal').modal('hide');
+      var type = 'Beverage';
+      this.$inertia.get("/pos_menu?type=".concat(type));
+      this.audioPlay();
     },
     searchTableName: function searchTableName() {
       this.$inertia.get("/pos_table_lists?table_name=".concat(this.q));
@@ -9136,7 +9162,10 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "d-flex"
   }, [_c("div", {
-    staticClass: "navbar-brand-box"
+    staticClass: "navbar-brand-box",
+    staticStyle: {
+      "background-color": "black"
+    }
   }, [_c("span", {
     staticClass: "logo-lg"
   }, [_c("img", {
@@ -9144,7 +9173,7 @@ var render = function render() {
       width: "98%"
     },
     attrs: {
-      src: "/data/logo/logo_v1.png"
+      src: "/data/logo/dark_logo.jpeg"
     }
   })])])]), _vm._v(" "), _c("div", {
     staticClass: "d-flex"
@@ -10218,25 +10247,91 @@ var render = function render() {
       }
     }
   }, [_c("div", {
-    staticClass: "hstack gap-3"
+    staticClass: "input-group"
   }, [_c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.form.q,
-      expression: "form.q"
+      value: _vm.search_keyword,
+      expression: "search_keyword"
     }],
-    staticClass: "form-control me-auto form-control-lg",
+    staticClass: "form-control form-control-lg",
     attrs: {
       type: "text"
     },
     domProps: {
-      value: _vm.form.q
+      value: _vm.search_keyword
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
-        _vm.$set(_vm.form, "q", $event.target.value);
+        _vm.search_keyword = $event.target.value;
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "input-group-text"
+  }, [_vm._v("\n                MM\n            ")]), _vm._v(" "), _c("span", {
+    staticClass: "input-group-text",
+    on: {
+      click: function click($event) {
+        return _vm.showEngSearch();
+      }
+    }
+  }, [_vm._v("\n                ENG\n            ")]), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-secondary btn-lg",
+    attrs: {
+      type: "submit"
+    }
+  }, [_vm._v("\n                Search\n            ")])])]), _vm._v(" "), _c("div", {
+    staticClass: "modal fade",
+    attrs: {
+      id: "showEngSearchModal",
+      "data-bs-backdrop": "static",
+      "data-bs-keyboard": "false",
+      tabindex: "-1",
+      "aria-labelledby": "staticBackdropLabel",
+      "aria-hidden": "true"
+    }
+  }, [_c("div", {
+    staticClass: "modal-dialog modal-dialog-centered"
+  }, [_c("div", {
+    staticClass: "modal-content"
+  }, [_vm._m(0), _vm._v(" "), _c("div", {
+    staticClass: "modal-body"
+  }, [_c("div", {
+    staticClass: "container-fluid"
+  }, [_c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-md-12"
+  }, [_c("form", {
+    on: {
+      submit: function submit($event) {
+        $event.preventDefault();
+        return _vm.search.apply(null, arguments);
+      }
+    }
+  }, [_c("div", {
+    staticClass: "input-group"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.search_keyword,
+      expression: "search_keyword"
+    }],
+    staticClass: "form-control form-control-lg",
+    attrs: {
+      type: "text",
+      readonly: "true"
+    },
+    domProps: {
+      value: _vm.search_keyword
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.search_keyword = $event.target.value;
       }
     }
   }), _vm._v(" "), _c("button", {
@@ -10244,9 +10339,366 @@ var render = function render() {
     attrs: {
       type: "submit"
     }
-  }, [_vm._v("\n                Search\n            ")])])])]);
+  }, [_vm._v("\n                                            Search\n                                        ")])])])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char a",
+    staticStyle: {
+      "background-color": "#6CD5F0"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("A");
+      }
+    }
+  }, [_vm._v("\n                                    A\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char b",
+    staticStyle: {
+      "background-color": "#CA4445"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("B");
+      }
+    }
+  }, [_vm._v("\n                                    B\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char c",
+    staticStyle: {
+      "background-color": "#E59B2F"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("C");
+      }
+    }
+  }, [_vm._v("\n                                    C\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char d",
+    staticStyle: {
+      "background-color": "#EBD942"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("D");
+      }
+    }
+  }, [_vm._v("\n                                    D\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char e",
+    staticStyle: {
+      "background-color": "#AF4196"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("E");
+      }
+    }
+  }, [_vm._v("\n                                    E\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char f",
+    staticStyle: {
+      "background-color": "##63C151"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("F");
+      }
+    }
+  }, [_vm._v("\n                                    F\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char g",
+    staticStyle: {
+      "background-color": "#804FA1"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("G");
+      }
+    }
+  }, [_vm._v("\n                                    G\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char h",
+    staticStyle: {
+      "background-color": "#D8489F"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("H");
+      }
+    }
+  }, [_vm._v("\n                                    H\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char i",
+    staticStyle: {
+      "background-color": "#3B86BD"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("I");
+      }
+    }
+  }, [_vm._v("\n                                    I\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char g",
+    staticStyle: {
+      "background-color": "#68CB61"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("J");
+      }
+    }
+  }, [_vm._v("\n                                    J\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char k",
+    staticStyle: {
+      "background-color": "#54C3EF"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("K");
+      }
+    }
+  }, [_vm._v("\n                                    K\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char l",
+    staticStyle: {
+      "background-color": "#D65456"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("L");
+      }
+    }
+  }, [_vm._v("\n                                    L\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char m",
+    staticStyle: {
+      "background-color": "#54C3EF"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("M");
+      }
+    }
+  }, [_vm._v("\n                                    M\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char n",
+    staticStyle: {
+      "background-color": "#D14F4F"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("N");
+      }
+    }
+  }, [_vm._v("\n                                    N\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char o",
+    staticStyle: {
+      "background-color": "#E39B2F"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("O");
+      }
+    }
+  }, [_vm._v("\n                                    O\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char p",
+    staticStyle: {
+      "background-color": "#E2C92C"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("P");
+      }
+    }
+  }, [_vm._v("\n                                    P\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char q",
+    staticStyle: {
+      "background-color": "#AB4090"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("Q");
+      }
+    }
+  }, [_vm._v("\n                                    Q\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char r",
+    staticStyle: {
+      "background-color": "#63C254"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("R");
+      }
+    }
+  }, [_vm._v("\n                                    R\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char s",
+    staticStyle: {
+      "background-color": "#8E58AE"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("S");
+      }
+    }
+  }, [_vm._v("\n                                    S\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char t",
+    staticStyle: {
+      "background-color": "#D8489F"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("T");
+      }
+    }
+  }, [_vm._v("\n                                    T\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char u",
+    staticStyle: {
+      "background-color": "#3A83BB"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("U");
+      }
+    }
+  }, [_vm._v("\n                                    U\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char v",
+    staticStyle: {
+      "background-color": "#63C151"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("V");
+      }
+    }
+  }, [_vm._v("\n                                    V\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char w",
+    staticStyle: {
+      "background-color": "#54C3EF"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("W");
+      }
+    }
+  }, [_vm._v("\n                                    W\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char x",
+    staticStyle: {
+      "background-color": "#CB4747"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("X");
+      }
+    }
+  }, [_vm._v("\n                                    X\n                                ")])])]), _vm._v(" "), _c("div", {
+    staticClass: "row d-flex justify-content-center"
+  }, [_c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char y",
+    staticStyle: {
+      "background-color": "#C94244"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("Y");
+      }
+    }
+  }, [_vm._v("\n                                    Y\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char z",
+    staticStyle: {
+      "background-color": "#AB4090"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("Z");
+      }
+    }
+  }, [_vm._v("\n                                    Z\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char z",
+    staticStyle: {
+      "background-color": "#AB4090"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.removeAlphabetSearch();
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fa-sharp fa-solid fa-delete-left"
+  })])])])])])])])])]);
 };
-var staticRenderFns = [];
+var staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "modal-header",
+    staticStyle: {
+      "background-color": "black"
+    }
+  }, [_c("h5", {
+    staticClass: "modal-title",
+    staticStyle: {
+      color: "white"
+    },
+    attrs: {
+      id: "exampleModalLabel"
+    }
+  }, [_vm._v("\n                        Search\n                    ")]), _vm._v(" "), _c("button", {
+    staticClass: "btn-close",
+    staticStyle: {
+      color: "white"
+    },
+    attrs: {
+      type: "button",
+      "data-bs-dismiss": "modal",
+      "aria-label": "Close"
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-x fa-2xl"
+  })])]);
+}];
 render._withStripped = true;
 
 
@@ -10850,7 +11302,7 @@ var render = function render() {
       staticClass: "imgcontainer",
       on: {
         click: function click($event) {
-          return _vm.setTableName(table_list.id, table_list.table_name);
+          return _vm.showGuestsNumberModal(table_list.id, table_list.table_name);
         }
       }
     }, [_c("img", {
@@ -10876,7 +11328,102 @@ var render = function render() {
         color: "black"
       }
     }, [_vm._v("\n                                    Available\n                                ")])])])])]);
-  }), 0)])])], 1);
+  }), 0)]), _vm._v(" "), _c("div", {
+    staticClass: "modal fade",
+    attrs: {
+      id: "numberOfGuestsModal",
+      "data-bs-backdrop": "static",
+      "data-bs-keyboard": "false",
+      tabindex: "-1",
+      "aria-labelledby": "staticBackdropLabel",
+      "aria-hidden": "true"
+    }
+  }, [_c("div", {
+    staticClass: "modal-dialog modal-dialog-centered modal-sm"
+  }, [_c("div", {
+    staticClass: "modal-content"
+  }, [_c("div", {
+    staticClass: "modal-header",
+    staticStyle: {
+      "background-color": "black"
+    }
+  }, [_c("h5", {
+    staticClass: "modal-title",
+    staticStyle: {
+      color: "white"
+    },
+    attrs: {
+      id: "exampleModalLabel"
+    }
+  }, [_vm._v("\n                            Number of Guests\n                        ")]), _vm._v(" "), _c("button", {
+    staticClass: "btn-close",
+    staticStyle: {
+      color: "white"
+    },
+    attrs: {
+      type: "button",
+      "data-bs-dismiss": "modal",
+      "aria-label": "Close"
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-x fa-2xl"
+  })])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-body py-5"
+  }, [_c("div", {
+    staticClass: "d-flex justify-content-between",
+    staticStyle: {
+      border: "1px solid black",
+      "border-radius": "10px"
+    }
+  }, [_c("button", {
+    staticClass: "btn btn-dark btn-lg",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.reduceGuestNo();
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-arrow-circle-down"
+  })]), _vm._v(" "), _c("button", {
+    staticClass: "btn btn btn-lg text-black",
+    staticStyle: {
+      "background-color": "white",
+      width: "100%"
+    },
+    attrs: {
+      type: "button"
+    }
+  }, [_vm._v("\n                                " + _vm._s(_vm.value) + "\n                            ")]), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-dark btn-lg",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.addGuestNo();
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-arrow-alt-circle-up"
+  })])]), _vm._v(" "), _c("br"), _c("br"), _vm._v(" "), _c("div", {
+    staticClass: "d-flex justify-content-between"
+  }, [_c("button", {
+    staticClass: "btn btn-dark btn-lg block",
+    staticStyle: {
+      width: "100%"
+    },
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.setTableName();
+      }
+    }
+  }, [_vm._v("\n                                Confirm\n                            ")])])])])])])])], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -16462,7 +17009,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.menubtn {\n    width: 100%;\n    background-color: #717171;\n    color: white !important;\n    text-align: left;\n    font-size: 18px !important;\n    font-weight: bold;\n    border-radius: 20px 0px 0px 20px;\n}\n.menubtn:hover {\n    width: 100%;\n    background-color: #717171;\n    color: white !important;\n    text-align: left;\n    font-size: 18px !important;\n    font-weight: bold;\n    border-radius: 20px 0px 0px 20px;\n}\n.bg_color {\n    background-color: #4D4D4D;\n}\n.bg_color:hover {\n    background-color: #4D4D4D;\n}\n.main-box {\n    width: 250px;\n    height: auto;\n    border: 1px solid #c3c3c3;\n    display: flex;\n    flex-wrap: wrap;\n    align-content: center;\n}\n.main-box div {\n    width: 250px;\n    height: 70px;\n}\n.name-text {\n    font-size: 18px;\n    color: white;\n    padding-left: 10px;\n    padding-right: 10px;\n    padding-top: 7px;\n    margin: 0px;\n    font-weight: bold;\n}\n.position-text {\n    font-size: 18px;\n    color: white;\n    padding-left: 10px;\n    padding-right: 10px;\n    margin: 0px;\n    font-weight: bold;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.menubtn {\n    width: 100%;\n    background-color: #717171;\n    color: white !important;\n    text-align: left;\n    font-size: 18px !important;\n    font-weight: bold;\n    border-radius: 20px 0px 0px 20px;\n}\n.menubtn:hover {\n    width: 100%;\n    background-color: #717171;\n    color: white !important;\n    text-align: left;\n    font-size: 18px !important;\n    font-weight: bold;\n    border-radius: 20px 0px 0px 20px;\n}\n.bg_color {\n    background-color: #4D4D4D;\n}\n.bg_color:hover {\n    background-color: #4D4D4D;\n}\n.main-box {\n    width: 250px;\n    height: auto;\n    display: flex;\n    flex-wrap: wrap;\n    align-content: center;\n}\n.main-box div {\n    width: 250px;\n    height: 70px;\n}\n.name-text {\n    font-size: 18px;\n    color: white;\n    padding-left: 10px;\n    padding-right: 10px;\n    padding-top: 7px;\n    margin: 0px;\n    font-weight: bold;\n}\n.position-text {\n    font-size: 18px;\n    color: white;\n    padding-left: 10px;\n    padding-right: 10px;\n    margin: 0px;\n    font-weight: bold;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -16535,6 +17082,30 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, "\n.active {\n    background-color: #ccced0;\n}\n", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Menu/components/SearchForm.vue?vue&type=style&index=0&id=fc288704&lang=css&":
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Menu/components/SearchForm.vue?vue&type=style&index=0&id=fc288704&lang=css& ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "\n.a-char {\n    border: 1px solid #eee;\n    background: #808080;\n    display: inline-block;\n    width: 70px;\n    height: 68px;\n    text-align: center;\n    vertical-align: middle;\n    cursor: pointer;\n    font-size: 40px;\n    color: white;\n    border: 2px solid black;\n    border-radius: 10px;\n    margin-top: 10px;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -40244,6 +40815,36 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Menu/components/SearchForm.vue?vue&type=style&index=0&id=fc288704&lang=css&":
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Menu/components/SearchForm.vue?vue&type=style&index=0&id=fc288704&lang=css& ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchForm_vue_vue_type_style_index_0_id_fc288704_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./SearchForm.vue?vue&type=style&index=0&id=fc288704&lang=css& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Menu/components/SearchForm.vue?vue&type=style&index=0&id=fc288704&lang=css&");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchForm_vue_vue_type_style_index_0_id_fc288704_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchForm_vue_vue_type_style_index_0_id_fc288704_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Menu/search/AlphabetSearch.vue?vue&type=style&index=0&id=9b8b67ca&lang=css&":
 /*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Menu/search/AlphabetSearch.vue?vue&type=style&index=0&id=9b8b67ca&lang=css& ***!
@@ -45505,15 +46106,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _SearchForm_vue_vue_type_template_id_fc288704___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SearchForm.vue?vue&type=template&id=fc288704& */ "./resources/js/Pages/Menu/components/SearchForm.vue?vue&type=template&id=fc288704&");
 /* harmony import */ var _SearchForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SearchForm.vue?vue&type=script&lang=js& */ "./resources/js/Pages/Menu/components/SearchForm.vue?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _SearchForm_vue_vue_type_style_index_0_id_fc288704_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./SearchForm.vue?vue&type=style&index=0&id=fc288704&lang=css& */ "./resources/js/Pages/Menu/components/SearchForm.vue?vue&type=style&index=0&id=fc288704&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
+;
 
 
 /* normalize component */
-;
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _SearchForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _SearchForm_vue_vue_type_template_id_fc288704___WEBPACK_IMPORTED_MODULE_0__.render,
   _SearchForm_vue_vue_type_template_id_fc288704___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
@@ -46874,6 +47477,19 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderItem_vue_vue_type_style_index_0_id_0ca6b8ff_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader/dist/cjs.js!../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./OrderItem.vue?vue&type=style&index=0&id=0ca6b8ff&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Menu/components/OrderItem.vue?vue&type=style&index=0&id=0ca6b8ff&lang=css&");
+
+
+/***/ }),
+
+/***/ "./resources/js/Pages/Menu/components/SearchForm.vue?vue&type=style&index=0&id=fc288704&lang=css&":
+/*!********************************************************************************************************!*\
+  !*** ./resources/js/Pages/Menu/components/SearchForm.vue?vue&type=style&index=0&id=fc288704&lang=css& ***!
+  \********************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchForm_vue_vue_type_style_index_0_id_fc288704_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader/dist/cjs.js!../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./SearchForm.vue?vue&type=style&index=0&id=fc288704&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Menu/components/SearchForm.vue?vue&type=style&index=0&id=fc288704&lang=css&");
 
 
 /***/ }),

@@ -19,6 +19,7 @@
 
             <div class="ScrollStyle">
                 <div class="row py-2">
+
                     <div class="col-md-2 col-lg-2 col-sm-2 mb-4" v-for="table_list in table_lists" :key="table_list.id">
                         <div v-if="table_list.order_infos_table">
                             <div class="imgcontainer" @click="orderedDetail(table_list.order_infos_table.id)">
@@ -48,7 +49,9 @@
                             </div>
                         </div>
                         <div v-else>
-                            <div class="imgcontainer" @click="setTableName(table_list.id, table_list.table_name)">
+                            <!-- @click="setTableName(table_list.id, table_list.table_name)" -->
+                            <div class="imgcontainer"
+                                @click="showGuestsNumberModal(table_list.id, table_list.table_name)">
                                 <img :src="'/data/table_avaiblable.png'" style="width: 100%; border-radius: 2%;">
                                 <div class="centered">
                                     <h6 style="font-size: 20px; font-weight: bold; color: black;">
@@ -58,6 +61,49 @@
                                         Available
                                     </p>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="modal fade" id="numberOfGuestsModal" data-bs-backdrop="static" data-bs-keyboard="false"
+                tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header" style="background-color: black;">
+                            <h5 class="modal-title" id="exampleModalLabel" style="color: white;">
+                                Number of Guests
+                            </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                style="color: white;">
+                                <i class="fas fa-x fa-2xl"></i>
+                            </button>
+                        </div>
+
+                        <div class="modal-body py-5">
+                            <div class="d-flex justify-content-between"
+                                style="border: 1px solid black; border-radius: 10px;">
+                                <button type="button" class="btn btn-dark btn-lg" v-on:click="reduceGuestNo()">
+                                    <i class="fas fa-arrow-circle-down"></i>
+                                </button>
+
+                                <button type="button" class="btn btn btn-lg text-black"
+                                    style="background-color: white; width: 100%;">
+                                    {{ value }}
+                                </button>
+
+                                <button type="button" class="btn btn-dark btn-lg" v-on:click="addGuestNo()">
+                                    <i class="fas fa-arrow-alt-circle-up "></i>
+                                </button>
+                            </div>
+                            <br><br>
+                            <div class="d-flex justify-content-between">
+                                <button type="button" class="btn btn-dark btn-lg block" style="width: 100%;"
+                                    @click="setTableName()">
+                                    Confirm
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -81,6 +127,7 @@ export default {
     data() {
         return {
             q: '',
+            value: localStorage.getItem("guest_no"),
         }
     },
 
@@ -91,16 +138,33 @@ export default {
     ],
 
     methods: {
-        setTableName(table_id, table_name) {
-            if (table_id && table_name) {
-                let type = 'Beverage';
-                localStorage.setItem("table_id", table_id);
-                localStorage.setItem("table_name", table_name);
-                this.$inertia.get(`/pos_menu?type=${type}`);
-                this.audioPlay()
+
+        showGuestsNumberModal(table_id, table_name) {
+            localStorage.setItem("table_id", table_id);
+            localStorage.setItem("table_name", table_name);
+            $('#numberOfGuestsModal').modal('show');
+        },
+
+        addGuestNo() {
+            this.value++;
+            localStorage.setItem("guest_no", this.value);
+        },
+
+        reduceGuestNo() {
+            var guest_n = this.value;
+            if (guest_n > 1) {
+                this.value--;
+                localStorage.setItem("guest_no", this.value);
             } else {
-                this.alertMessage();
             }
+
+        },
+
+        setTableName() {
+            $('#numberOfGuestsModal').modal('hide');
+            let type = 'Beverage';
+            this.$inertia.get(`/pos_menu?type=${type}`);
+            this.audioPlay()
         },
 
         searchTableName() {
