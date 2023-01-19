@@ -7,19 +7,7 @@
                 </div>
 
                 <div class="row gx-3 gy-2 align-items-center py-2">
-                    <form @submit.prevent="search">
-                        <div class="hstack gap-3">
-                            <input class="form-control me-auto form-control-lg" type="text" v-model="form.q">
-                            <button type="submit" class="btn btn-secondary btn-lg">
-                                Search
-                            </button>
-                            <div class="vr"></div>
-                            <button @click="linkMenu()" type="button" class="btn btn-outline-secondary btn-lg"
-                                style="background-color: #F09033; color: black">
-                                Back
-                            </button>
-                        </div>
-                    </form>
+                    <SearchFormBack></SearchFormBack>
                 </div>
 
                 <div class="card-body overflow-auto" style="max-height: calc(500px);">
@@ -76,11 +64,13 @@
 import Master from "../Layout/Master";
 import MainMenu from './components/MainMenu.vue';
 import OrderItem from './components/OrderItem.vue';
+import SearchFormBack from './components/SearchFormBack.vue';
 export default {
     components: {
         Master,
         MainMenu,
         OrderItem,
+        SearchFormBack,
     },
     name: "MenuLists",
 
@@ -108,15 +98,6 @@ export default {
             } else {
                 cart.push({ ...menu_list, qty: 1, remark: '' });
             }
-        },
-
-        search() {
-            this.$inertia.get(`/pos_menu_lists_search?search=${this.form.q}`);
-        },
-
-        linkMenu() {
-            let type = 'Beverage';
-            this.$inertia.get(`/pos_menu?type=${type}`);
         },
     },
 }

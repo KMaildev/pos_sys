@@ -5883,9 +5883,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Layout_Master__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Layout/Master */ "./resources/js/Pages/Layout/Master.vue");
 /* harmony import */ var _components_MainMenu_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/MainMenu.vue */ "./resources/js/Pages/Menu/components/MainMenu.vue");
 /* harmony import */ var _components_OrderItem_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/OrderItem.vue */ "./resources/js/Pages/Menu/components/OrderItem.vue");
+/* harmony import */ var _components_SearchFormBack_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/SearchFormBack.vue */ "./resources/js/Pages/Menu/components/SearchFormBack.vue");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -5893,7 +5895,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   components: {
     Master: _Layout_Master__WEBPACK_IMPORTED_MODULE_0__["default"],
     MainMenu: _components_MainMenu_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
-    OrderItem: _components_OrderItem_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+    OrderItem: _components_OrderItem_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+    SearchFormBack: _components_SearchFormBack_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   name: "MenuLists",
   props: ['menu_lists', 'user_name'],
@@ -5918,13 +5921,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           remark: ''
         }));
       }
-    },
-    search: function search() {
-      this.$inertia.get("/pos_menu_lists_search?search=".concat(this.form.q));
-    },
-    linkMenu: function linkMenu() {
-      var type = 'Beverage';
-      this.$inertia.get("/pos_menu?type=".concat(type));
     }
   }
 });
@@ -6465,6 +6461,57 @@ __webpack_require__.r(__webpack_exports__);
     },
     showMMSearch: function showMMSearch() {
       $('#showMMSearchModal').modal('show');
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Menu/components/SearchFormBack.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Menu/components/SearchFormBack.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "SearchFormBack",
+  data: function data() {
+    return {
+      search_keyword: null,
+      abcd_arr: [],
+      form: {
+        q: this.q
+      }
+    };
+  },
+  methods: {
+    showEngSearch: function showEngSearch() {
+      $('#showEngSearchModal').modal('show');
+    },
+    searchAlphabetSearch: function searchAlphabetSearch(keyword) {
+      this.abcd_arr.push(keyword);
+      this.search_keyword = this.abcd_arr.join("");
+    },
+    removeAlphabetSearch: function removeAlphabetSearch() {
+      this.abcd_arr = [];
+      this.search_keyword = this.abcd_arr.join("");
+    },
+    search: function search() {
+      $('#showEngSearchModal').modal('hide');
+      $('#showMMSearchModal').modal('hide');
+      this.$inertia.get("/pos_menu_lists_search?search=".concat(this.search_keyword));
+    },
+    showMMSearch: function showMMSearch() {
+      $('#showMMSearchModal').modal('show');
+    },
+    linkMenu: function linkMenu() {
+      var type = 'Beverage';
+      this.$inertia.get("/pos_menu?type=".concat(type));
     }
   }
 });
@@ -9520,57 +9567,7 @@ var render = function render() {
     staticClass: "d-flex"
   }, [_c("MainMenu")], 1), _vm._v(" "), _c("div", {
     staticClass: "row gx-3 gy-2 align-items-center py-2"
-  }, [_c("form", {
-    on: {
-      submit: function submit($event) {
-        $event.preventDefault();
-        return _vm.search.apply(null, arguments);
-      }
-    }
-  }, [_c("div", {
-    staticClass: "hstack gap-3"
-  }, [_c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.q,
-      expression: "form.q"
-    }],
-    staticClass: "form-control me-auto form-control-lg",
-    attrs: {
-      type: "text"
-    },
-    domProps: {
-      value: _vm.form.q
-    },
-    on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "q", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c("button", {
-    staticClass: "btn btn-secondary btn-lg",
-    attrs: {
-      type: "submit"
-    }
-  }, [_vm._v("\n                            Search\n                        ")]), _vm._v(" "), _c("div", {
-    staticClass: "vr"
-  }), _vm._v(" "), _c("button", {
-    staticClass: "btn btn-outline-secondary btn-lg",
-    staticStyle: {
-      "background-color": "#F09033",
-      color: "black"
-    },
-    attrs: {
-      type: "button"
-    },
-    on: {
-      click: function click($event) {
-        return _vm.linkMenu();
-      }
-    }
-  }, [_vm._v("\n                            Back\n                        ")])])])]), _vm._v(" "), _c("div", {
+  }, [_c("SearchFormBack")], 1), _vm._v(" "), _c("div", {
     staticClass: "card-body overflow-auto",
     staticStyle: {
       "max-height": "calc(500px)"
@@ -10292,6 +10289,1003 @@ var render = function render() {
       type: "submit"
     }
   }, [_vm._v("\n                Search\n            ")])])]), _vm._v(" "), _c("div", {
+    staticClass: "modal fade",
+    attrs: {
+      id: "showEngSearchModal",
+      "data-bs-backdrop": "static",
+      "data-bs-keyboard": "false",
+      tabindex: "-1",
+      "aria-labelledby": "staticBackdropLabel",
+      "aria-hidden": "true"
+    }
+  }, [_c("div", {
+    staticClass: "modal-dialog modal-dialog-centered"
+  }, [_c("div", {
+    staticClass: "modal-content"
+  }, [_vm._m(0), _vm._v(" "), _c("div", {
+    staticClass: "modal-body"
+  }, [_c("div", {
+    staticClass: "container-fluid"
+  }, [_c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-md-12"
+  }, [_c("form", {
+    on: {
+      submit: function submit($event) {
+        $event.preventDefault();
+        return _vm.search.apply(null, arguments);
+      }
+    }
+  }, [_c("div", {
+    staticClass: "input-group"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.search_keyword,
+      expression: "search_keyword"
+    }],
+    staticClass: "form-control form-control-lg",
+    attrs: {
+      type: "text",
+      readonly: "true"
+    },
+    domProps: {
+      value: _vm.search_keyword
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.search_keyword = $event.target.value;
+      }
+    }
+  }), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-secondary btn-lg",
+    attrs: {
+      type: "submit"
+    }
+  }, [_vm._v("\n                                            Search\n                                        ")])])])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char a",
+    staticStyle: {
+      "background-color": "#6CD5F0"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("A");
+      }
+    }
+  }, [_vm._v("\n                                    A\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char b",
+    staticStyle: {
+      "background-color": "#CA4445"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("B");
+      }
+    }
+  }, [_vm._v("\n                                    B\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char c",
+    staticStyle: {
+      "background-color": "#E59B2F"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("C");
+      }
+    }
+  }, [_vm._v("\n                                    C\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char d",
+    staticStyle: {
+      "background-color": "#EBD942"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("D");
+      }
+    }
+  }, [_vm._v("\n                                    D\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char e",
+    staticStyle: {
+      "background-color": "#AF4196"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("E");
+      }
+    }
+  }, [_vm._v("\n                                    E\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char f",
+    staticStyle: {
+      "background-color": "##63C151"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("F");
+      }
+    }
+  }, [_vm._v("\n                                    F\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char g",
+    staticStyle: {
+      "background-color": "#804FA1"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("G");
+      }
+    }
+  }, [_vm._v("\n                                    G\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char h",
+    staticStyle: {
+      "background-color": "#D8489F"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("H");
+      }
+    }
+  }, [_vm._v("\n                                    H\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char i",
+    staticStyle: {
+      "background-color": "#3B86BD"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("I");
+      }
+    }
+  }, [_vm._v("\n                                    I\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char g",
+    staticStyle: {
+      "background-color": "#68CB61"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("J");
+      }
+    }
+  }, [_vm._v("\n                                    J\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char k",
+    staticStyle: {
+      "background-color": "#54C3EF"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("K");
+      }
+    }
+  }, [_vm._v("\n                                    K\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char l",
+    staticStyle: {
+      "background-color": "#D65456"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("L");
+      }
+    }
+  }, [_vm._v("\n                                    L\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char m",
+    staticStyle: {
+      "background-color": "#54C3EF"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("M");
+      }
+    }
+  }, [_vm._v("\n                                    M\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char n",
+    staticStyle: {
+      "background-color": "#D14F4F"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("N");
+      }
+    }
+  }, [_vm._v("\n                                    N\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char o",
+    staticStyle: {
+      "background-color": "#E39B2F"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("O");
+      }
+    }
+  }, [_vm._v("\n                                    O\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char p",
+    staticStyle: {
+      "background-color": "#E2C92C"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("P");
+      }
+    }
+  }, [_vm._v("\n                                    P\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char q",
+    staticStyle: {
+      "background-color": "#AB4090"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("Q");
+      }
+    }
+  }, [_vm._v("\n                                    Q\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char r",
+    staticStyle: {
+      "background-color": "#63C254"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("R");
+      }
+    }
+  }, [_vm._v("\n                                    R\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char s",
+    staticStyle: {
+      "background-color": "#8E58AE"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("S");
+      }
+    }
+  }, [_vm._v("\n                                    S\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char t",
+    staticStyle: {
+      "background-color": "#D8489F"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("T");
+      }
+    }
+  }, [_vm._v("\n                                    T\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char u",
+    staticStyle: {
+      "background-color": "#3A83BB"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("U");
+      }
+    }
+  }, [_vm._v("\n                                    U\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char v",
+    staticStyle: {
+      "background-color": "#63C151"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("V");
+      }
+    }
+  }, [_vm._v("\n                                    V\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char w",
+    staticStyle: {
+      "background-color": "#54C3EF"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("W");
+      }
+    }
+  }, [_vm._v("\n                                    W\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char x",
+    staticStyle: {
+      "background-color": "#CB4747"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("X");
+      }
+    }
+  }, [_vm._v("\n                                    X\n                                ")])])]), _vm._v(" "), _c("div", {
+    staticClass: "row d-flex justify-content-center"
+  }, [_c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char y",
+    staticStyle: {
+      "background-color": "#C94244"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("Y");
+      }
+    }
+  }, [_vm._v("\n                                    Y\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char z",
+    staticStyle: {
+      "background-color": "#AB4090"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("Z");
+      }
+    }
+  }, [_vm._v("\n                                    Z\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char z",
+    staticStyle: {
+      "background-color": "#AB4090"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.removeAlphabetSearch();
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fa-sharp fa-solid fa-delete-left"
+  })])])])])])])])]), _vm._v(" "), _c("div", {
+    staticClass: "modal fade",
+    attrs: {
+      id: "showMMSearchModal",
+      "data-bs-backdrop": "static",
+      "data-bs-keyboard": "false",
+      tabindex: "-1",
+      "aria-labelledby": "staticBackdropLabel",
+      "aria-hidden": "true"
+    }
+  }, [_c("div", {
+    staticClass: "modal-dialog modal-dialog-centered"
+  }, [_c("div", {
+    staticClass: "modal-content"
+  }, [_vm._m(1), _vm._v(" "), _c("div", {
+    staticClass: "modal-body"
+  }, [_c("div", {
+    staticClass: "container-fluid"
+  }, [_c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-md-12"
+  }, [_c("form", {
+    on: {
+      submit: function submit($event) {
+        $event.preventDefault();
+        return _vm.search.apply(null, arguments);
+      }
+    }
+  }, [_c("div", {
+    staticClass: "input-group"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.search_keyword,
+      expression: "search_keyword"
+    }],
+    staticClass: "form-control form-control-lg",
+    attrs: {
+      type: "text",
+      readonly: "true"
+    },
+    domProps: {
+      value: _vm.search_keyword
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.search_keyword = $event.target.value;
+      }
+    }
+  }), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-secondary btn-lg",
+    attrs: {
+      type: "submit"
+    }
+  }, [_vm._v("\n                                            Search\n                                        ")])])])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char a",
+    staticStyle: {
+      "background-color": "#6CD5F0"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("က");
+      }
+    }
+  }, [_vm._v("\n                                    က\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char b",
+    staticStyle: {
+      "background-color": "#CA4445"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("ခ");
+      }
+    }
+  }, [_vm._v("\n                                    ခ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char c",
+    staticStyle: {
+      "background-color": "#E59B2F"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("ဂ");
+      }
+    }
+  }, [_vm._v("\n                                    ဂ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char d",
+    staticStyle: {
+      "background-color": "#EBD942"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("ဃ");
+      }
+    }
+  }, [_vm._v("\n                                    ဃ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char e",
+    staticStyle: {
+      "background-color": "#AF4196"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("င");
+      }
+    }
+  }, [_vm._v("\n                                    င\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char f",
+    staticStyle: {
+      "background-color": "##63C151"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("စ");
+      }
+    }
+  }, [_vm._v("\n                                    စ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char g",
+    staticStyle: {
+      "background-color": "#804FA1"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("ဆ");
+      }
+    }
+  }, [_vm._v("\n                                    ဆ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char h",
+    staticStyle: {
+      "background-color": "#D8489F"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("ဇ");
+      }
+    }
+  }, [_vm._v("\n                                    ဇ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char i",
+    staticStyle: {
+      "background-color": "#3B86BD"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("ဈ");
+      }
+    }
+  }, [_vm._v("\n                                    ဈ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char g",
+    staticStyle: {
+      "background-color": "#68CB61"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("ည");
+      }
+    }
+  }, [_vm._v("\n                                    ည\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char k",
+    staticStyle: {
+      "background-color": "#54C3EF"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("ဋ");
+      }
+    }
+  }, [_vm._v("\n                                    ဋ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char l",
+    staticStyle: {
+      "background-color": "#D65456"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("ဌ");
+      }
+    }
+  }, [_vm._v("\n                                    ဌ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char m",
+    staticStyle: {
+      "background-color": "#54C3EF"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("ဍ");
+      }
+    }
+  }, [_vm._v("\n                                    ဍ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char n",
+    staticStyle: {
+      "background-color": "#D14F4F"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("ဎ");
+      }
+    }
+  }, [_vm._v("\n                                    ဎ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char n",
+    staticStyle: {
+      "background-color": "#D14F4F"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("ဏ");
+      }
+    }
+  }, [_vm._v("\n                                    ဏ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char o",
+    staticStyle: {
+      "background-color": "#E39B2F"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("တ");
+      }
+    }
+  }, [_vm._v("\n                                    တ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char p",
+    staticStyle: {
+      "background-color": "#E2C92C"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("ထ");
+      }
+    }
+  }, [_vm._v("\n                                    ထ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char q",
+    staticStyle: {
+      "background-color": "#AB4090"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("ဒ");
+      }
+    }
+  }, [_vm._v("\n                                    ဒ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char r",
+    staticStyle: {
+      "background-color": "#63C254"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("ဓ");
+      }
+    }
+  }, [_vm._v("\n                                    ဓ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char s",
+    staticStyle: {
+      "background-color": "#8E58AE"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("န");
+      }
+    }
+  }, [_vm._v("\n                                    န\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char t",
+    staticStyle: {
+      "background-color": "#D8489F"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("ပ");
+      }
+    }
+  }, [_vm._v("\n                                    ပ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char u",
+    staticStyle: {
+      "background-color": "#3A83BB"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("ဖ");
+      }
+    }
+  }, [_vm._v("\n                                    ဖ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char v",
+    staticStyle: {
+      "background-color": "#63C151"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("ဗ");
+      }
+    }
+  }, [_vm._v("\n                                    ဗ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char w",
+    staticStyle: {
+      "background-color": "#54C3EF"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("ဘ");
+      }
+    }
+  }, [_vm._v("\n                                    ဘ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char x",
+    staticStyle: {
+      "background-color": "#CB4747"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("မ");
+      }
+    }
+  }, [_vm._v("\n                                    မ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char y",
+    staticStyle: {
+      "background-color": "#C94244"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("ယ");
+      }
+    }
+  }, [_vm._v("\n                                    ယ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char z",
+    staticStyle: {
+      "background-color": "#AB4090"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("ရ");
+      }
+    }
+  }, [_vm._v("\n                                    ရ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char z",
+    staticStyle: {
+      "background-color": "#AB4090"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("လ");
+      }
+    }
+  }, [_vm._v("\n                                    လ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char z",
+    staticStyle: {
+      "background-color": "#AB4090"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("ဝ");
+      }
+    }
+  }, [_vm._v("\n                                    ဝ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char z",
+    staticStyle: {
+      "background-color": "#AB4090"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("သ");
+      }
+    }
+  }, [_vm._v("\n                                    သ\n                                ")])])]), _vm._v(" "), _c("div", {
+    staticClass: "row d-flex justify-content-center"
+  }, [_c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char z",
+    staticStyle: {
+      "background-color": "#AB4090"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("ဟ");
+      }
+    }
+  }, [_vm._v("\n                                    ဟ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char z",
+    staticStyle: {
+      "background-color": "#AB4090"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("ဠ");
+      }
+    }
+  }, [_vm._v("\n                                    ဠ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char z",
+    staticStyle: {
+      "background-color": "#AB4090"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.searchAlphabetSearch("အ");
+      }
+    }
+  }, [_vm._v("\n                                    အ\n                                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("span", {
+    staticClass: "a-char z",
+    staticStyle: {
+      "background-color": "#AB4090"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.removeAlphabetSearch();
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fa-sharp fa-solid fa-delete-left"
+  })])])])])])])])])]);
+};
+var staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "modal-header",
+    staticStyle: {
+      "background-color": "black"
+    }
+  }, [_c("h5", {
+    staticClass: "modal-title",
+    staticStyle: {
+      color: "white"
+    },
+    attrs: {
+      id: "exampleModalLabel"
+    }
+  }, [_vm._v("\n                        Search\n                    ")]), _vm._v(" "), _c("button", {
+    staticClass: "btn-close",
+    staticStyle: {
+      color: "white"
+    },
+    attrs: {
+      type: "button",
+      "data-bs-dismiss": "modal",
+      "aria-label": "Close"
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-x fa-2xl"
+  })])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "modal-header",
+    staticStyle: {
+      "background-color": "black"
+    }
+  }, [_c("h5", {
+    staticClass: "modal-title",
+    staticStyle: {
+      color: "white"
+    },
+    attrs: {
+      id: "exampleModalLabelMM"
+    }
+  }, [_vm._v("\n                        Search\n                    ")]), _vm._v(" "), _c("button", {
+    staticClass: "btn-close",
+    staticStyle: {
+      color: "white"
+    },
+    attrs: {
+      type: "button",
+      "data-bs-dismiss": "modal",
+      "aria-label": "Close"
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-x fa-2xl"
+  })])]);
+}];
+render._withStripped = true;
+
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Menu/components/SearchFormBack.vue?vue&type=template&id=c5f411f6&":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Menu/components/SearchFormBack.vue?vue&type=template&id=c5f411f6& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", [_c("form", {
+    on: {
+      submit: function submit($event) {
+        $event.preventDefault();
+        return _vm.search.apply(null, arguments);
+      }
+    }
+  }, [_c("div", {
+    staticClass: "input-group"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.search_keyword,
+      expression: "search_keyword"
+    }],
+    staticClass: "form-control form-control-lg",
+    attrs: {
+      type: "text"
+    },
+    domProps: {
+      value: _vm.search_keyword
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.search_keyword = $event.target.value;
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "input-group-text",
+    on: {
+      click: function click($event) {
+        return _vm.showMMSearch();
+      }
+    }
+  }, [_vm._v("\n                MM\n            ")]), _vm._v(" "), _c("span", {
+    staticClass: "input-group-text",
+    on: {
+      click: function click($event) {
+        return _vm.showEngSearch();
+      }
+    }
+  }, [_vm._v("\n                ENG\n            ")]), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-secondary btn-lg",
+    attrs: {
+      type: "submit"
+    }
+  }, [_vm._v("\n                Search\n            ")]), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-outline-secondary btn-lg",
+    staticStyle: {
+      "background-color": "#F09033",
+      color: "black"
+    },
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.linkMenu();
+      }
+    }
+  }, [_vm._v("\n                Back\n            ")])])]), _vm._v(" "), _c("div", {
     staticClass: "modal fade",
     attrs: {
       id: "showEngSearchModal",
@@ -17599,6 +18593,30 @@ ___CSS_LOADER_EXPORT___.push([module.id, "\n.active {\n    background-color: #cc
 /*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Menu/components/SearchForm.vue?vue&type=style&index=0&id=fc288704&lang=css& ***!
   \************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "\n.a-char {\n    border: 1px solid #eee;\n    background: #808080;\n    display: inline-block;\n    width: 70px;\n    height: 68px;\n    text-align: center;\n    vertical-align: middle;\n    cursor: pointer;\n    font-size: 40px;\n    color: white;\n    border: 2px solid black;\n    border-radius: 10px;\n    margin-top: 10px;\n}\n", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Menu/components/SearchFormBack.vue?vue&type=style&index=0&id=c5f411f6&lang=css&":
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Menu/components/SearchFormBack.vue?vue&type=style&index=0&id=c5f411f6&lang=css& ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -41352,6 +42370,36 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Menu/components/SearchFormBack.vue?vue&type=style&index=0&id=c5f411f6&lang=css&":
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Menu/components/SearchFormBack.vue?vue&type=style&index=0&id=c5f411f6&lang=css& ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchFormBack_vue_vue_type_style_index_0_id_c5f411f6_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./SearchFormBack.vue?vue&type=style&index=0&id=c5f411f6&lang=css& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Menu/components/SearchFormBack.vue?vue&type=style&index=0&id=c5f411f6&lang=css&");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchFormBack_vue_vue_type_style_index_0_id_c5f411f6_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchFormBack_vue_vue_type_style_index_0_id_c5f411f6_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Menu/search/AlphabetSearch.vue?vue&type=style&index=0&id=9b8b67ca&lang=css&":
 /*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Menu/search/AlphabetSearch.vue?vue&type=style&index=0&id=9b8b67ca&lang=css& ***!
@@ -46641,6 +47689,47 @@ component.options.__file = "resources/js/Pages/Menu/components/SearchForm.vue"
 
 /***/ }),
 
+/***/ "./resources/js/Pages/Menu/components/SearchFormBack.vue":
+/*!***************************************************************!*\
+  !*** ./resources/js/Pages/Menu/components/SearchFormBack.vue ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _SearchFormBack_vue_vue_type_template_id_c5f411f6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SearchFormBack.vue?vue&type=template&id=c5f411f6& */ "./resources/js/Pages/Menu/components/SearchFormBack.vue?vue&type=template&id=c5f411f6&");
+/* harmony import */ var _SearchFormBack_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SearchFormBack.vue?vue&type=script&lang=js& */ "./resources/js/Pages/Menu/components/SearchFormBack.vue?vue&type=script&lang=js&");
+/* harmony import */ var _SearchFormBack_vue_vue_type_style_index_0_id_c5f411f6_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./SearchFormBack.vue?vue&type=style&index=0&id=c5f411f6&lang=css& */ "./resources/js/Pages/Menu/components/SearchFormBack.vue?vue&type=style&index=0&id=c5f411f6&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _SearchFormBack_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _SearchFormBack_vue_vue_type_template_id_c5f411f6___WEBPACK_IMPORTED_MODULE_0__.render,
+  _SearchFormBack_vue_vue_type_template_id_c5f411f6___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Pages/Menu/components/SearchFormBack.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/Pages/Menu/search/AlphabetSearch.vue":
 /*!***********************************************************!*\
   !*** ./resources/js/Pages/Menu/search/AlphabetSearch.vue ***!
@@ -47265,6 +48354,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/Pages/Menu/components/SearchFormBack.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/Pages/Menu/components/SearchFormBack.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchFormBack_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./SearchFormBack.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Menu/components/SearchFormBack.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchFormBack_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/Pages/Menu/search/AlphabetSearch.vue?vue&type=script&lang=js&":
 /*!************************************************************************************!*\
   !*** ./resources/js/Pages/Menu/search/AlphabetSearch.vue?vue&type=script&lang=js& ***!
@@ -47769,6 +48874,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/Pages/Menu/components/SearchFormBack.vue?vue&type=template&id=c5f411f6&":
+/*!**********************************************************************************************!*\
+  !*** ./resources/js/Pages/Menu/components/SearchFormBack.vue?vue&type=template&id=c5f411f6& ***!
+  \**********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchFormBack_vue_vue_type_template_id_c5f411f6___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchFormBack_vue_vue_type_template_id_c5f411f6___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchFormBack_vue_vue_type_template_id_c5f411f6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./SearchFormBack.vue?vue&type=template&id=c5f411f6& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Menu/components/SearchFormBack.vue?vue&type=template&id=c5f411f6&");
+
+
+/***/ }),
+
 /***/ "./resources/js/Pages/Menu/search/AlphabetSearch.vue?vue&type=template&id=9b8b67ca&":
 /*!******************************************************************************************!*\
   !*** ./resources/js/Pages/Menu/search/AlphabetSearch.vue?vue&type=template&id=9b8b67ca& ***!
@@ -47997,6 +49119,19 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchForm_vue_vue_type_style_index_0_id_fc288704_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader/dist/cjs.js!../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./SearchForm.vue?vue&type=style&index=0&id=fc288704&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Menu/components/SearchForm.vue?vue&type=style&index=0&id=fc288704&lang=css&");
+
+
+/***/ }),
+
+/***/ "./resources/js/Pages/Menu/components/SearchFormBack.vue?vue&type=style&index=0&id=c5f411f6&lang=css&":
+/*!************************************************************************************************************!*\
+  !*** ./resources/js/Pages/Menu/components/SearchFormBack.vue?vue&type=style&index=0&id=c5f411f6&lang=css& ***!
+  \************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchFormBack_vue_vue_type_style_index_0_id_c5f411f6_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader/dist/cjs.js!../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./SearchFormBack.vue?vue&type=style&index=0&id=c5f411f6&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Menu/components/SearchFormBack.vue?vue&type=style&index=0&id=c5f411f6&lang=css&");
 
 
 /***/ }),
@@ -60693,6 +61828,8 @@ var map = {
 	"./Menu/components/OrderItem.vue": "./resources/js/Pages/Menu/components/OrderItem.vue",
 	"./Menu/components/SearchForm": "./resources/js/Pages/Menu/components/SearchForm.vue",
 	"./Menu/components/SearchForm.vue": "./resources/js/Pages/Menu/components/SearchForm.vue",
+	"./Menu/components/SearchFormBack": "./resources/js/Pages/Menu/components/SearchFormBack.vue",
+	"./Menu/components/SearchFormBack.vue": "./resources/js/Pages/Menu/components/SearchFormBack.vue",
 	"./Menu/search/AlphabetSearch": "./resources/js/Pages/Menu/search/AlphabetSearch.vue",
 	"./Menu/search/AlphabetSearch.vue": "./resources/js/Pages/Menu/search/AlphabetSearch.vue",
 	"./Ordered/MenuButton": "./resources/js/Pages/Ordered/MenuButton.vue",

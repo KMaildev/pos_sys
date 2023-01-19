@@ -52,6 +52,12 @@ class MenuListController extends Controller
         $menu->menu_name_mm = $request->menu_name_mm;
         $menu->price = $request->price;
         $menu->categorie_id = $request->categorie_id;
+        $mm_short_menu = preg_replace(
+            ['/[\p{L}\p{N}@#".]+[\p{L}\p{N}._-]*/u', '/\p{M}/u'],
+            ["$0"],
+            $request->menu_name_mm
+        );
+        $menu->mm_short_menu = $mm_short_menu ?? '';
         $menu->save();
         return redirect()->back()->with('success', 'Your processing has been completed.');
     }
@@ -94,6 +100,13 @@ class MenuListController extends Controller
         $menu->menu_name_mm = $request->menu_name_mm;
         $menu->price = $request->price;
         $menu->categorie_id = $request->categorie_id;
+
+        $mm_short_menu = preg_replace(
+            ['/[\p{L}\p{N}@#".]+[\p{L}\p{N}._-]*/u', '/\p{M}/u'],
+            ["$0"],
+            $request->menu_name_mm
+        );
+        $menu->mm_short_menu = $mm_short_menu ?? '';
         $menu->update();
         return redirect()->back()->with('success', 'Your processing has been completed.');
     }

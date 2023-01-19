@@ -43,6 +43,7 @@ class PosMenuController extends Controller
         $menu_lists = MenuList::query()
             ->where('menu_name', 'LIKE', "%{$search}%")
             ->orWhere('menu_name_mm', 'LIKE', "%{$search}%")
+            ->orWhere('mm_short_menu', 'LIKE', "%{$search}%")
             ->get();
         return Inertia::render('Menu/MenuLists', [
             'menu_lists' => $menu_lists,
