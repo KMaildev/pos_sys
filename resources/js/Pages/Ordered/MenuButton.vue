@@ -8,7 +8,7 @@
             Transfer
         </button>
 
-        <button class="floor_button" @click="tableTransfer(order_infos.id)">
+        <button class="floor_button" @click="splitBill(order_infos.id)">
             Split Bill
         </button>
 
@@ -32,6 +32,10 @@ export default {
 
         tableTransfer(order_info_id) {
             this.$inertia.get(`/table_transfer?order_info_id=${order_info_id}`);
+        },
+
+        splitBill(id) {
+            this.$inertia.get(`/pos_split_bill/${id}`);
         },
     }
 }
