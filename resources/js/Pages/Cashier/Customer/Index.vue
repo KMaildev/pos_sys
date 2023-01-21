@@ -29,7 +29,6 @@
                                             </Link>
                                         </div>
                                     </div>
-
                                 </div>
                                 <div class="table-responsive">
                                     <table class="table border-no mydatatable">

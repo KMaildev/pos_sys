@@ -19,7 +19,6 @@
 
             <div class="ScrollStyle">
                 <div class="row py-2">
-
                     <div class="col-md-2 col-lg-2 col-sm-2 mb-4" v-for="table_list in table_lists" :key="table_list.id">
                         <div v-if="table_list.order_infos_table">
                             <div class="imgcontainer" @click="orderedDetail(table_list.order_infos_table.id)">
@@ -66,7 +65,6 @@
                     </div>
                 </div>
             </div>
-
 
             <div class="modal fade" id="numberOfGuestsModal" data-bs-backdrop="static" data-bs-keyboard="false"
                 tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">

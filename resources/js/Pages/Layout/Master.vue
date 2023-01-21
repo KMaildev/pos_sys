@@ -10,7 +10,6 @@
                     </div>
                 </div>
 
-
                 <div class="d-flex">
                     <div class="main-box">
                         <div style="background-color: #4D4D4D;">
@@ -73,11 +72,12 @@
                         </li>
 
                         <li style="width: 90%; margin-bottom: 10px;">
-                            <a href="#" class="btn btn-default menubtn">
-                                <i class="fa-solid fa-dollar-sign text-white" style="font-size: 23px;"></i>
-                                &nbsp;&nbsp;&nbsp;
-                                Bill
-                            </a>
+                            <Link :href="route('bill_table_lists')" class="btn btn-default menubtn"
+                                :class="currentRoute == 'bill_table_lists' ? 'bg_color' : ''">
+                            <i class="fa-solid fa-dollar-sign text-white" style="font-size: 23px;"></i>
+                            &nbsp;&nbsp;&nbsp;
+                            Bill
+                            </Link>
                         </li>
 
                         <li style="width: 90%; margin-bottom: 10px;">
@@ -89,7 +89,7 @@
                         </li>
 
                         <li style="width: 90%;">
-                            <div class="d-flex align-items-end" style="height: 200px;">
+                            <div class="d-flex align-items-end" style="height: 100px;">
                                 <div class="mt-auto" style="width: 100%">
                                     <a href="/pos_pin_logout" class="btn btn-default menubtn">
                                         <i class="fa-solid fa-lock text-white" style="font-size: 23px;"></i>

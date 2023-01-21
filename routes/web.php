@@ -20,6 +20,7 @@ use App\Http\Controllers\Inventory\VariableAssetsController;
 use App\Http\Controllers\MenuList\MenuListController;
 use App\Http\Controllers\Order\OrderListController;
 use App\Http\Controllers\Pos\MenuControlController;
+use App\Http\Controllers\PosSys\Bill\BillController;
 use App\Http\Controllers\PosSys\Cart\CartTempController;
 use App\Http\Controllers\PosSys\Guest\GuestController;
 use App\Http\Controllers\PosSys\Main\MainController;
@@ -143,6 +144,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/ordered_detail/{id}', [OrderedController::class, 'orderedDetail'])->name('ordered_detail');
     Route::get('/pos_split_bill/{id}', [SplitBillController::class, 'SplitBill'])->name('pos_split_bill');
 
+    Route::get('/bill_table_lists', [BillController::class, 'billTable'])->name('bill_table_lists');
+
+    // Customer Group 
+    Route::get('/cashier_customer', [CashierCustomerController::class, 'index'])->name('cashier_customer');
+    Route::get('/cashier_customer_create', [CashierCustomerController::class, 'create'])->name('cashier_customer_create');
+    Route::post('/cashier_customer_store', [CashierCustomerController::class, 'store'])->name('cashier_customer_store');
+    Route::get('/cashier_customer_edit/{customer}/edit', [CashierCustomerController::class, 'edit'])->name('cashier_customer_edit');
+    Route::put('/cashier_customer_update/{id}', [CashierCustomerController::class, 'update'])->name('cashier_customer_update');
+
+
 
     // Cashier 
     Route::get('/cashier_main_page', [CashierMainController::class, 'index'])->name('cashier_main_page');
@@ -150,11 +161,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/view_order_detail/{id}', [CashierOrderController::class, 'viewOrderDetail'])->name('view_order_detail');
     Route::post('/preview_payment', [CashierOrderController::class, 'previewPayment'])->name('preview_payment');
     Route::post('/submit_payment', [CashierOrderController::class, 'submitPayment'])->name('submit_payment');
-    Route::get('/cashier_customer', [CashierCustomerController::class, 'index'])->name('cashier_customer');
-    Route::get('/cashier_customer_create', [CashierCustomerController::class, 'create'])->name('cashier_customer_create');
-    Route::post('/cashier_customer_store', [CashierCustomerController::class, 'store'])->name('cashier_customer_store');
-    Route::get('/cashier_customer_edit/{customer}/edit', [CashierCustomerController::class, 'edit'])->name('cashier_customer_edit');
-    Route::put('/cashier_customer_update/{id}', [CashierCustomerController::class, 'update'])->name('cashier_customer_update');
     Route::get('/completed_cashier_order', [CashierCompletedOrderController::class, 'index'])->name('completed_cashier_order');
 
     // POS 

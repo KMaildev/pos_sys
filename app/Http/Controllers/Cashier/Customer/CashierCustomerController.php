@@ -34,8 +34,7 @@ class CashierCustomerController extends Controller
                 ->orWhere('remark', 'Like', '%' . $keyword . '%')
                 ->get();
         }
-
-        return Inertia::render('Cashier/Customer/Index', [
+        return Inertia::render('Customer/Index', [
             'customers' => $customers,
         ]);
     }
@@ -47,7 +46,7 @@ class CashierCustomerController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Cashier/Customer/Create', [
+        return Inertia::render('Customer/Create', [
             'customer' => new Customer(),
         ]);
     }
@@ -94,7 +93,7 @@ class CashierCustomerController extends Controller
      */
     public function edit(Customer $customer)
     {
-        return Inertia::render('Cashier/Customer/Edit', compact('customer'));
+        return Inertia::render('Customer/Edit', compact('customer'));
     }
 
     /**
