@@ -35,6 +35,18 @@ class TableListController extends Controller
         ]);
     }
 
+
+    public function chooseOrderInfos(Request $request)
+    {
+        $table_id = $request->table_id;
+        $order_infos = OrderInfo::where('table_list_id', $table_id)
+            ->where('check_out_status', NULL)
+            ->get();
+
+        return response()->json(['order_infos' => $order_infos]);
+    }
+
+
     public function tableTransfer(Request $request)
     {
         // Current Table 

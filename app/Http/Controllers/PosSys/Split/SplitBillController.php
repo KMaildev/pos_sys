@@ -81,9 +81,13 @@ class SplitBillController extends Controller
             // Update 
             $order_item = OrderItem::findOrFail($id);
             $qty = $value['qty'] - $value['split_qty'];
-            $order_item->qty = $qty;
-            $order_item->split_qty = 0;
-            $order_item->update();
+            if ($qty == 0) {
+                OrderItem::findOrFail($order_item->id)->delete();
+            } else {
+                $order_item->qty = $qty;
+                $order_item->split_qty = 0;
+                $order_item->update();
+            }
         }
     }
 }

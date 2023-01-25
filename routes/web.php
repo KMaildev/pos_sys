@@ -145,7 +145,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/pos_split_bill/{id}', [SplitBillController::class, 'SplitBill'])->name('pos_split_bill');
     Route::get('/split_qty_update', [SplitBillController::class, 'SplitQtyUpdate'])->name('split_qty_update');
     Route::get('/split_order_confirm', [SplitBillController::class, 'SplitOrderConfirm'])->name('split_order_confirm');
-
+    Route::get('/choose_order_infos', [TableListTableListController::class, 'chooseOrderInfos'])->name('choose_order_infos');
     Route::get('/bill_table_lists', [BillController::class, 'billTable'])->name('bill_table_lists');
 
     // Customer Group 

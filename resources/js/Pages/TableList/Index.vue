@@ -21,7 +21,8 @@
                 <div class="row py-2">
                     <div class="col-md-2 col-lg-2 col-sm-2 mb-4" v-for="table_list in table_lists" :key="table_list.id">
                         <div v-if="table_list.order_infos_table">
-                            <div class="imgcontainer" @click="orderedDetail(table_list.order_infos_table.id)">
+                            <!-- @click="orderedDetail(table_list.order_infos_table.id)" -->
+                            <div class="imgcontainer" @click="showOrderInfos(table_list.id)">
                                 <img :src="'/data/table_unavailable.png'" style="width: 100%; border-radius: 2%;">
 
                                 <div class="top-left text-black">
@@ -66,6 +67,7 @@
                 </div>
             </div>
 
+            <!-- Number Of Guest Modal  -->
             <div class="modal fade" id="numberOfGuestsModal" data-bs-backdrop="static" data-bs-keyboard="false"
                 tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-sm">
@@ -107,6 +109,44 @@
                     </div>
                 </div>
             </div>
+
+
+            <div class="modal fade" id="showOrderInfosModal" data-bs-backdrop="static" data-bs-keyboard="false"
+                tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header" style="background-color: black;">
+                            <h5 class="modal-title" id="exampleModalLabel" style="color: white;">
+                                Choose Order
+                            </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                style="color: white;">
+                                <i class="fas fa-x fa-2xl"></i>
+                            </button>
+                        </div>
+
+                        <div class="modal-body">
+                            <table class="table">
+                                <tbody style="background-color: white;">
+                                    <tr v-for="choose_order_info in choose_order_infos" :key="choose_order_info.id">
+                                        <td>
+                                            <div class="d-flex justify-content-between">
+                                                <span class="py-1">
+                                                    {{ choose_order_info.order_no }}
+                                                </span>
+
+                                                <span class="py-1">
+                                                    {{ choose_order_info.total_amount }}
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </master>
     </div>
 </template>
@@ -114,6 +154,7 @@
 <script>
 import Master from "../Layout/Master";
 import swal from 'sweetalert2';
+import { response } from "express";
 window.Swal = swal;
 
 export default {
@@ -133,6 +174,7 @@ export default {
         'table_lists',
         'floors_categories',
         'user_name',
+        'choose_order_infos'
     ],
 
     methods: {
@@ -198,6 +240,12 @@ export default {
 
         orderedDetail(id) {
             this.$inertia.get(`/ordered_detail/${id}`);
+        },
+
+        showOrderInfos(table_id) {
+            // axios.get(`/choose_order_infos?table_id=${table_id}`)
+            //     .then(response => (this.choose_order_infos = response));
+            // $('#showOrderInfosModal').modal('show');
         },
     },
 
