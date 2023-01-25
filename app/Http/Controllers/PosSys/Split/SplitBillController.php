@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\PosSys\Split;
 
+use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
 use App\Models\OrderInfo;
 use App\Models\OrderItem;
@@ -77,6 +78,7 @@ class SplitBillController extends Controller
             $new_order_item->split_qty = 0;
             $new_order_item->waiter_user_id = auth()->user()->id ?? 0;
             $new_order_item->save();
+            Helper::updateOrderInfoTotalAmount($order_info_latest_id);
 
             // Update 
             $order_item = OrderItem::findOrFail($id);
@@ -89,5 +91,6 @@ class SplitBillController extends Controller
                 $order_item->update();
             }
         }
+        Helper::updateOrderInfoTotalAmount($order_info_id);
     }
 }

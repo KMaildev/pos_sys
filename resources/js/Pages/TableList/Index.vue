@@ -44,7 +44,7 @@
                                 </div>
 
                                 <div class="bottom-right text-black">
-                                    {{ table_list.order_infos_table.total_amount ?? '' }}
+                                    {{ totalAmount(table_list.all_order_infos_table) }}
                                 </div>
                             </div>
                         </div>
@@ -129,7 +129,7 @@
                             <table class="table">
                                 <tbody style="background-color: white;">
                                     <tr v-for="choose_order_info in choose_order_infos" :key="choose_order_info.id">
-                                        <td>
+                                        <td @click="orderedDetail(choose_order_info.id)">
                                             <div class="d-flex justify-content-between">
                                                 <span class="py-1">
                                                     {{ choose_order_info.order_no }}
@@ -154,7 +154,6 @@
 <script>
 import Master from "../Layout/Master";
 import swal from 'sweetalert2';
-import { response } from "express";
 window.Swal = swal;
 
 export default {
@@ -239,13 +238,22 @@ export default {
         },
 
         orderedDetail(id) {
+            $('#showOrderInfosModal').modal('hide');
             this.$inertia.get(`/ordered_detail/${id}`);
         },
 
         showOrderInfos(table_id) {
-            // axios.get(`/choose_order_infos?table_id=${table_id}`)
-            //     .then(response => (this.choose_order_infos = response));
-            // $('#showOrderInfosModal').modal('show');
+            axios.get(`/choose_order_infos?table_id=${table_id}`)
+                .then(response => (this.choose_order_infos = response.data.choose_order_infos));
+            $('#showOrderInfosModal').modal('show');
+        },
+
+        totalAmount(order_infos) {
+            let sum = 0;
+            order_infos.forEach(function (order_info) {
+                sum += parseFloat(order_info.total_amount);
+            });
+            return sum;
         },
     },
 

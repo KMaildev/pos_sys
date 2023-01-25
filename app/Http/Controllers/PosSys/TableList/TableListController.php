@@ -25,7 +25,7 @@ class TableListController extends Controller
         $floor = Floor::first();
         $floor_id = $request->floor_id ?? $floor->id;
 
-        $table_lists = TableList::with('order_infos_table')
+        $table_lists = TableList::with('order_infos_table', 'all_order_infos_table')
             ->where('floor_id', $floor_id)
             ->get();
 
@@ -39,11 +39,11 @@ class TableListController extends Controller
     public function chooseOrderInfos(Request $request)
     {
         $table_id = $request->table_id;
-        $order_infos = OrderInfo::where('table_list_id', $table_id)
+        $choose_order_infos = OrderInfo::where('table_list_id', $table_id)
             ->where('check_out_status', NULL)
             ->get();
 
-        return response()->json(['order_infos' => $order_infos]);
+        return response()->json(['choose_order_infos' => $choose_order_infos]);
     }
 
 
