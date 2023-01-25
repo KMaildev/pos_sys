@@ -9,7 +9,7 @@
 
                 <div class="card-body">
                     <form class="form-horizontal" action="{{ route('category.update', $category->id) }}" method="POST"
-                        autocomplete="off" id="create-form" role="form">
+                        autocomplete="off" id="create-form" role="form" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
 
@@ -60,6 +60,19 @@
                                 <input class="form-control @error('background_color') is-invalid @enderror" type="color"
                                     name="background_color" value="{{ $category->background_color }}" />
                                 @error('background_color')
+                                    <div class="invalid-feedback"> {{ $message }} </div>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label for="html5-text-input" class="col-md-3 col-form-label">
+                                Photo
+                            </label>
+                            <div class="col-md-9">
+                                <input class="form-control @error('photo') is-invalid @enderror" type="file"
+                                    name="photo" value="{{ old('photo') }}" />
+                                @error('photo')
                                     <div class="invalid-feedback"> {{ $message }} </div>
                                 @enderror
                             </div>

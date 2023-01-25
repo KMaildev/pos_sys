@@ -9,7 +9,7 @@
 
                 <div class="card-body">
                     <form class="form-horizontal" action="{{ route('menu_list.store') }}" method="POST" autocomplete="off"
-                        id="create-form" role="form">
+                        id="create-form" role="form" enctype="multipart/form-data">
                         @csrf
 
                         <div class="mb-3 row">
@@ -67,6 +67,19 @@
                                     @endforeach
                                 </select>
                                 @error('categorie_id')
+                                    <div class="invalid-feedback"> {{ $message }} </div>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label for="html5-text-input" class="col-md-3 col-form-label">
+                                Photo
+                            </label>
+                            <div class="col-md-9">
+                                <input class="form-control @error('photo') is-invalid @enderror" type="file"
+                                    name="photo" value="{{ old('photo') }}" />
+                                @error('photo')
                                     <div class="invalid-feedback"> {{ $message }} </div>
                                 @enderror
                             </div>

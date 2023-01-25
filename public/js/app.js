@@ -6842,20 +6842,46 @@ __webpack_require__.r(__webpack_exports__);
     totalAmountCalc: function totalAmountCalc(order_items) {
       var sum = 0;
       order_items.forEach(function (item) {
-        sum += parseFloat(item.price) * parseFloat(item.qty);
+        var qty = item.qty - item.split_qty;
+        sum += parseFloat(item.price) * parseFloat(qty);
       });
       return sum;
     },
-    setTableName: function setTableName(table_id, table_name, guest_no) {
-      if (table_id && table_name) {
-        var type = 'Beverage';
-        localStorage.setItem("table_id", table_id);
-        localStorage.setItem("table_name", table_name);
-        localStorage.setItem("guest_no", guest_no);
-        this.$inertia.get("/pos_menu?type=".concat(type));
-      } else {
-        this.alertMessage();
+    totalAmountCalcQty: function totalAmountCalcQty(order_items) {
+      var total_qty = 0;
+      order_items.forEach(function (item) {
+        total_qty += item.qty - item.split_qty;
+      });
+      return total_qty;
+    },
+    splitTotalAmountCalc: function splitTotalAmountCalc(order_items) {
+      var sum = 0;
+      order_items.forEach(function (item) {
+        sum += parseFloat(item.price) * parseFloat(item.split_qty);
+      });
+      return sum;
+    },
+    splitTotalAmountCalcQty: function splitTotalAmountCalcQty(order_items) {
+      var total_qty = 0;
+      order_items.forEach(function (item) {
+        total_qty += item.split_qty;
+      });
+      return total_qty;
+    },
+    SplitQtyUpdate: function SplitQtyUpdate(id, split_qty, qty) {
+      var split_qty = split_qty + 1;
+      if (split_qty <= qty) {
+        this.$inertia.get("/split_qty_update?order_items=".concat(id, "&split_qty=").concat(split_qty));
       }
+    },
+    reduceSplitQtyUpdate: function reduceSplitQtyUpdate(id, split_qty, qty) {
+      var split_qty = split_qty - 1;
+      if (split_qty >= 0) {
+        this.$inertia.get("/split_qty_update?order_items=".concat(id, "&split_qty=").concat(split_qty));
+      }
+    },
+    SplitOrderConfirm: function SplitOrderConfirm(order_info_id) {
+      this.$inertia.get("/split_order_confirm?order_info_id=".concat(order_info_id));
     }
   }
 });
@@ -10767,9 +10793,24 @@ var render = function render() {
       style: {
         "background-color": category.background_color
       }
-    }, [_c("h6", {
-      staticClass: "centered"
-    }, [_vm._v("\n                    " + _vm._s(category.title) + "\n                ")])])]);
+    }, [_c("span", {
+      staticStyle: {
+        "text-align": "center",
+        "font-size": "17px"
+      }
+    }, [_vm._v("\n                    " + _vm._s(category.title) + "\n                ")]), _vm._v(" "), category.photo ? _c("img", {
+      staticStyle: {
+        width: "100%",
+        height: "126px",
+        "border-radius": "8%",
+        "background-size": "center",
+        "object-fit": "cover",
+        padding: "8px"
+      },
+      attrs: {
+        src: "/images/".concat(category.photo)
+      }
+    }) : _vm._e()])]);
   }), 0)]);
 };
 var staticRenderFns = [];
@@ -13348,7 +13389,14 @@ var render = function render() {
         return _vm.splitBill(_vm.order_infos.id);
       }
     }
-  }, [_vm._v("\n        Split Bill\n    ")]), _vm._v(" "), _c("button", {
+  }, [_vm._v("\n        Split Order\n    ")]), _vm._v(" "), _c("button", {
+    staticClass: "floor_button",
+    on: {
+      click: function click($event) {
+        return _vm.splitBill(_vm.order_infos.id);
+      }
+    }
+  }, [_vm._v("\n        Void Order\n    ")]), _vm._v(" "), _c("button", {
     staticClass: "floor_button",
     attrs: {
       hidden: ""
@@ -13529,6 +13577,28 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "col-xl-6 col-md-6 col-lg-6"
   }, [_c("div", {
+    staticClass: "card-header d-flex"
+  }, [_c("h4", {
+    staticClass: "card-title mb-0 flex-grow-1 guest_title",
+    staticStyle: {
+      "font-size": "13px",
+      "text-align": "left"
+    }
+  }, [_vm._v("\n                            TBL : " + _vm._s(_vm.order_infos.table_lists_table.table_name) + "\n                        ")]), _vm._v(" "), _c("h4", {
+    staticClass: "card-title mb-0 flex-grow-1 guest_title",
+    staticStyle: {
+      "font-size": "13px",
+      "text-align": "left"
+    }
+  }, [_c("i", {
+    staticClass: "fa fa-clock"
+  }), _vm._v(" " + _vm._s(_vm.order_infos.order_time) + "\n                        ")]), _vm._v(" "), _c("h4", {
+    staticClass: "card-title mb-0 flex-grow-1 guest_title",
+    staticStyle: {
+      "font-size": "13px",
+      "text-align": "right"
+    }
+  }, [_vm._v("\n                            GUEST : " + _vm._s(_vm.order_infos.guest_no) + "\n                        ")])]), _vm._v(" "), _c("div", {
     staticClass: "card-body overflow-auto",
     staticStyle: {
       "background-color": "white"
@@ -13540,25 +13610,25 @@ var render = function render() {
   }, [_c("tr", [_c("th", {
     staticClass: "text-center",
     staticStyle: {
-      width: "25%",
+      width: "20%",
       "font-size": "18px"
     }
   }, [_vm._v("\n                                        Qty\n                                    ")]), _vm._v(" "), _c("th", {
     staticClass: "text-center",
     staticStyle: {
-      width: "25%",
+      width: "50%",
       "font-size": "18px"
     }
   }, [_vm._v("\n                                        Items\n                                    ")]), _vm._v(" "), _c("th", {
     staticClass: "text-center",
     staticStyle: {
-      width: "25%",
+      width: "12%",
       "font-size": "18px"
     }
   }, [_vm._v("\n                                        Price\n                                    ")]), _vm._v(" "), _c("th", {
     staticClass: "text-center",
     staticStyle: {
-      width: "25%",
+      width: "20%",
       "font-size": "18px"
     }
   }, [_vm._v("\n                                        Qty\n                                    ")])])]), _vm._v(" "), _c("tbody", {
@@ -13569,15 +13639,64 @@ var render = function render() {
     return _c("tr", {
       key: order_item.id
     }, [_c("td", {
-      staticClass: "text-center"
-    }, [_vm._v("\n                                        " + _vm._s(order_item.qty) + "\n                                    ")]), _vm._v(" "), _c("td", {
-      staticClass: "text-center"
-    }, [_vm._v("\n                                        " + _vm._s(order_item.menu_name) + "\n                                    ")]), _vm._v(" "), _c("td", {
+      staticStyle: {
+        "background-color": "#F8F9FA"
+      }
+    }, [_c("div", {
+      staticClass: "d-flex justify-content-around",
+      on: {
+        click: function click($event) {
+          return _vm.reduceSplitQtyUpdate(order_item.id, order_item.split_qty, order_item.qty);
+        }
+      }
+    }, [_c("span", {
+      staticClass: "btn btn-sm btn-success"
+    }, [_c("i", {
+      staticClass: "fa fa-plus"
+    })]), _vm._v(" "), _c("span", {
+      staticClass: "py-1"
+    }, [_vm._v("\n                                                " + _vm._s(order_item.qty - order_item.split_qty) + "\n                                            ")])])]), _vm._v(" "), _c("td", [_vm._v("\n                                        " + _vm._s(order_item.menu_name) + "\n                                    ")]), _vm._v(" "), _c("td", {
       staticClass: "text-center"
     }, [_vm._v("\n                                        " + _vm._s(order_item.price) + "\n                                    ")]), _vm._v(" "), _c("td", {
-      staticClass: "text-center"
-    }, [_vm._v("\n                                        " + _vm._s(order_item.qty) + "\n                                    ")])]);
-  }), 0)])])])])])])], 1);
+      staticStyle: {
+        "background-color": "#F8F9FA"
+      }
+    }, [_c("div", {
+      staticClass: "d-flex justify-content-around",
+      on: {
+        click: function click($event) {
+          return _vm.SplitQtyUpdate(order_item.id, order_item.split_qty, order_item.qty);
+        }
+      }
+    }, [_c("span", {
+      staticClass: "py-1"
+    }, [_vm._v("\n                                                " + _vm._s(order_item.split_qty) + "\n                                            ")]), _vm._v(" "), _c("span", {
+      staticClass: "btn btn-sm btn-success"
+    }, [_c("i", {
+      staticClass: "fa fa-plus"
+    })])])])]);
+  }), 0)])]), _vm._v(" "), _c("div", {
+    staticClass: "card-header d-flex"
+  }, [_c("h4", {
+    staticClass: "card-title mb-0 flex-grow-1 guest_title",
+    staticStyle: {
+      "font-size": "14px",
+      "text-align": "left"
+    }
+  }, [_vm._v("\n                            Quantity: " + _vm._s(_vm.totalAmountCalcQty(_vm.order_infos.order_items_table)) + "\n                            "), _c("br"), _vm._v("\n                            Total: " + _vm._s(_vm.totalAmountCalc(_vm.order_infos.order_items_table)) + "\n                        ")]), _vm._v(" "), _c("h4", {
+    staticClass: "card-title mb-0 flex-grow-1 guest_title",
+    staticStyle: {
+      "font-size": "14px",
+      "text-align": "right"
+    }
+  }, [_c("span", [_vm._v("\n                                Quantity: " + _vm._s(_vm.splitTotalAmountCalcQty(_vm.order_infos.order_items_table)) + "\n                            ")]), _vm._v(" "), _c("br"), _vm._v(" "), _c("span", [_vm._v("\n                                Total: " + _vm._s(_vm.splitTotalAmountCalc(_vm.order_infos.order_items_table)) + "\n                            ")])])]), _vm._v(" "), _c("button", {
+    staticClass: "additional_order",
+    on: {
+      click: function click($event) {
+        return _vm.SplitOrderConfirm(_vm.order_infos.id);
+      }
+    }
+  }, [_vm._v("\n                        Save & Done\n                    ")])])])])])], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;

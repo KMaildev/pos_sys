@@ -47,17 +47,26 @@ class MenuListController extends Controller
      */
     public function store(StoreMenuList $request)
     {
+        if ($file = $request->hasFile('photo')) {
+            $file = $request->file('photo');
+            $fileName = $file->getClientOriginalName();
+            $destinationPath = public_path() . '/images';
+            $file->move($destinationPath, $fileName);
+        }
+
         $menu = new MenuList();
         $menu->menu_name = $request->menu_name;
         $menu->menu_name_mm = $request->menu_name_mm;
         $menu->price = $request->price;
         $menu->categorie_id = $request->categorie_id;
+
         $mm_short_menu = preg_replace(
             ['/[\p{L}\p{N}@#".]+[\p{L}\p{N}._-]*/u', '/\p{M}/u'],
             ["$0"],
             $request->menu_name_mm
         );
         $menu->mm_short_menu = $mm_short_menu ?? '';
+        $menu->photo = $fileName ?? '';
         $menu->save();
         return redirect()->back()->with('success', 'Your processing has been completed.');
     }
@@ -95,6 +104,13 @@ class MenuListController extends Controller
      */
     public function update(UpdateMenuList $request, $id)
     {
+        if ($file = $request->hasFile('photo')) {
+            $file = $request->file('photo');
+            $fileName = $file->getClientOriginalName();
+            $destinationPath = public_path() . '/images';
+            $file->move($destinationPath, $fileName);
+        }
+
         $menu = MenuList::findOrFail($id);
         $menu->menu_name = $request->menu_name;
         $menu->menu_name_mm = $request->menu_name_mm;
@@ -107,6 +123,7 @@ class MenuListController extends Controller
             $request->menu_name_mm
         );
         $menu->mm_short_menu = $mm_short_menu ?? '';
+        $menu->photo = $fileName ?? $menu->photo;
         $menu->update();
         return redirect()->back()->with('success', 'Your processing has been completed.');
     }

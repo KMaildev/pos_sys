@@ -12,9 +12,11 @@
             <div class="col-md-4 col-lg-4 col-sm-12" v-for="category in categories" :key="category.id"
                 @click="loadMenuListPos(category.id)">
                 <div class="card main-menu-box" :style="{ 'background-color': category.background_color }">
-                    <h6 class="centered">
+                    <span style="text-align: center; font-size: 17px;">
                         {{ category.title }}
-                    </h6>
+                    </span>
+                    <img v-if="category.photo" :src="`/images/${category.photo}`"
+                        style="width: 100%; height: 126px; border-radius: 8%; background-size: center; object-fit: cover; padding: 8px;" />
                 </div>
             </div>
         </div>

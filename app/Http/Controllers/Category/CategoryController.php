@@ -43,10 +43,18 @@ class CategoryController extends Controller
      */
     public function store(StoreCategory $request)
     {
+        if ($file = $request->hasFile('photo')) {
+            $file = $request->file('photo');
+            $fileName = $file->getClientOriginalName();
+            $destinationPath = public_path() . '/images';
+            $file->move($destinationPath, $fileName);
+        }
+
         $category = new Category();
         $category->title = $request->title;
         $category->type = $request->type;
         $category->background_color = $request->background_color;
+        $category->photo = $fileName ?? '';
         $category->save();
         return redirect()->back()->with('success', 'Your processing has been completed.');
     }
@@ -83,10 +91,19 @@ class CategoryController extends Controller
      */
     public function update(StoreCategory $request, $id)
     {
+
+        if ($file = $request->hasFile('photo')) {
+            $file = $request->file('photo');
+            $fileName = $file->getClientOriginalName();
+            $destinationPath = public_path() . '/images';
+            $file->move($destinationPath, $fileName);
+        }
+
         $category = Category::findOrFail($id);
         $category->title = $request->title;
         $category->type = $request->type;
         $category->background_color = $request->background_color ?? $category->background_color;
+        $category->photo = $fileName ?? $category->photo;
         $category->update();
         return redirect()->back()->with('success', 'Your processing has been completed.');
     }

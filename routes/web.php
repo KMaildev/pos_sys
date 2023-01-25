@@ -143,6 +143,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/pos_guest_index', [GuestController::class, 'index'])->name('pos_guest_index');
     Route::get('/ordered_detail/{id}', [OrderedController::class, 'orderedDetail'])->name('ordered_detail');
     Route::get('/pos_split_bill/{id}', [SplitBillController::class, 'SplitBill'])->name('pos_split_bill');
+    Route::get('/split_qty_update', [SplitBillController::class, 'SplitQtyUpdate'])->name('split_qty_update');
+    Route::get('/split_order_confirm', [SplitBillController::class, 'SplitOrderConfirm'])->name('split_order_confirm');
 
     Route::get('/bill_table_lists', [BillController::class, 'billTable'])->name('bill_table_lists');
 
@@ -152,7 +154,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/cashier_customer_store', [CashierCustomerController::class, 'store'])->name('cashier_customer_store');
     Route::get('/cashier_customer_edit/{customer}/edit', [CashierCustomerController::class, 'edit'])->name('cashier_customer_edit');
     Route::put('/cashier_customer_update/{id}', [CashierCustomerController::class, 'update'])->name('cashier_customer_update');
-
 
 
     // Cashier 

@@ -9,7 +9,11 @@
         </button>
 
         <button class="floor_button" @click="splitBill(order_infos.id)">
-            Split Bill
+            Split Order
+        </button>
+
+        <button class="floor_button" @click="splitBill(order_infos.id)">
+            Void Order
         </button>
 
         <button class="floor_button" hidden>
