@@ -12,7 +12,7 @@
             Split Order
         </button>
 
-        <button class="floor_button" @click="splitBill(order_infos.id)">
+        <button class="floor_button" @click="voideOrder(order_infos.id)">
             Void Order
         </button>
 
@@ -40,6 +40,10 @@ export default {
 
         splitBill(id) {
             this.$inertia.get(`/pos_split_bill/${id}`);
+        },
+
+        voideOrder(id) {
+            this.$inertia.get(`/pos_void_order/${id}`);
         },
     }
 }

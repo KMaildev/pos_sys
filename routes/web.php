@@ -31,6 +31,7 @@ use App\Http\Controllers\PosSys\Pin\PinController;
 use App\Http\Controllers\PosSys\Split\SplitBillController;
 use App\Http\Controllers\PosSys\TableList\TableListController as TableListTableListController;
 use App\Http\Controllers\PosSys\Test\TestController;
+use App\Http\Controllers\PosSys\Void\VoidController;
 use App\Http\Controllers\Purchase\FixedPurchaseController;
 use App\Http\Controllers\Purchase\FixedPurchaseItemController;
 use App\Http\Controllers\Purchase\VariablePurchaseController;
@@ -147,6 +148,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/split_order_confirm', [SplitBillController::class, 'SplitOrderConfirm'])->name('split_order_confirm');
     Route::get('/choose_order_infos', [TableListTableListController::class, 'chooseOrderInfos'])->name('choose_order_infos');
     Route::get('/bill_table_lists', [BillController::class, 'billTable'])->name('bill_table_lists');
+
+    Route::get('/pos_void_order/{id}', [VoidController::class, 'VoidOrder'])->name('pos_void_order');
+    Route::get('/pos_void_item', [VoidController::class, 'VoidItem'])->name('pos_void_item');
+    Route::get('/confirm_void_item', [VoidController::class, 'ConfirmVoidItem'])->name('confirm_void_item');
+
 
     // Customer Group 
     Route::get('/cashier_customer', [CashierCustomerController::class, 'index'])->name('cashier_customer');
