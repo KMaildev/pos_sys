@@ -13,7 +13,7 @@
             <button @click="clearAll()" class="clear_all">
                 Clear <br> All
             </button>
-     
+
         </div>
 
         <div id="printArea">
@@ -26,7 +26,7 @@
                             </span>
 
                             <span style="text-align: right; font-size: 12px; color: #4D4D4D">
-                                Date & Time : {{currentTime}}
+                                Date & Time : {{ currentTime }}
                             </span>
                         </div>
 
@@ -49,7 +49,7 @@
                                     </td>
 
                                     <td class="text-right" style="color: #4D4D4D">
-                                        {{cart_list.qty}}
+                                        {{ cart_list.qty }}
                                     </td>
                                 </tr>
                             </tbody>
@@ -133,7 +133,7 @@ export default {
                 scanStyles: false
             });
         },
-    
+
         editSeat() {
             this.$inertia.get(`/pos_table_lists`);
         },

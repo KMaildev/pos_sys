@@ -147,12 +147,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/split_qty_update', [SplitBillController::class, 'SplitQtyUpdate'])->name('split_qty_update');
     Route::get('/split_order_confirm', [SplitBillController::class, 'SplitOrderConfirm'])->name('split_order_confirm');
     Route::get('/choose_order_infos', [TableListTableListController::class, 'chooseOrderInfos'])->name('choose_order_infos');
-    Route::get('/bill_table_lists', [BillController::class, 'billTable'])->name('bill_table_lists');
-
     Route::get('/pos_void_order/{id}', [VoidController::class, 'VoidOrder'])->name('pos_void_order');
     Route::get('/pos_void_item', [VoidController::class, 'VoidItem'])->name('pos_void_item');
     Route::get('/confirm_void_item', [VoidController::class, 'ConfirmVoidItem'])->name('confirm_void_item');
 
+    // BILL 
+    Route::get('/bill_table_lists', [BillController::class, 'billTable'])->name('bill_table_lists');
+    Route::get('/bill_payment/{id}', [BillController::class, 'BillPayment'])->name('bill_payment');
+    Route::post('/pos_submit_payment', [BillController::class, 'submitPayment'])->name('pos_submit_payment');
 
     // Customer Group 
     Route::get('/cashier_customer', [CashierCustomerController::class, 'index'])->name('cashier_customer');
@@ -162,6 +164,9 @@ Route::middleware('auth')->group(function () {
     Route::put('/cashier_customer_update/{id}', [CashierCustomerController::class, 'update'])->name('cashier_customer_update');
 
 
+
+
+    
     // Cashier 
     Route::get('/cashier_main_page', [CashierMainController::class, 'index'])->name('cashier_main_page');
     Route::get('/cashier_order', [CashierOrderController::class, 'index'])->name('cashier_order');

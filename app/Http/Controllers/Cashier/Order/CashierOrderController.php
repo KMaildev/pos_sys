@@ -52,7 +52,6 @@ class CashierOrderController extends Controller
         $payment_methods = PaymentMethod::all();
         $taxrates = Taxrate::all();
 
-
         return Inertia::render('Cashier/Order/ShowInvoice', [
             'show_order_info' => $show_order_info,
             'order_items' => $order_items,
@@ -66,7 +65,6 @@ class CashierOrderController extends Controller
 
     public function previewPayment(Request $request)
     {
-
         $order_info_id = $request->show_order_info;
         $order_info = OrderInfo::findOrFail($order_info_id);
 

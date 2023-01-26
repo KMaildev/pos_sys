@@ -5326,6 +5326,64 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Bill/BillPayment.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Bill/BillPayment.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Layout_Master__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Layout/Master */ "./resources/js/Pages/Layout/Master.vue");
+/* harmony import */ var _components_BillMenuButton_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/BillMenuButton.vue */ "./resources/js/Pages/Bill/components/BillMenuButton.vue");
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "BillPayment",
+  components: {
+    Master: _Layout_Master__WEBPACK_IMPORTED_MODULE_0__["default"],
+    BillMenuButton: _components_BillMenuButton_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  props: ['user_name', 'login_time', 'order_infos', 'customers', 'payment_methods', 'taxrates'],
+  data: function data() {
+    return {
+      form: {
+        customer: null,
+        taxrate: 0,
+        disc: 0,
+        payment_method_id: 0,
+        order_info_id: this.order_infos.id
+      }
+    };
+  },
+  methods: {
+    totalAmountCalc: function totalAmountCalc(order_items) {
+      var sum = 0;
+      order_items.forEach(function (item) {
+        sum += parseFloat(item.price) * parseFloat(item.qty);
+      });
+      return sum;
+    },
+    submitPayment: function submitPayment() {
+      this.$inertia.post('/pos_submit_payment', this.form);
+      this.printInvoice();
+    },
+    printInvoice: function printInvoice() {
+      printJS({
+        printable: "printArea",
+        type: "html",
+        css: ["https://pos-sys.skgroupmm.com/pos/css/bill.css"],
+        scanStyles: false
+      });
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Bill/TableList.vue?vue&type=script&lang=js&":
 /*!****************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Bill/TableList.vue?vue&type=script&lang=js& ***!
@@ -5350,8 +5408,73 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {};
   },
-  props: ['table_lists', 'floors_categories', 'user_name'],
-  methods: {}
+  props: ['table_lists', 'floors_categories', 'user_name', 'choose_order_infos'],
+  methods: {
+    showGuestsNumberModal: function showGuestsNumberModal(table_id, table_name) {
+      localStorage.setItem("table_id", table_id);
+      localStorage.setItem("table_name", table_name);
+      $('#numberOfGuestsModal').modal('show');
+    },
+    addGuestNo: function addGuestNo() {
+      this.value++;
+      localStorage.setItem("guest_no", this.value);
+    },
+    reduceGuestNo: function reduceGuestNo() {
+      var guest_n = this.value;
+      if (guest_n > 1) {
+        this.value--;
+        localStorage.setItem("guest_no", this.value);
+      } else {}
+    },
+    setTableName: function setTableName() {
+      $('#numberOfGuestsModal').modal('hide');
+      var type = 'Beverage';
+      this.$inertia.get("/pos_menu?type=".concat(type));
+      this.audioPlay();
+    },
+    searchTableName: function searchTableName() {
+      this.$inertia.get("/pos_table_lists?table_name=".concat(this.q));
+    },
+    searchFloorById: function searchFloorById(floor_id) {
+      this.$inertia.get("/pos_table_lists?floor_id=".concat(floor_id));
+    },
+    audioPlay: function audioPlay() {
+      var song = new Audio();
+      song.src = "/data/order_success.mp3";
+      song.play();
+    },
+    alertMessage: function alertMessage() {
+      swal({
+        title: "Please Select Table",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true
+      }).then(function (willDelete) {
+        if (willDelete) {}
+      });
+    },
+    guestDetailIndex: function guestDetailIndex() {
+      this.$inertia.get("/pos_guest_index");
+    },
+    orderedDetail: function orderedDetail(id) {
+      $('#showOrderInfosModal').modal('hide');
+      this.$inertia.get("/bill_payment/".concat(id));
+    },
+    showOrderInfos: function showOrderInfos(table_id) {
+      var _this = this;
+      axios.get("/choose_order_infos?table_id=".concat(table_id)).then(function (response) {
+        return _this.choose_order_infos = response.data.choose_order_infos;
+      });
+      $('#showOrderInfosModal').modal('show');
+    },
+    totalAmount: function totalAmount(order_infos) {
+      var sum = 0;
+      order_infos.forEach(function (order_info) {
+        sum += parseFloat(order_info.total_amount);
+      });
+      return sum;
+    }
+  }
 });
 
 /***/ }),
@@ -7128,6 +7251,374 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Bill/BillPayment.vue?vue&type=template&id=5c3d1800&":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Bill/BillPayment.vue?vue&type=template&id=5c3d1800& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm$order_infos$inv_n, _vm$order_infos$order;
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", [_c("master", {
+    attrs: {
+      user_name: _vm.user_name
+    }
+  }, [_c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-md-12 col-lg-12 col-sm-12"
+  }, [_c("BillMenuButton")], 1)]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-3 col-lg-3 col-sm-12"
+  }, [_c("form", {
+    on: {
+      submit: function submit($event) {
+        $event.preventDefault();
+        return _vm.submitPayment.apply(null, arguments);
+      }
+    }
+  }, [_c("div", {
+    attrs: {
+      id: "printArea"
+    }
+  }, [_c("center", [_c("div", {
+    staticClass: "bill"
+  }, [_c("div", {
+    staticClass: "receipt",
+    staticStyle: {
+      "background-color": "white"
+    }
+  }, [_c("div", {
+    staticClass: "mybill"
+  }, [_c("div", {
+    staticClass: "brand",
+    staticStyle: {
+      "font-size": "12px"
+    }
+  }, [_vm._v("\n                                        LEVITATE Bar & Restaurant\n                                    ")]), _vm._v(" "), _c("div", {
+    staticClass: "address",
+    staticStyle: {
+      "font-size": "12px"
+    }
+  }, [_vm._v("\n                                        Yangon, Myanmar\n                                        "), _c("br"), _vm._v(" Phone No- 0192083910\n                                    ")])]), _vm._v(" "), _c("div", {
+    staticClass: "d-flex justify-content-between"
+  }, [_c("span", {
+    staticStyle: {
+      "text-align": "left",
+      "font-size": "12px"
+    }
+  }, [_vm._v("\n                                        " + _vm._s((_vm$order_infos$inv_n = _vm.order_infos.inv_no) !== null && _vm$order_infos$inv_n !== void 0 ? _vm$order_infos$inv_n : "") + "\n                                    ")]), _vm._v(" "), _c("span", {
+    staticStyle: {
+      "text-align": "right",
+      "font-size": "12px"
+    }
+  }, [_vm._v("\n                                        Order: " + _vm._s((_vm$order_infos$order = _vm.order_infos.order_no) !== null && _vm$order_infos$order !== void 0 ? _vm$order_infos$order : "") + "\n                                    ")])]), _vm._v(" "), _c("div", {
+    staticClass: "d-flex justify-content-between"
+  }, [_c("span", {
+    staticStyle: {
+      "text-align": "left",
+      "font-size": "12px"
+    }
+  }, [_vm._v("\n                                        Date: " + _vm._s(_vm.order_infos.order_date_time) + "\n                                    ")]), _vm._v(" "), _c("span", {
+    staticStyle: {
+      "text-align": "right",
+      "font-size": "12px"
+    }
+  }, [_vm._v("\n                                        Table: " + _vm._s(_vm.order_infos.table_lists_table.table_name) + "\n                                    ")])]), _vm._v(" "), _c("div", {
+    staticClass: "d-flex justify-content-between"
+  }, [_c("span", {
+    staticStyle: {
+      "text-align": "left",
+      "font-size": "12px"
+    }
+  }, [_vm._v("\n                                        Customer:\n                                        "), _c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.customer,
+      expression: "form.customer"
+    }],
+    staticStyle: {
+      "text-align": "right",
+      "background-color": "white",
+      border: "none",
+      "text-overflow": "''",
+      "-webkit-appearance": "none"
+    },
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.form, "customer", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c("option", {
+    attrs: {
+      value: ""
+    }
+  }, [_vm._v("Customer")]), _vm._v(" "), _vm._l(_vm.customers, function (customer) {
+    return _c("option", {
+      key: customer.id,
+      domProps: {
+        value: customer.id
+      }
+    }, [_vm._v("\n                                                " + _vm._s(customer.name) + "\n                                            ")]);
+  })], 2)]), _vm._v(" "), _c("span", {
+    staticStyle: {
+      "text-align": "right",
+      "font-size": "12px"
+    }
+  }, [_vm._v("\n                                        Guest: " + _vm._s(_vm.order_infos.guest_no) + "\n                                    ")])]), _vm._v(" "), _c("br"), _vm._v(" "), _c("table", {
+    staticClass: "table",
+    staticStyle: {
+      width: "100%"
+    }
+  }, [_c("tr", {
+    staticClass: "header"
+  }, [_c("th", {
+    staticStyle: {
+      "font-size": "12px",
+      width: "50px",
+      "text-align": "left"
+    }
+  }, [_vm._v("\n                                            Description\n                                        ")]), _vm._v(" "), _c("th", {
+    staticStyle: {
+      "font-size": "12px",
+      width: "20%",
+      "text-align": "right"
+    }
+  }, [_vm._v("\n                                            Qty\n                                        ")]), _vm._v(" "), _c("th", {
+    staticStyle: {
+      "font-size": "12px",
+      width: "20%",
+      "text-align": "right"
+    }
+  }, [_vm._v("\n                                            Price\n                                        ")]), _vm._v(" "), _c("th", {
+    staticStyle: {
+      "font-size": "12px",
+      width: "20%",
+      "text-align": "right"
+    }
+  }, [_vm._v("\n                                            Amount\n                                        ")])]), _vm._v(" "), _vm._l(_vm.order_infos.order_items_table, function (order_item) {
+    return _c("tr", {
+      key: order_item.id
+    }, [_c("td", {
+      staticStyle: {
+        width: "250px",
+        padding: "3px",
+        "font-size": "12px"
+      }
+    }, [_vm._v("\n                                            " + _vm._s(order_item.menu_name) + "\n                                            "), _c("br"), _vm._v("\n                                            " + _vm._s(order_item.remark) + "\n                                        ")]), _vm._v(" "), _c("td", {
+      staticStyle: {
+        width: "20%",
+        padding: "3px",
+        "text-align": "right",
+        "font-size": "12px"
+      }
+    }, [_vm._v("\n                                            " + _vm._s(order_item.qty) + "\n                                        ")]), _vm._v(" "), _c("td", {
+      staticStyle: {
+        width: "20%",
+        padding: "3px",
+        "text-align": "right",
+        "font-size": "12px"
+      }
+    }, [_vm._v("\n                                            " + _vm._s(order_item.price) + "\n                                        ")]), _vm._v(" "), _c("td", {
+      staticStyle: {
+        width: "20%",
+        padding: "3px",
+        "text-align": "right",
+        "font-size": "12px"
+      }
+    }, [_vm._v("\n                                            " + _vm._s(order_item.qty * order_item.price) + "\n                                        ")])]);
+  }), _vm._v(" "), _c("br"), _vm._v(" "), _c("tr", {}, [_c("td", {
+    staticStyle: {
+      "font-size": "12px"
+    },
+    attrs: {
+      colspan: "2"
+    }
+  }, [_vm._v("\n                                            Total\n                                        ")]), _vm._v(" "), _c("td", {
+    attrs: {
+      colspan: "2"
+    }
+  }, [_c("input", {
+    staticClass: "billInput",
+    staticStyle: {
+      "text-align": "right",
+      width: "100%"
+    },
+    attrs: {
+      type: "text"
+    },
+    domProps: {
+      value: _vm.totalAmountCalc(_vm.order_infos.order_items_table)
+    }
+  })])]), _vm._v(" "), _c("tr", {}, [_c("td", {
+    staticStyle: {
+      "font-size": "12px"
+    },
+    attrs: {
+      colspan: "2"
+    }
+  }, [_vm._v("\n                                            Tax\n                                        ")]), _vm._v(" "), _c("td", {
+    staticStyle: {
+      "text-align": "right"
+    },
+    attrs: {
+      colspan: "2"
+    }
+  }, [_c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.taxrate,
+      expression: "form.taxrate"
+    }],
+    staticStyle: {
+      "text-align": "right",
+      "background-color": "white",
+      border: "none",
+      "text-overflow": "''",
+      "-webkit-appearance": "none"
+    },
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.form, "taxrate", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c("option", {
+    attrs: {
+      value: "0"
+    }
+  }, [_vm._v("0")]), _vm._v(" "), _vm._l(_vm.taxrates, function (taxrate) {
+    return _c("option", {
+      key: taxrate.id,
+      domProps: {
+        value: taxrate.taxrate
+      }
+    }, [_vm._v("\n                                                    " + _vm._s(taxrate.name) + "\n                                                ")]);
+  })], 2)])]), _vm._v(" "), _c("tr", {}, [_c("td", {
+    staticStyle: {
+      "font-size": "12px"
+    },
+    attrs: {
+      colspan: "2"
+    }
+  }, [_vm._v("\n                                            Disc\n                                        ")]), _vm._v(" "), _c("td", {
+    attrs: {
+      colspan: "2"
+    }
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.disc,
+      expression: "form.disc"
+    }],
+    staticClass: "billInput",
+    staticStyle: {
+      "text-align": "right",
+      width: "100%"
+    },
+    attrs: {
+      type: "text",
+      value: "0"
+    },
+    domProps: {
+      value: _vm.form.disc
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "disc", $event.target.value);
+      }
+    }
+  })])]), _vm._v(" "), _c("tr", {}, [_c("td", {
+    staticStyle: {
+      "font-size": "12px"
+    },
+    attrs: {
+      colspan: "2"
+    }
+  }, [_vm._v("\n                                            Pay Type\n                                        ")]), _vm._v(" "), _c("td", {
+    staticStyle: {
+      "text-align": "right"
+    },
+    attrs: {
+      colspan: "2"
+    }
+  }, [_c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.payment_method_id,
+      expression: "form.payment_method_id"
+    }],
+    staticClass: "billInput",
+    staticStyle: {
+      "text-align": "right",
+      "background-color": "white",
+      border: "none",
+      "text-overflow": "''",
+      "-webkit-appearance": "none"
+    },
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.form, "payment_method_id", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, _vm._l(_vm.payment_methods, function (payment_method) {
+    return _c("option", {
+      key: payment_method.id,
+      domProps: {
+        value: payment_method.id
+      }
+    }, [_vm._v("\n                                                    " + _vm._s(payment_method.name) + "\n                                                ")]);
+  }), 0)])])], 2), _vm._v(" "), _c("p", {
+    staticStyle: {
+      "text-align": "center"
+    }
+  }, [_vm._v("\n                                    ** Thank You ** "), _c("br"), _vm._v("\n                                    Please visit again\n                                ")])])])])], 1), _vm._v(" "), _c("br"), _vm._v(" "), _c("center", [_c("button", {
+    staticClass: "btn btn-dark btn-lg",
+    staticStyle: {
+      width: "100%"
+    },
+    attrs: {
+      type: "submit"
+    }
+  }, [_c("i", {
+    staticClass: "fa fa-print"
+  }), _vm._v("\n                        Payment\n                    ")])])], 1)])])], 1);
+};
+var staticRenderFns = [];
+render._withStripped = true;
+
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Bill/TableList.vue?vue&type=template&id=b581cd66&":
 /*!***************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Bill/TableList.vue?vue&type=template&id=b581cd66& ***!
@@ -7151,7 +7642,111 @@ var render = function render() {
     staticClass: "row"
   }, [_c("div", {
     staticClass: "col-md-12 col-lg-12 col-sm-12"
-  }, [_c("BillMenuButton")], 1)])])], 1);
+  }, [_c("BillMenuButton")], 1)]), _vm._v(" "), _c("div", {
+    staticClass: "ScrollStyle"
+  }, [_c("div", {
+    staticClass: "row py-2"
+  }, _vm._l(_vm.table_lists, function (table_list) {
+    var _table_list$order_inf, _table_list$order_inf2, _table_list$order_inf3;
+    return table_list.order_infos_table ? _c("div", {
+      key: table_list.id,
+      staticClass: "col-md-2 col-lg-2 col-sm-2 mb-4"
+    }, [_c("div", [_c("div", {
+      staticClass: "imgcontainer",
+      on: {
+        click: function click($event) {
+          return _vm.showOrderInfos(table_list.id);
+        }
+      }
+    }, [_c("img", {
+      staticStyle: {
+        width: "100%",
+        "border-radius": "2%"
+      },
+      attrs: {
+        src: "/data/table_unavailable.png"
+      }
+    }), _vm._v(" "), _c("div", {
+      staticClass: "top-left text-black"
+    }, [_vm._v("\n                                " + _vm._s((_table_list$order_inf = table_list.order_infos_table.order_user_name) !== null && _table_list$order_inf !== void 0 ? _table_list$order_inf : "") + "\n                            ")]), _vm._v(" "), _c("div", {
+      staticClass: "top-right text-black"
+    }, [_vm._v("\n                                G " + _vm._s((_table_list$order_inf2 = table_list.order_infos_table.guest_no) !== null && _table_list$order_inf2 !== void 0 ? _table_list$order_inf2 : "") + "\n                            ")]), _vm._v(" "), _c("div", {
+      staticClass: "centered"
+    }, [_c("h6", {
+      staticStyle: {
+        "font-size": "20px",
+        "font-weight": "bold",
+        color: "black"
+      }
+    }, [_vm._v("\n                                    " + _vm._s(table_list.table_name) + "\n                                ")])]), _vm._v(" "), _c("div", {
+      staticClass: "bottom-left text-black"
+    }, [_vm._v("\n                                " + _vm._s((_table_list$order_inf3 = table_list.order_infos_table.order_minutes) !== null && _table_list$order_inf3 !== void 0 ? _table_list$order_inf3 : "") + "\n                            ")]), _vm._v(" "), _c("div", {
+      staticClass: "bottom-right text-black"
+    }, [_vm._v("\n                                " + _vm._s(_vm.totalAmount(table_list.all_order_infos_table)) + "\n                            ")])])])]) : _vm._e();
+  }), 0)]), _vm._v(" "), _c("div", {
+    staticClass: "modal fade",
+    attrs: {
+      id: "showOrderInfosModal",
+      "data-bs-backdrop": "static",
+      "data-bs-keyboard": "false",
+      tabindex: "-1",
+      "aria-labelledby": "staticBackdropLabel",
+      "aria-hidden": "true"
+    }
+  }, [_c("div", {
+    staticClass: "modal-dialog modal-dialog-centered modal-sm"
+  }, [_c("div", {
+    staticClass: "modal-content"
+  }, [_c("div", {
+    staticClass: "modal-header",
+    staticStyle: {
+      "background-color": "black"
+    }
+  }, [_c("h5", {
+    staticClass: "modal-title",
+    staticStyle: {
+      color: "white"
+    },
+    attrs: {
+      id: "exampleModalLabel"
+    }
+  }, [_vm._v("\n                            Choose Order\n                        ")]), _vm._v(" "), _c("button", {
+    staticClass: "btn-close",
+    staticStyle: {
+      color: "white"
+    },
+    attrs: {
+      type: "button",
+      "data-bs-dismiss": "modal",
+      "aria-label": "Close"
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-x fa-2xl"
+  })])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-body"
+  }, [_c("table", {
+    staticClass: "table"
+  }, [_c("tbody", {
+    staticStyle: {
+      "background-color": "white"
+    }
+  }, _vm._l(_vm.choose_order_infos, function (choose_order_info) {
+    return _c("tr", {
+      key: choose_order_info.id
+    }, [_c("td", {
+      on: {
+        click: function click($event) {
+          return _vm.orderedDetail(choose_order_info.id);
+        }
+      }
+    }, [_c("div", {
+      staticClass: "d-flex justify-content-between"
+    }, [_c("span", {
+      staticClass: "py-1"
+    }, [_vm._v("\n                                                " + _vm._s(choose_order_info.order_no) + "\n                                            ")]), _vm._v(" "), _c("span", {
+      staticClass: "py-1"
+    }, [_vm._v("\n                                                " + _vm._s(choose_order_info.total_amount) + "\n                                            ")])])])]);
+  }), 0)])])])])])])], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -19857,6 +20452,30 @@ if ($defineProperty) {
 } else {
 	module.exports.apply = applyBind;
 }
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Bill/BillPayment.vue?vue&type=style&index=0&id=5c3d1800&lang=css&":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Bill/BillPayment.vue?vue&type=style&index=0&id=5c3d1800&lang=css& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "\n.billInput {\n    width: 100%;\n    border: none;\n}\n", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
 
 /***/ }),
@@ -43582,6 +44201,36 @@ module.exports = function getSideChannel() {
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Bill/BillPayment.vue?vue&type=style&index=0&id=5c3d1800&lang=css&":
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Bill/BillPayment.vue?vue&type=style&index=0&id=5c3d1800&lang=css& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_BillPayment_vue_vue_type_style_index_0_id_5c3d1800_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./BillPayment.vue?vue&type=style&index=0&id=5c3d1800&lang=css& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Bill/BillPayment.vue?vue&type=style&index=0&id=5c3d1800&lang=css&");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_BillPayment_vue_vue_type_style_index_0_id_5c3d1800_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_BillPayment_vue_vue_type_style_index_0_id_5c3d1800_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Bill/TableList.vue?vue&type=style&index=0&id=b581cd66&lang=css&":
 /*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Bill/TableList.vue?vue&type=style&index=0&id=b581cd66&lang=css& ***!
@@ -48275,6 +48924,47 @@ if (typeof this !== 'undefined' && this.Sweetalert2){this.swal = this.sweetAlert
 
 /***/ }),
 
+/***/ "./resources/js/Pages/Bill/BillPayment.vue":
+/*!*************************************************!*\
+  !*** ./resources/js/Pages/Bill/BillPayment.vue ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _BillPayment_vue_vue_type_template_id_5c3d1800___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BillPayment.vue?vue&type=template&id=5c3d1800& */ "./resources/js/Pages/Bill/BillPayment.vue?vue&type=template&id=5c3d1800&");
+/* harmony import */ var _BillPayment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./BillPayment.vue?vue&type=script&lang=js& */ "./resources/js/Pages/Bill/BillPayment.vue?vue&type=script&lang=js&");
+/* harmony import */ var _BillPayment_vue_vue_type_style_index_0_id_5c3d1800_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./BillPayment.vue?vue&type=style&index=0&id=5c3d1800&lang=css& */ "./resources/js/Pages/Bill/BillPayment.vue?vue&type=style&index=0&id=5c3d1800&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _BillPayment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _BillPayment_vue_vue_type_template_id_5c3d1800___WEBPACK_IMPORTED_MODULE_0__.render,
+  _BillPayment_vue_vue_type_template_id_5c3d1800___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Pages/Bill/BillPayment.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/Pages/Bill/TableList.vue":
 /*!***********************************************!*\
   !*** ./resources/js/Pages/Bill/TableList.vue ***!
@@ -49826,6 +50516,22 @@ component.options.__file = "resources/js/Pages/Test/Index.vue"
 
 /***/ }),
 
+/***/ "./resources/js/Pages/Bill/BillPayment.vue?vue&type=script&lang=js&":
+/*!**************************************************************************!*\
+  !*** ./resources/js/Pages/Bill/BillPayment.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BillPayment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./BillPayment.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Bill/BillPayment.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BillPayment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/Pages/Bill/TableList.vue?vue&type=script&lang=js&":
 /*!************************************************************************!*\
   !*** ./resources/js/Pages/Bill/TableList.vue?vue&type=script&lang=js& ***!
@@ -50447,6 +51153,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Index.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Test/Index.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/Pages/Bill/BillPayment.vue?vue&type=template&id=5c3d1800&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/Pages/Bill/BillPayment.vue?vue&type=template&id=5c3d1800& ***!
+  \********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_BillPayment_vue_vue_type_template_id_5c3d1800___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_BillPayment_vue_vue_type_template_id_5c3d1800___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_BillPayment_vue_vue_type_template_id_5c3d1800___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./BillPayment.vue?vue&type=template&id=5c3d1800& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Bill/BillPayment.vue?vue&type=template&id=5c3d1800&");
+
 
 /***/ }),
 
@@ -51109,6 +51832,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_template_id_9962de44___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_template_id_9962de44___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Index.vue?vue&type=template&id=9962de44& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Test/Index.vue?vue&type=template&id=9962de44&");
+
+
+/***/ }),
+
+/***/ "./resources/js/Pages/Bill/BillPayment.vue?vue&type=style&index=0&id=5c3d1800&lang=css&":
+/*!**********************************************************************************************!*\
+  !*** ./resources/js/Pages/Bill/BillPayment.vue?vue&type=style&index=0&id=5c3d1800&lang=css& ***!
+  \**********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_BillPayment_vue_vue_type_style_index_0_id_5c3d1800_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader/dist/cjs.js!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./BillPayment.vue?vue&type=style&index=0&id=5c3d1800&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Bill/BillPayment.vue?vue&type=style&index=0&id=5c3d1800&lang=css&");
 
 
 /***/ }),
@@ -63913,6 +64649,8 @@ Vue.compile = compileToFunctions;
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 var map = {
+	"./Bill/BillPayment": "./resources/js/Pages/Bill/BillPayment.vue",
+	"./Bill/BillPayment.vue": "./resources/js/Pages/Bill/BillPayment.vue",
 	"./Bill/TableList": "./resources/js/Pages/Bill/TableList.vue",
 	"./Bill/TableList.vue": "./resources/js/Pages/Bill/TableList.vue",
 	"./Bill/components/BillMenuButton": "./resources/js/Pages/Bill/components/BillMenuButton.vue",

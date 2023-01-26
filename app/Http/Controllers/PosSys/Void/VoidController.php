@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\PosSys\Void;
 
+use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
 use App\Models\OrderInfo;
 use App\Models\OrderItem;
@@ -59,5 +60,6 @@ class VoidController extends Controller
 
         OrderItem::findOrFail($item_id)
             ->delete();
+        Helper::updateOrderInfoTotalAmount($order_item->order_info_id);
     }
 }
