@@ -40,6 +40,22 @@
 
                         <div class="mb-3 row">
                             <label for="html5-text-input" class="col-md-3 col-form-label">
+                                Account Type
+                            </label>
+                            <div class="col-md-9">
+                                <select name="account_type" class="form-control">
+                                    <option value="Cash">Cash Account</option>
+                                    <option value="OnlinePayAccount">Online Pay Account</option>
+                                    <option value="Banking">Banking Account</option>
+                                </select>
+                                @error('account_type')
+                                    <div class="invalid-feedback"> {{ $message }} </div>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label for="html5-text-input" class="col-md-3 col-form-label">
                                 Status
                             </label>
                             <div class="col-md-9">

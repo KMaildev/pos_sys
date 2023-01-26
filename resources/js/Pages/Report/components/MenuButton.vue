@@ -4,11 +4,11 @@
             Sale Report
         </button>
 
-        <button class="report_button" @click="customerLink()">
+        <button class="report_button" @click="cashierReportLink()">
             Cashier Report
         </button>
 
-        <button class="report_button" @click="customerLink()">
+        <button class="report_button" @click="cashierReportLink()">
             Management Report
         </button>
     </div>
@@ -22,8 +22,8 @@ export default {
             this.$inertia.get(`/pos_sale_report`);
         },
 
-        customerLink() {
-            this.$inertia.get(`/cashier_customer`);
+        cashierReportLink() {
+            this.$inertia.get(`/pos_cash_report`);
         },
     }
 }

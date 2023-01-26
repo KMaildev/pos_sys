@@ -41,6 +41,27 @@
 
                         <div class="mb-3 row">
                             <label for="html5-text-input" class="col-md-3 col-form-label">
+                                Account Type
+                            </label>
+                            <div class="col-md-9">
+                                <select name="account_type" class="form-control">
+                                    <option value="Cash" @if ('Cash' == $store->account_type) selected @endif>Cash Account
+                                    </option>
+                                    <option value="OnlinePayAccount" @if ('OnlinePayAccount' == $store->account_type) selected @endif>
+                                        Online Pay
+                                        Account</option>
+                                    <option value="Banking" @if ('Banking' == $store->account_type) selected @endif>Banking
+                                        Account
+                                    </option>
+                                </select>
+                                @error('account_type')
+                                    <div class="invalid-feedback"> {{ $message }} </div>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label for="html5-text-input" class="col-md-3 col-form-label">
                                 Status
                             </label>
                             <div class="col-md-9">

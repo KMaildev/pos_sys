@@ -48,6 +48,7 @@ class PaymentMethodController extends Controller
         $store->name = $request->name;
         $store->remark = $request->remark ?? 0;
         $store->status = $request->status;
+        $store->account_type = $request->account_type;
         $store->user_id = auth()->user()->id ?? 0;
         $store->save();
         return redirect()->back()->with('success', 'Your processing has been completed.');
@@ -90,6 +91,7 @@ class PaymentMethodController extends Controller
         $store->remark = $request->remark ?? 0;
         $store->status = $request->status;
         $store->user_id = auth()->user()->id ?? 0;
+        $store->account_type = $request->account_type;
         $store->update();
         return redirect()->back()->with('success', 'Your processing has been completed.');
     }
