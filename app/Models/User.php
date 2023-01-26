@@ -51,4 +51,20 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Department::class, 'department_id', 'id');
     }
+
+    public function bill_infos_table()
+    {
+        return $this->hasMany(BillInfo::class, 'waiter_user_id', 'id');
+    }
+
+    public function void_items_table()
+    {
+        return $this->hasMany(VoidItem::class, 'waiter_user_id', 'id');
+    }
+
+
+    public function remark_void_items_table()
+    {
+        return $this->belongsTo(VoidItem::class, 'id', 'waiter_user_id')->latest();
+    }
 }
