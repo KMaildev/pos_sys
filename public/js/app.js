@@ -5355,7 +5355,8 @@ __webpack_require__.r(__webpack_exports__);
         taxrate: 0,
         disc: 0,
         payment_method_id: 0,
-        order_info_id: this.order_infos.id
+        order_info_id: this.order_infos.id,
+        totalNetAmount: 0
       }
     };
   },
@@ -5366,6 +5367,20 @@ __webpack_require__.r(__webpack_exports__);
         sum += parseFloat(item.price) * parseFloat(item.qty);
       });
       return sum;
+    },
+    netAmount: function netAmount() {
+      var sum = 0;
+      this.order_infos.order_items_table.forEach(function (item) {
+        sum += parseFloat(item.price) * parseFloat(item.qty);
+      });
+      var totalAmount = sum;
+      var taxrate = this.form.taxrate;
+      var disc = this.form.disc;
+      var totalTaxNetAmount = totalAmount * taxrate / 100;
+      var totalDiscNetAmount = totalAmount * disc / 100;
+      var netAmount = totalAmount - (totalTaxNetAmount + totalDiscNetAmount);
+      this.form.totalNetAmount = netAmount;
+      return netAmount;
     },
     submitPayment: function submitPayment() {
       this.$inertia.post('/pos_submit_payment', this.form);
@@ -7493,7 +7508,7 @@ var render = function render() {
       "-webkit-appearance": "none"
     },
     on: {
-      change: function change($event) {
+      change: [function ($event) {
         var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
           return o.selected;
         }).map(function (o) {
@@ -7501,7 +7516,9 @@ var render = function render() {
           return val;
         });
         _vm.$set(_vm.form, "taxrate", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-      }
+      }, function ($event) {
+        return _vm.netAmount();
+      }]
     }
   }, [_c("option", {
     attrs: {
@@ -7545,6 +7562,9 @@ var render = function render() {
       value: _vm.form.disc
     },
     on: {
+      change: function change($event) {
+        return _vm.netAmount();
+      },
       input: function input($event) {
         if ($event.target.composing) return;
         _vm.$set(_vm.form, "disc", $event.target.value);
@@ -7597,7 +7617,78 @@ var render = function render() {
         value: payment_method.id
       }
     }, [_vm._v("\n                                                    " + _vm._s(payment_method.name) + "\n                                                ")]);
-  }), 0)])])], 2), _vm._v(" "), _c("p", {
+  }), 0)])]), _vm._v(" "), _c("tr", {}, [_c("td", {
+    staticStyle: {
+      "font-size": "12px"
+    },
+    attrs: {
+      colspan: "2"
+    }
+  }, [_vm._v("\n                                            Net Amount\n                                        ")]), _vm._v(" "), _c("td", {
+    attrs: {
+      colspan: "2"
+    }
+  }, [_c("input", {
+    staticClass: "billInput",
+    staticStyle: {
+      "text-align": "right",
+      width: "100%"
+    },
+    attrs: {
+      type: "text"
+    },
+    domProps: {
+      value: _vm.netAmount()
+    }
+  })])]), _vm._v(" "), _c("tr", {}, [_c("td", {
+    staticStyle: {
+      "font-size": "12px"
+    },
+    attrs: {
+      colspan: "2"
+    }
+  }, [_vm._v("\n                                            Received Amount\n                                        ")]), _vm._v(" "), _c("td", {
+    attrs: {
+      colspan: "2"
+    }
+  }, [_c("input", {
+    staticClass: "billInput",
+    staticStyle: {
+      "text-align": "right",
+      width: "100%"
+    },
+    attrs: {
+      type: "text"
+    },
+    on: {
+      change: function change($event) {
+        return _vm.ReceivedAmount();
+      }
+    }
+  })])]), _vm._v(" "), _c("tr", {}, [_c("td", {
+    staticStyle: {
+      "font-size": "12px"
+    },
+    attrs: {
+      colspan: "2"
+    }
+  }, [_vm._v("\n                                            Due Amount\n                                        ")]), _vm._v(" "), _c("td", {
+    attrs: {
+      colspan: "2"
+    }
+  }, [_c("input", {
+    staticClass: "billInput",
+    staticStyle: {
+      "text-align": "right",
+      width: "100%"
+    },
+    attrs: {
+      type: "text"
+    },
+    domProps: {
+      value: _vm.totalAmountCalc(_vm.order_infos.order_items_table)
+    }
+  })])])], 2), _vm._v(" "), _c("p", {
     staticStyle: {
       "text-align": "center"
     }

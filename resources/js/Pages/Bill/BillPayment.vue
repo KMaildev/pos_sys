@@ -123,7 +123,7 @@
                                             <td style="text-align: right;" colspan="2">
                                                 <select
                                                     style="text-align: right; background-color: white;  border: none; text-overflow: ''; -webkit-appearance: none;"
-                                                    v-model="form.taxrate">
+                                                    v-model="form.taxrate" @change="netAmount()">
                                                     <option value="0">0</option>
                                                     <option :value="taxrate.taxrate" v-for="taxrate in taxrates"
                                                         :key="taxrate.id">
@@ -141,7 +141,8 @@
 
                                             <td colspan="2">
                                                 <input type="text" class="billInput" value="0"
-                                                    style="text-align: right; width: 100%;" v-model="form.disc">
+                                                    style="text-align: right; width: 100%;" v-model="form.disc"
+                                                    @change="netAmount()">
                                             </td>
                                         </tr>
 
@@ -160,6 +161,44 @@
                                                         {{ payment_method.name }}
                                                     </option>
                                                 </select>
+                                            </td>
+                                        </tr>
+
+
+                                        <!-- Net Amount  -->
+                                        <tr class="">
+                                            <td style="font-size: 12px;" colspan="2">
+                                                Net Amount
+                                            </td>
+
+                                            <td colspan="2">
+                                                <input type="text" class="billInput" :value="netAmount()"
+                                                    style="text-align: right; width: 100%;">
+                                            </td>
+                                        </tr>
+
+                                        <!-- Received Amount -->
+                                        <tr class="">
+                                            <td style="font-size: 12px;" colspan="2">
+                                                Received Amount
+                                            </td>
+
+                                            <td colspan="2">
+                                                <input type="text" class="billInput"
+                                                    style="text-align: right; width: 100%;" @change="ReceivedAmount()">
+                                            </td>
+                                        </tr>
+
+                                        <!-- Due Amount -->
+                                        <tr class="">
+                                            <td style="font-size: 12px;" colspan="2">
+                                                Due Amount
+                                            </td>
+
+                                            <td colspan="2">
+                                                <input type="text" class="billInput"
+                                                    :value="totalAmountCalc(order_infos.order_items_table)"
+                                                    style="text-align: right; width: 100%;">
                                             </td>
                                         </tr>
                                     </table>
@@ -214,6 +253,7 @@ export default {
                 disc: 0,
                 payment_method_id: 0,
                 order_info_id: this.order_infos.id,
+                totalNetAmount: 0,
             },
         }
     },
@@ -225,6 +265,24 @@ export default {
                 sum += (parseFloat(item.price) * parseFloat(item.qty));
             });
             return sum;
+        },
+
+
+        netAmount() {
+            let sum = 0;
+            this.order_infos.order_items_table.forEach(function (item) {
+                sum += (parseFloat(item.price) * parseFloat(item.qty));
+            });
+
+            var totalAmount = sum;
+            var taxrate = this.form.taxrate;
+            var disc = this.form.disc;
+
+            var totalTaxNetAmount = totalAmount * taxrate / 100;
+            var totalDiscNetAmount = totalAmount * disc / 100;
+            var netAmount = totalAmount - (totalTaxNetAmount + totalDiscNetAmount);
+            this.form.totalNetAmount = netAmount;
+            return netAmount;
         },
 
         submitPayment() {
