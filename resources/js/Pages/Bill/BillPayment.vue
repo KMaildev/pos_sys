@@ -185,20 +185,20 @@
 
                                             <td colspan="2">
                                                 <input type="text" class="billInput"
-                                                    style="text-align: right; width: 100%;" @change="ReceivedAmount()">
+                                                    style="text-align: right; width: 100%;" @change="ReceivedAmount()"
+                                                    v-model="form.received_amount">
                                             </td>
                                         </tr>
 
                                         <!-- Due Amount -->
                                         <tr class="">
                                             <td style="font-size: 12px;" colspan="2">
-                                                Due Amount
+                                                Refund
                                             </td>
 
                                             <td colspan="2">
                                                 <input type="text" class="billInput"
-                                                    :value="totalAmountCalc(order_infos.order_items_table)"
-                                                    style="text-align: right; width: 100%;">
+                                                    style="text-align: right; width: 100%;" :value="ReceivedAmount()">
                                             </td>
                                         </tr>
                                     </table>
@@ -215,7 +215,7 @@
                     <center>
                         <button type="submit" class="btn btn-dark btn-lg" style="width: 100%;">
                             <i class="fa fa-print"></i>
-                            Payment
+                            Payment & Print
                         </button>
                     </center>
                 </form>
@@ -254,6 +254,8 @@ export default {
                 payment_method_id: 0,
                 order_info_id: this.order_infos.id,
                 totalNetAmount: 0,
+                received_amount: 0,
+                dueAmount: 0,
             },
         }
     },
@@ -285,11 +287,18 @@ export default {
             return netAmount;
         },
 
+        ReceivedAmount() {
+            var net_amount = this.form.totalNetAmount;
+            var received_amount = this.form.received_amount;
+            var due_amount = net_amount - received_amount;
+            this.form.dueAmount = due_amount;
+            return due_amount;
+        },
+
         submitPayment() {
             this.$inertia.post('/pos_submit_payment', this.form);
             this.printInvoice();
         },
-
 
         printInvoice() {
             printJS({

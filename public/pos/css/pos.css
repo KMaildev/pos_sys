@@ -9,6 +9,28 @@
     border-radius: 15px 15px 0px 0px;
 }
 
+.report_button {
+    width: 230px;
+    padding: 20px 30px;
+    margin: 2px;
+    background-color: #808080;
+    color: white !important;
+    font-size: 17px !important;
+    font-weight: bold;
+    border-radius: 15px 15px 0px 0px;
+}
+
+.report_button_sub {
+    width: 170px;
+    padding: 10px 20px;
+    margin: 2px;
+    background-color: #808080;
+    color: white !important;
+    font-size: 16px !important;
+    font-weight: bold;
+    border-radius: 15px 15px 0px 0px;
+}
+
 .main-category {
     font-size: 20px;
     width: 250px;

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Floor;
 use App\Models\OrderInfo;
 use App\Models\TableList;
+use App\Models\TableTransferHistory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -78,6 +79,7 @@ class TableListController extends Controller
         $table_id = $request->table_id;
 
         $menu = OrderInfo::findOrFail($order_info_id);
+        $menu->first_table_id = $menu->table_list_id;
         $menu->table_list_id = $table_id;
         $menu->update();
 

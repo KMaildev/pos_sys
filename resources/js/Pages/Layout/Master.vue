@@ -81,11 +81,11 @@
                         </li>
 
                         <li style="width: 90%; margin-bottom: 10px;">
-                            <a href="#" class="btn btn-default menubtn">
-                                <i class="fa fa-chart-line text-white" style="font-size: 23px;"></i>
-                                &nbsp;&nbsp;&nbsp;
-                                Report
-                            </a>
+                            <Link :href="route('pos_sale_report')" class="btn btn-default menubtn">
+                            <i class="fa fa-chart-line text-white" style="font-size: 23px;"></i>
+                            &nbsp;&nbsp;&nbsp;
+                            Report
+                            </Link>
                         </li>
 
                         <li style="width: 90%;">

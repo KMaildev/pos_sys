@@ -73,12 +73,16 @@ class BillController extends Controller
             'tax_amount' => $request->taxrate,
             'discount' => $request->disc,
             'service_charges' => 0,
-            'net_amount' => 0,
-            'received_amount' => 0,
+            'net_amount' => $request->totalNetAmount,
+            'received_amount' => $request->received_amount,
             'change_amount' => 0,
             'cashier_user_id' => auth()->user()->id ?? 0,
             'waiter_user_id' => $order_info->waiter_user_id,
             'date_only' => date('Y-m-d'),
+
+            'order_no' => $order_info->order_no,
+            'inv_no' => $order_info->inv_no,
+            'first_table_id' => $order_info->first_table_id,
         ]);
 
         $order_info->check_out_status = 'paid';

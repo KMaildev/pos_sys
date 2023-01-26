@@ -28,6 +28,7 @@ use App\Http\Controllers\PosSys\Menu\PosMenuController;
 use App\Http\Controllers\PosSys\Order\OrderConfirmController;
 use App\Http\Controllers\PosSys\Ordered\OrderedController;
 use App\Http\Controllers\PosSys\Pin\PinController;
+use App\Http\Controllers\PosSys\Report\SaleReportController;
 use App\Http\Controllers\PosSys\Split\SplitBillController;
 use App\Http\Controllers\PosSys\TableList\TableListController as TableListTableListController;
 use App\Http\Controllers\PosSys\Test\TestController;
@@ -163,10 +164,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/cashier_customer_edit/{customer}/edit', [CashierCustomerController::class, 'edit'])->name('cashier_customer_edit');
     Route::put('/cashier_customer_update/{id}', [CashierCustomerController::class, 'update'])->name('cashier_customer_update');
 
+    // Report 
+    Route::get('/pos_sale_report', [SaleReportController::class, 'SaleReport'])->name('pos_sale_report');
+    Route::get('/pos_staff_sales', [SaleReportController::class, 'StaffSales'])->name('pos_staff_sales');
+    Route::get('/pos_tables_sales', [SaleReportController::class, 'TablesSales'])->name('pos_tables_sales');
+    Route::get('/pos_payment_types_report', [SaleReportController::class, 'PaymentTypesReport'])->name('pos_payment_types_report');
+    Route::get('/pos_discount_report', [SaleReportController::class, 'DiscountReport'])->name('pos_discount_report');
+    Route::get('/pos_void_report', [SaleReportController::class, 'VoidReport'])->name('pos_void_report');
 
 
-
-    
     // Cashier 
     Route::get('/cashier_main_page', [CashierMainController::class, 'index'])->name('cashier_main_page');
     Route::get('/cashier_order', [CashierOrderController::class, 'index'])->name('cashier_order');

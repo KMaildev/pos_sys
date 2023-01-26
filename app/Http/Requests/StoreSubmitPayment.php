@@ -28,6 +28,8 @@ class StoreSubmitPayment extends FormRequest
             'payment_method_id' => 'required',
             'taxrate' => 'numeric',
             'disc' => 'numeric',
+            'totalNetAmount' => 'numeric',
+            'received_amount' => 'numeric',
         ];
     }
 }
