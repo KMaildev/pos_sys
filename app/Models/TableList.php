@@ -21,10 +21,20 @@ class TableList extends Model
             ->latest();
     }
 
-
     public function all_order_infos_table()
     {
         return $this->hasMany(OrderInfo::class, 'table_list_id', 'id')
             ->where('check_out_status', NULL);
+    }
+
+
+    public function bill_infos_table()
+    {
+        return $this->hasMany(BillInfo::class, 'table_list_id', 'id');
+    }
+
+    public function void_item_table()
+    {
+        return $this->belongsTo(VoidItem::class, 'id', 'table_list_id')->latest();
     }
 }

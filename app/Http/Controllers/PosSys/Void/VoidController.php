@@ -36,6 +36,8 @@ class VoidController extends Controller
         $reason = $request->reason;
 
         $order_item = OrderItem::findOrFail($item_id);
+        $order_info_id = $order_item->order_info_id;
+        $order_info = OrderInfo::findOrFail($order_info_id);
 
         $void_item = new VoidItem();
         $void_item->order_info_id = $order_item->order_info_id;
@@ -56,6 +58,7 @@ class VoidController extends Controller
         $void_item->void_by = auth()->user()->id ?? 0;
         $void_item->void_date = date('Y-m-d');
         $void_item->void_time = date('h:i:s A');
+        $void_item->table_list_id = $order_info->table_list_id;
         $void_item->save();
 
         OrderItem::findOrFail($item_id)

@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class PaymentMethod extends Model
 {
     use HasFactory;
+
+    public function bill_infos_table()
+    {
+        return $this->hasMany(BillInfo::class, 'payment_type', 'id');
+    }
 }

@@ -4,7 +4,10 @@ namespace App\Http\Controllers\PosSys\Report;
 
 use App\Http\Controllers\Controller;
 use App\Models\BillInfo;
+use App\Models\PaymentMethod;
+use App\Models\TableList;
 use App\Models\User;
+use App\Models\VoidItem;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -57,21 +60,78 @@ class SaleReportController extends Controller
 
     public function TablesSales(Request $request)
     {
-        return Inertia::render('Report/SalesReport');
+        $table_lists = TableList::with('bill_infos_table', 'void_item_table')
+            ->get();
+
+        if (request('start_date') && request('end_date')) {
+            $start_date =  request('start_date');
+            $end_date =  request('end_date');
+            $table_lists = TableList::with(['bill_infos_table' => function ($query) use ($start_date, $end_date) {
+                $query->where('date_only', '>=', $start_date);
+                $query->where('date_only', '<=', $end_date);
+            }])->with('void_item_table')
+                ->get();
+        }
+
+        return Inertia::render('Report/TablesSales', [
+            'table_lists' => $table_lists,
+        ]);
     }
+
+
 
     public function PaymentTypesReport(Request $request)
     {
-        return Inertia::render('Report/SalesReport');
+        $payment_methods = PaymentMethod::with('bill_infos_table')
+            ->get();
+
+        if (request('start_date') && request('end_date')) {
+            $start_date =  request('start_date');
+            $end_date =  request('end_date');
+            $payment_methods = PaymentMethod::with(['bill_infos_table' => function ($query) use ($start_date, $end_date) {
+                $query->where('date_only', '>=', $start_date);
+                $query->where('date_only', '<=', $end_date);
+            }])->get();
+        }
+
+        return Inertia::render('Report/PaymentTypesReport', [
+            'payment_methods' => $payment_methods,
+        ]);
     }
+
+
 
     public function DiscountReport(Request $request)
     {
-        return Inertia::render('Report/SalesReport');
+        $bill_infos = BillInfo::with('table_lists_table', 'first_table_lists_table', 'cashier_user', 'waiter_user_table', 'payment_method_table', 'order_items_table', 'void_items_table')
+            ->get();
+
+        if (request('start_date') && request('end_date')) {
+            $bill_infos = BillInfo::with('table_lists_table', 'first_table_lists_table', 'cashier_user', 'waiter_user_table', 'payment_method_table', 'order_items_table', 'void_items_table')
+                ->where('date_only', '>=', request('start_date'))
+                ->where('date_only', '<=', request('end_date'))
+                ->get();
+        }
+
+        return Inertia::render('Report/DiscountReport', [
+            'bill_infos' => $bill_infos,
+        ]);
     }
+
 
     public function VoidReport(Request $request)
     {
-        return Inertia::render('Report/SalesReport');
+        $void_items = VoidItem::with('menu_list_table')
+            ->get();
+
+        if (request('start_date') && request('end_date')) {
+            $void_items = VoidItem::with('menu_list_table')
+                ->where('void_date', '>=', request('start_date'))
+                ->where('void_date', '<=', request('end_date'))
+                ->get();
+        }
+        return Inertia::render('Report/VoidReport', [
+            'void_items' => $void_items,
+        ]);
     }
 }
