@@ -1,27 +1,27 @@
 <template>
     <div>
         <div class="col-md-12 col-lg-12 col-sm-12">
-            <button class="report_button_sub" @click="saleReportLink()">
+            <button class="report_button_sub" @click="saleReportLink()" style="background-color: #d5d6ea; color: black !important">
                 Sales Report
             </button>
 
-            <button class="report_button_sub" @click="StaffSales()">
+            <button class="report_button_sub" @click="StaffSales()" style="background-color: #f6f6eb; color: black !important">
                 Staff Sales
             </button>
 
-            <button class="report_button_sub" @click="TablesSales()">
+            <button class="report_button_sub" @click="TablesSales()" style="background-color: #d7ecd9; color: black !important">
                 Tables Sales
             </button>
 
-            <button class="report_button_sub" @click="PaymentTypesReport()">
+            <button class="report_button_sub" @click="PaymentTypesReport()" style="background-color: #f5d5cb; color: black !important">
                 Payment Types
             </button>
 
-            <button class="report_button_sub" @click="DiscountReport()">
+            <button class="report_button_sub" @click="DiscountReport()" style="background-color: #f6ecf5; color: black !important">
                 Discount Report
             </button>
 
-            <button class="report_button_sub" @click="VoidReport()">
+            <button class="report_button_sub" @click="VoidReport()" style="background-color: #e8dff5; color: black !important">
                 Void Report
             </button>
         </div>

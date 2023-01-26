@@ -42,6 +42,17 @@
     border-radius: 15px 15px 0px 0px;
 }
 
+.report_button_sub_sale {
+    width: 240px;
+    padding: 10px 20px;
+    margin: 2px;
+    background-color: #808080;
+    color: white !important;
+    font-size: 16px !important;
+    font-weight: bold;
+    border-radius: 15px 15px 0px 0px;
+}
+
 .main-category {
     font-size: 20px;
     width: 250px;

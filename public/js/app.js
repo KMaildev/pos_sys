@@ -7379,6 +7379,129 @@ window.Swal = (sweetalert2__WEBPACK_IMPORTED_MODULE_3___default());
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Report/SalesCategoryAmount.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Report/SalesCategoryAmount.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Layout_Master__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Layout/Master */ "./resources/js/Pages/Layout/Master.vue");
+/* harmony import */ var _components_MenuButton_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/MenuButton.vue */ "./resources/js/Pages/Report/components/MenuButton.vue");
+/* harmony import */ var _components_ManagementButton_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/ManagementButton.vue */ "./resources/js/Pages/Report/components/ManagementButton.vue");
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "CashReport",
+  components: {
+    Master: _Layout_Master__WEBPACK_IMPORTED_MODULE_0__["default"],
+    MenuButton: _components_MenuButton_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    ManagementButton: _components_ManagementButton_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
+  data: function data() {
+    return {
+      form: {
+        start_date: this.start_date,
+        end_date: this.end_date
+      }
+    };
+  },
+  props: ['user_name', 'menu_lists'],
+  methods: {
+    saleAmount: function saleAmount(menu_list) {
+      var sum = 0;
+      menu_list.order_items_table.forEach(function (item) {
+        sum += parseFloat(item.price) * parseFloat(item.qty);
+      });
+      return sum;
+    },
+    salesPercentage: function salesPercentage(menu_list) {
+      var total_amount = menu_list.price;
+      var sale_amount = 0;
+      menu_list.order_items_table.forEach(function (item) {
+        sale_amount += parseFloat(item.price) * parseFloat(item.qty);
+      });
+      if (sale_amount == 0) {
+        return 0;
+      }
+      var salesPercentage = total_amount / sale_amount * 100;
+      return salesPercentage.toLocaleString("en-US");
+    },
+    searchDate: function searchDate() {
+      this.$inertia.get("/pos_sales_category_amount", this.form);
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Report/SalesCategoryQty.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Report/SalesCategoryQty.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Layout_Master__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Layout/Master */ "./resources/js/Pages/Layout/Master.vue");
+/* harmony import */ var _components_MenuButton_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/MenuButton.vue */ "./resources/js/Pages/Report/components/MenuButton.vue");
+/* harmony import */ var _components_ManagementButton_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/ManagementButton.vue */ "./resources/js/Pages/Report/components/ManagementButton.vue");
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "CashReport",
+  components: {
+    Master: _Layout_Master__WEBPACK_IMPORTED_MODULE_0__["default"],
+    MenuButton: _components_MenuButton_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    ManagementButton: _components_ManagementButton_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
+  data: function data() {
+    return {
+      total: 0,
+      form: {
+        start_date: this.start_date,
+        end_date: this.end_date
+      }
+    };
+  },
+  props: ['user_name', 'menu_lists', 'order_item_total'],
+  methods: {
+    saleQty: function saleQty(menu_list) {
+      var sum = 0;
+      menu_list.order_items_table.forEach(function (item) {
+        sum += parseFloat(item.qty);
+      });
+      return sum;
+    },
+    saleQtyPercentage: function saleQtyPercentage(menu_list) {
+      var sale_qty = 0;
+      menu_list.order_items_table.forEach(function (item) {
+        sale_qty += parseFloat(item.qty);
+      });
+      var order_item_total = this.order_item_total;
+      var total = sale_qty / order_item_total * 100;
+      return total.toLocaleString("en-US");
+    },
+    searchDate: function searchDate() {
+      this.$inertia.get("/pos_sales_category_qty", this.form);
+    }
+  },
+  created: function created() {
+    this.total = this.saleQty(menu_lists);
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Report/SalesReport.vue?vue&type=script&lang=js&":
 /*!********************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Report/SalesReport.vue?vue&type=script&lang=js& ***!
@@ -7662,6 +7785,31 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Report/components/ManagementButton.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Report/components/ManagementButton.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "MenuButton",
+  methods: {
+    saleCategoryAmount: function saleCategoryAmount() {
+      this.$inertia.get("/pos_sales_category_amount");
+    },
+    saleCategoryQty: function saleCategoryQty() {
+      this.$inertia.get("/pos_sales_category_qty");
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Report/components/MenuButton.vue?vue&type=script&lang=js&":
 /*!******************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Report/components/MenuButton.vue?vue&type=script&lang=js& ***!
@@ -7681,6 +7829,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     cashierReportLink: function cashierReportLink() {
       this.$inertia.get("/pos_cash_report");
+    },
+    managementReport: function managementReport() {
+      this.$inertia.get("/pos_sales_category_amount");
     }
   }
 });
@@ -16100,6 +16251,287 @@ render._withStripped = true;
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Report/SalesCategoryAmount.vue?vue&type=template&id=ecf3fae0&":
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Report/SalesCategoryAmount.vue?vue&type=template&id=ecf3fae0& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", [_c("master", {
+    attrs: {
+      user_name: _vm.user_name
+    }
+  }, [_c("div", {
+    staticClass: "ScrollStyle"
+  }, [_c("div", {
+    staticClass: "row py-2"
+  }, [_c("MenuButton")], 1), _vm._v(" "), _c("div", {
+    staticClass: "row"
+  }, [_c("ManagementButton")], 1), _vm._v(" "), _c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-md-4 col-lg-4 col-sm-4 py-3"
+  }, [_c("form", {
+    on: {
+      submit: function submit($event) {
+        $event.preventDefault();
+        return _vm.searchDate.apply(null, arguments);
+      }
+    }
+  }, [_c("div", {
+    staticClass: "input-group"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.start_date,
+      expression: "form.start_date"
+    }],
+    staticClass: "form-control date_picker",
+    attrs: {
+      type: "date"
+    },
+    domProps: {
+      value: _vm.form.start_date
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "start_date", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.end_date,
+      expression: "form.end_date"
+    }],
+    staticClass: "form-control date_picker",
+    attrs: {
+      type: "date"
+    },
+    domProps: {
+      value: _vm.form.end_date
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "end_date", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("input", {
+    staticClass: "btn btn-dark",
+    attrs: {
+      type: "submit",
+      value: "Search"
+    }
+  })])])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-12 col-lg-12 col-sm-12"
+  }, [_c("div", {
+    staticClass: "table-responsive text-nowrap"
+  }, [_c("table", {
+    staticClass: "table table-bordered"
+  }, [_c("thead", {
+    staticClass: "table-light"
+  }, [_c("tr", {
+    staticClass: "tablebg"
+  }, [_c("th", {
+    staticClass: "text-center",
+    staticStyle: {
+      width: "1%"
+    }
+  }, [_vm._v("\n                                        Sr\n                                    ")]), _vm._v(" "), _c("th", {
+    staticClass: "text-center"
+  }, [_vm._v("\n                                        Menu Name\n                                    ")]), _vm._v(" "), _c("th", {
+    staticClass: "text-center"
+  }, [_vm._v("\n                                        Types\n                                    ")]), _vm._v(" "), _c("th", {
+    staticClass: "text-center"
+  }, [_vm._v("\n                                        Sales Amount\n                                    ")]), _vm._v(" "), _c("th", {
+    staticClass: "text-center"
+  }, [_vm._v("\n                                        Sales Percentage\n                                    ")])])]), _vm._v(" "), _c("tbody", {
+    staticStyle: {
+      "background-color": "white"
+    }
+  }, _vm._l(_vm.menu_lists, function (menu_list, index) {
+    var _menu_list$menu_name, _menu_list$category_t;
+    return _c("tr", {
+      key: menu_list.id
+    }, [_c("td", {
+      staticClass: "text-center"
+    }, [_vm._v("\n                                        " + _vm._s(index + 1) + "\n                                    ")]), _vm._v(" "), _c("td", {
+      staticClass: "text-center"
+    }, [_vm._v("\n                                        " + _vm._s((_menu_list$menu_name = menu_list.menu_name) !== null && _menu_list$menu_name !== void 0 ? _menu_list$menu_name : "") + "\n                                    ")]), _vm._v(" "), _c("td", {
+      staticClass: "text-center"
+    }, [_vm._v("\n                                        " + _vm._s((_menu_list$category_t = menu_list.category_table.title) !== null && _menu_list$category_t !== void 0 ? _menu_list$category_t : "") + "\n                                    ")]), _vm._v(" "), _c("td", {
+      staticClass: "text-center"
+    }, [_vm._v("\n                                        " + _vm._s(_vm.saleAmount(menu_list)) + "\n                                    ")]), _vm._v(" "), _c("td", {
+      staticClass: "text-center"
+    }, [_vm._v("\n                                        " + _vm._s(_vm.salesPercentage(menu_list)) + "\n                                    ")])]);
+  }), 0)])])])])])])], 1);
+};
+var staticRenderFns = [];
+render._withStripped = true;
+
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Report/SalesCategoryQty.vue?vue&type=template&id=c08452a4&":
+/*!************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Report/SalesCategoryQty.vue?vue&type=template&id=c08452a4& ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", [_c("master", {
+    attrs: {
+      user_name: _vm.user_name
+    }
+  }, [_c("div", {
+    staticClass: "ScrollStyle"
+  }, [_c("div", {
+    staticClass: "row py-2"
+  }, [_c("MenuButton")], 1), _vm._v(" "), _c("div", {
+    staticClass: "row"
+  }, [_c("ManagementButton")], 1), _vm._v(" "), _c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-md-4 col-lg-4 col-sm-4 py-3"
+  }, [_c("form", {
+    on: {
+      submit: function submit($event) {
+        $event.preventDefault();
+        return _vm.searchDate.apply(null, arguments);
+      }
+    }
+  }, [_c("div", {
+    staticClass: "input-group"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.start_date,
+      expression: "form.start_date"
+    }],
+    staticClass: "form-control date_picker",
+    attrs: {
+      type: "date"
+    },
+    domProps: {
+      value: _vm.form.start_date
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "start_date", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.end_date,
+      expression: "form.end_date"
+    }],
+    staticClass: "form-control date_picker",
+    attrs: {
+      type: "date"
+    },
+    domProps: {
+      value: _vm.form.end_date
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "end_date", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("input", {
+    staticClass: "btn btn-dark",
+    attrs: {
+      type: "submit",
+      value: "Search"
+    }
+  })])])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-12 col-lg-12 col-sm-12"
+  }, [_c("div", {
+    staticClass: "table-responsive text-nowrap"
+  }, [_c("table", {
+    staticClass: "table table-bordered"
+  }, [_c("thead", {
+    staticClass: "table-light"
+  }, [_c("tr", {
+    staticClass: "tablebg"
+  }, [_c("th", {
+    staticClass: "text-center",
+    staticStyle: {
+      width: "1%"
+    }
+  }, [_vm._v("\n                                        Sr\n                                    ")]), _vm._v(" "), _c("th", {
+    staticClass: "text-center"
+  }, [_vm._v("\n                                        Menu Name\n                                    ")]), _vm._v(" "), _c("th", {
+    staticClass: "text-center"
+  }, [_vm._v("\n                                        Types\n                                    ")]), _vm._v(" "), _c("th", {
+    staticClass: "text-center"
+  }, [_vm._v("\n                                        Sales Qty\n                                    ")]), _vm._v(" "), _c("th", {
+    staticClass: "text-center"
+  }, [_vm._v("\n                                        Sales Percentage\n                                    ")])])]), _vm._v(" "), _c("tbody", {
+    staticStyle: {
+      "background-color": "white"
+    }
+  }, _vm._l(_vm.menu_lists, function (menu_list, index) {
+    var _menu_list$menu_name, _menu_list$category_t;
+    return _c("tr", {
+      key: menu_list.id
+    }, [_c("td", {
+      staticClass: "text-center"
+    }, [_vm._v("\n                                        " + _vm._s(index + 1) + "\n                                    ")]), _vm._v(" "), _c("td", {
+      staticClass: "text-center"
+    }, [_vm._v("\n                                        " + _vm._s((_menu_list$menu_name = menu_list.menu_name) !== null && _menu_list$menu_name !== void 0 ? _menu_list$menu_name : "") + "\n                                    ")]), _vm._v(" "), _c("td", {
+      staticClass: "text-center"
+    }, [_vm._v("\n                                        " + _vm._s((_menu_list$category_t = menu_list.category_table.title) !== null && _menu_list$category_t !== void 0 ? _menu_list$category_t : "") + "\n                                    ")]), _vm._v(" "), _c("td", {
+      staticClass: "text-center"
+    }, [_vm._v("\n                                        " + _vm._s(_vm.saleQty(menu_list)) + "\n                                    ")]), _vm._v(" "), _c("td", {
+      staticClass: "text-center"
+    }, [_vm._v("\n                                        " + _vm._s(_vm.saleQtyPercentage(menu_list)) + "\n                                    ")])]);
+  }), 0), _vm._v(" "), _c("tr", {
+    staticStyle: {
+      "background-color": "white"
+    }
+  }, [_c("td", {
+    staticClass: "text-center",
+    attrs: {
+      colspan: "3"
+    }
+  }, [_vm._v("\n                                    Total\n                                ")]), _vm._v(" "), _c("td", {
+    staticClass: "text-center"
+  }, [_vm._v("\n                                    " + _vm._s(_vm.order_item_total) + "\n                                ")]), _vm._v(" "), _c("td", {
+    staticClass: "text-center"
+  })])])])])])])])], 1);
+};
+var staticRenderFns = [];
+render._withStripped = true;
+
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Report/SalesReport.vue?vue&type=template&id=4b4067ce&":
 /*!*******************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Report/SalesReport.vue?vue&type=template&id=4b4067ce& ***!
@@ -16729,6 +17161,10 @@ var render = function render() {
     staticClass: "col-md-12 col-lg-12 col-sm-12"
   }, [_c("button", {
     staticClass: "report_button_sub_cashier",
+    staticStyle: {
+      "background-color": "#d5d6ea",
+      color: "black !important"
+    },
     on: {
       click: function click($event) {
         return _vm.cashReport();
@@ -16736,6 +17172,10 @@ var render = function render() {
     }
   }, [_vm._v("\n            Cash Report\n        ")]), _vm._v(" "), _c("button", {
     staticClass: "report_button_sub_cashier",
+    staticStyle: {
+      "background-color": "#f6f6eb",
+      color: "black !important"
+    },
     on: {
       click: function click($event) {
         return _vm.OnlinePay();
@@ -16743,12 +17183,63 @@ var render = function render() {
     }
   }, [_vm._v("\n            Online Pay Report\n        ")]), _vm._v(" "), _c("button", {
     staticClass: "report_button_sub_cashier",
+    staticStyle: {
+      "background-color": "#d7ecd9",
+      color: "black !important"
+    },
     on: {
       click: function click($event) {
         return _vm.BankingReport();
       }
     }
   }, [_vm._v("\n            Banking Report\n        ")])])]);
+};
+var staticRenderFns = [];
+render._withStripped = true;
+
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Report/components/ManagementButton.vue?vue&type=template&id=28bf2adc&":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Report/components/ManagementButton.vue?vue&type=template&id=28bf2adc& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", [_c("div", {
+    staticClass: "col-md-12 col-lg-12 col-sm-12"
+  }, [_c("button", {
+    staticClass: "report_button_sub_sale",
+    staticStyle: {
+      "background-color": "#d5d6ea",
+      color: "black !important"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.saleCategoryAmount();
+      }
+    }
+  }, [_vm._v("\n            Sales Category Amount\n        ")]), _vm._v(" "), _c("button", {
+    staticClass: "report_button_sub_sale",
+    staticStyle: {
+      "background-color": "#f6f6eb",
+      color: "black !important"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.saleCategoryQty();
+      }
+    }
+  }, [_vm._v("\n            Sales Category Qty\n        ")])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -16773,6 +17264,10 @@ var render = function render() {
     _c = _vm._self._c;
   return _c("div", [_c("button", {
     staticClass: "report_button",
+    staticStyle: {
+      "background-color": "#e0bbe9",
+      color: "black !important"
+    },
     on: {
       click: function click($event) {
         return _vm.saleReportLink();
@@ -16780,6 +17275,10 @@ var render = function render() {
     }
   }, [_vm._v("\n        Sale Report\n    ")]), _vm._v(" "), _c("button", {
     staticClass: "report_button",
+    staticStyle: {
+      "background-color": "#957dad",
+      color: "black !important"
+    },
     on: {
       click: function click($event) {
         return _vm.cashierReportLink();
@@ -16787,9 +17286,13 @@ var render = function render() {
     }
   }, [_vm._v("\n        Cashier Report\n    ")]), _vm._v(" "), _c("button", {
     staticClass: "report_button",
+    staticStyle: {
+      "background-color": "#d291bc",
+      color: "black !important"
+    },
     on: {
       click: function click($event) {
-        return _vm.cashierReportLink();
+        return _vm.managementReport();
       }
     }
   }, [_vm._v("\n        Management Report\n    ")])]);
@@ -16819,6 +17322,10 @@ var render = function render() {
     staticClass: "col-md-12 col-lg-12 col-sm-12"
   }, [_c("button", {
     staticClass: "report_button_sub",
+    staticStyle: {
+      "background-color": "#d5d6ea",
+      color: "black !important"
+    },
     on: {
       click: function click($event) {
         return _vm.saleReportLink();
@@ -16826,6 +17333,10 @@ var render = function render() {
     }
   }, [_vm._v("\n            Sales Report\n        ")]), _vm._v(" "), _c("button", {
     staticClass: "report_button_sub",
+    staticStyle: {
+      "background-color": "#f6f6eb",
+      color: "black !important"
+    },
     on: {
       click: function click($event) {
         return _vm.StaffSales();
@@ -16833,6 +17344,10 @@ var render = function render() {
     }
   }, [_vm._v("\n            Staff Sales\n        ")]), _vm._v(" "), _c("button", {
     staticClass: "report_button_sub",
+    staticStyle: {
+      "background-color": "#d7ecd9",
+      color: "black !important"
+    },
     on: {
       click: function click($event) {
         return _vm.TablesSales();
@@ -16840,6 +17355,10 @@ var render = function render() {
     }
   }, [_vm._v("\n            Tables Sales\n        ")]), _vm._v(" "), _c("button", {
     staticClass: "report_button_sub",
+    staticStyle: {
+      "background-color": "#f5d5cb",
+      color: "black !important"
+    },
     on: {
       click: function click($event) {
         return _vm.PaymentTypesReport();
@@ -16847,6 +17366,10 @@ var render = function render() {
     }
   }, [_vm._v("\n            Payment Types\n        ")]), _vm._v(" "), _c("button", {
     staticClass: "report_button_sub",
+    staticStyle: {
+      "background-color": "#f6ecf5",
+      color: "black !important"
+    },
     on: {
       click: function click($event) {
         return _vm.DiscountReport();
@@ -16854,6 +17377,10 @@ var render = function render() {
     }
   }, [_vm._v("\n            Discount Report\n        ")]), _vm._v(" "), _c("button", {
     staticClass: "report_button_sub",
+    staticStyle: {
+      "background-color": "#e8dff5",
+      color: "black !important"
+    },
     on: {
       click: function click($event) {
         return _vm.VoidReport();
@@ -52762,6 +53289,84 @@ component.options.__file = "resources/js/Pages/Report/PaymentTypesReport.vue"
 
 /***/ }),
 
+/***/ "./resources/js/Pages/Report/SalesCategoryAmount.vue":
+/*!***********************************************************!*\
+  !*** ./resources/js/Pages/Report/SalesCategoryAmount.vue ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _SalesCategoryAmount_vue_vue_type_template_id_ecf3fae0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SalesCategoryAmount.vue?vue&type=template&id=ecf3fae0& */ "./resources/js/Pages/Report/SalesCategoryAmount.vue?vue&type=template&id=ecf3fae0&");
+/* harmony import */ var _SalesCategoryAmount_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SalesCategoryAmount.vue?vue&type=script&lang=js& */ "./resources/js/Pages/Report/SalesCategoryAmount.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _SalesCategoryAmount_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _SalesCategoryAmount_vue_vue_type_template_id_ecf3fae0___WEBPACK_IMPORTED_MODULE_0__.render,
+  _SalesCategoryAmount_vue_vue_type_template_id_ecf3fae0___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Pages/Report/SalesCategoryAmount.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/Pages/Report/SalesCategoryQty.vue":
+/*!********************************************************!*\
+  !*** ./resources/js/Pages/Report/SalesCategoryQty.vue ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _SalesCategoryQty_vue_vue_type_template_id_c08452a4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SalesCategoryQty.vue?vue&type=template&id=c08452a4& */ "./resources/js/Pages/Report/SalesCategoryQty.vue?vue&type=template&id=c08452a4&");
+/* harmony import */ var _SalesCategoryQty_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SalesCategoryQty.vue?vue&type=script&lang=js& */ "./resources/js/Pages/Report/SalesCategoryQty.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _SalesCategoryQty_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _SalesCategoryQty_vue_vue_type_template_id_c08452a4___WEBPACK_IMPORTED_MODULE_0__.render,
+  _SalesCategoryQty_vue_vue_type_template_id_c08452a4___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Pages/Report/SalesCategoryQty.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/Pages/Report/SalesReport.vue":
 /*!***************************************************!*\
   !*** ./resources/js/Pages/Report/SalesReport.vue ***!
@@ -52953,6 +53558,45 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
 /* hot reload */
 if (false) { var api; }
 component.options.__file = "resources/js/Pages/Report/components/CashierButton.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/Pages/Report/components/ManagementButton.vue":
+/*!*******************************************************************!*\
+  !*** ./resources/js/Pages/Report/components/ManagementButton.vue ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ManagementButton_vue_vue_type_template_id_28bf2adc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ManagementButton.vue?vue&type=template&id=28bf2adc& */ "./resources/js/Pages/Report/components/ManagementButton.vue?vue&type=template&id=28bf2adc&");
+/* harmony import */ var _ManagementButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ManagementButton.vue?vue&type=script&lang=js& */ "./resources/js/Pages/Report/components/ManagementButton.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ManagementButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ManagementButton_vue_vue_type_template_id_28bf2adc___WEBPACK_IMPORTED_MODULE_0__.render,
+  _ManagementButton_vue_vue_type_template_id_28bf2adc___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Pages/Report/components/ManagementButton.vue"
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
 
 /***/ }),
@@ -53803,6 +54447,38 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/Pages/Report/SalesCategoryAmount.vue?vue&type=script&lang=js&":
+/*!************************************************************************************!*\
+  !*** ./resources/js/Pages/Report/SalesCategoryAmount.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesCategoryAmount_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./SalesCategoryAmount.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Report/SalesCategoryAmount.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesCategoryAmount_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/Pages/Report/SalesCategoryQty.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/Pages/Report/SalesCategoryQty.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesCategoryQty_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./SalesCategoryQty.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Report/SalesCategoryQty.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesCategoryQty_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/Pages/Report/SalesReport.vue?vue&type=script&lang=js&":
 /*!****************************************************************************!*\
   !*** ./resources/js/Pages/Report/SalesReport.vue?vue&type=script&lang=js& ***!
@@ -53880,6 +54556,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CashierButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./CashierButton.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Report/components/CashierButton.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CashierButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/Pages/Report/components/ManagementButton.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************!*\
+  !*** ./resources/js/Pages/Report/components/ManagementButton.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ManagementButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ManagementButton.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Report/components/ManagementButton.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ManagementButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -54678,6 +55370,40 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/Pages/Report/SalesCategoryAmount.vue?vue&type=template&id=ecf3fae0&":
+/*!******************************************************************************************!*\
+  !*** ./resources/js/Pages/Report/SalesCategoryAmount.vue?vue&type=template&id=ecf3fae0& ***!
+  \******************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesCategoryAmount_vue_vue_type_template_id_ecf3fae0___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesCategoryAmount_vue_vue_type_template_id_ecf3fae0___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesCategoryAmount_vue_vue_type_template_id_ecf3fae0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./SalesCategoryAmount.vue?vue&type=template&id=ecf3fae0& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Report/SalesCategoryAmount.vue?vue&type=template&id=ecf3fae0&");
+
+
+/***/ }),
+
+/***/ "./resources/js/Pages/Report/SalesCategoryQty.vue?vue&type=template&id=c08452a4&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/Pages/Report/SalesCategoryQty.vue?vue&type=template&id=c08452a4& ***!
+  \***************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesCategoryQty_vue_vue_type_template_id_c08452a4___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesCategoryQty_vue_vue_type_template_id_c08452a4___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesCategoryQty_vue_vue_type_template_id_c08452a4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./SalesCategoryQty.vue?vue&type=template&id=c08452a4& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Report/SalesCategoryQty.vue?vue&type=template&id=c08452a4&");
+
+
+/***/ }),
+
 /***/ "./resources/js/Pages/Report/SalesReport.vue?vue&type=template&id=4b4067ce&":
 /*!**********************************************************************************!*\
   !*** ./resources/js/Pages/Report/SalesReport.vue?vue&type=template&id=4b4067ce& ***!
@@ -54759,6 +55485,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_CashierButton_vue_vue_type_template_id_0b1f50de___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_CashierButton_vue_vue_type_template_id_0b1f50de___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./CashierButton.vue?vue&type=template&id=0b1f50de& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Report/components/CashierButton.vue?vue&type=template&id=0b1f50de&");
+
+
+/***/ }),
+
+/***/ "./resources/js/Pages/Report/components/ManagementButton.vue?vue&type=template&id=28bf2adc&":
+/*!**************************************************************************************************!*\
+  !*** ./resources/js/Pages/Report/components/ManagementButton.vue?vue&type=template&id=28bf2adc& ***!
+  \**************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ManagementButton_vue_vue_type_template_id_28bf2adc___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ManagementButton_vue_vue_type_template_id_28bf2adc___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ManagementButton_vue_vue_type_template_id_28bf2adc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ManagementButton.vue?vue&type=template&id=28bf2adc& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Report/components/ManagementButton.vue?vue&type=template&id=28bf2adc&");
 
 
 /***/ }),
@@ -67730,6 +68473,10 @@ var map = {
 	"./Report/OnlinePay.vue": "./resources/js/Pages/Report/OnlinePay.vue",
 	"./Report/PaymentTypesReport": "./resources/js/Pages/Report/PaymentTypesReport.vue",
 	"./Report/PaymentTypesReport.vue": "./resources/js/Pages/Report/PaymentTypesReport.vue",
+	"./Report/SalesCategoryAmount": "./resources/js/Pages/Report/SalesCategoryAmount.vue",
+	"./Report/SalesCategoryAmount.vue": "./resources/js/Pages/Report/SalesCategoryAmount.vue",
+	"./Report/SalesCategoryQty": "./resources/js/Pages/Report/SalesCategoryQty.vue",
+	"./Report/SalesCategoryQty.vue": "./resources/js/Pages/Report/SalesCategoryQty.vue",
 	"./Report/SalesReport": "./resources/js/Pages/Report/SalesReport.vue",
 	"./Report/SalesReport.vue": "./resources/js/Pages/Report/SalesReport.vue",
 	"./Report/StaffSales": "./resources/js/Pages/Report/StaffSales.vue",
@@ -67740,6 +68487,8 @@ var map = {
 	"./Report/VoidReport.vue": "./resources/js/Pages/Report/VoidReport.vue",
 	"./Report/components/CashierButton": "./resources/js/Pages/Report/components/CashierButton.vue",
 	"./Report/components/CashierButton.vue": "./resources/js/Pages/Report/components/CashierButton.vue",
+	"./Report/components/ManagementButton": "./resources/js/Pages/Report/components/ManagementButton.vue",
+	"./Report/components/ManagementButton.vue": "./resources/js/Pages/Report/components/ManagementButton.vue",
 	"./Report/components/MenuButton": "./resources/js/Pages/Report/components/MenuButton.vue",
 	"./Report/components/MenuButton.vue": "./resources/js/Pages/Report/components/MenuButton.vue",
 	"./Report/components/SaleButton": "./resources/js/Pages/Report/components/SaleButton.vue",

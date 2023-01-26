@@ -29,6 +29,7 @@ use App\Http\Controllers\PosSys\Order\OrderConfirmController;
 use App\Http\Controllers\PosSys\Ordered\OrderedController;
 use App\Http\Controllers\PosSys\Pin\PinController;
 use App\Http\Controllers\PosSys\Report\CashierReportController;
+use App\Http\Controllers\PosSys\Report\ManagementReportController;
 use App\Http\Controllers\PosSys\Report\SaleReportController;
 use App\Http\Controllers\PosSys\Split\SplitBillController;
 use App\Http\Controllers\PosSys\TableList\TableListController as TableListTableListController;
@@ -178,6 +179,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/pos_online_pay', [CashierReportController::class, 'OnlinePay'])->name('pos_online_pay');
     Route::get('/pos_banking_report', [CashierReportController::class, 'BankingReport'])->name('pos_banking_report');
 
+    // Management Report 
+    Route::get('/pos_sales_category_amount', [ManagementReportController::class, 'SalesCategoryAmount'])->name('pos_sales_category_amount');
+    Route::get('/pos_sales_category_qty', [ManagementReportController::class, 'SalesCategoryQty'])->name('pos_sales_category_qty');
 
     // Cashier 
     Route::get('/cashier_main_page', [CashierMainController::class, 'index'])->name('cashier_main_page');

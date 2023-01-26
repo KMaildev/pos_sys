@@ -62,6 +62,7 @@ class OrderConfirmController extends Controller
                 'menu_name' => $value['menu_name'],
                 'order_info_id' => $order_info_id,
                 'waiter_user_id' => $user_id,
+                'order_date' => date('Y-m-d'),
             ]);
         }
         Helper::updateOrderInfoTotalAmount($order_info_id);

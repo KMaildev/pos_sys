@@ -13,4 +13,9 @@ class MenuList extends Model
     {
         return $this->belongsTo(Category::class, 'categorie_id', 'id');
     }
+
+    public function order_items_table()
+    {
+        return $this->hasMany(OrderItem::class, 'menu_list_id', 'id');
+    }
 }
