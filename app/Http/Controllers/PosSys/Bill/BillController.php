@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\PosSys\Bill;
 
+use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSubmitPayment;
 use App\Models\BillInfo;
 use App\Models\Customer;
 use App\Models\Floor;
 use App\Models\OrderInfo;
+use App\Models\OrderItem;
 use App\Models\PaymentMethod;
 use App\Models\TableList;
 use App\Models\Taxrate;
@@ -87,5 +89,33 @@ class BillController extends Controller
 
         $order_info->check_out_status = 'paid';
         $order_info->update();
+    }
+
+
+
+    public function CombineBill(Request $request)
+    {
+        $id = $request->order_info_id;
+        $combile_order_infos = OrderInfo::where('id', '!=', $id)
+            ->with('table_lists_table')
+            ->get();
+        return response()->json(['combile_order_infos' => $combile_order_infos]);
+    }
+
+    public function ConfirmCombine(Request $request)
+    {
+        $main_order_infos = $request->main_order_infos;
+        $combile_order_info_id = $request->combile_order_info_id;
+
+        $combile_order_infos = OrderItem::where('order_info_id', $combile_order_info_id)->get();
+        foreach ($combile_order_infos as $key => $combile_order_info) {
+            $combile_order_info->order_info_id = $main_order_infos;
+            $combile_order_info->update();
+        }
+
+        Helper::updateOrderInfoTotalAmount($main_order_infos);
+
+        OrderInfo::where('id', $combile_order_info_id)
+            ->delete();
     }
 }

@@ -159,6 +159,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/bill_payment/{id}', [BillController::class, 'BillPayment'])->name('bill_payment');
     Route::post('/pos_submit_payment', [BillController::class, 'submitPayment'])->name('pos_submit_payment');
 
+    Route::get('/pos_combine_bill', [BillController::class, 'CombineBill'])->name('pos_combine_bill');
+    Route::get('/pos_confirm_combine', [BillController::class, 'ConfirmCombine'])->name('pos_confirm_combine');
+
     // Customer Group 
     Route::get('/cashier_customer', [CashierCustomerController::class, 'index'])->name('cashier_customer');
     Route::get('/cashier_customer_create', [CashierCustomerController::class, 'create'])->name('cashier_customer_create');

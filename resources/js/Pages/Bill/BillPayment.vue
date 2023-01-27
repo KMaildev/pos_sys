@@ -7,7 +7,16 @@
                 </div>
             </div>
 
-            <div class="col-md-4 col-lg-4 col-sm-12">
+            <div class="row">
+                <div class="col-md-12 col-lg-12 col-sm-12">
+                    <button class="report_button_sub_cashier" @click="showCombineBill(order_infos.id)">
+                        Add Combine Bill
+                    </button>
+                </div>
+            </div>
+
+            <!-- Form Here  -->
+            <div class="col-md-3 col-lg-3 col-sm-12">
                 <form @submit.prevent="submitPayment">
                     <div id="printArea" style="width: 100% !important">
                         <div class="bill" style="width: 100% !important">
@@ -210,6 +219,46 @@
                     </center>
                 </form>
             </div>
+
+            <!-- showCombineBillModal -->
+            <div class="modal fade" id="showCombineBillModal" data-bs-backdrop="static" data-bs-keyboard="false"
+                tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header" style="background-color: black;">
+                            <h5 class="modal-title" id="exampleModalLabel" style="color: white;">
+                                Choose Order
+                            </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                style="color: white;">
+                                <i class="fas fa-x fa-2xl"></i>
+                            </button>
+                        </div>
+
+                        <div class="modal-body">
+                            <table class="table">
+                                <tbody style="background-color: white;">
+
+                                    <tr v-for="combile_order_info in combile_order_infos" :key="combile_order_info.id">
+                                        <td @click="confirmCombine(combile_order_info.id)">
+                                            <div class="d-flex justify-content-between">
+                                                <span class="py-1">
+                                                    {{ combile_order_info.table_lists_table.table_name }}
+                                                </span>
+
+                                                <span class="py-1">
+                                                    {{ combile_order_info.total_amount }}
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </master>
     </div>
 </template>
@@ -232,6 +281,7 @@ export default {
         'customers',
         'payment_methods',
         'taxrates',
+        'combile_order_infos',
     ],
 
 
@@ -251,6 +301,21 @@ export default {
     },
 
     methods: {
+
+        showCombineBill(order_info_id) {
+            axios.get(`/pos_combine_bill?order_info_id=${order_info_id}`)
+                .then(response => (this.combile_order_infos = response.data.combile_order_infos));
+            $('#showCombineBillModal').modal('show');
+        },
+
+        confirmCombine(combile_order_info_id) {
+            $('#showCombineBillModal').modal('hide');
+            var main_order_infos = this.order_infos.id;
+            var combile_order_info_id = combile_order_info_id;
+            this.$inertia.get(`/pos_confirm_combine?main_order_infos=${main_order_infos}&combile_order_info_id=${combile_order_info_id}`);
+        },
+
+
         totalAmountCalc(order_items) {
             let sum = 0;
             order_items.forEach(function (item) {

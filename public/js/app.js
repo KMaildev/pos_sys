@@ -5347,7 +5347,7 @@ __webpack_require__.r(__webpack_exports__);
     Master: _Layout_Master__WEBPACK_IMPORTED_MODULE_0__["default"],
     BillMenuButton: _components_BillMenuButton_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  props: ['user_name', 'login_time', 'order_infos', 'customers', 'payment_methods', 'taxrates'],
+  props: ['user_name', 'login_time', 'order_infos', 'customers', 'payment_methods', 'taxrates', 'combile_order_infos'],
   data: function data() {
     return {
       form: {
@@ -5363,6 +5363,19 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    showCombineBill: function showCombineBill(order_info_id) {
+      var _this = this;
+      axios.get("/pos_combine_bill?order_info_id=".concat(order_info_id)).then(function (response) {
+        return _this.combile_order_infos = response.data.combile_order_infos;
+      });
+      $('#showCombineBillModal').modal('show');
+    },
+    confirmCombine: function confirmCombine(combile_order_info_id) {
+      $('#showCombineBillModal').modal('hide');
+      var main_order_infos = this.order_infos.id;
+      var combile_order_info_id = combile_order_info_id;
+      this.$inertia.get("/pos_confirm_combine?main_order_infos=".concat(main_order_infos, "&combile_order_info_id=").concat(combile_order_info_id));
+    },
     totalAmountCalc: function totalAmountCalc(order_items) {
       var sum = 0;
       order_items.forEach(function (item) {
@@ -8026,7 +8039,18 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "col-md-12 col-lg-12 col-sm-12"
   }, [_c("BillMenuButton")], 1)]), _vm._v(" "), _c("div", {
-    staticClass: "col-md-4 col-lg-4 col-sm-12"
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-md-12 col-lg-12 col-sm-12"
+  }, [_c("button", {
+    staticClass: "report_button_sub_cashier",
+    on: {
+      click: function click($event) {
+        return _vm.showCombineBill(_vm.order_infos.id);
+      }
+    }
+  }, [_vm._v("\n                    Add Combine Bill\n                ")])])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-3 col-lg-3 col-sm-12"
   }, [_c("form", {
     on: {
       submit: function submit($event) {
@@ -8447,7 +8471,70 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fa fa-print"
-  }), _vm._v("\n                        Payment & Print\n                    ")])])], 1)])])], 1);
+  }), _vm._v("\n                        Payment & Print\n                    ")])])], 1)]), _vm._v(" "), _c("div", {
+    staticClass: "modal fade",
+    attrs: {
+      id: "showCombineBillModal",
+      "data-bs-backdrop": "static",
+      "data-bs-keyboard": "false",
+      tabindex: "-1",
+      "aria-labelledby": "staticBackdropLabel",
+      "aria-hidden": "true"
+    }
+  }, [_c("div", {
+    staticClass: "modal-dialog modal-dialog-centered modal-sm"
+  }, [_c("div", {
+    staticClass: "modal-content"
+  }, [_c("div", {
+    staticClass: "modal-header",
+    staticStyle: {
+      "background-color": "black"
+    }
+  }, [_c("h5", {
+    staticClass: "modal-title",
+    staticStyle: {
+      color: "white"
+    },
+    attrs: {
+      id: "exampleModalLabel"
+    }
+  }, [_vm._v("\n                            Choose Order\n                        ")]), _vm._v(" "), _c("button", {
+    staticClass: "btn-close",
+    staticStyle: {
+      color: "white"
+    },
+    attrs: {
+      type: "button",
+      "data-bs-dismiss": "modal",
+      "aria-label": "Close"
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-x fa-2xl"
+  })])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-body"
+  }, [_c("table", {
+    staticClass: "table"
+  }, [_c("tbody", {
+    staticStyle: {
+      "background-color": "white"
+    }
+  }, _vm._l(_vm.combile_order_infos, function (combile_order_info) {
+    return _c("tr", {
+      key: combile_order_info.id
+    }, [_c("td", {
+      on: {
+        click: function click($event) {
+          return _vm.confirmCombine(combile_order_info.id);
+        }
+      }
+    }, [_c("div", {
+      staticClass: "d-flex justify-content-between"
+    }, [_c("span", {
+      staticClass: "py-1"
+    }, [_vm._v("\n                                                " + _vm._s(combile_order_info.table_lists_table.table_name) + "\n                                            ")]), _vm._v(" "), _c("span", {
+      staticClass: "py-1"
+    }, [_vm._v("\n                                                " + _vm._s(combile_order_info.total_amount) + "\n                                            ")])])])]);
+  }), 0)])])])])])])], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -51677,6 +51764,40 @@ component.options.__file = "resources/js/Pages/Bill/TableList.vue"
 
 /***/ }),
 
+/***/ "./resources/js/Pages/Bill/components/BillButtonProcress.vue":
+/*!*******************************************************************!*\
+  !*** ./resources/js/Pages/Bill/components/BillButtonProcress.vue ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+var render, staticRenderFns
+var script = {}
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__["default"])(
+  script,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+component.options.__file = "resources/js/Pages/Bill/components/BillButtonProcress.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/Pages/Bill/components/BillMenuButton.vue":
 /*!***************************************************************!*\
   !*** ./resources/js/Pages/Bill/components/BillMenuButton.vue ***!
@@ -68404,6 +68525,8 @@ var map = {
 	"./Bill/BillPayment.vue": "./resources/js/Pages/Bill/BillPayment.vue",
 	"./Bill/TableList": "./resources/js/Pages/Bill/TableList.vue",
 	"./Bill/TableList.vue": "./resources/js/Pages/Bill/TableList.vue",
+	"./Bill/components/BillButtonProcress": "./resources/js/Pages/Bill/components/BillButtonProcress.vue",
+	"./Bill/components/BillButtonProcress.vue": "./resources/js/Pages/Bill/components/BillButtonProcress.vue",
 	"./Bill/components/BillMenuButton": "./resources/js/Pages/Bill/components/BillMenuButton.vue",
 	"./Bill/components/BillMenuButton.vue": "./resources/js/Pages/Bill/components/BillMenuButton.vue",
 	"./Cashier/CompletedOrder/Index": "./resources/js/Pages/Cashier/CompletedOrder/Index.vue",
