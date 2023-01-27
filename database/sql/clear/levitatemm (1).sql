@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 28, 2022 at 11:12 AM
+-- Generation Time: Jan 27, 2023 at 05:32 AM
 -- Server version: 10.4.21-MariaDB
--- PHP Version: 7.4.29
+-- PHP Version: 7.4.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `pos_sys`
+-- Database: `levitatemm`
 --
 
 -- --------------------------------------------------------
@@ -46,7 +46,10 @@ CREATE TABLE `bill_infos` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `change_amount` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `waiter_user_id` int(11) DEFAULT NULL,
-  `date_only` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `date_only` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `order_no` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `inv_no` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `first_table_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -79,29 +82,30 @@ CREATE TABLE `categories` (
   `type` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `background_color` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `background_color` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `photo` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `categories`
 --
 
-INSERT INTO `categories` (`id`, `title`, `type`, `created_at`, `updated_at`, `background_color`) VALUES
-(1, 'Signature', 'Beverage', '2022-12-28 09:37:14', '2022-12-28 09:41:20', '#f8e620'),
-(2, 'Shooter', 'Beverage', '2022-12-28 09:37:25', '2022-12-28 09:41:39', '#5df47b'),
-(3, 'Beer Cocktail', 'Beverage', '2022-12-28 09:38:31', '2022-12-28 09:42:11', '#ba6617'),
-(4, 'Molecular', 'Beverage', '2022-12-28 09:38:41', '2022-12-28 09:42:25', '#b329ae'),
-(5, 'Experimental Infuser', 'Beverage', '2022-12-28 09:38:51', '2022-12-28 09:42:39', '#3252d2'),
-(6, 'Group Cocktail', 'Beverage', '2022-12-28 09:48:14', '2022-12-28 09:48:14', '#ddaa1d'),
-(7, 'Classic Cocktail', 'Beverage', '2022-12-28 09:48:30', '2022-12-28 09:48:30', '#cf740c'),
-(8, 'Soup', 'Food', '2022-12-28 09:55:27', '2022-12-28 09:55:27', '#eddb0c'),
-(9, 'Snack', 'Food', '2022-12-28 09:55:47', '2022-12-28 09:55:47', '#ebee2f'),
-(10, 'Dessert', 'Food', '2022-12-28 09:56:01', '2022-12-28 09:56:01', '#ead91f'),
-(11, 'Asian - Fried Rice', 'Food', '2022-12-28 09:56:30', '2022-12-28 09:56:30', '#e9e216'),
-(12, 'Asian - Noodlee', 'Food', '2022-12-28 09:56:54', '2022-12-28 09:56:54', '#f9e824'),
-(13, 'Asian - Curry', 'Food', '2022-12-28 09:57:12', '2022-12-28 09:57:12', '#f4db34'),
-(14, 'European', 'Food', '2022-12-28 10:06:24', '2022-12-28 10:06:24', '#f0df28'),
-(15, 'Salad', 'Food', '2022-12-28 10:06:37', '2022-12-28 10:06:37', '#f9f224');
+INSERT INTO `categories` (`id`, `title`, `type`, `created_at`, `updated_at`, `background_color`, `photo`) VALUES
+(1, 'Signature', 'Beverage', '2022-12-28 09:37:14', '2023-01-25 07:35:06', '#ffb0ff', '2.jpeg'),
+(2, 'Shooter', 'Beverage', '2022-12-28 09:37:25', '2023-01-17 04:13:47', '#ffaed7', NULL),
+(3, 'Beer Cocktail', 'Beverage', '2022-12-28 09:38:31', '2023-01-17 04:13:18', '#d0d0ff', NULL),
+(4, 'Molecular', 'Beverage', '2022-12-28 09:38:41', '2023-01-17 04:14:26', '#8ec7ff', NULL),
+(5, 'Experimental Infuser', 'Beverage', '2022-12-28 09:38:51', '2023-01-17 04:14:53', '#c082ff', NULL),
+(8, 'Soup', 'Food', '2022-12-28 09:55:27', '2023-01-17 04:16:42', '#b7ffb7', NULL),
+(9, 'Snack', 'Food', '2022-12-28 09:55:47', '2023-01-17 04:17:00', '#c1ffff', NULL),
+(10, 'Dessert', 'Food', '2022-12-28 09:56:01', '2023-01-17 04:17:46', '#ff97cb', NULL),
+(11, 'Asian', 'Food', '2022-12-28 09:56:30', '2023-01-17 05:32:55', '#ffc78e', NULL),
+(12, 'Rice & Noodlee', 'Food', '2022-12-28 09:56:54', '2023-01-17 05:33:23', '#d0a2ff', NULL),
+(13, 'Bread and Pizza', 'Food', '2022-12-28 09:57:12', '2023-01-17 09:07:57', '#ffffc8', NULL),
+(14, 'Western', 'Food', '2022-12-28 10:06:24', '2023-01-17 05:34:15', '#ff8c8c', NULL),
+(15, 'Salad', 'Food', '2022-12-28 10:06:37', '2023-01-17 04:21:03', '#ffbbff', NULL),
+(16, 'Stir Veg', 'Food', '2023-01-17 07:48:05', '2023-01-17 07:48:05', '#ffcce6', NULL),
+(17, 'Test', 'Food', '2023-01-25 07:33:54', '2023-01-25 07:52:01', '#d6eeaa', '1.jpg');
 
 -- --------------------------------------------------------
 
@@ -312,6 +316,48 @@ CREATE TABLE `ingredients` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `ingredients`
+--
+
+INSERT INTO `ingredients` (`id`, `name`, `unit`, `user_id`, `created_at`, `updated_at`) VALUES
+(1, 'Fresh Watermelon', 'Pcs', 1, '2022-12-29 03:12:20', '2022-12-29 03:12:20'),
+(2, 'Absolute Raspberry', 'Ml', 1, '2022-12-29 03:12:30', '2022-12-29 03:12:30'),
+(3, 'Passion Fruit Puree', 'Ml', 1, '2022-12-29 03:12:42', '2022-12-29 03:12:42'),
+(4, 'Cheesecake', 'Ml', 1, '2022-12-29 03:12:56', '2022-12-29 03:12:56'),
+(5, 'Lemon Juice', 'Ml', 1, '2022-12-29 03:13:07', '2022-12-29 03:13:07'),
+(6, 'Passion Juice', 'MI', 1, '2022-12-29 03:13:19', '2022-12-29 03:13:19'),
+(7, 'Whisky', 'ml', 1, '2022-12-29 03:14:00', '2022-12-29 03:14:00'),
+(8, 'Bols Banana', 'ml', 1, '2022-12-29 03:14:06', '2022-12-29 03:14:06'),
+(9, 'Vanilla syrup', 'ml', 1, '2022-12-29 03:14:11', '2022-12-29 03:14:11'),
+(10, 'Banana Syrup', 'ml', 1, '2022-12-29 03:14:16', '2022-12-29 03:14:16'),
+(11, 'Pineapple Juice', 'ml', 1, '2022-12-29 03:14:22', '2022-12-29 03:14:22'),
+(12, 'Lime Juice', 'ml', 1, '2022-12-29 03:14:27', '2022-12-29 03:14:27'),
+(13, 'Pineapple Fruit & Brown', 'pcs', 1, '2022-12-29 03:14:34', '2022-12-29 03:15:05');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ingredient_lists`
+--
+
+CREATE TABLE `ingredient_lists` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `ingredient_id` int(11) DEFAULT NULL,
+  `menu_list_id` int(11) DEFAULT NULL,
+  `ingredient_name` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `qty` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `one_kg_price` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `price_kg` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `total_amount` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `user_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `gram_to_kg` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `unit` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `one_kg_per_price` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 -- --------------------------------------------------------
 
 --
@@ -327,13 +373,6 @@ CREATE TABLE `login_logs` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `login_logs`
---
-
-INSERT INTO `login_logs` (`id`, `user_id`, `login_time`, `login_ip`, `device`, `created_at`, `updated_at`) VALUES
-(1, 2, '2022-12-28 16:07:37', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36', '2022-12-28 09:37:37', '2022-12-28 09:37:37');
 
 -- --------------------------------------------------------
 
@@ -364,114 +403,104 @@ CREATE TABLE `menu_lists` (
   `categorie_id` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `menu_name_mm` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `menu_name_mm` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `mm_short_menu` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `photo` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `menu_lists`
 --
 
-INSERT INTO `menu_lists` (`id`, `menu_name`, `price`, `categorie_id`, `created_at`, `updated_at`, `menu_name_mm`) VALUES
-(1, 'Crazy Monkey', '5000', 1, '2022-12-28 09:39:19', '2022-12-28 09:39:19', 'Crazy Monkey'),
-(2, 'Passionate Kiss', '5000', 1, '2022-12-28 09:39:37', '2022-12-28 09:39:37', 'Passionate Kiss'),
-(3, 'Nga Sar', '5000', 1, '2022-12-28 09:40:00', '2022-12-28 09:40:00', 'Nga Sar'),
-(4, 'Lar Khae Talt', '5000', 1, '2022-12-28 09:40:11', '2022-12-28 09:40:11', 'Lar Khae Talt'),
-(5, 'Thading Post', '5000', 1, '2022-12-28 09:40:20', '2022-12-28 09:40:20', 'Thading Post'),
-(6, 'Yolk Sheet', '4000', 1, '2022-12-28 09:40:30', '2022-12-28 09:40:30', 'Yolk Sheet'),
-(7, 'Sponsor', '4000', 1, '2022-12-28 09:40:39', '2022-12-28 09:40:39', 'Sponsor'),
-(8, 'The Heart Breaker', '4000', 2, '2022-12-28 09:43:10', '2022-12-28 09:43:10', 'The Heart Breaker'),
-(9, 'Antidote', '5000', 2, '2022-12-28 09:43:20', '2022-12-28 09:43:20', 'Antidote'),
-(10, 'Let\'s Get LVA', '5000', 2, '2022-12-28 09:43:30', '2022-12-28 09:43:30', 'Let\'s Get LVA'),
-(11, 'Blue Rosy Romance', '5000', 2, '2022-12-28 09:43:39', '2022-12-28 09:43:39', 'Blue Rosy Romance'),
-(12, 'Atomic Bomb', '5000', 2, '2022-12-28 09:43:48', '2022-12-28 09:43:48', 'Atomic Bomb'),
-(13, 'LVA Rainbow Saphire', '5000', 2, '2022-12-28 09:43:58', '2022-12-28 09:43:58', 'LVA Rainbow Saphire'),
-(14, 'Black Velvet', '5000', 3, '2022-12-28 09:44:16', '2022-12-28 09:44:16', 'Black Velvet'),
-(15, 'Lagarita', '5000', 3, '2022-12-28 09:44:25', '2022-12-28 09:44:25', 'Lagarita'),
-(16, 'Rye House Spring', '5000', 3, '2022-12-28 09:44:35', '2022-12-28 09:44:35', 'Rye House Spring'),
-(17, 'Radler Melon', '5000', 3, '2022-12-28 09:44:45', '2022-12-28 09:44:45', 'Radler Melon'),
-(18, 'Pussy Beer', '5000', 3, '2022-12-28 09:44:54', '2022-12-28 09:44:54', 'Pussy Beer'),
-(19, 'Raise Of The Moon', '5000', 4, '2022-12-28 09:45:18', '2022-12-28 09:45:18', 'Raise Of The Moon'),
-(20, 'Jack Rabbit', '5000', 4, '2022-12-28 09:45:28', '2022-12-28 09:45:28', 'Jack Rabbit'),
-(21, 'Spaghetti Mafia', '5000', 4, '2022-12-28 09:45:37', '2022-12-28 09:45:37', 'Spaghetti Mafia'),
-(22, 'Happier Melows', '5000', 4, '2022-12-28 09:45:46', '2022-12-28 09:45:46', 'Happier Melows'),
-(23, 'Molecular Groni', '5000', 4, '2022-12-28 09:45:55', '2022-12-28 09:45:55', 'Molecular Groni'),
-(24, 'Zero Gravity', '5000', 4, '2022-12-28 09:46:09', '2022-12-28 09:46:09', 'Zero Gravity'),
-(25, 'Yin Yang(Lavitation)', '5000', 4, '2022-12-28 09:46:18', '2022-12-28 09:46:18', 'Yin Yang(Lavitation)'),
-(26, 'Live In Luxury', '5000', 4, '2022-12-28 09:46:27', '2022-12-28 09:46:27', 'Live In Luxury'),
-(27, 'Blue Moon', '5000', 4, '2022-12-28 09:46:36', '2022-12-28 09:46:36', 'Blue Moon'),
-(28, 'L-G-B-T', '5000', 4, '2022-12-28 09:46:45', '2022-12-28 09:46:45', 'L-G-B-T'),
-(29, 'Royal After Noon', '5000', 5, '2022-12-28 09:46:56', '2022-12-28 09:46:56', 'Royal After Noon'),
-(30, 'Floral Lemonade', '5000', 5, '2022-12-28 09:47:05', '2022-12-28 09:47:05', 'Floral Lemonade'),
-(31, 'Tornado Time', '5000', 5, '2022-12-28 09:47:16', '2022-12-28 09:47:16', 'Tornado Time'),
-(32, 'Eastern Rocky Levitate', '5000', 5, '2022-12-28 09:47:25', '2022-12-28 09:47:25', 'Eastern Rocky Levitate'),
-(33, 'Blossom Bottle', '5000', 5, '2022-12-28 09:47:33', '2022-12-28 09:47:33', 'Blossom Bottle'),
-(34, 'Sleep With Me', '5000', 6, '2022-12-28 09:48:49', '2022-12-28 09:48:49', 'Sleep With Me'),
-(35, 'Strong Energy', '5000', 6, '2022-12-28 09:49:00', '2022-12-28 09:49:00', 'Strong Energy'),
-(36, 'Angle Flower', '5000', 6, '2022-12-28 09:49:10', '2022-12-28 09:49:10', 'Angle Flower'),
-(37, 'Whisky King', '5000', 6, '2022-12-28 09:49:22', '2022-12-28 09:49:22', 'Whisky King'),
-(38, 'L-V-A 5 Tube', '5000', 6, '2022-12-28 09:49:55', '2022-12-28 09:49:55', 'L-V-A 5 Tube'),
-(39, 'Scorpion', '5000', 7, '2022-12-28 09:50:06', '2022-12-28 09:50:06', 'Scorpion'),
-(40, 'Salty Dog', '5000', 7, '2022-12-28 09:50:16', '2022-12-28 09:50:16', 'Salty Dog'),
-(41, 'PEGU Club', '5000', 7, '2022-12-28 09:50:25', '2022-12-28 09:50:25', 'PEGU Club'),
-(42, 'Planter Punch', '5000', 7, '2022-12-28 09:50:35', '2022-12-28 09:50:35', 'Planter Punch'),
-(43, 'Mudside', '5000', 7, '2022-12-28 09:50:45', '2022-12-28 09:50:45', 'Mudside'),
-(44, 'Chicken Mushroom cream soup', '5000', 8, '2022-12-28 09:57:59', '2022-12-28 09:57:59', 'Chicken Mushroom cream soup'),
-(45, 'Tom Zaab Soup', '5000', 8, '2022-12-28 09:58:09', '2022-12-28 09:58:09', 'Tom Zaab Soup'),
-(46, 'tomato cream soup', '5000', 8, '2022-12-28 09:59:09', '2022-12-28 09:59:09', 'tomato cream soup'),
-(47, 'Lobster Soup', '500', 8, '2022-12-28 09:59:20', '2022-12-28 09:59:20', 'Lobster Soup'),
-(48, 'Deep Fry Chicken wing', '5000', 9, '2022-12-28 09:59:41', '2022-12-28 09:59:41', 'Deep Fry Chicken wing'),
-(49, 'Chicken Satay/Pork Satay', '5000', 9, '2022-12-28 09:59:51', '2022-12-28 09:59:51', 'Chicken Satay/Pork Satay'),
-(50, 'Grill Chicken Butt', '5000', 9, '2022-12-28 10:00:07', '2022-12-28 10:00:07', 'Grill Chicken Butt'),
-(51, 'Chicken Basket with Chilli Mayo', '5000', 9, '2022-12-28 10:00:16', '2022-12-28 10:00:16', 'Chicken Basket with Chilli Mayo'),
-(52, 'Deep Fried Fish', '5000', 9, '2022-12-28 10:00:25', '2022-12-28 10:00:25', 'Deep Fried Fish'),
-(53, 'Corn Creakers with Hot and  Spicy Sauce', '5000', 9, '2022-12-28 10:00:39', '2022-12-28 10:00:39', 'Corn Creakers with Hot and  Spicy Sauce'),
-(54, 'Shrimp Tempura with sweet chilli Sauce', '5000', 9, '2022-12-28 10:00:51', '2022-12-28 10:00:51', 'Shrimp Tempura with sweet chilli Sauce'),
-(55, 'Fish Finger with chilli Mayo sauce', '5000', 9, '2022-12-28 10:01:01', '2022-12-28 10:01:01', 'Fish Finger with chilli Mayo sauce'),
-(56, 'Fried Morning Glories', '5000', 9, '2022-12-28 10:01:10', '2022-12-28 10:01:10', 'Fried Morning Glories'),
-(57, 'Crispy pork Belly with Tomyum Paste', '5000', 9, '2022-12-28 10:01:20', '2022-12-28 10:01:20', 'Crispy pork Belly with Tomyum Paste'),
-(58, 'Sweet and Sour Pork Ball', '5000', 9, '2022-12-28 10:01:30', '2022-12-28 10:01:30', 'Sweet and Sour Pork Ball'),
-(59, 'Deep Fried Meat Ball (Thai)', '5000', 9, '2022-12-28 10:01:40', '2022-12-28 10:01:40', 'Deep Fried Meat Ball (Thai)'),
-(60, 'Fried Potaoes', '5000', 9, '2022-12-28 10:01:49', '2022-12-28 10:01:49', 'Fried Potaoes'),
-(61, 'Hot & Spicy Crispy Eel', '5000', 9, '2022-12-28 10:02:00', '2022-12-28 10:02:00', 'Hot & Spicy Crispy Eel'),
-(62, 'Crapes with Brandy sauce', '5000', 10, '2022-12-28 10:02:15', '2022-12-28 10:02:15', 'Crapes with Brandy sauce'),
-(63, 'Cremebule with Ice Cream', '5000', 10, '2022-12-28 10:02:25', '2022-12-28 10:02:25', 'Cremebule with Ice Cream'),
-(64, 'Deep Fried Ice Cream', '5000', 10, '2022-12-28 10:02:36', '2022-12-28 10:02:36', 'Deep Fried Ice Cream'),
-(65, 'Green Curry Fried Rice', '5000', 11, '2022-12-28 10:02:49', '2022-12-28 10:02:49', 'Green Curry Fried Rice'),
-(66, 'Fried Rice Shrimp Paste', '5000', 11, '2022-12-28 10:03:05', '2022-12-28 10:03:05', 'Fried Rice Shrimp Paste'),
-(67, 'Fried rice prawn in baked pineapple', '5000', 11, '2022-12-28 10:03:14', '2022-12-28 10:03:14', 'Fried rice prawn in baked pineapple'),
-(68, 'Strie Fried Glass Noodle', '5000', 12, '2022-12-28 10:03:24', '2022-12-28 10:03:24', 'Strie Fried Glass Noodle'),
-(69, 'Tofu Stew', '5000', 13, '2022-12-28 10:03:36', '2022-12-28 10:03:36', 'Tofu Stew'),
-(70, 'Fish Red Curry', '5000', 13, '2022-12-28 10:03:47', '2022-12-28 10:03:47', 'Fish Red Curry'),
-(71, 'Fried soft-crab curry powder', '5000', 13, '2022-12-28 10:03:58', '2022-12-28 10:03:58', 'Fried soft-crab curry powder'),
-(72, 'Pad Thai Prawn', '5000', 13, '2022-12-28 10:04:09', '2022-12-28 10:04:09', 'Pad Thai Prawn'),
-(73, 'Massaman Chicken curry', '5000', 13, '2022-12-28 10:04:20', '2022-12-28 10:04:20', 'Massaman Chicken curry'),
-(74, 'Chicken Shawama', '5000', 13, '2022-12-28 10:04:32', '2022-12-28 10:04:32', 'Chicken Shawama'),
-(75, 'Mapo Tofu', '5000', 13, '2022-12-28 10:04:41', '2022-12-28 10:04:41', 'Mapo Tofu'),
-(76, 'Panang Beef', '5000', 13, '2022-12-28 10:04:50', '2022-12-28 10:04:50', 'Panang Beef'),
-(77, 'Chicken Mala', '5000', 13, '2022-12-28 10:05:01', '2022-12-28 10:05:01', 'Chicken Mala'),
-(78, 'Steam Fish with lemon sauce', '5000', 13, '2022-12-28 10:05:10', '2022-12-28 10:05:10', 'Steam Fish with lemon sauce'),
-(79, 'BBQ Pork Ribs', '5000', 14, '2022-12-28 10:06:57', '2022-12-28 10:06:57', 'BBQ Pork Ribs'),
-(80, 'Scotch Egg', '5000', 14, '2022-12-28 10:07:06', '2022-12-28 10:07:06', 'Scotch Egg'),
-(81, 'Fish & Chip', '5000', 14, '2022-12-28 10:07:16', '2022-12-28 10:07:16', 'Fish & Chip'),
-(82, 'Beef Stake', '5000', 14, '2022-12-28 10:07:25', '2022-12-28 10:07:25', 'Beef Stake'),
-(83, 'Mix Grilled', '5000', 14, '2022-12-28 10:07:47', '2022-12-28 10:07:47', 'Mix Grilled'),
-(84, 'Pork Steak with mushroom cream', '5000', 14, '2022-12-28 10:07:56', '2022-12-28 10:07:56', 'Pork Steak with mushroom cream'),
-(85, 'Big  Max Burger', '5000', 14, '2022-12-28 10:08:06', '2022-12-28 10:08:06', 'Big  Max Burger'),
-(86, 'Surf & Turf', '5000', 14, '2022-12-28 10:08:15', '2022-12-28 10:08:15', 'Surf & Turf'),
-(87, 'Chicken Parmagaina', '500', 14, '2022-12-28 10:08:53', '2022-12-28 10:08:53', 'Chicken Parmagaina'),
-(88, 'Chicken Burger', '5000', 14, '2022-12-28 10:09:07', '2022-12-28 10:09:07', 'Chicken Burger'),
-(89, 'Carbonara', '500', 14, '2022-12-28 10:09:16', '2022-12-28 10:09:16', 'Carbonara'),
-(90, 'Banger and Mash', '5000', 14, '2022-12-28 10:09:27', '2022-12-28 10:09:27', 'Banger and Mash'),
-(91, 'Pasta Fettuccine with seafood', '5000', 14, '2022-12-28 10:09:36', '2022-12-28 10:09:36', 'Pasta Fettuccine with seafood'),
-(92, 'Hawaiian Pizza', '5000', 14, '2022-12-28 10:09:46', '2022-12-28 10:09:46', 'Hawaiian Pizza'),
-(93, 'Pork Neck salad(Thai)', '500', 15, '2022-12-28 10:09:56', '2022-12-28 10:09:56', 'Pork Neck salad(Thai)'),
-(94, 'Tea Leaves & Dry Mutton Salad', '5000', 15, '2022-12-28 10:10:06', '2022-12-28 10:10:06', 'Tea Leaves & Dry Mutton Salad'),
-(95, 'Ceasar Salad', '5000', 15, '2022-12-28 10:10:15', '2022-12-28 10:10:15', 'Ceasar Salad'),
-(96, 'Yum Talay ( Seafood salad)', '5000', 15, '2022-12-28 10:10:24', '2022-12-28 10:10:24', 'Yum Talay ( Seafood salad)'),
-(97, 'Prawn cocktail', '5000', 15, '2022-12-28 10:10:34', '2022-12-28 10:10:34', 'Prawn cocktail'),
-(98, 'Caprese Salad', '5000', 15, '2022-12-28 10:10:45', '2022-12-28 10:10:45', 'Caprese Salad'),
-(99, 'Raw Prawn with garlic Lemon', '5000', 15, '2022-12-28 10:10:55', '2022-12-28 10:10:55', 'Raw Prawn with garlic Lemon'),
-(100, 'Pork Intesting Salad (Thai)', '5000', 15, '2022-12-28 10:11:04', '2022-12-28 10:11:04', 'Pork Intesting Salad (Thai)');
+INSERT INTO `menu_lists` (`id`, `menu_name`, `price`, `categorie_id`, `created_at`, `updated_at`, `menu_name_mm`, `mm_short_menu`, `photo`) VALUES
+(9, 'Antidote', '5000', 2, '2022-12-28 09:43:20', '2023-01-17 08:15:05', NULL, NULL, NULL),
+(10, 'Let\'s Get LVA', '5000', 2, '2022-12-28 09:43:30', '2023-01-17 08:15:18', NULL, NULL, NULL),
+(11, 'Blue Rosy Romance', '5000', 2, '2022-12-28 09:43:39', '2023-01-17 08:15:29', NULL, NULL, NULL),
+(12, 'Atomic Bomb', '5000', 2, '2022-12-28 09:43:48', '2023-01-17 08:16:13', NULL, NULL, NULL),
+(13, 'LVA Rainbow Saphire', '15000', 2, '2022-12-28 09:43:58', '2023-01-17 08:16:02', NULL, NULL, NULL),
+(14, 'Black Velvet', '8000', 3, '2022-12-28 09:44:16', '2023-01-17 08:17:57', NULL, NULL, NULL),
+(17, 'Radler Melon', '8000', 3, '2022-12-28 09:44:45', '2023-01-17 08:18:08', NULL, NULL, NULL),
+(18, 'Pussy Beer', '8000', 3, '2022-12-28 09:44:54', '2023-01-17 08:18:18', NULL, NULL, NULL),
+(19, 'Raise Of The Moon', '10800', 4, '2022-12-28 09:45:18', '2023-01-17 08:32:34', NULL, NULL, NULL),
+(20, 'Jack Rabbit', '10800', 4, '2022-12-28 09:45:28', '2023-01-17 08:32:51', NULL, NULL, NULL),
+(21, 'Spaghetti Mafia', '10800', 4, '2022-12-28 09:45:37', '2023-01-17 08:22:34', NULL, NULL, NULL),
+(22, 'Happier Melows', '10800', 4, '2022-12-28 09:45:46', '2023-01-17 09:01:18', NULL, NULL, NULL),
+(26, 'Live In Luxury', '10800', 4, '2022-12-28 09:46:27', '2023-01-17 09:01:30', NULL, NULL, NULL),
+(28, 'L-G-B-T', '10800', 4, '2022-12-28 09:46:45', '2023-01-17 09:01:49', NULL, NULL, NULL),
+(29, 'Royal After Noon', '13000', 5, '2022-12-28 09:46:56', '2023-01-17 09:06:12', NULL, NULL, NULL),
+(30, 'The Prince Consort', '13000', 5, '2022-12-28 09:47:05', '2023-01-17 09:06:53', NULL, NULL, NULL),
+(32, 'Eastern Rocky Levitate', '13000', 5, '2022-12-28 09:47:25', '2023-01-17 09:07:14', NULL, NULL, NULL),
+(33, 'Blossom Bottle', '130000', 5, '2022-12-28 09:47:33', '2023-01-17 09:07:32', NULL, NULL, NULL),
+(44, 'Chicken Mushroom cream soup', '6500', 8, '2022-12-28 09:57:59', '2023-01-17 04:38:02', 'ဥရောပစတိုင်ကြက်သားနှင့်မှိုဟင်းရည်', NULL, NULL),
+(45, 'Tom Zaab Soup', '9500', 8, '2022-12-28 09:58:09', '2023-01-17 04:38:27', 'ထိုင်းစတိုင်ဝက်နံရိုးနုချဉ်စပ်ဟင်းရည်', NULL, NULL),
+(46, 'Pea & Ham soup', '7500', 8, '2022-12-28 09:59:09', '2023-01-17 04:40:45', 'ဥရောပစတိုင် ပဲနှင့်ဝက်ပေါင်ခြောက်ဟင်းရည်', NULL, NULL),
+(47, 'Lobster Soup', '7500', 8, '2022-12-28 09:59:20', '2023-01-17 04:36:20', 'ဥရောပစတိုင်ဝက်နံရိုးနုချဉ်စပ်ဟင်းရည်', NULL, NULL),
+(48, 'Deep Fry Chicken wing', '7500', 9, '2022-12-28 09:59:41', '2023-01-17 04:44:48', 'ကြက်တောင်ပံအကြွပ်ကြော်', NULL, NULL),
+(49, 'Chicken Satay/Pork Satay', '6500', 9, '2022-12-28 09:59:51', '2023-01-17 04:47:18', 'ကြက်ဝက်ဆာတေး', NULL, NULL),
+(50, 'Grill Chicken Butt', '6500', 9, '2022-12-28 10:00:07', '2023-01-17 04:47:56', 'ကြက်ဆီဘူးကင်', NULL, NULL),
+(52, 'Deep Fried Eel', '8500', 9, '2022-12-28 10:00:25', '2023-01-17 04:49:46', 'ငါးရှည့်ခြောက်စပ်', NULL, NULL),
+(53, 'Corn Creakers with Hot and  Spicy Sauce', '5000', 9, '2022-12-28 10:00:39', '2023-01-17 04:50:35', 'ပြောင်းဖူးကြော်နှင့် မန်ကျည်းသီးဆော့စ်', NULL, NULL),
+(62, 'Crapes with Brandy sauce', '7000', 10, '2022-12-28 10:02:15', '2023-01-17 05:13:29', 'ဘရန်ဒီခေါက်မုန့်', NULL, NULL),
+(63, 'Cream brulee', '8500', 10, '2022-12-28 10:02:25', '2023-01-17 05:15:06', 'ပူတင်း', NULL, NULL),
+(64, 'Deep Fried Ice Cream', '6500', 10, '2022-12-28 10:02:36', '2023-01-17 05:07:38', 'ရေခဲမုန့်ကြော်', NULL, NULL),
+(101, 'Tom Yum Soup', '9500', 8, '2023-01-17 04:41:45', '2023-01-17 04:41:45', 'တုံယမ်းဟင်းရည်', NULL, NULL),
+(102, 'Scotch Egg', '8500', 9, '2023-01-17 04:57:12', '2023-01-17 04:57:12', 'စကောတလန် စတိုင်အသားလုံးကြော်', NULL, NULL),
+(103, 'Deep fried loach with sauces', '6500', 9, '2023-01-17 04:58:02', '2023-01-17 04:58:02', 'ငါးသလဲထိုး အကြွပ်ကြော်', NULL, NULL),
+(104, 'Tea leaf salad with dry mutton', '9500', 9, '2023-01-17 04:58:45', '2023-01-17 04:58:45', 'ဆိတ်လဖက်ထောင်း', NULL, NULL),
+(105, 'Prawn Tempura', '9500', 9, '2023-01-17 05:00:40', '2023-01-17 05:00:40', 'ပုစွန်ပေါင်မုန့်ကပ်ကြော်', NULL, NULL),
+(106, 'Deep fried fish finger', '8500', 9, '2023-01-17 05:01:27', '2023-01-17 05:01:27', 'ငါးအသားချောင်းကြော်', NULL, NULL),
+(107, 'Crispy prawn spring roll', '10500', 9, '2023-01-17 05:02:11', '2023-01-17 05:02:11', 'ပုစွန်ကော်ပြန့်လိပ်အကြွပ်ကြော်', NULL, NULL),
+(108, 'Prawn cake with plum sauce', '9500', 9, '2023-01-17 05:03:12', '2023-01-17 05:03:12', 'ထိုင်းပုစွန်ကြော်နှင့် ဇီးသီးဆော့စ်', NULL, NULL),
+(109, 'Deep fried pork ball Tai style', '8000', 9, '2023-01-17 05:03:53', '2023-01-17 05:03:53', 'ထိုင်းစတိုင်ဝက်သားလုံးကြော်', NULL, NULL),
+(110, 'Varity of chip with 4 dipping sauce', '7500', 9, '2023-01-17 05:04:53', '2023-01-17 05:04:53', 'အားလူးကြော်အစုံနှင့် ဆော့စ် (၄) မျိုး', NULL, NULL),
+(111, 'Banga & Mash', '10500', 9, '2023-01-17 05:05:31', '2023-01-17 05:05:31', 'ဥရောပစတိုင် ဝက်အူချောင်းကြော်နှင့် အာလူးထောင်း', NULL, NULL),
+(112, 'Brownnie', '9500', 10, '2023-01-17 05:16:41', '2023-01-17 05:16:41', 'ဘရောင်နီ', NULL, NULL),
+(113, 'Soft bone pork rib stew', '9500', 11, '2023-01-17 05:36:18', '2023-01-17 05:36:18', 'နံရိုးပေါင်းနှင့် စပါယ်ရှယ်ဆော့စ်', NULL, NULL),
+(114, 'Deep fried fish with red curry sauce', '18000', 11, '2023-01-17 05:38:29', '2023-01-17 05:38:29', 'ငါးအကြွပ်ကြော်နှင့် ယိုးဒယားအနီရောင်ဟင်းအနှစ်', NULL, NULL),
+(115, 'Deep fried soft crab with curry sauce', '8500', 11, '2023-01-17 05:43:15', '2023-01-17 05:43:15', 'ဂဏန်းပျော့်အကြွပ်ကြော်ထိုင်းမဆလာဟင်း', NULL, NULL),
+(116, 'Crispy prok bell with spicy sauce', '8000', 11, '2023-01-17 05:44:15', '2023-01-17 05:44:15', 'ဝက်ခေါက်အကြွပ်ကြော်နှင့် စပါယ်ရှယ်ချဉ်စပ်ဆော့စ်', NULL, NULL),
+(117, 'Mapo tofu', '5500', 11, '2023-01-17 06:24:49', '2023-01-17 06:24:49', 'မာပိုတို့ဟူး', NULL, NULL),
+(118, 'Kung pao chicken', '8000', 11, '2023-01-17 06:25:22', '2023-01-17 06:25:22', 'စီချွမ်စတိုင်ကြက်ကုန်းဘောင်', NULL, NULL),
+(119, 'Sweet & sour pork ball', '8500', 11, '2023-01-17 06:25:58', '2023-01-17 06:25:58', 'ဝက်သားလုံးချိုချဉ်', NULL, NULL),
+(120, 'Mala chicken', '7500', 11, '2023-01-17 06:26:35', '2023-01-17 06:26:35', 'စီချွမ်စတိုင် မာလာကြက်သား', NULL, NULL),
+(121, 'Green curyy fried rice', '7500', 12, '2023-01-17 06:30:12', '2023-01-17 06:30:12', 'ထိုင်းစတိုင် အစိမ်းရောင်ဟင်းနှင့်ထမင်းကြော်', NULL, NULL),
+(122, 'Pineapple fried rice', '8500', 12, '2023-01-17 06:30:48', '2023-01-17 06:30:48', 'နာနတ်သီးထမင်းကြော်', NULL, NULL),
+(123, 'Pad thai', '7500', 12, '2023-01-17 06:31:18', '2023-01-17 06:31:18', 'ယိုးဒယားဖက်ထိုင်းကြော်', NULL, NULL),
+(124, 'Big Mac', '15000', 13, '2023-01-17 06:34:21', '2023-01-17 06:34:21', 'အမဲသားနှစ်ထပ်ဘာဂါ', NULL, NULL),
+(125, 'Chicken burger', '9000', 13, '2023-01-17 06:34:48', '2023-01-17 06:34:48', 'ကြက်သားဘာဂါ', NULL, NULL),
+(126, 'Calzone pizza', '11000', 13, '2023-01-17 06:35:21', '2023-01-19 15:16:45', 'Calzone ပီဇာ', 'Calzone ပဇ', NULL),
+(127, 'Hawaiian pizza', '12000', 13, '2023-01-17 06:35:42', '2023-01-17 06:35:42', 'Hawaiian ပီဇာ', NULL, NULL),
+(128, 'BBQ pork rib', '18000', 14, '2023-01-17 06:38:32', '2023-01-17 06:38:32', 'ဝက်နံရိုးကင်', NULL, NULL),
+(129, 'Fish & chips', '9500', 14, '2023-01-17 06:39:08', '2023-01-17 06:39:08', 'ငါးအသားပြားနှင့် အာလူးချောင်းကြော်', NULL, NULL),
+(130, 'Beef steak with 3 choices sauce', '18000', 14, '2023-01-17 06:39:47', '2023-01-17 06:39:47', 'အမဲသားကင်နှင့် ဆော့စ် (၃) မျိုး', NULL, NULL),
+(131, 'Mix grill', '27000', 14, '2023-01-17 06:40:20', '2023-01-17 06:40:20', 'ဥရောပစတိုင်အသားစုံကင်', NULL, NULL),
+(132, 'Pork steak with season veg & sauce', '15000', 14, '2023-01-17 06:41:13', '2023-01-17 06:41:13', 'ဥရောပစတိုင်ဝက်သားကင်', NULL, NULL),
+(133, 'Surf & turf', '15000', 14, '2023-01-17 06:42:33', '2023-01-17 06:42:33', 'ပုစွန်အမဲသား အာလူးကိတ်', NULL, NULL),
+(134, 'Chicken parmigiana', '15000', 14, '2023-01-17 06:43:08', '2023-01-17 06:43:08', 'ကြက်သားပြားပါမဆန်ချိစ် အကြော်', NULL, NULL),
+(135, 'Chicken Shawarma', '7500', 14, '2023-01-17 06:43:39', '2023-01-17 06:43:39', 'ကြက်သား Shawarma', NULL, NULL),
+(136, 'Japanese style chicken', '8500', 15, '2023-01-17 07:41:28', '2023-01-17 07:41:28', 'ဂျပန်စတိုင်ကြက်သားသုပ်', NULL, NULL),
+(137, 'Grill pork neck salad', '9500', 15, '2023-01-17 07:42:10', '2023-01-17 07:42:10', 'ဝက်ဂုတ်သားကင်သုပ်', NULL, NULL),
+(138, 'Yam talay seafood', '9500', 15, '2023-01-17 07:42:44', '2023-01-19 15:17:17', 'ထိုင်းစတိုင်ပင်လယ်စာသုပ်', 'ထငစတငပငလယစသပ', NULL),
+(139, 'laab muu', '6500', 15, '2023-01-17 07:43:18', '2023-01-17 07:43:18', 'ထိုင်းစတိုင် ဝက်သားစင်းကောသုပ်', NULL, NULL),
+(140, 'Prawn cocktail', '10500', 15, '2023-01-17 07:43:56', '2023-01-17 07:43:56', 'ပုစွန်ကော့တေး', NULL, NULL),
+(141, 'Tai style fruit salad', '5000', 15, '2023-01-17 07:44:41', '2023-01-17 07:44:41', 'ထိုင်းစတိုင်သစ်သီးစုံသုပ်', NULL, NULL),
+(142, 'Papaya salad', '6500', 15, '2023-01-17 07:45:23', '2023-01-17 07:45:23', 'ယိုးဒယားသင်္ဘောသီးထောင်း', NULL, NULL),
+(143, 'Caprese salad', '8500', 15, '2023-01-17 07:46:07', '2023-01-17 07:46:07', 'ခရမ်းချဉ်သီးနှင့် chees salad', NULL, NULL),
+(144, 'Raw prawn salad', '9000', 15, '2023-01-17 07:46:56', '2023-01-17 07:46:56', 'ပုစွန်အစိမ်းသုပ်', NULL, NULL),
+(145, 'Pork intestine salad', '8500', 15, '2023-01-17 07:47:28', '2023-01-19 15:16:28', 'ဝက်အူအစုံသုပ်', 'ဝကအအစသပ', NULL),
+(146, 'Stir fried beef with asian demiglace', '8500', 16, '2023-01-17 07:49:41', '2023-01-17 07:49:41', 'ဥရောပအာရှအရောအမဲသားပန်းပွင့်စိမ်းကြော်', NULL, NULL),
+(147, 'Stir fried pork liver with chinese chive', '8000', 16, '2023-01-17 07:50:26', '2023-01-17 07:50:26', 'ဝက်အသည်းနှင့်ကုဆိုင်ကြော်', NULL, NULL),
+(148, 'Stir fried asparagus with gingko nuts', '11000', 16, '2023-01-17 07:51:32', '2023-01-17 07:51:32', 'ကညွတ်ပုစွန်နှင့် နှစ်တစ်ရာသီးကြော်', NULL, NULL),
+(149, 'Tofu stew', '6000', 16, '2023-01-17 07:52:19', '2023-01-17 07:52:19', 'တို့ဟူးစတူး', NULL, NULL),
+(150, 'Stir fried morning glory with mushroom', '4500', 16, '2023-01-17 07:52:53', '2023-01-17 07:52:53', 'မှိုကန်စွန်းကြော်', NULL, NULL),
+(151, 'Crazy Monkey', '9000', 1, '2023-01-17 08:13:05', '2023-01-17 08:13:05', NULL, NULL, NULL),
+(152, 'Passionate Kiss', '9000', 1, '2023-01-17 08:13:21', '2023-01-17 08:13:21', NULL, NULL, NULL),
+(153, 'LVA Sangaria', '9000', 1, '2023-01-17 08:13:34', '2023-01-17 08:13:34', NULL, NULL, NULL),
+(154, 'Mad Monday', '9000', 1, '2023-01-17 08:13:54', '2023-01-17 08:13:54', NULL, NULL, NULL),
+(155, 'Yin Yang (Lvaitation)', '9000', 1, '2023-01-17 08:14:12', '2023-01-17 08:14:12', NULL, NULL, NULL),
+(156, 'Grill Chicken Butt', '2000', 1, '2023-01-19 15:16:05', '2023-01-19 15:16:05', 'ကြက်ဆီဘူးကင်', 'ကကဆဘကင', NULL),
+(157, 'Testing', '5000', 1, '2023-01-25 07:23:48', '2023-01-25 07:23:48', 'Testing', 'Testing', '1.jpg'),
+(158, 'Test', '4000', 2, '2023-01-25 07:24:23', '2023-01-25 07:26:08', 'Test', 'Test', '1.jpg');
 
 -- --------------------------------------------------------
 
@@ -543,7 +572,26 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (61, '2022_12_27_102957_create_fixed_damange_files_table', 45),
 (62, '2022_12_27_104147_add_damage_date_to_fixed_damages_table', 46),
 (63, '2022_12_27_121553_create_variable_damages_table', 47),
-(64, '2022_12_27_121635_create_variable_damange_files_table', 47);
+(64, '2022_12_27_121635_create_variable_damange_files_table', 47),
+(65, '2022_12_29_003926_add_menu_name_to_order_items_table', 48),
+(66, '2022_12_29_100706_create_ingredient_lists_table', 49),
+(67, '2022_12_29_103319_add_gram_to_kg_to_ingredient_lists_table', 50),
+(68, '2022_12_29_103714_add_one_kg_per_price_to_ingredient_lists_table', 51),
+(69, '2023_01_08_115522_add_order_minutes_to_order_infos_table', 52),
+(70, '2023_01_08_115724_add_order_user_name_to_order_infos_table', 52),
+(71, '2023_01_19_214052_add_mm_short_title_to_menu_lists_table', 52),
+(72, '2023_01_25_134122_add_photo_to_menu_lists_table', 53),
+(73, '2023_01_25_140055_add_photo_to_categories_table', 54),
+(75, '2023_01_25_150853_add_split_qty_to_order_items_table', 55),
+(76, '2023_01_26_001411_create_void_items_table', 56),
+(77, '2023_01_26_173136_add_order_no_to_bill_infos_table', 57),
+(79, '2023_01_26_175846_create_table_transfer_histories_table', 58),
+(80, '2023_01_26_180557_add_first_table_to_order_infos_table', 59),
+(81, '2023_01_26_181125_add_first_table_to_bill_infos_table', 60),
+(82, '2023_01_26_214511_add_table_list_id_to_void_items_table', 61),
+(83, '2023_01_26_224737_add_account_type_to_payment_methods_table', 62),
+(84, '2023_01_27_004253_add_order_date_to_order_items_table', 63),
+(85, '2023_01_27_104530_create_notice_boards_table', 64);
 
 -- --------------------------------------------------------
 
@@ -576,7 +624,21 @@ CREATE TABLE `model_has_roles` (
 INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 (1, 'App\\Models\\User', 1),
 (1, 'App\\Models\\User', 2),
+(1, 'App\\Models\\User', 4),
 (2, 'App\\Models\\User', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notice_boards`
+--
+
+CREATE TABLE `notice_boards` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -607,7 +669,10 @@ CREATE TABLE `order_infos` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `waiter_user_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `guest_no` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `change_amount` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `change_amount` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `order_minutes` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `order_user_name` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `first_table_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -630,7 +695,10 @@ CREATE TABLE `order_items` (
   `preparation_date` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `preparation_user_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `difference_time` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `manager_remark` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `manager_remark` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `menu_name` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `split_qty` int(11) NOT NULL DEFAULT 0,
+  `order_date` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -658,16 +726,24 @@ CREATE TABLE `payment_methods` (
   `user_id` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `status` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `status` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `account_type` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `payment_methods`
 --
 
-INSERT INTO `payment_methods` (`id`, `name`, `remark`, `user_id`, `created_at`, `updated_at`, `status`) VALUES
-(1, 'Cash Down', 'Cash Down', 1, '2022-12-22 04:53:26', '2022-12-22 04:54:47', 'Active'),
-(2, 'KPay', 'KPay', 1, '2022-12-22 04:53:36', '2022-12-22 04:53:36', 'Active');
+INSERT INTO `payment_methods` (`id`, `name`, `remark`, `user_id`, `created_at`, `updated_at`, `status`, `account_type`) VALUES
+(1, 'Cash Down', 'Cash Down', 1, '2022-12-22 04:53:26', '2023-01-26 16:23:54', 'Active', 'Cash'),
+(2, 'KPay', 'KPay', 1, '2022-12-22 04:53:36', '2023-01-26 16:24:09', 'Active', 'OnlinePayAccount'),
+(3, 'AYA banking', 'Banking', 1, '2023-01-17 04:22:11', '2023-01-26 16:24:17', 'Active', 'Banking'),
+(4, 'KBZ banking', 'Banking', 1, '2023-01-17 04:22:44', '2023-01-26 16:24:26', 'Active', 'Banking'),
+(5, 'CB banking', 'Banking', 1, '2023-01-17 04:23:11', '2023-01-26 16:24:57', 'Active', 'Banking'),
+(6, 'VISA', 'Card', 1, '2023-01-17 04:23:46', '2023-01-26 16:24:35', 'Active', 'Banking'),
+(7, 'Master', 'Card', 1, '2023-01-17 04:23:57', '2023-01-26 16:24:43', 'Active', 'Banking'),
+(8, 'Aya - Pay', 'Aya - Pay', 1, '2023-01-26 16:25:22', '2023-01-26 16:25:22', 'Active', 'OnlinePayAccount'),
+(9, 'CB - Pay', 'CB - Pay', 1, '2023-01-26 16:25:32', '2023-01-26 16:25:32', 'Active', 'OnlinePayAccount');
 
 -- --------------------------------------------------------
 
@@ -902,8 +978,22 @@ INSERT INTO `table_lists` (`id`, `table_name`, `floor_id`, `created_at`, `update
 (87, 'S27', 3, '2022-10-12 07:34:30', '2022-10-12 07:34:30'),
 (88, 'S28', 3, '2022-10-12 07:34:30', '2022-10-12 07:34:30'),
 (89, 'S29', 3, '2022-10-12 07:34:30', '2022-10-12 07:34:30'),
-(90, 'S30', 3, '2022-10-12 07:34:30', '2022-10-12 07:34:30'),
-(91, '1', 1, '2022-11-21 18:24:39', '2022-11-21 18:24:39');
+(90, 'S30', 3, '2022-10-12 07:34:30', '2022-10-12 07:34:30');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `table_transfer_histories`
+--
+
+CREATE TABLE `table_transfer_histories` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `order_info_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `first_table` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `main_table` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -926,8 +1016,9 @@ CREATE TABLE `taxrates` (
 --
 
 INSERT INTO `taxrates` (`id`, `name`, `taxrate`, `status`, `user_id`, `created_at`, `updated_at`) VALUES
-(1, '21%', '21', 'Active', 1, '2022-12-22 03:47:54', '2022-12-22 04:41:02'),
-(2, 'TTX', '20', 'Active', 1, '2022-12-22 03:48:16', '2022-12-22 03:48:16');
+(1, '3%', '3', 'Active', 1, '2022-12-22 03:47:54', '2022-12-22 04:41:02'),
+(2, '6%', '6', 'Active', 1, '2022-12-22 03:48:16', '2022-12-22 03:48:16'),
+(3, '10%', '10', 'Active', 1, '2023-01-17 04:25:09', '2023-01-17 04:25:09');
 
 -- --------------------------------------------------------
 
@@ -994,9 +1085,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `employee_id`, `phone`, `nrc_number`, `gender`, `address`, `department_id`, `is_banned`, `last_login_at`, `last_login_ip`, `agent`, `nrc_front`, `nrc_back`, `members_list_file`, `other_file`, `leave_date`, `leave_remark`, `leave_by`, `contact_person`, `emergency_contact`, `passport_photo`, `join_date`, `employment_type`, `remember_token`, `created_at`, `updated_at`, `pin_code`) VALUES
-(1, 'Admin', 'admin@gmail.com', NULL, '$2y$10$H4Dl/7aFMsm1xck7mqa.PehZTR5oWppsGZ09pO7VHsE7euBe.sCQi', '00001', '09123123122', '1/agc(N)991223', 'male', 'YGN', '1', 1, '2022-12-28 16:04:38', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36', NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Probation', NULL, '2022-11-14 01:38:14', '2022-12-28 09:34:38', NULL),
-(2, 'Waiter1', 'waiter@gmail.com', NULL, '$2y$10$YlWrTGwZXqnf1/D4ifbXu.xDm5kdkbG4uNrbfqll.RIb3xHWUwKzG', '00002', '0912312313', '1/abc(n)009221', 'male', 'YGN', '4', 1, '28/12/2022 16:07:37 pm', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, 'Probation', 'N23QkTgnpTcsGbWExAxq2TDSeHamHWqZ27ClJT783aEhW668pCm9TxFTYJAb', '2022-11-14 02:14:39', '2022-12-28 09:37:37', 123456),
-(3, 'Cashier1', 'cashier@gmail.com', NULL, '$2y$10$KL/3ZNF1BfbUI4ElchzP9uWxwfagZcAxiq9ISNMas439.IvR8ewrK', '00003', '09123123123', '1/abc(N)009221', 'male', 'YGN', '5', 1, '16/12/2022 13:09:00 pm', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, 'Probation', NULL, '2022-11-14 03:17:19', '2022-12-16 06:39:00', 123457);
+(1, 'Admin', 'admin@gmail.com', NULL, '$2y$10$H4Dl/7aFMsm1xck7mqa.PehZTR5oWppsGZ09pO7VHsE7euBe.sCQi', '00001', '09123123122', '1/agc(N)991223', 'male', 'YGN', '1', 1, '2023-01-27 10:53:55', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Probation', NULL, '2023-01-27 00:37:41', '2023-01-27 04:23:55', NULL),
+(2, 'Waiter1', 'waiter@gmail.com', NULL, '$2y$10$YlWrTGwZXqnf1/D4ifbXu.xDm5kdkbG4uNrbfqll.RIb3xHWUwKzG', '00002', '0912312313', '1/abc(n)009221', 'male', 'YGN', '4', 1, '27/01/2023 07:49:16 am', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, 'Probation', 'imJFKcE8K8tUk7iVy3G3ZHzKVJ5swK5K2Yv7c6ZUaaxdVgRvDm2DYlwwbdLY', '2023-01-26 23:30:19', '2023-01-27 01:19:16', 123456),
+(3, 'Cashier1', 'cashier@gmail.com', NULL, '$2y$10$KL/3ZNF1BfbUI4ElchzP9uWxwfagZcAxiq9ISNMas439.IvR8ewrK', '00003', '09123123123', '1/abc(N)009221', 'male', 'YGN', '5', 1, '14/01/2023 14:16:12 pm', '61.4.73.112', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:108.0) Gecko/20100101 Firefox/108.0', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, 'Probation', NULL, '2022-11-14 03:17:19', '2023-01-14 07:16:12', 123457),
+(4, 'Waiter2', 'waiter2@gmail.com', NULL, '$2y$10$37k4qpRw/3UTDJcuOWYz4O0Y0VzSGBmWPzQeqh4dqttW89g7zbNGW', '00004', '0912312312', '1/abc(N)009221', 'male', 'YGN', '4', 1, '26/01/2023 20:22:57 pm', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, '', '2023-01-26 08:21 PM', 'Probation', NULL, '2023-01-26 13:52:34', '2023-01-26 13:52:57', 123123);
 
 -- --------------------------------------------------------
 
@@ -1108,6 +1200,36 @@ CREATE TABLE `variable_purchase_items` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `void_items`
+--
+
+CREATE TABLE `void_items` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `order_info_id` int(11) DEFAULT NULL,
+  `menu_list_id` int(11) DEFAULT NULL,
+  `qty` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `price` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `remark` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `waiter_user_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `preparation_status` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `preparation_date` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `preparation_user_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `difference_time` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `manager_remark` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `menu_name` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `split_qty` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `reason` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `void_by` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `void_date` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `void_time` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `table_list_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 --
 -- Indexes for dumped tables
 --
@@ -1198,6 +1320,12 @@ ALTER TABLE `ingredients`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `ingredient_lists`
+--
+ALTER TABLE `ingredient_lists`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `login_logs`
 --
 ALTER TABLE `login_logs`
@@ -1234,6 +1362,12 @@ ALTER TABLE `model_has_permissions`
 ALTER TABLE `model_has_roles`
   ADD PRIMARY KEY (`role_id`,`model_id`,`model_type`),
   ADD KEY `model_has_roles_model_id_model_type_index` (`model_id`,`model_type`);
+
+--
+-- Indexes for table `notice_boards`
+--
+ALTER TABLE `notice_boards`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `order_infos`
@@ -1307,6 +1441,12 @@ ALTER TABLE `table_lists`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `table_transfer_histories`
+--
+ALTER TABLE `table_transfer_histories`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `taxrates`
 --
 ALTER TABLE `taxrates`
@@ -1363,6 +1503,12 @@ ALTER TABLE `variable_purchase_items`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `void_items`
+--
+ALTER TABLE `void_items`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -1382,7 +1528,7 @@ ALTER TABLE `cart_temps`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `customers`
@@ -1442,19 +1588,25 @@ ALTER TABLE `fixed_purchase_items`
 -- AUTO_INCREMENT for table `floors`
 --
 ALTER TABLE `floors`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `ingredients`
 --
 ALTER TABLE `ingredients`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT for table `ingredient_lists`
+--
+ALTER TABLE `ingredient_lists`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `login_logs`
 --
 ALTER TABLE `login_logs`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `members_lists`
@@ -1466,13 +1618,19 @@ ALTER TABLE `members_lists`
 -- AUTO_INCREMENT for table `menu_lists`
 --
 ALTER TABLE `menu_lists`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=159;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+
+--
+-- AUTO_INCREMENT for table `notice_boards`
+--
+ALTER TABLE `notice_boards`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `order_infos`
@@ -1490,7 +1648,7 @@ ALTER TABLE `order_items`
 -- AUTO_INCREMENT for table `payment_methods`
 --
 ALTER TABLE `payment_methods`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `permissions`
@@ -1529,10 +1687,16 @@ ALTER TABLE `table_lists`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
 
 --
+-- AUTO_INCREMENT for table `table_transfer_histories`
+--
+ALTER TABLE `table_transfer_histories`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `taxrates`
 --
 ALTER TABLE `taxrates`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `temp_fixed_purchase_items`
@@ -1544,7 +1708,7 @@ ALTER TABLE `temp_fixed_purchase_items`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `variable_assets`
@@ -1580,6 +1744,12 @@ ALTER TABLE `variable_purchase_files`
 -- AUTO_INCREMENT for table `variable_purchase_items`
 --
 ALTER TABLE `variable_purchase_items`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `void_items`
+--
+ALTER TABLE `void_items`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --

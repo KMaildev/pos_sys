@@ -5,6 +5,7 @@ namespace App\Http\Controllers\PosSys\Pin;
 use App\Http\Controllers\Controller;
 use App\Models\Department;
 use App\Models\LoginLog;
+use App\Models\NoticeBoard;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -15,7 +16,8 @@ class PinController extends Controller
 {
     public function index()
     {
-        return view('auth.pin.index');
+        $notices = NoticeBoard::all();
+        return view('auth.pin.index', compact('notices'));
         // return Inertia::render('Pin/PinLogin');
     }
 

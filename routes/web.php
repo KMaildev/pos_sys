@@ -18,6 +18,7 @@ use App\Http\Controllers\Ingredients\IngredientsController;
 use App\Http\Controllers\Inventory\FixedAssetsController;
 use App\Http\Controllers\Inventory\VariableAssetsController;
 use App\Http\Controllers\MenuList\MenuListController;
+use App\Http\Controllers\Notice\NoticeBoardController;
 use App\Http\Controllers\Order\OrderListController;
 use App\Http\Controllers\Pos\MenuControlController;
 use App\Http\Controllers\PosSys\Bill\BillController;
@@ -63,6 +64,7 @@ Auth::routes(['register' => false]);
 Route::middleware('auth')->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+    Route::resource('notice', NoticeBoardController::class);
     Route::resource('category', CategoryController::class);
     Route::resource('menu_list', MenuListController::class);
 

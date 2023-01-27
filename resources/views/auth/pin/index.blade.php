@@ -95,15 +95,18 @@
             style="border-radius: 0px; background-color: black;">
             <i class="fa fa-bell label-icon"></i>
             <marquee behavior="" direction="" style="font-size: 17px; color: white;">
-                <span>
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolore, quos? Provident ratione fuga
-                    consectetur
-                    harum
-                    vero, repudiandae consequatur optio nesciunt a deleniti, neque praesentium. Deleniti aperiam voluptas
-                    nulla
-                    qui
-                    natus!
-                </span>
+                @foreach ($notices as $notice)
+                    <span>
+                        {{ $notice->description ?? '' }}
+                    </span>
+                @endforeach
+
+                @if ($notices->isEmpty())
+                    <span>
+                        No alert
+                    </span>
+                @endif
+
             </marquee>
         </div>
     </div>

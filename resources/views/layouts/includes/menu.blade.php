@@ -226,6 +226,14 @@
                 </li>
 
 
+                <li>
+                    <a href="{{ route('notice.index') }}">
+                        <i data-feather="user-x"></i>
+                        Notice Board
+                    </a>
+                </li>
+
+
             </ul>
         </div>
 
