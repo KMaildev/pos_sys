@@ -1,6 +1,5 @@
 <header id="page-topbar">
     <div class="navbar-header">
-
         <div class="d-flex">
             <div class="navbar-brand-box">
                 <a href="{{ route('home') }}" class="logo logo-light">

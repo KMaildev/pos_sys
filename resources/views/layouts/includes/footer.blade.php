@@ -17,7 +17,9 @@
 <script src="{{ asset('assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.min.js') }}"></script>
 <script src="{{ asset('assets/libs/admin-resources/jquery.vectormap/maps/jquery-jvectormap-world-mill-en.js') }}">
 </script>
+
 <script src="{{ asset('assets/js/pages/allchart.js') }}"></script>
+
 <!-- dashboard init -->
 <script src="{{ asset('assets/js/pages/dashboard.init.js') }}"></script>
 <script src="{{ asset('assets/js/pages/form-advanced.init.js') }}"></script>
