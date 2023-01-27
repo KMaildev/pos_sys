@@ -17,7 +17,7 @@
                     Manager
                 </li>
 
-                <li>
+                <li hidden>
                     <a href="{{ route('order_list.index') }}">
                         <i data-feather="align-justify"></i>
                         Order List

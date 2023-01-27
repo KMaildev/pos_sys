@@ -22,7 +22,7 @@
                             <p class="position-text" style="text-align: left;">
                                 Position:
                                 <span style="float: right;">
-                                    Waiter
+                                    {{ $inertia.page.props.position }}
                                 </span>
                             </p>
                         </div>

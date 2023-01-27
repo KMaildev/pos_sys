@@ -22,6 +22,7 @@
 <script src="{{ asset('assets/js/pages/dashboard.init.js') }}"></script>
 <script src="{{ asset('assets/js/pages/form-advanced.init.js') }}"></script>
 <script src="{{ asset('assets/js/app.js') }}"></script>
+
 <!-- choices js -->
 <script src="{{ asset('assets/libs/choices.js/public/assets/scripts/choices.min.js') }}"></script>
 <!-- datepicker js -->
@@ -36,6 +37,7 @@
 
 <script src="{{ asset('assets/datetime/jquery.datetimepicker.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/custom.js') }}"></script>
+
 
 @include('layouts.js.javascript')
 <script>

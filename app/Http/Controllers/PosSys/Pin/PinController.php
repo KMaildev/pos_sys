@@ -49,12 +49,12 @@ class PinController extends Controller
 
             $department_id = auth()->user()->department_id;
             $departmemt = Department::findOrFail($department_id);
-            if ($departmemt->title == 'Waiter') {
-                return redirect()->route('pos_table_lists');
-                // return redirect()->route('pos_main_page');
-            } else if ($departmemt->title == 'Cashier') {
-                return redirect()->route('cashier_main_page');
-            }
+            return redirect()->route('pos_table_lists');
+            // if ($departmemt->title == 'Waiter') {
+            //     return redirect()->route('pos_table_lists');
+            // } else if ($departmemt->title == 'Cashier') {
+            //     return redirect()->route('cashier_main_page');
+            // }
         } else {
             return redirect()->back()->with('error', 'PIN Code is not valid');
         }

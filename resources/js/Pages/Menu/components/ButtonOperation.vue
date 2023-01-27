@@ -17,46 +17,39 @@
         </div>
 
         <div id="printArea">
-            <center>
-                <div class="bill">
-                    <div class="receipt" style="background-color: #4D4D4D">
-                        <div class="d-flex justify-content-between">
-                            <span style="text-align: left; font-size: 12px; color: #4D4D4D">
-                                TBL: {{ table_name }}
-                            </span>
+            <div class="" style="background-color: #4D4D4D">
+                <p style="font-size: 12px; color: #4D4D4D">
+                    TBL: {{ table_name }}
+                </p>
+                <p style="font-size: 12px; color: #4D4D4D">
+                    Date & Time : {{ currentTime }}
+                </p>
 
-                            <span style="text-align: right; font-size: 12px; color: #4D4D4D">
-                                Date & Time : {{ currentTime }}
-                            </span>
-                        </div>
+                <table class="" style="width: 100%;">
+                    <tr class="header">
+                        <th style="width: 80%; font-size: 12px; color: #4D4D4D; text-align: left;">
+                            Description
+                        </th>
+                        <th style="width: 20%; font-size: 12px; color: #4D4D4D; text-align: right;">
+                            Qty
+                        </th>
+                    </tr>
 
-                        <table class="">
-                            <tr class="header">
-                                <th style="width: 40%; font-size: 18px; color: #4D4D4D">
-                                    Description
-                                </th>
-                                <th class="text-center" style="width: 25%; font-size: 18px; color: #4D4D4D">
-                                    Qty
-                                </th>
-                            </tr>
+                    <tbody style="background-color: #4D4D4D  color: #4D4D4D">
+                        <tr v-for="(cart_list, index) in cart_lists" :key="index">
+                            <td style="color: #4D4D4D; text-align: left; font-size: 11px;">
+                                {{ cart_list.menu_name }}
+                                <br>
+                                Remark: {{ cart_list.remark }}
+                            </td>
 
-                            <tbody style="background-color: #4D4D4D  color: #4D4D4D">
-                                <tr v-for="(cart_list, index) in cart_lists" :key="index">
-                                    <td style="color: #4D4D4D">
-                                        {{ cart_list.menu_name }}
-                                        <br>
-                                        Remark: {{ cart_list.remark }}
-                                    </td>
-
-                                    <td class="text-right" style="color: #4D4D4D">
-                                        {{ cart_list.qty }}
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </center>
+                            <td style="color: #4D4D4D; text-align: right; font-size: 11px;">
+                                {{ cart_list.qty }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
     </div>
@@ -128,7 +121,7 @@ export default {
                 printable: "printArea",
                 type: "html",
                 css: [
-                    "https://pos-sys.skgroupmm.com/pos/css/bill.css"
+                    // "https://pos-sys.skgroupmm.com/pos/css/bill.css"
                 ],
                 scanStyles: false
             });

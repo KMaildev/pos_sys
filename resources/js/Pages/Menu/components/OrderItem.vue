@@ -48,14 +48,14 @@
                                 <th style="width: 40%; font-size: 18px;">
                                     Description
                                 </th>
-                                <th class="text-center" style="width: 25%; font-size: 18px;">
+                                <th class="text-center" style="width: 40%; font-size: 18px;">
                                     Quantity
                                 </th>
                                 <th class="text-center" style="width: 20%; font-size: 18px;">
                                     Amount
                                 </th>
-                                <th class="text-center" style="width: 20%; font-size: 18px;">
-                                    Action
+                                <th class="text-center" style="width: 10%; font-size: 18px;">
+
                                 </th>
                             </tr>
                         </thead>
@@ -70,10 +70,13 @@
 
                                 <td class="text-center">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" :value="cart_list.qty"
-                                            style="width: 10px; font-size: 15px;" readonly>
                                         <span class="input-group-text" @click="reduceQty(cart_list, index)">
                                             <i class="fa fa-minus fa-lg"></i>
+                                        </span>
+                                        <input type="text" class="form-control" :value="cart_list.qty"
+                                            style="width: 10px; font-size: 15px; text-align: center;" readonly>
+                                        <span class="input-group-text" @click="updateQty(cart_list, index)">
+                                            <i class="fa fa-plus fa-lg"></i>
                                         </span>
                                     </div>
                                 </td>
@@ -167,6 +170,10 @@ export default {
             } else {
                 // this.itemRemove(index);
             }
+        },
+
+        updateQty(cart_list, index) {
+            cart_list.qty++;
         },
 
         totalQtyCalc(cart_temps) {
