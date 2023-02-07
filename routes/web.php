@@ -15,6 +15,7 @@ use App\Http\Controllers\Hr\PermissionController;
 use App\Http\Controllers\Hr\RoleController;
 use App\Http\Controllers\Ingredients\IngredientListController;
 use App\Http\Controllers\Ingredients\IngredientsController;
+use App\Http\Controllers\Inventory\DamageController;
 use App\Http\Controllers\Inventory\FixedAssetsController;
 use App\Http\Controllers\Inventory\StockInController;
 use App\Http\Controllers\Inventory\StockOpeningController;
@@ -119,6 +120,9 @@ Route::middleware('auth')->group(function () {
 
     // Stock Transfer
     Route::resource('stock_transfer', StockTransferController::class);
+    Route::resource('stock_damage', DamageController::class);
+    Route::get('stock_damage_media_file/{id}', [DamageController::class, 'damageMediaFile'])->name('stock_damage_media_file');
+    Route::post('damage_files_upload', [DamageController::class, 'damageFilesUpload'])->name('damage_files_upload');
 
     // System 
     Route::resource('store', StoreController::class);

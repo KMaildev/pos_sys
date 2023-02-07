@@ -115,6 +115,13 @@
                     </a>
                 </li>
 
+                <li>
+                    <a href="{{ route('stock_damage.index') }}">
+                        <i class="fas fa-align-right"></i>
+                        Damage
+                    </a>
+                </li>
+
 
 
                 <li hidden>
