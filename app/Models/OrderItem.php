@@ -30,4 +30,9 @@ class OrderItem extends Model
     {
         return $this->belongsTo(MenuList::class, 'menu_list_id', 'id');
     }
+
+    public function ingredient_lists()
+    {
+        return $this->hasMany(IngredientList::class, 'menu_list_id', 'menu_list_id');
+    }
 }

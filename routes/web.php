@@ -15,10 +15,13 @@ use App\Http\Controllers\Hr\PermissionController;
 use App\Http\Controllers\Hr\RoleController;
 use App\Http\Controllers\Ingredients\IngredientListController;
 use App\Http\Controllers\Ingredients\IngredientsController;
+use App\Http\Controllers\Inventory\CurrentStockSituationControllers;
 use App\Http\Controllers\Inventory\DamageController;
 use App\Http\Controllers\Inventory\FixedAssetsController;
 use App\Http\Controllers\Inventory\StockInController;
+use App\Http\Controllers\Inventory\StockLedgerController;
 use App\Http\Controllers\Inventory\StockOpeningController;
+use App\Http\Controllers\Inventory\StockOutController;
 use App\Http\Controllers\Inventory\StockTransferController;
 use App\Http\Controllers\Inventory\StoreTypeController;
 use App\Http\Controllers\Inventory\VariableAssetsController;
@@ -123,6 +126,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('stock_damage', DamageController::class);
     Route::get('stock_damage_media_file/{id}', [DamageController::class, 'damageMediaFile'])->name('stock_damage_media_file');
     Route::post('damage_files_upload', [DamageController::class, 'damageFilesUpload'])->name('damage_files_upload');
+
+    Route::resource('stock_out', StockOutController::class);
+    Route::resource('current_stock_situation', CurrentStockSituationControllers::class);
+    Route::resource('stock_ledger', StockLedgerController::class);
 
     // System 
     Route::resource('store', StoreController::class);

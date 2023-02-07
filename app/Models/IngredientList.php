@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class IngredientList extends Model
 {
     use HasFactory;
+
+    public function ingredient()
+    {
+        return $this->belongsTo(Ingredients::class, 'ingredient_id', 'id');
+    }    
 }

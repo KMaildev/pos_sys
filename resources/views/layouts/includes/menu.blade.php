@@ -122,6 +122,27 @@
                     </a>
                 </li>
 
+                <li>
+                    <a href="{{ route('stock_out.index') }}">
+                        <i class="fas fa-align-right"></i>
+                        Stock Out
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('current_stock_situation.index') }}">
+                        <i class="fas fa-align-right"></i>
+                        Current Stock Situation
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('stock_ledger.index') }}">
+                        <i class="fas fa-align-right"></i>
+                        Stock Ledger
+                    </a>
+                </li>
+
 
 
                 <li hidden>
