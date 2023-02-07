@@ -14,6 +14,20 @@
 
                         <div class="mb-3 row">
                             <label for="html5-text-input" class="col-md-3 col-form-label">
+                                Code Name
+                            </label>
+                            <div class="col-md-9">
+                                <input class="form-control @error('code_name') is-invalid @enderror" type="text"
+                                    name="code_name" value="{{ old('code_name') }}" />
+                                @error('code_name')
+                                    <div class="invalid-feedback"> {{ $message }} </div>
+                                @enderror
+                            </div>
+                        </div>
+
+
+                        <div class="mb-3 row">
+                            <label for="html5-text-input" class="col-md-3 col-form-label">
                                 Name
                             </label>
                             <div class="col-md-9">
@@ -27,20 +41,30 @@
 
                         <div class="mb-3 row">
                             <label for="html5-text-input" class="col-md-3 col-form-label">
-                                Code Name
+                                Store Types
                             </label>
                             <div class="col-md-9">
-                                <input class="form-control @error('code_name') is-invalid @enderror" type="text"
-                                    name="code_name" value="{{ old('code_name') }}" />
-                                @error('code_name')
+                                <select name="store_types" id=""
+                                    class="form-control @error('store_types') is-invalid @enderror">
+                                    <option value="">
+                                        --Select Store Types--
+                                    </option>
+                                    @foreach ($store_types as $store_type)
+                                        <option value="{{ $store_type->id ?? '' }}">
+                                            {{ $store_type->title ?? '' }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('store_types')
                                     <div class="invalid-feedback"> {{ $message }} </div>
                                 @enderror
                             </div>
                         </div>
 
+
                         <div class="mb-3 row">
                             <label for="html5-text-input" class="col-md-3 col-form-label">
-                                Address
+                                Location
                             </label>
                             <div class="col-md-9">
                                 <input class="form-control @error('address') is-invalid @enderror" type="text"

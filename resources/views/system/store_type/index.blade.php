@@ -4,7 +4,7 @@
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                 <h4 class="mb-sm-0 font-size-18">
-                    Store
+                    Store Types
                 </h4>
 
                 <div class="page-title-right">
@@ -15,7 +15,7 @@
                             </a>
                         </li>
                         <li class="breadcrumb-item active">
-                            Store
+                            Store Types
                         </li>
                     </ol>
                 </div>
@@ -31,7 +31,7 @@
 
                     <div class="row mb-2">
                         <div class="col-sm-4">
-                            <form action="{{ route('store.index') }}" method="get" autocomplete="off">
+                            <form action="{{ route('store_type.index') }}" method="get" autocomplete="off">
                                 <div class="search-box me-2 mb-2 d-inline-block">
                                     <div class="position-relative">
                                         <input type="text" class="form-control" placeholder="Search..." name="q">
@@ -43,7 +43,7 @@
 
                         <div class="col-sm-8">
                             <div class="text-sm-end">
-                                <a href="{{ route('store.create') }}"
+                                <a href="{{ route('store_type.create') }}"
                                     class="btn btn-primary aves-effect waves-light mb-2 me-2">
                                     <i class="mdi mdi-plus me-1"></i>
                                     Create
@@ -57,10 +57,7 @@
                             <thead class="table-light">
                                 <tr class="tablebg">
                                     <th class="text-center" style="width: 1%;">#</th>
-                                    <th class="text-center">Code Name</th>
-                                    <th class="text-center">Name</th>
-                                    <th class="text-center">Store Types</th>
-                                    <th class="text-center">Location</th>
+                                    <th class="text-center">Store types</th>
                                     <th class="text-center">Actions</th>
                                 </tr>
                             </thead>
@@ -72,20 +69,9 @@
                                         </td>
 
                                         <td class="text-center">
-                                            {{ $store->code_name ?? '' }}
+                                            {{ $store->title ?? '' }}
                                         </td>
 
-                                        <td class="text-center">
-                                            {{ $store->name ?? '' }}
-                                        </td>
-
-                                        <td class="text-center">
-                                            {{ $store->store_type_table->title ?? '' }}
-                                        </td>
-
-                                        <td class="text-center">
-                                            {{ $store->address ?? '' }}
-                                        </td>
 
                                         <td class="text-center">
                                             <div class="dropdown">
@@ -96,7 +82,7 @@
                                                 </a>
                                                 <ul class="dropdown-menu dropdown-menu-end" style="">
                                                     <li>
-                                                        <a href="{{ route('store.edit', $store->id) }}"
+                                                        <a href="{{ route('store_type.edit', $store->id) }}"
                                                             class="dropdown-item">
                                                             <i class="mdi mdi-pencil font-size-16 text-success me-1"></i>
                                                             Edit
@@ -104,7 +90,7 @@
                                                     </li>
 
                                                     <li>
-                                                        <form action="{{ route('store.destroy', $store->id) }}"
+                                                        <form action="{{ route('store_type.destroy', $store->id) }}"
                                                             method="POST">
                                                             @csrf
                                                             @method('DELETE')

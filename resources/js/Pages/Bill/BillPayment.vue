@@ -337,7 +337,7 @@ export default {
 
             var totalTaxNetAmount = totalAmount * taxrate / 100;
             var totalDiscNetAmount = totalAmount * disc / 100;
-            var netAmount = totalAmount - (totalTaxNetAmount + totalDiscNetAmount);
+            var netAmount = (totalAmount + totalTaxNetAmount) - totalDiscNetAmount;
             this.form.totalNetAmount = netAmount;
             return netAmount;
         },

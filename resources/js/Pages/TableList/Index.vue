@@ -12,7 +12,7 @@
 
                 <div class="col-md-2 col-lg-2 col-sm-12">
                     <button @click="guestDetailIndex()" class="guest_detail_btn">
-                        Gust Details
+                        Guest Details
                     </button>
                 </div>
             </div>

@@ -57,7 +57,9 @@
                             <thead class="table-light">
                                 <tr class="tablebg">
                                     <th class="text-center" style="width: 1%;">#</th>
-                                    <th class="text-center">Title</th>
+                                    <th class="text-center">Item Code</th>
+                                    <th class="text-center">Item Name</th>
+                                    <th class="text-center">Category</th>
                                     <th class="text-center">Unit</th>
                                     <th class="text-center">Actions</th>
                                 </tr>
@@ -70,7 +72,15 @@
                                         </td>
 
                                         <td class="text-center">
+                                            {{ $ingredient->item_code ?? '' }}
+                                        </td>
+
+                                        <td class="text-center">
                                             {{ $ingredient->name ?? '' }}
+                                        </td>
+
+                                        <td class="text-center">
+                                            {{ $ingredient->category ?? '' }}
                                         </td>
 
                                         <td class="text-center">

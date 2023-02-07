@@ -52,12 +52,7 @@
                     </a>
                 </li>
 
-                <li>
-                    <a href="{{ route('ingredients.index') }}">
-                        <i class="fas fa-align-right"></i>
-                        Ingredients
-                    </a>
-                </li>
+
 
                 <li>
                     <a href="{{ route('floor.index') }}">
@@ -78,6 +73,42 @@
                 </li>
 
                 <li>
+                    <a href="{{ route('store_type.index') }}">
+                        <i data-feather="user-x"></i>
+                        Store types
+                    </a>
+                </li>
+
+
+                <li>
+                    <a href="{{ route('store.index') }}">
+                        <i data-feather="user-x"></i>
+                        Store
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('ingredients.index') }}">
+                        <i class="fas fa-align-right"></i>
+                        Inventory Items List
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('stock_opening.index') }}">
+                        <i class="fas fa-align-right"></i>
+                        Stock Opening
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('stock_in.index') }}">
+                        <i class="fas fa-align-right"></i>
+                        Stock In
+                    </a>
+                </li>
+
+                <li hidden>
                     <a href="javascript: void(0);" class="has-arrow">
                         <i data-feather="shopping-cart"></i>
                         <span data-key="t-ecommerce">
@@ -100,7 +131,7 @@
                 </li>
 
 
-                <li>
+                <li hidden>
                     <a href="javascript: void(0);" class="has-arrow">
                         <i data-feather="shopping-cart"></i>
                         <span data-key="t-ecommerce">
@@ -122,7 +153,7 @@
                     </ul>
                 </li>
 
-                <li>
+                <li hidden>
                     <a href="javascript: void(0);" class="has-arrow">
                         <i data-feather="shopping-cart"></i>
                         <span data-key="t-ecommerce">
@@ -144,7 +175,7 @@
                     </ul>
                 </li>
 
-                <li>
+                <li hidden>
                     <a href="javascript: void(0);" class="has-arrow">
                         <i data-feather="shopping-cart"></i>
                         <span data-key="t-ecommerce">
@@ -218,12 +249,7 @@
                     </a>
                 </li>
 
-                <li>
-                    <a href="{{ route('store.index') }}">
-                        <i data-feather="user-x"></i>
-                        Store
-                    </a>
-                </li>
+
 
 
                 <li>

@@ -22,6 +22,8 @@ class IngredientsController extends Controller
         if (request('q')) {
             $ingredients->where('name', 'Like', '%' . request('q') . '%');
             $ingredients->orWhere('unit', 'Like', '%' . request('q') . '%');
+            $ingredients->orWhere('item_code', 'Like', '%' . request('q') . '%');
+            $ingredients->orWhere('category', 'Like', '%' . request('q') . '%');
         }
         $ingredients = $ingredients->orderBy('id', 'ASC')->get();
         return view('ingredients.index', compact('ingredients'));
@@ -48,6 +50,8 @@ class IngredientsController extends Controller
         $menu_list = new Ingredients();
         $menu_list->name = $request->name;
         $menu_list->unit = $request->unit;
+        $menu_list->item_code = $request->item_code;
+        $menu_list->category = $request->category;
         $menu_list->user_id =  auth()->user()->id ?? 0;
         $menu_list->save();
         return redirect()->back()->with('success', 'Your processing has been completed.');
@@ -88,6 +92,8 @@ class IngredientsController extends Controller
         $ingredient = Ingredients::findOrFail($id);
         $ingredient->name = $request->name;
         $ingredient->unit = $request->unit;
+        $ingredient->item_code = $request->item_code;
+        $ingredient->category = $request->category;
         $ingredient->user_id =  auth()->user()->id ?? 0;
         $ingredient->save();
         return redirect()->back()->with('success', 'Your processing has been completed.');

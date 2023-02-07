@@ -1,15 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\System;
+namespace App\Http\Controllers\Inventory;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreStore;
-use App\Http\Requests\UpdateStore;
-use App\Models\Store;
 use App\Models\StoreType;
 use Illuminate\Http\Request;
 
-class StoreController extends Controller
+class StoreTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,14 +15,12 @@ class StoreController extends Controller
      */
     public function index()
     {
-        $stores = Store::query();
+        $stores = StoreType::query();
         if (request('q')) {
             $stores->where('name', 'Like', '%' . request('q') . '%');
-            $stores->orWhere('code_name', 'Like', '%' . request('q') . '%');
-            $stores->orWhere('address', 'Like', '%' . request('q') . '%');
         }
         $stores = $stores->get();
-        return view('system.store.index', compact('stores'));
+        return view('system.store_type.index', compact('stores'));
     }
 
     /**
@@ -35,8 +30,7 @@ class StoreController extends Controller
      */
     public function create()
     {
-        $store_types = StoreType::all();
-        return view('system.store.create', compact('store_types'));
+        return view('system.store_type.create');
     }
 
     /**
@@ -45,14 +39,10 @@ class StoreController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreStore $request)
+    public function store(Request $request)
     {
-        $store = new Store();
-        $store->name = $request->name;
-        $store->code_name = $request->code_name;
-        $store->address = $request->address;
-        $store->store_types = $request->store_types;
-        $store->user_id = auth()->user()->id ?? 0;
+        $store = new StoreType();
+        $store->title = $request->title;
         $store->save();
         return redirect()->back()->with('success', 'Your processing has been completed.');
     }
@@ -76,9 +66,8 @@ class StoreController extends Controller
      */
     public function edit($id)
     {
-        $store = Store::findOrFail($id);
-        $store_types = StoreType::all();
-        return view('system.store.edit', compact('store', 'store_types'));
+        $store = StoreType::findOrFail($id);
+        return view('system.store_type.edit', compact('store'));
     }
 
     /**
@@ -88,14 +77,10 @@ class StoreController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateStore $request, $id)
+    public function update(Request $request, $id)
     {
-        $store = Store::findOrFail($id);
-        $store->name = $request->name;
-        $store->code_name = $request->code_name;
-        $store->address = $request->address;
-        $store->store_types = $request->store_types;
-        $store->user_id = auth()->user()->id ?? 0;
+        $store = StoreType::findOrFail($id);
+        $store->title = $request->title;
         $store->update();
         return redirect()->back()->with('success', 'Your processing has been completed.');
     }
@@ -108,7 +93,7 @@ class StoreController extends Controller
      */
     public function destroy($id)
     {
-        $floor = Store::findOrFail($id);
+        $floor = StoreType::findOrFail($id);
         $floor->delete();
         return redirect()->back()->with('success', 'Your processing has been completed.');
     }

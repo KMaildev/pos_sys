@@ -15,12 +15,45 @@
 
                         <div class="mb-3 row">
                             <label for="html5-text-input" class="col-md-3 col-form-label">
-                                Name
+                                Item Code
+                            </label>
+                            <div class="col-md-9">
+                                <input class="form-control @error('item_code') is-invalid @enderror" type="text"
+                                    name="item_code" value="{{ $ingredient->item_code ?? '' }}" />
+                                @error('item_code')
+                                    <div class="invalid-feedback"> {{ $message }} </div>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label for="html5-text-input" class="col-md-3 col-form-label">
+                                Item Name
                             </label>
                             <div class="col-md-9">
                                 <input class="form-control @error('name') is-invalid @enderror" type="text"
                                     name="name" value="{{ $ingredient->name ?? '' }}" />
                                 @error('name')
+                                    <div class="invalid-feedback"> {{ $message }} </div>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label for="html5-text-input" class="col-md-3 col-form-label">
+                                Category
+                            </label>
+                            <div class="col-md-9">
+                                <input class="form-control @error('category') is-invalid @enderror" type="text"
+                                    name="category" value="{{ $ingredient->category ?? '' }}" list="categories" />
+                                <datalist id="categories">
+                                    <option value="Juice">
+                                    <option value="Beverage">
+                                    <option value="Raw">
+                                    <option value="Vegetable">
+                                    <option value="Fruit">
+                                </datalist>
+                                @error('category')
                                     <div class="invalid-feedback"> {{ $message }} </div>
                                 @enderror
                             </div>

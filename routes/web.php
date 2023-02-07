@@ -16,6 +16,9 @@ use App\Http\Controllers\Hr\RoleController;
 use App\Http\Controllers\Ingredients\IngredientListController;
 use App\Http\Controllers\Ingredients\IngredientsController;
 use App\Http\Controllers\Inventory\FixedAssetsController;
+use App\Http\Controllers\Inventory\StockInController;
+use App\Http\Controllers\Inventory\StockOpeningController;
+use App\Http\Controllers\Inventory\StoreTypeController;
 use App\Http\Controllers\Inventory\VariableAssetsController;
 use App\Http\Controllers\MenuList\MenuListController;
 use App\Http\Controllers\Notice\NoticeBoardController;
@@ -100,37 +103,22 @@ Route::middleware('auth')->group(function () {
     Route::resource('role', RoleController::class);
 
     // Inventory 
-    Route::resource('fixed_asset', FixedAssetsController::class);
-    Route::get('get_fixed_by_id/{id}', [FixedAssetsController::class, 'getFixedById'])->name('get_fixed_by_id');
-    Route::resource('variable_asset', VariableAssetsController::class);
+    Route::resource('stock_opening', StockOpeningController::class);
+    Route::post('stock_opening_entry', [StockOpeningController::class, 'store'])->name('stock_opening_entry');
+    Route::get('get_stock_opening_entry', [StockOpeningController::class, 'openingStockEntryAjax'])->name('get_stock_opening_entry');
+    Route::get('confirm_stock_opening_entry', [StockOpeningController::class, 'confirmOpeningStock'])->name('confirm_stock_opening_entry');
+    Route::get('remove_stock_openings/{id}', [StockOpeningController::class, 'removeStockOpenings'])->name('remove_stock_openings');
 
-    // Purchase Group
-    // Fixed Purchase 
-    Route::resource('fixed_purchase', FixedPurchaseController::class);
-    Route::resource('fixed_purchase_item', FixedPurchaseItemController::class);
-    Route::get('fixed_purchase_item_delete/{id}', [FixedPurchaseItemController::class, 'delete'])->name('fixed_purchase_item_delete');
-    Route::get('attachment_files/{id}', [FixedPurchaseController::class, 'attachmentFiles'])->name('attachment_files');
-    Route::post('attachment_files_delete/{id}', [FixedPurchaseController::class, 'attachmentFilesDelete'])->name('attachment_files_delete');
-
-    // Variable Purchase 
-    Route::resource('variable_purchase', VariablePurchaseController::class);
-    Route::resource('variable_purchase_item', VariablePurchaseItemController::class);
-    Route::get('variable_purchase_item_delete/{id}', [VariablePurchaseItemController::class, 'delete'])->name('variable_purchase_item_delete');
-    Route::get('variable_attachment_files/{id}', [VariablePurchaseController::class, 'attachmentFiles'])->name('variable_attachment_files');
-    Route::post('variable_attachment_files_delete/{id}', [VariablePurchaseController::class, 'attachmentFilesDelete'])->name('variable_attachment_files_delete');
-
-    // Purchase Add Delete  
-    Route::post('store_temp_fixed_purchase_item', [TempFixedPurchaseItemController::class, 'store'])->name('store_temp_fixed_purchase_item');
-    Route::get('get_temp_fixed_purchase_item', [TempFixedPurchaseItemController::class, 'index'])->name('get_temp_fixed_purchase_item');
-    Route::get('remove_temp_fixed_purchase_item/{id}', [TempFixedPurchaseItemController::class, 'remove'])->name('remove_temp_fixed_purchase_item');
-
-    // Inventory Damage
-    Route::resource('fixed_damage', FixedDamageController::class);
-    Route::resource('variable_damage', VariableDamageController::class);
-
+    // Stock In 
+    Route::resource('stock_in', StockInController::class);
+    Route::post('stock_in_entry', [StockInController::class, 'store'])->name('stock_in_entry');
+    Route::get('get_stock_in_entry', [StockInController::class, 'stockInEntryAjax'])->name('get_stock_in_entry');
+    Route::get('confirm_stock_in_entry', [StockInController::class, 'confirmStockIn'])->name('confirm_stock_in_entry');
+    Route::get('remove_stock_in/{id}', [StockInController::class, 'removeStockIn'])->name('remove_stock_in');
 
     // System 
     Route::resource('store', StoreController::class);
+    Route::resource('store_type', StoreTypeController::class);
     Route::resource('taxrate', TaxrateController::class);
     Route::resource('payment_method', PaymentMethodController::class);
 
@@ -198,4 +186,40 @@ Route::middleware('auth')->group(function () {
 
     // POS 
     Route::get('load_category_and_menu_pos/{type}/{category_id}', [MenuControlController::class, 'loadCategoryAndMenuListPos'])->name('load_category_and_menu_pos');
+
+
+
+
+
+
+
+
+
+
+    // Purchase Group
+    Route::resource('fixed_asset', FixedAssetsController::class);
+    Route::get('get_fixed_by_id/{id}', [FixedAssetsController::class, 'getFixedById'])->name('get_fixed_by_id');
+    Route::resource('variable_asset', VariableAssetsController::class);
+    // Fixed Purchase 
+    Route::resource('fixed_purchase', FixedPurchaseController::class);
+    Route::resource('fixed_purchase_item', FixedPurchaseItemController::class);
+    Route::get('fixed_purchase_item_delete/{id}', [FixedPurchaseItemController::class, 'delete'])->name('fixed_purchase_item_delete');
+    Route::get('attachment_files/{id}', [FixedPurchaseController::class, 'attachmentFiles'])->name('attachment_files');
+    Route::post('attachment_files_delete/{id}', [FixedPurchaseController::class, 'attachmentFilesDelete'])->name('attachment_files_delete');
+
+    // Variable Purchase 
+    Route::resource('variable_purchase', VariablePurchaseController::class);
+    Route::resource('variable_purchase_item', VariablePurchaseItemController::class);
+    Route::get('variable_purchase_item_delete/{id}', [VariablePurchaseItemController::class, 'delete'])->name('variable_purchase_item_delete');
+    Route::get('variable_attachment_files/{id}', [VariablePurchaseController::class, 'attachmentFiles'])->name('variable_attachment_files');
+    Route::post('variable_attachment_files_delete/{id}', [VariablePurchaseController::class, 'attachmentFilesDelete'])->name('variable_attachment_files_delete');
+
+    // Purchase Add Delete  
+    Route::post('store_temp_fixed_purchase_item', [TempFixedPurchaseItemController::class, 'store'])->name('store_temp_fixed_purchase_item');
+    Route::get('get_temp_fixed_purchase_item', [TempFixedPurchaseItemController::class, 'index'])->name('get_temp_fixed_purchase_item');
+    Route::get('remove_temp_fixed_purchase_item/{id}', [TempFixedPurchaseItemController::class, 'remove'])->name('remove_temp_fixed_purchase_item');
+
+    // Inventory Damage
+    Route::resource('fixed_damage', FixedDamageController::class);
+    Route::resource('variable_damage', VariableDamageController::class);
 });

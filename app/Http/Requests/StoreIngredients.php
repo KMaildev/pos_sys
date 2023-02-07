@@ -26,6 +26,8 @@ class StoreIngredients extends FormRequest
         return [
             'name' => 'required',
             'unit' => 'required',
+            'item_code' => 'required',
+            'category' => 'required',
         ];
     }
 }

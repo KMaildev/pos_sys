@@ -25,6 +25,8 @@ class UpdateStore extends FormRequest
     {
         return [
             'name' => 'required',
+            'code_name' => 'required',
+            'store_types' => 'required',
         ];
     }
 }

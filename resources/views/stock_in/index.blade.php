@@ -4,7 +4,7 @@
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                 <h4 class="mb-sm-0 font-size-18">
-                    Store
+                    Stock In
                 </h4>
 
                 <div class="page-title-right">
@@ -15,7 +15,7 @@
                             </a>
                         </li>
                         <li class="breadcrumb-item active">
-                            Store
+                            Stock In
                         </li>
                     </ol>
                 </div>
@@ -31,19 +31,20 @@
 
                     <div class="row mb-2">
                         <div class="col-sm-4">
-                            <form action="{{ route('store.index') }}" method="get" autocomplete="off">
-                                <div class="search-box me-2 mb-2 d-inline-block">
-                                    <div class="position-relative">
-                                        <input type="text" class="form-control" placeholder="Search..." name="q">
-                                        <i class="bx bx-search-alt search-icon"></i>
-                                    </div>
+                            <form action="{{ route('stock_in.index') }}" method="get" autocomplete="off">
+                                <div class="input-group">
+                                    <input type="date" class="form-control" name="start_date"
+                                        value="{{ $start_date }}" />
+                                    <input type="date" class="form-control" name="end_date"
+                                        value="{{ $end_date }}" />
+                                    <input type="submit" class="dt-button create-new btn btn-primary" value="Search">
                                 </div>
                             </form>
                         </div>
 
                         <div class="col-sm-8">
                             <div class="text-sm-end">
-                                <a href="{{ route('store.create') }}"
+                                <a href="{{ route('stock_in.create') }}"
                                     class="btn btn-primary aves-effect waves-light mb-2 me-2">
                                     <i class="mdi mdi-plus me-1"></i>
                                     Create
@@ -53,38 +54,84 @@
                     </div>
 
                     <div class="table-responsive">
+                        <span>
+                            {{ $start_date }}
+                            -
+                            {{ $end_date }}
+                        </span>
                         <table class="table table-bordered mydatatable">
                             <thead class="table-light">
                                 <tr class="tablebg">
-                                    <th class="text-center" style="width: 1%;">#</th>
-                                    <th class="text-center">Code Name</th>
-                                    <th class="text-center">Name</th>
-                                    <th class="text-center">Store Types</th>
-                                    <th class="text-center">Location</th>
-                                    <th class="text-center">Actions</th>
+                                    <th class="text-center" style="width: 1%;">
+                                        #
+                                    </th>
+
+                                    <th class="text-center">
+                                        Item Code
+                                    </th>
+
+                                    <th class="text-center">
+                                        Item Name
+                                    </th>
+
+                                    <th class="text-center">
+                                        Date
+                                    </th>
+
+                                    <th class="text-center">
+                                        Purchase unit
+                                    </th>
+
+                                    <th class="text-center">
+                                        Price per unit
+                                    </th>
+
+                                    <th class="text-center">
+                                        Total Stock Value
+                                    </th>
+
+                                    <th class="text-center">
+                                        Location
+                                    </th>
+
+                                    <th class="text-center">
+                                        Action
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($stores as $key => $store)
+                                @foreach ($stock_openings as $key => $stock_opening)
                                     <tr>
-                                        <td>
+                                        <td class="text-center">
                                             {{ $key + 1 }}
                                         </td>
 
                                         <td class="text-center">
-                                            {{ $store->code_name ?? '' }}
+                                            {{ $stock_opening->ingredient_table->item_code ?? '' }}
                                         </td>
 
                                         <td class="text-center">
-                                            {{ $store->name ?? '' }}
+                                            {{ $stock_opening->ingredient_table->name ?? '' }}
                                         </td>
 
                                         <td class="text-center">
-                                            {{ $store->store_type_table->title ?? '' }}
+                                            {{ $stock_opening->stock_in_date ?? '' }}
                                         </td>
 
                                         <td class="text-center">
-                                            {{ $store->address ?? '' }}
+                                            {{ number_format($stock_opening->purchase_unit, 2) }}
+                                        </td>
+
+                                        <td class="text-center">
+                                            {{ number_format($stock_opening->price_per_unit, 2) }}
+                                        </td>
+
+                                        <td class="text-center">
+                                            {{ number_format($stock_opening->total_stock_value, 2) }}
+                                        </td>
+
+                                        <td class="text-center">
+                                            {{ $stock_opening->store_table->name ?? '' }}
                                         </td>
 
                                         <td class="text-center">
@@ -96,15 +143,7 @@
                                                 </a>
                                                 <ul class="dropdown-menu dropdown-menu-end" style="">
                                                     <li>
-                                                        <a href="{{ route('store.edit', $store->id) }}"
-                                                            class="dropdown-item">
-                                                            <i class="mdi mdi-pencil font-size-16 text-success me-1"></i>
-                                                            Edit
-                                                        </a>
-                                                    </li>
-
-                                                    <li>
-                                                        <form action="{{ route('store.destroy', $store->id) }}"
+                                                        <form action="{{ route('stock_in.destroy', $stock_opening->id) }}"
                                                             method="POST">
                                                             @csrf
                                                             @method('DELETE')
@@ -123,6 +162,23 @@
                                     </tr>
                                 @endforeach
                             </tbody>
+                            <tr>
+                                <td colspan="4">
+                                    Total
+                                </td>
+
+                                <td class="text-center">
+                                    {{ number_format($stock_openings->sum('purchase_unit'), 2) }}
+                                </td>
+
+                                <td class="text-center">
+                                    {{ number_format($stock_openings->sum('price_per_unit'), 2) }}
+                                </td>
+
+                                <td class="text-center">
+                                    {{ number_format($stock_openings->sum('total_stock_value'), 2) }}
+                                </td>
+                            </tr>
                         </table>
                     </div>
                 </div>

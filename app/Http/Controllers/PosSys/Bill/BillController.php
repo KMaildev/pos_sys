@@ -27,9 +27,8 @@ class BillController extends Controller
         $floor_id = $request->floor_id ?? $floor->id;
 
         $table_lists = TableList::with('order_infos_table', 'all_order_infos_table')
-            ->where('floor_id', $floor_id)
+            // ->where('floor_id', $floor_id)
             ->get();
-
 
         return Inertia::render('Bill/TableList', [
             'floors_categories' => $floors_categories,
