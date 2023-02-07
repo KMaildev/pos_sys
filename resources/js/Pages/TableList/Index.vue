@@ -2,6 +2,7 @@
     <div>
         <master :user_name="user_name">
             <div class="row">
+
                 <div class="col-md-10 col-lg-10 col-sm-12">
                     <button class="floor_button" v-for="floors_category in floors_categories" :key="floors_category.id"
                         @click="searchFloorById(floors_category.id)"
@@ -173,7 +174,7 @@ export default {
         'table_lists',
         'floors_categories',
         'user_name',
-        'choose_order_infos'
+        'choose_order_infos',
     ],
 
     methods: {
@@ -196,7 +197,6 @@ export default {
                 localStorage.setItem("guest_no", this.value);
             } else {
             }
-
         },
 
         setTableName() {
@@ -255,6 +255,13 @@ export default {
             });
             return sum;
         },
+    },
+
+    created() {
+        if (this.$page.props.flash.message) {
+            console.log(this.$page.props.flash.message)
+            alert(this.$page.props.flash.message)
+        }
     },
 
 };

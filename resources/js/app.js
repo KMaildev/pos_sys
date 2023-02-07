@@ -1,12 +1,15 @@
 import './bootstrap'
 import Vue from 'vue'
 import { createInertiaApp, Link } from '@inertiajs/inertia-vue'
+import VueToastr from "vue-toastr";
+
 
 createInertiaApp({
     resolve: name => require(`./Pages/${name}`),
 
     setup({ el, App, props, plugin }) {
-        Vue.use(plugin)
+        Vue.use(plugin);
+        Vue.use(VueToastr);
         Vue.mixin(
             {
                 methods: {

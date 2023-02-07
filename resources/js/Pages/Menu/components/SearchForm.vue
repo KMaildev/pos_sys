@@ -558,6 +558,7 @@ export default {
         searchAlphabetSearch(keyword) {
             this.abcd_arr.push(keyword);
             this.search_keyword = this.abcd_arr.join("");
+            this.search();
         },
 
         removeAlphabetSearch() {
@@ -570,8 +571,6 @@ export default {
             $('#showMMSearchModal').modal('hide');
             this.$inertia.get(`/pos_menu_lists_search?search=${this.search_keyword}`);
         },
-
-
 
         showMMSearch() {
             $('#showMMSearchModal').modal('show');

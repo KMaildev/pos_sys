@@ -236,25 +236,41 @@
                         </div>
 
                         <div class="modal-body">
-                            <table class="table">
-                                <tbody style="background-color: white;">
+                            <form @submit.prevent="confirmCombine" autocomplete="off">
+                                <table class="table">
+                                    <tbody style="background-color: white;">
+                                        <tr v-for="combile_order_info in combile_order_infos"
+                                            :key="combile_order_info.id">
+                                            <td>
+                                                <input class="form-check-input" type="checkbox"
+                                                    :value="combile_order_info.id" :id="combile_order_info.id"
+                                                    v-model="combile_form.combile_order_info_id">
+                                                <label class="form-check-label" :for="combile_order_info.id">
+                                                    Select
+                                                </label>
+                                            </td>
 
-                                    <tr v-for="combile_order_info in combile_order_infos" :key="combile_order_info.id">
-                                        <td @click="confirmCombine(combile_order_info.id)">
-                                            <div class="d-flex justify-content-between">
-                                                <span class="py-1">
-                                                    {{ combile_order_info.table_lists_table.table_name }}
-                                                </span>
+                                            <!-- @click="confirmCombine(combile_order_info.id)" -->
+                                            <td>
+                                                <div class="d-flex justify-content-between">
+                                                    <span class="py-1">
+                                                        {{ combile_order_info.table_lists_table.table_name }}
+                                                    </span>
 
-                                                <span class="py-1">
-                                                    {{ combile_order_info.total_amount }}
-                                                </span>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                </tbody>
-                            </table>
+                                                    <span class="py-1">
+                                                        {{ combile_order_info.total_amount }}
+                                                    </span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="d-flex justify-content-between">
+                                    <button type="submit" class="btn btn-dark btn-lg block" style="width: 100%;">
+                                        Confirm
+                                    </button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -297,6 +313,11 @@ export default {
                 received_amount: 0,
                 dueAmount: 0,
             },
+
+            combile_form: {
+                combile_order_info_id: [],
+                main_order_infos: this.order_infos.id,
+            }
         }
     },
 
@@ -308,12 +329,20 @@ export default {
             $('#showCombineBillModal').modal('show');
         },
 
-        confirmCombine(combile_order_info_id) {
+        confirmCombine() {
             $('#showCombineBillModal').modal('hide');
-            var main_order_infos = this.order_infos.id;
-            var combile_order_info_id = combile_order_info_id;
-            this.$inertia.get(`/pos_confirm_combine?main_order_infos=${main_order_infos}&combile_order_info_id=${combile_order_info_id}`);
+            // var main_order_infos = this.order_infos.id;
+            // var combile_order_info_id = combile_order_info_id;
+            // this.$inertia.get(`/pos_confirm_combine?main_order_infos=${main_order_infos}&combile_order_info_id=${combile_order_info_id}`);
+            this.$inertia.post('/pos_confirm_combine', this.combile_form);
         },
+
+        // confirmCombine(combile_order_info_id) {
+        //     $('#showCombineBillModal').modal('hide');
+        //     var main_order_infos = this.order_infos.id;
+        //     var combile_order_info_id = combile_order_info_id;
+        //     this.$inertia.get(`/pos_confirm_combine?main_order_infos=${main_order_infos}&combile_order_info_id=${combile_order_info_id}`);
+        // },
 
 
         totalAmountCalc(order_items) {

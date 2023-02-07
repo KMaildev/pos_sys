@@ -12,13 +12,14 @@
 
                 <div class="d-flex">
                     <div class="main-box">
-                        <div style="background-color: #4D4D4D;">
+                        <div style="background-color: #000000;">
                             <p style="text-align: left;" class="name-text">
                                 Name:
                                 <span style="float: right;">
                                     {{ user_name }}
                                 </span>
                             </p>
+
                             <p class="position-text" style="text-align: left;">
                                 Position:
                                 <span style="float: right;">
@@ -28,8 +29,8 @@
                         </div>
                     </div>
 
-                    <div class="main-box" style="margin-left: 10px;">
-                        <div style="background-color: #4D4D4D;">
+                    <div class="main-box" >
+                        <div style="background-color: #000000;">
                             <p style="text-align: left;" class="name-text">
                                 Date:
                                 <span style="float: right;">
@@ -120,6 +121,7 @@ export default {
     name: "Master",
     props: [
         'user_name',
+        'success',
     ],
     data() {
         return {
@@ -138,6 +140,19 @@ export default {
     created() {
         var date = new Date();
         this.currentTime = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+
+        if (this.$inertia.page.props.success) {
+            this.$toastr.s(
+                this.$inertia.page.props.success
+            );
+        }
+
+        if (this.$inertia.page.props.error) {
+            this.$toastr.e(
+                this.$inertia.page.props.error
+            );
+        }
+
     }
 
 };

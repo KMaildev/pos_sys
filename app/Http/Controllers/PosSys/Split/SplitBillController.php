@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\OrderInfo;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
 class SplitBillController extends Controller
@@ -34,7 +35,7 @@ class SplitBillController extends Controller
     public function SplitOrderConfirm(Request $request)
     {
         $order_info_id = $request->order_info_id;
-
+        $guest_no = $request->guest_no;
 
         $countOrderInfo = OrderInfo::count();
         $order_no = sprintf('%06d', $countOrderInfo + 1);
@@ -44,11 +45,16 @@ class SplitBillController extends Controller
 
 
         $order_info_data = OrderInfo::findOrFail($order_info_id);
+        $current_guest_no = $order_info_data->guest_no ?? 0;
+        $new_guest_no = $guest_no;
+        $update_guest_no = $current_guest_no - $new_guest_no;
+        $order_info_data->guest_no = $update_guest_no;
+        $order_info_data->update();
 
         $order_info = new OrderInfo();
         $order_info->customer_id = $order_info_data->customer_id ?? 0;
         $order_info->table_list_id = $order_info_data->table_list_id;
-        $order_info->guest_no = $order_info_data->guest_no ?? 0;
+        $order_info->guest_no = $guest_no ?? 0;
         $order_info->order_date_time = $order_info_data->order_date_time ?? date('Y-m-d h:i:s A');
         $order_info->order_date = $order_info_data->order_date ?? date('Y-m-d');
         $order_info->order_time = $order_info_data->order_time ?? date('h:i:s A');
@@ -92,5 +98,6 @@ class SplitBillController extends Controller
             }
         }
         Helper::updateOrderInfoTotalAmount($order_info_id);
+        return Redirect::route('pos_table_lists')->with('success', 'Your processing has been completed.');
     }
 }

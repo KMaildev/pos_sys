@@ -14,6 +14,7 @@ use App\Models\PaymentMethod;
 use App\Models\TableList;
 use App\Models\Taxrate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
 class BillController extends Controller
@@ -101,20 +102,36 @@ class BillController extends Controller
         return response()->json(['combile_order_infos' => $combile_order_infos]);
     }
 
+
     public function ConfirmCombine(Request $request)
     {
         $main_order_infos = $request->main_order_infos;
         $combile_order_info_id = $request->combile_order_info_id;
+        if (empty($combile_order_info_id)) {
+            return Redirect::route('bill_table_lists')->with('error', 'Something wrong please try again!');
+        } else {
+            $guest_no = [];
+            for ($i = 0; $i < count(array($combile_order_info_id)); $i++) {
+                $combile_order_info_id = $combile_order_info_id[$i];
 
-        $combile_order_infos = OrderItem::where('order_info_id', $combile_order_info_id)->get();
-        foreach ($combile_order_infos as $key => $combile_order_info) {
-            $combile_order_info->order_info_id = $main_order_infos;
-            $combile_order_info->update();
+                $combile_order_items = OrderItem::where('order_info_id', $combile_order_info_id)->get();
+                foreach ($combile_order_items as $key => $combile_order_item) {
+                    $combile_order_item->order_info_id = $main_order_infos;
+                    $combile_order_item->update();
+                }
+
+                $combile_order_info = OrderInfo::findOrFail($combile_order_info_id);
+                $guest_no[] = $combile_order_info->guest_no;
+
+
+                OrderInfo::findOrFail($combile_order_info_id)->delete();
+            }
+            $main_order_info_update = OrderInfo::findOrFail($main_order_infos);
+            $main_order_info_update->guest_no = $main_order_info_update->guest_no + array_sum($guest_no);
+            $main_order_info_update->update();
+            Helper::updateOrderInfoTotalAmount($main_order_infos);
+
+            return Redirect::route('bill_table_lists')->with('success', 'Your processing has been completed.');
         }
-
-        Helper::updateOrderInfoTotalAmount($main_order_infos);
-
-        OrderInfo::where('id', $combile_order_info_id)
-            ->delete();
     }
 }

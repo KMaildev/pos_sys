@@ -31,9 +31,9 @@
         "stream": "^0.0.2",
         "sweetalert2": "^11.6.16",
         "vue-numeric-keypad": "^1.2.3",
+        "vue-toastr": "^2.1.2",
         "ziggy-js": "^1.5.0"
     },
-    
     "browser": {
         "async_hooks": false
     }

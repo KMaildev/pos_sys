@@ -107,9 +107,58 @@
                                 </span>
                             </h4>
                         </div>
-                        <button class="additional_order" @click="SplitOrderConfirm(order_infos.id)">
+
+                        <!-- @click="SplitOrderConfirm(order_infos.id)" -->
+                        <button class="additional_order" @click="showGuestsNumberModal()">
                             Save & Done
                         </button>
+                    </div>
+                </div>
+
+
+
+
+
+                <!-- Number Of Guest Modal  -->
+                <div class="modal fade" id="numberOfGuestsModal" data-bs-backdrop="static" data-bs-keyboard="false"
+                    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-header" style="background-color: black;">
+                                <h5 class="modal-title" id="exampleModalLabel" style="color: white;">
+                                    Number of Guests
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                    style="color: white;">
+                                    <i class="fas fa-x fa-2xl"></i>
+                                </button>
+                            </div>
+
+                            <div class="modal-body py-5">
+                                <div class="d-flex justify-content-between"
+                                    style="border: 1px solid black; border-radius: 10px;">
+                                    <button type="button" class="btn btn-dark btn-lg" v-on:click="reduceGuestNo()">
+                                        <i class="fas fa-arrow-circle-down"></i>
+                                    </button>
+
+                                    <button type="button" class="btn btn btn-lg text-black"
+                                        style="background-color: white; width: 100%;">
+                                        {{ value }}
+                                    </button>
+
+                                    <button type="button" class="btn btn-dark btn-lg" v-on:click="addGuestNo()">
+                                        <i class="fas fa-arrow-alt-circle-up "></i>
+                                    </button>
+                                </div>
+                                <br><br>
+                                <div class="d-flex justify-content-between">
+                                    <button type="button" class="btn btn-dark btn-lg block" style="width: 100%;"
+                                        @click="SplitOrderConfirm(order_infos.id)">
+                                        Confirm
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -131,7 +180,7 @@ export default {
 
     data() {
         return {
-
+            value: localStorage.getItem("guest_no"),
         }
     },
 
@@ -191,8 +240,29 @@ export default {
         },
 
 
+
+        showGuestsNumberModal() {
+            $('#numberOfGuestsModal').modal('show');
+        },
+
+
+        addGuestNo() {
+            this.value++;
+            localStorage.setItem("guest_no", this.value);
+        },
+
+        reduceGuestNo() {
+            var guest_n = this.value;
+            if (guest_n > 1) {
+                this.value--;
+                localStorage.setItem("guest_no", this.value);
+            } else {
+            }
+        },
+
         SplitOrderConfirm(order_info_id) {
-            this.$inertia.get(`/split_order_confirm?order_info_id=${order_info_id}`);
+            $('#numberOfGuestsModal').modal('hide');
+            this.$inertia.get(`/split_order_confirm?order_info_id=${order_info_id}&&guest_no=${this.value}`);
         }
     }
 };
