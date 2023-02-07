@@ -18,6 +18,7 @@ use App\Http\Controllers\Ingredients\IngredientsController;
 use App\Http\Controllers\Inventory\FixedAssetsController;
 use App\Http\Controllers\Inventory\StockInController;
 use App\Http\Controllers\Inventory\StockOpeningController;
+use App\Http\Controllers\Inventory\StockTransferController;
 use App\Http\Controllers\Inventory\StoreTypeController;
 use App\Http\Controllers\Inventory\VariableAssetsController;
 use App\Http\Controllers\MenuList\MenuListController;
@@ -115,6 +116,9 @@ Route::middleware('auth')->group(function () {
     Route::get('get_stock_in_entry', [StockInController::class, 'stockInEntryAjax'])->name('get_stock_in_entry');
     Route::get('confirm_stock_in_entry', [StockInController::class, 'confirmStockIn'])->name('confirm_stock_in_entry');
     Route::get('remove_stock_in/{id}', [StockInController::class, 'removeStockIn'])->name('remove_stock_in');
+
+    // Stock Transfer
+    Route::resource('stock_transfer', StockTransferController::class);
 
     // System 
     Route::resource('store', StoreController::class);

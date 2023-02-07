@@ -108,6 +108,15 @@
                     </a>
                 </li>
 
+                <li>
+                    <a href="{{ route('stock_transfer.index') }}">
+                        <i class="fas fa-align-right"></i>
+                        Stock Transfer
+                    </a>
+                </li>
+
+
+
                 <li hidden>
                     <a href="javascript: void(0);" class="has-arrow">
                         <i data-feather="shopping-cart"></i>
