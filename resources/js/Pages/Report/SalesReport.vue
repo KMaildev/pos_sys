@@ -108,6 +108,7 @@
                                             %
                                         </td>
 
+                                        <!-- Discount Amount -->
                                         <td class="text-center">
                                             {{ bill_info.total_amount * bill_info.discount / 100 }}
                                         </td>
@@ -152,6 +153,32 @@
                                         </td>
                                     </tr>
                                 </tbody>
+                                <tr style="background-color: white;">
+                                    <td colspan="4">
+                                        Total
+                                    </td>
+
+                                    <td class="text-center">
+                                        {{ TotalSalesAmount(bill_infos) }}
+                                    </td>
+
+                                    <td class="text-center"></td>
+
+                                    <!-- Discount Amount -->
+                                    <td class="text-center">
+                                        {{ TotalDiscountAmount(bill_infos) }}
+                                    </td>
+
+                                    <td colspan="3" class="text-center"></td>
+
+                                    <!--Total Net Sales	-->
+                                    <td class="text-center">
+                                        {{ TotalNetSalesAmount(bill_infos) }}
+                                    </td>
+
+                                    <td colspan="5" class="text-center"></td>
+
+                                </tr>
                             </table>
                         </div>
                     </div>
@@ -198,8 +225,43 @@ export default {
 
             var totalTaxNetAmount = totalAmount * taxrate / 100;
             var totalDiscNetAmount = totalAmount * disc / 100;
-            var netAmount = totalAmount - (totalTaxNetAmount + totalDiscNetAmount);
+            var netAmount = (totalAmount + totalTaxNetAmount) - totalDiscNetAmount;
             return netAmount;
+        },
+
+
+
+
+        TotalSalesAmount(bill_infos) {
+            let sum = 0;
+            bill_infos.forEach(function (item) {
+                sum += +item.total_amount;
+            });
+            return sum;
+        },
+
+        TotalDiscountAmount(bill_infos) {
+            let sum = 0;
+            bill_infos.forEach(function (item) {
+                var total_amount = +item.total_amount;
+                var discount = +item.discount;
+                sum += total_amount * discount / 100;
+            });
+            return sum;
+        },
+
+        TotalNetSalesAmount(bill_infos) {
+            let sum = 0;
+            bill_infos.forEach(function (bill_info) {
+                var totalAmount = bill_info.total_amount;
+                var taxrate = bill_info.tax_amount;
+                var disc = bill_info.discount;
+
+                var totalTaxNetAmount = totalAmount * taxrate / 100;
+                var totalDiscNetAmount = totalAmount * disc / 100;
+                sum += (totalAmount + totalTaxNetAmount) - totalDiscNetAmount;
+            });
+            return sum;
         },
 
         totalQty(bill_info) {

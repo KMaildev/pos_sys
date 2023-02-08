@@ -31,6 +31,7 @@ class BillInfo extends Model
         'order_no',
         'inv_no',
         'first_table_id',
+        'discount_amount',
     ];
 
     public function order_infos_table()

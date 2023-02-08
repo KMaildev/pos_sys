@@ -29,7 +29,7 @@
                         </div>
                     </div>
 
-                    <div class="main-box" >
+                    <div class="main-box">
                         <div style="background-color: #000000;">
                             <p style="text-align: left;" class="name-text">
                                 Date:
@@ -86,6 +86,14 @@
                             <i class="fa fa-chart-line text-white" style="font-size: 23px;"></i>
                             &nbsp;&nbsp;&nbsp;
                             Report
+                            </Link>
+                        </li>
+
+                        <li style="width: 90%; margin-bottom: 10px;">
+                            <Link :href="route('manager_void_item')" class="btn btn-default menubtn">
+                            <i class="fa fa-list text-white" style="font-size: 23px;"></i>
+                            &nbsp;&nbsp;&nbsp;
+                            Void Items
                             </Link>
                         </li>
 

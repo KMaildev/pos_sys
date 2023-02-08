@@ -71,12 +71,13 @@ class BillController extends Controller
             'bill_date_time' => date('Y-m-d h:i:s A'),
             'bill_time' => date('h:i:s A'),
             'payment_type' => $request->payment_method_id,
-            'total_amount' => $order_info->total_amount,
-            'tax_amount' => $request->taxrate,
-            'discount' => $request->disc,
+            'total_amount' => $order_info->total_amount ?? 0,
+            'tax_amount' => $request->taxrate ?? 0,
+            'discount' => $request->disc ?? 0,
+            'discount_amount' => $request->disc_amount ?? 0,
             'service_charges' => 0,
-            'net_amount' => $request->totalNetAmount,
-            'received_amount' => $request->received_amount,
+            'net_amount' => $request->totalNetAmount ?? 0,
+            'received_amount' => $request->received_amount ?? 0,
             'change_amount' => 0,
             'cashier_user_id' => auth()->user()->id ?? 0,
             'waiter_user_id' => $order_info->waiter_user_id,
@@ -89,6 +90,7 @@ class BillController extends Controller
 
         $order_info->check_out_status = 'paid';
         $order_info->update();
+        return Redirect::route('bill_table_lists')->with('success', 'Your processing has been completed.');
     }
 
 

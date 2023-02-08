@@ -9,6 +9,7 @@ use App\Models\Customer;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
+use Illuminate\Support\Facades\Redirect;
 
 class CashierCustomerController extends Controller
 {
@@ -71,7 +72,7 @@ class CashierCustomerController extends Controller
         $menu->remark = $request->remark;
         $menu->gender = $request->gender;
         $menu->save();
-        return redirect()->back()->with('success', 'Your processing has been completed.');
+        return Redirect::route('cashier_customer')->with('success', 'Your processing has been completed.');
     }
 
     /**
@@ -116,7 +117,7 @@ class CashierCustomerController extends Controller
         $menu->remark = $request->remark;
         $menu->gender = $request->gender;
         $menu->update();
-        return redirect()->back()->with('success', 'Your processing has been completed.');
+        return Redirect::route('cashier_customer')->with('success', 'Your processing has been completed.');
     }
 
     /**

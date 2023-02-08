@@ -8,6 +8,7 @@ use App\Models\OrderInfo;
 use App\Models\OrderItem;
 use App\Models\VoidItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
 class VoidController extends Controller
@@ -40,6 +41,7 @@ class VoidController extends Controller
         $order_info = OrderInfo::findOrFail($order_info_id);
 
         $void_item = new VoidItem();
+        $void_item->order_item_id = $order_item->id;
         $void_item->order_info_id = $order_item->order_info_id;
         $void_item->menu_list_id = $order_item->menu_list_id;
         $void_item->qty = $order_item->qty;
@@ -59,10 +61,48 @@ class VoidController extends Controller
         $void_item->void_date = date('Y-m-d');
         $void_item->void_time = date('h:i:s A');
         $void_item->table_list_id = $order_info->table_list_id;
+        $void_item->manager_status = 'nothing';
         $void_item->save();
 
-        OrderItem::findOrFail($item_id)
-            ->delete();
+        // OrderItem::findOrFail($item_id)
+        //     ->delete();
         Helper::updateOrderInfoTotalAmount($order_item->order_info_id);
+        return redirect()->back()->with('success', 'Your processing has been completed.');
+    }
+
+
+
+
+
+
+    public function getManagerVoidItems(Request $request)
+    {
+        $void_items = VoidItem::with('menu_list_table', 'table_list_table', 'void_by_table')
+            ->get();
+        return Inertia::render('Void/ManagerVoidItems', [
+            'void_items' => $void_items,
+        ]);
+    }
+
+    public function managerVoidItemsAccept(Request $request)
+    {
+        $id = $request->id;
+        $void_item = VoidItem::findOrFail($id);
+        $void_item->manager_status = 'done';
+        $void_item->update();
+        $void_item_id = $void_item->order_item_id;
+        OrderItem::findOrFail($void_item_id)->delete();
+        Helper::updateOrderInfoTotalAmount($void_item->order_info_id);
+        return redirect()->back()->with('success', 'Your processing has been completed.');
+    }
+
+
+    public function managerVoidItemsReject(Request $request)
+    {
+        $id = $request->id;
+        $void_item = VoidItem::findOrFail($id);
+        $void_item->manager_status = 'reject';
+        $void_item->update();
+        return redirect()->back()->with('success', 'Your processing has been completed.');
     }
 }

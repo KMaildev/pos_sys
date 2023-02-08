@@ -144,7 +144,15 @@ export default {
 
     methods: {
         submit() {
-            this.$emit('submit', this.form)
+            if (this.form.name == '' || this.form.name == null) {
+                this.$toastr.e('Pleast Enter Customer Name');
+                return false;
+            } else if (this.form.primary_number == '' || this.form.primary_number == null) {
+                this.$toastr.e('Pleast Enter Primary Phone Number');
+                return false;
+            } else {
+                this.$emit('submit', this.form)
+            }
         }
     }
 }

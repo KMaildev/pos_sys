@@ -13,4 +13,15 @@ class VoidItem extends Model
     {
         return $this->belongsTo(MenuList::class, 'menu_list_id', 'id');
     }
+
+    public function table_list_table()
+    {
+        return $this->belongsTo(TableList::class, 'table_list_id', 'id');
+    }
+
+
+    public function void_by_table()
+    {
+        return $this->belongsTo(User::class, 'void_by', 'id');
+    }
 }

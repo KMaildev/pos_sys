@@ -158,6 +158,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/pos_void_order/{id}', [VoidController::class, 'VoidOrder'])->name('pos_void_order');
     Route::get('/pos_void_item', [VoidController::class, 'VoidItem'])->name('pos_void_item');
     Route::get('/confirm_void_item', [VoidController::class, 'ConfirmVoidItem'])->name('confirm_void_item');
+    Route::get('/manager_void_item', [VoidController::class, 'getManagerVoidItems'])->name('manager_void_item');
+    Route::get('/manager_void_item_accept', [VoidController::class, 'managerVoidItemsAccept'])->name('manager_void_item_accept');
+    Route::get('/manager_void_item_reject', [VoidController::class, 'managerVoidItemsReject'])->name('manager_void_item_reject');
 
     // BILL 
     Route::get('/bill_table_lists', [BillController::class, 'billTable'])->name('bill_table_lists');

@@ -120,7 +120,7 @@
                                     <!-- Tax  -->
                                     <tr class="">
                                         <td style="font-size: 16px;" colspan="2">
-                                            Tax
+                                            Tax (%)
                                         </td>
                                         <td style="text-align: right;" colspan="2">
                                             <select
@@ -138,12 +138,25 @@
                                     <!-- Disc -->
                                     <tr class="">
                                         <td style="font-size: 16px;" colspan="2">
-                                            Disc
+                                            Disc (%)
                                         </td>
 
                                         <td colspan="2">
                                             <input type="text" class="billInput" value="0"
                                                 style="text-align: right; width: 100%;" v-model="form.disc"
+                                                @change="netAmount()">
+                                        </td>
+                                    </tr>
+
+                                    <!-- Amount -->
+                                    <tr class="">
+                                        <td style="font-size: 16px;" colspan="2">
+                                            Disc Amount
+                                        </td>
+
+                                        <td colspan="2">
+                                            <input type="text" class="billInput" value="0"
+                                                style="text-align: right; width: 100%;" v-model="form.disc_amount"
                                                 @change="netAmount()">
                                         </td>
                                     </tr>
@@ -312,6 +325,7 @@ export default {
                 totalNetAmount: 0,
                 received_amount: 0,
                 dueAmount: 0,
+                disc_amount: 0,
             },
 
             combile_form: {
@@ -363,10 +377,11 @@ export default {
             var totalAmount = sum;
             var taxrate = this.form.taxrate;
             var disc = this.form.disc;
+            var disc_amount = this.form.disc_amount;
 
             var totalTaxNetAmount = totalAmount * taxrate / 100;
             var totalDiscNetAmount = totalAmount * disc / 100;
-            var netAmount = (totalAmount + totalTaxNetAmount) - totalDiscNetAmount;
+            var netAmount = (totalAmount + totalTaxNetAmount) - (totalDiscNetAmount + +disc_amount);
             this.form.totalNetAmount = netAmount;
             return netAmount;
         },
@@ -380,8 +395,13 @@ export default {
         },
 
         submitPayment() {
-            this.$inertia.post('/pos_submit_payment', this.form);
-            this.printInvoice();
+            if (this.form.payment_method_id == '' || this.form.payment_method_id == null) {
+                this.$toastr.e('Pleast Select Pay Type');
+                return false;
+            } else {
+                this.$inertia.post('/pos_submit_payment', this.form);
+                this.printInvoice();
+            }
         },
 
         printInvoice() {
