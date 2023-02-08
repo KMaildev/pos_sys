@@ -36,7 +36,7 @@
     </div>
 
     <div class="row">
-        <div class="col-6">
+        <div class="col-12">
             <div class="card">
                 <div class="card-body">
                     <div style="height: 500px; width: 100%;">
@@ -47,7 +47,7 @@
             </div>
         </div>
 
-        <div class="col-6">
+        <div class="col-12">
             <div class="card">
                 <div class="card-body">
                     <div style="height: 500px; width: 100%;">
