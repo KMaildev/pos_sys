@@ -10,7 +10,6 @@
                     <CashierButton></CashierButton>
                 </div>
 
-
                 <div class="row">
                     <div class="col-md-4 col-lg-4 col-sm-4 py-3">
                         <form @submit.prevent="searchDate">
@@ -48,7 +47,7 @@
                                         </th>
 
                                         <th class="text-center">
-                                            Net Amount
+                                            Received Amount
                                         </th>
                                     </tr>
                                 </thead>
@@ -80,6 +79,16 @@
                                         </td>
                                     </tr>
                                 </tbody>
+                                <tr style="background-color: white;">
+                                    <td colspan="5">
+                                        Total
+                                    </td>
+
+                                    <!--Discount Amount-->
+                                    <td class="text-center">
+                                        {{ totalReceivedAmount() }}
+                                    </td>
+                                </tr>
                             </table>
                         </div>
                     </div>
@@ -117,6 +126,14 @@ export default {
     ],
 
     methods: {
+        totalReceivedAmount() {
+            let sum = 0;
+            this.bill_infos.forEach(function (item) {
+                sum += +item.net_amount
+            });
+            return sum;
+        },
+
         searchDate() {
             this.$inertia.get(`/pos_online_pay`, this.form);
         }

@@ -82,6 +82,17 @@
 
                                     </tr>
                                 </tbody>
+
+                                <tr style="background-color: white;">
+                                    <td colspan="5">
+                                        Total
+                                    </td>
+
+                                    <!--Discount Amount-->
+                                    <td class="text-center">
+                                        {{ TotalDiscountAmount() }}
+                                    </td>
+                                </tr>
                             </table>
                         </div>
                     </div>
@@ -121,6 +132,17 @@ export default {
     ],
 
     methods: {
+
+        TotalDiscountAmount() {
+            let sum = 0;
+            this.bill_infos.forEach(function (item) {
+                var total_amount = +item.total_amount;
+                var discount = +item.discount;
+                sum += total_amount * discount / 100;
+            });
+            return sum;
+        },
+
         searchDate() {
             this.$inertia.get(`/pos_discount_report`, this.form);
         }

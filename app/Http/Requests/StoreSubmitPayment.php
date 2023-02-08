@@ -28,6 +28,7 @@ class StoreSubmitPayment extends FormRequest
             'payment_method_id' => 'required',
             'taxrate' => 'numeric',
             'disc' => 'numeric',
+            'disc_amount' => 'numeric',
             'totalNetAmount' => 'numeric',
             'received_amount' => 'numeric',
         ];

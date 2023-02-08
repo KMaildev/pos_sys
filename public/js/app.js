@@ -6887,6 +6887,7 @@ __webpack_require__.r(__webpack_exports__);
     searchAlphabetSearch: function searchAlphabetSearch(keyword) {
       this.abcd_arr.push(keyword);
       this.search_keyword = this.abcd_arr.join("");
+      this.search();
     },
     removeAlphabetSearch: function removeAlphabetSearch() {
       this.abcd_arr = [];
@@ -7298,6 +7299,20 @@ __webpack_require__.r(__webpack_exports__);
   },
   props: ['user_name', 'bill_infos'],
   methods: {
+    totalCashRec: function totalCashRec() {
+      var sum = 0;
+      this.bill_infos.forEach(function (item) {
+        sum += parseFloat(item.received_amount);
+      });
+      return sum;
+    },
+    totalDueAmount: function totalDueAmount() {
+      var sum = 0;
+      this.bill_infos.forEach(function (item) {
+        sum += +item.net_amount;
+      });
+      return sum;
+    },
     searchDate: function searchDate() {
       this.$inertia.get("/pos_cash_report", this.form);
     }
@@ -7344,6 +7359,15 @@ window.Swal = (sweetalert2__WEBPACK_IMPORTED_MODULE_3___default());
   },
   props: ['user_name', 'bill_infos'],
   methods: {
+    TotalDiscountAmount: function TotalDiscountAmount() {
+      var sum = 0;
+      this.bill_infos.forEach(function (item) {
+        var total_amount = +item.total_amount;
+        var discount = +item.discount;
+        sum += total_amount * discount / 100;
+      });
+      return sum;
+    },
     searchDate: function searchDate() {
       this.$inertia.get("/pos_discount_report", this.form);
     }
@@ -7386,6 +7410,13 @@ __webpack_require__.r(__webpack_exports__);
   },
   props: ['user_name', 'bill_infos'],
   methods: {
+    totalReceivedAmount: function totalReceivedAmount() {
+      var sum = 0;
+      this.bill_infos.forEach(function (item) {
+        sum += +item.net_amount;
+      });
+      return sum;
+    },
     searchDate: function searchDate() {
       this.$inertia.get("/pos_online_pay", this.form);
     }
@@ -7430,11 +7461,18 @@ window.Swal = (sweetalert2__WEBPACK_IMPORTED_MODULE_3___default());
       }
     };
   },
-  props: ['user_name', 'payment_methods'],
+  props: ['user_name', 'payment_methods', 'bill_infos_table'],
   methods: {
     totalAmount: function totalAmount(payment_method) {
       var sum = 0;
       payment_method.bill_infos_table.forEach(function (item) {
+        sum += +item.total_amount;
+      });
+      return sum;
+    },
+    AlltotalAmount: function AlltotalAmount() {
+      var sum = 0;
+      this.bill_infos_table.forEach(function (item) {
         sum += +item.total_amount;
       });
       return sum;
@@ -7479,7 +7517,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
   },
-  props: ['user_name', 'menu_lists'],
+  props: ['user_name', 'menu_lists', 'order_items'],
   methods: {
     saleAmount: function saleAmount(menu_list) {
       var sum = 0;
@@ -7489,16 +7527,23 @@ __webpack_require__.r(__webpack_exports__);
       return sum;
     },
     salesPercentage: function salesPercentage(menu_list) {
-      var total_amount = menu_list.price;
+      var total_amount = this.totalSaleAmount();
       var sale_amount = 0;
       menu_list.order_items_table.forEach(function (item) {
-        sale_amount += parseFloat(item.price) * parseFloat(item.qty);
+        sale_amount += +item.price;
       });
       if (sale_amount == 0) {
         return 0;
       }
-      var salesPercentage = total_amount / sale_amount * 100;
+      var salesPercentage = sale_amount / total_amount * 100;
       return salesPercentage.toLocaleString("en-US");
+    },
+    totalSaleAmount: function totalSaleAmount() {
+      var sum = 0;
+      this.order_items.forEach(function (item) {
+        sum += parseFloat(item.price) * parseFloat(item.qty);
+      });
+      return sum;
     },
     searchDate: function searchDate() {
       this.$inertia.get("/pos_sales_category_amount", this.form);
@@ -7703,7 +7748,7 @@ window.Swal = (sweetalert2__WEBPACK_IMPORTED_MODULE_3___default());
       }
     };
   },
-  props: ['user_name', 'waiters'],
+  props: ['user_name', 'waiters', 'bill_infos', 'void_items'],
   methods: {
     totalNetSale: function totalNetSale(waiter) {
       var sum = 0;
@@ -7713,7 +7758,20 @@ window.Swal = (sweetalert2__WEBPACK_IMPORTED_MODULE_3___default());
         var disc = item.discount;
         var totalTaxNetAmount = totalAmount * taxrate / 100;
         var totalDiscNetAmount = totalAmount * disc / 100;
-        var netAmount = totalAmount - (totalTaxNetAmount + totalDiscNetAmount);
+        var netAmount = +totalAmount + +totalTaxNetAmount - +totalDiscNetAmount;
+        sum += netAmount;
+      });
+      return sum;
+    },
+    totalNetSaleTotal: function totalNetSaleTotal() {
+      var sum = 0;
+      this.bill_infos.forEach(function (item) {
+        var totalAmount = item.total_amount;
+        var taxrate = item.tax_amount;
+        var disc = item.discount;
+        var totalTaxNetAmount = totalAmount * taxrate / 100;
+        var totalDiscNetAmount = totalAmount * disc / 100;
+        var netAmount = +totalAmount + +totalTaxNetAmount - +totalDiscNetAmount;
         sum += netAmount;
       });
       return sum;
@@ -7725,6 +7783,13 @@ window.Swal = (sweetalert2__WEBPACK_IMPORTED_MODULE_3___default());
       });
       return sum;
     },
+    SalesBillsTotal: function SalesBillsTotal() {
+      var sum = 0;
+      this.bill_infos.forEach(function (item) {
+        sum += 1;
+      });
+      return sum;
+    },
     GrossBills: function GrossBills(waiter) {
       var sum = 0;
       waiter.bill_infos_table.forEach(function (item) {
@@ -7732,9 +7797,23 @@ window.Swal = (sweetalert2__WEBPACK_IMPORTED_MODULE_3___default());
       });
       return sum;
     },
+    GrossBillsTotal: function GrossBillsTotal() {
+      var sum = 0;
+      this.bill_infos.forEach(function (item) {
+        sum += +item.total_amount;
+      });
+      return sum;
+    },
     VoidQty: function VoidQty(waiter) {
       var sum = 0;
       waiter.void_items_table.forEach(function (item) {
+        sum += +item.qty;
+      });
+      return sum;
+    },
+    VoidQtyTotal: function VoidQtyTotal() {
+      var sum = 0;
+      this.void_items.forEach(function (item) {
         sum += +item.qty;
       });
       return sum;
@@ -7783,7 +7862,7 @@ window.Swal = (sweetalert2__WEBPACK_IMPORTED_MODULE_3___default());
       }
     };
   },
-  props: ['user_name', 'table_lists'],
+  props: ['user_name', 'table_lists', 'bill_infos_table'],
   methods: {
     SalesBills: function SalesBills(table_list) {
       var sum = 0;
@@ -7792,9 +7871,23 @@ window.Swal = (sweetalert2__WEBPACK_IMPORTED_MODULE_3___default());
       });
       return sum;
     },
+    TotalSalesBills: function TotalSalesBills() {
+      var sum = 0;
+      this.bill_infos_table.forEach(function (item) {
+        sum += 1;
+      });
+      return sum;
+    },
     SalesAmount: function SalesAmount(table_list) {
       var sum = 0;
       table_list.bill_infos_table.forEach(function (item) {
+        sum += +item.total_amount;
+      });
+      return sum;
+    },
+    TotalSalesAmount: function TotalSalesAmount() {
+      var sum = 0;
+      this.bill_infos_table.forEach(function (item) {
         sum += +item.total_amount;
       });
       return sum;
@@ -7845,6 +7938,13 @@ window.Swal = (sweetalert2__WEBPACK_IMPORTED_MODULE_3___default());
   },
   props: ['user_name', 'void_items'],
   methods: {
+    voidTotalQty: function voidTotalQty() {
+      var sum = 0;
+      this.void_items.forEach(function (item) {
+        sum += parseFloat(item.qty);
+      });
+      return sum;
+    },
     searchDate: function searchDate() {
       this.$inertia.get("/pos_void_report", this.form);
     }
@@ -12622,9 +12722,10 @@ var render = function render() {
     }, [_vm._v("\n                    " + _vm._s(category.title) + "\n                ")]), _vm._v(" "), category.photo ? _c("img", {
       staticStyle: {
         width: "100%",
-        height: "126px",
+        height: "140px",
         "border-radius": "8%",
         "background-size": "center",
+        "object-position": "top",
         "object-fit": "cover",
         padding: "8px"
       },
@@ -16231,9 +16332,7 @@ var render = function render() {
     staticClass: "text-center"
   }, [_vm._v("\n                                        Invoices No.\n                                    ")]), _vm._v(" "), _c("th", {
     staticClass: "text-center"
-  }, [_vm._v("\n                                        Cash Rec (Total Amount)\n                                    ")]), _vm._v(" "), _c("th", {
-    staticClass: "text-center"
-  }, [_vm._v("\n                                        Net Amount\n                                    ")]), _vm._v(" "), _c("th", {
+  }, [_vm._v("\n                                        Cash Rec\n                                    ")]), _vm._v(" "), _c("th", {
     staticClass: "text-center"
   }, [_vm._v("\n                                        Cash Refund\n                                    ")]), _vm._v(" "), _c("th", {
     staticClass: "text-center"
@@ -16242,7 +16341,7 @@ var render = function render() {
       "background-color": "white"
     }
   }, _vm._l(_vm.bill_infos, function (bill_info, index) {
-    var _bill_info$bill_date_, _bill_info$inv_no, _bill_info$total_amou, _bill_info$net_amount, _bill_info$net_amount2;
+    var _bill_info$bill_date_, _bill_info$inv_no, _bill_info$received_a, _bill_info$net_amount;
     return bill_info.payment_method_table.account_type == "Cash" ? _c("tr", {
       key: bill_info.id
     }, [_c("td", {
@@ -16253,14 +16352,26 @@ var render = function render() {
       staticClass: "text-center"
     }, [_vm._v("\n                                        " + _vm._s((_bill_info$inv_no = bill_info.inv_no) !== null && _bill_info$inv_no !== void 0 ? _bill_info$inv_no : "") + "\n                                    ")]), _vm._v(" "), _c("td", {
       staticClass: "text-center"
-    }, [_vm._v("\n                                        " + _vm._s((_bill_info$total_amou = bill_info.total_amount) !== null && _bill_info$total_amou !== void 0 ? _bill_info$total_amou : "") + "\n                                    ")]), _vm._v(" "), _c("td", {
-      staticClass: "text-center"
-    }, [_vm._v("\n                                        " + _vm._s((_bill_info$net_amount = bill_info.net_amount) !== null && _bill_info$net_amount !== void 0 ? _bill_info$net_amount : "") + "\n                                    ")]), _vm._v(" "), _c("td", {
+    }, [_vm._v("\n                                        " + _vm._s((_bill_info$received_a = bill_info.received_amount) !== null && _bill_info$received_a !== void 0 ? _bill_info$received_a : "") + "\n                                    ")]), _vm._v(" "), _c("td", {
       staticClass: "text-center"
     }, [_vm._v("\n                                        " + _vm._s(bill_info.net_amount - bill_info.received_amount) + "\n                                    ")]), _vm._v(" "), _c("td", {
       staticClass: "text-center"
-    }, [_vm._v("\n                                        " + _vm._s((_bill_info$net_amount2 = bill_info.net_amount) !== null && _bill_info$net_amount2 !== void 0 ? _bill_info$net_amount2 : "") + "\n                                    ")])]) : _vm._e();
-  }), 0)])])])])])])], 1);
+    }, [_vm._v("\n                                        " + _vm._s((_bill_info$net_amount = bill_info.net_amount) !== null && _bill_info$net_amount !== void 0 ? _bill_info$net_amount : "") + "\n                                    ")])]) : _vm._e();
+  }), 0), _vm._v(" "), _c("tr", {
+    staticStyle: {
+      "background-color": "white"
+    }
+  }, [_c("td", {
+    attrs: {
+      colspan: "3"
+    }
+  }, [_vm._v("\n                                    Total\n                                ")]), _vm._v(" "), _c("td", {
+    staticClass: "text-center"
+  }, [_vm._v("\n                                    " + _vm._s(_vm.totalCashRec()) + "\n                                ")]), _vm._v(" "), _c("td", {
+    staticClass: "text-center"
+  }), _vm._v(" "), _c("td", {
+    staticClass: "text-center"
+  }, [_vm._v("\n                                    " + _vm._s(_vm.totalDueAmount()) + "\n                                ")])])])])])])])])], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -16396,7 +16507,17 @@ var render = function render() {
     }, [_vm._v("\n                                        " + _vm._s(bill_info.discount) + "\n                                        %\n                                    ")]), _vm._v(" "), _c("td", {
       staticClass: "text-center"
     }, [_vm._v("\n                                        " + _vm._s(bill_info.total_amount * bill_info.discount / 100) + "\n                                    ")])]);
-  }), 0)])])])])])])], 1);
+  }), 0), _vm._v(" "), _c("tr", {
+    staticStyle: {
+      "background-color": "white"
+    }
+  }, [_c("td", {
+    attrs: {
+      colspan: "5"
+    }
+  }, [_vm._v("\n                                    Total\n                                ")]), _vm._v(" "), _c("td", {
+    staticClass: "text-center"
+  }, [_vm._v("\n                                    " + _vm._s(_vm.TotalDiscountAmount()) + "\n                                ")])])])])])])])])], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -16513,7 +16634,7 @@ var render = function render() {
     staticClass: "text-center"
   }, [_vm._v("\n                                        Total Amount\n                                    ")]), _vm._v(" "), _c("th", {
     staticClass: "text-center"
-  }, [_vm._v("\n                                        Net Amount\n                                    ")])])]), _vm._v(" "), _c("tbody", {
+  }, [_vm._v("\n                                        Received Amount\n                                    ")])])]), _vm._v(" "), _c("tbody", {
     staticStyle: {
       "background-color": "white"
     }
@@ -16534,7 +16655,17 @@ var render = function render() {
     }, [_vm._v("\n                                        " + _vm._s((_bill_info$total_amou = bill_info.total_amount) !== null && _bill_info$total_amou !== void 0 ? _bill_info$total_amou : "") + "\n                                    ")]), _vm._v(" "), _c("td", {
       staticClass: "text-center"
     }, [_vm._v("\n                                        " + _vm._s((_bill_info$net_amount = bill_info.net_amount) !== null && _bill_info$net_amount !== void 0 ? _bill_info$net_amount : "") + "\n                                    ")])]) : _vm._e();
-  }), 0)])])])])])])], 1);
+  }), 0), _vm._v(" "), _c("tr", {
+    staticStyle: {
+      "background-color": "white"
+    }
+  }, [_c("td", {
+    attrs: {
+      colspan: "5"
+    }
+  }, [_vm._v("\n                                    Total\n                                ")]), _vm._v(" "), _c("td", {
+    staticClass: "text-center"
+  }, [_vm._v("\n                                    " + _vm._s(_vm.totalReceivedAmount()) + "\n                                ")])])])])])])])])], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -16665,7 +16796,17 @@ var render = function render() {
     }, [_vm._v("\n                                        " + _vm._s(payment_method.name) + "\n                                    ")]), _vm._v(" "), _c("td", {
       staticClass: "text-center"
     }, [_vm._v("\n                                        " + _vm._s(_vm.totalAmount(payment_method)) + "\n                                    ")])]);
-  }), 0)])])])])])])], 1);
+  }), 0), _vm._v(" "), _c("tr", {
+    staticStyle: {
+      "background-color": "white"
+    }
+  }, [_c("td", {
+    attrs: {
+      colspan: "2"
+    }
+  }, [_vm._v("\n                                    Total\n                                ")]), _vm._v(" "), _c("td", {
+    staticClass: "text-center"
+  }, [_vm._v("\n                                    " + _vm._s(_vm.AlltotalAmount()) + "\n                                ")])])])])])])])])], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -16798,8 +16939,18 @@ var render = function render() {
       staticClass: "text-center"
     }, [_vm._v("\n                                        " + _vm._s(_vm.saleAmount(menu_list)) + "\n                                    ")]), _vm._v(" "), _c("td", {
       staticClass: "text-center"
-    }, [_vm._v("\n                                        " + _vm._s(_vm.salesPercentage(menu_list)) + "\n                                    ")])]);
-  }), 0)])])])])])])], 1);
+    }, [_vm._v("\n                                        " + _vm._s(_vm.salesPercentage(menu_list)) + " %\n                                    ")])]);
+  }), 0), _vm._v(" "), _c("tr", {
+    staticStyle: {
+      "background-color": "white"
+    }
+  }, [_c("td", {
+    attrs: {
+      colspan: "3"
+    }
+  }, [_vm._v("\n                                    Total\n                                ")]), _vm._v(" "), _c("td", {
+    staticClass: "text-center"
+  }, [_vm._v("\n                                    " + _vm._s(_vm.totalSaleAmount()) + "\n                                ")])])])])])])])])], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -17267,9 +17418,7 @@ var render = function render() {
     staticClass: "text-center"
   }, [_vm._v("\n                                        Void Qty\n                                    ")]), _vm._v(" "), _c("th", {
     staticClass: "text-center"
-  }, [_vm._v("\n                                        Net Sales Amount\n                                    ")]), _vm._v(" "), _c("th", {
-    staticClass: "text-center"
-  }, [_vm._v("\n                                        Remark\n                                    ")])])]), _vm._v(" "), _c("tbody", {
+  }, [_vm._v("\n                                        Net Sales Amount\n                                    ")])])]), _vm._v(" "), _c("tbody", {
     staticStyle: {
       "background-color": "white"
     }
@@ -17288,10 +17437,24 @@ var render = function render() {
       staticClass: "text-center"
     }, [_vm._v("\n                                        " + _vm._s(_vm.VoidQty(waiter)) + "\n                                    ")]), _vm._v(" "), _c("td", {
       staticClass: "text-center"
-    }, [_vm._v("\n                                        " + _vm._s(_vm.totalNetSale(waiter)) + "\n                                    ")]), _vm._v(" "), _c("td", {
-      staticClass: "text-center"
-    }, [waiter.remark_void_items_table ? _c("span", [_vm._v("\n                                            " + _vm._s(waiter.remark_void_items_table.reason) + "\n                                        ")]) : _vm._e()])]);
-  }), 0)])])])])])])], 1);
+    }, [_vm._v("\n                                        " + _vm._s(_vm.totalNetSale(waiter)) + "\n                                    ")])]);
+  }), 0), _vm._v(" "), _c("tr", {
+    staticStyle: {
+      "background-color": "white"
+    }
+  }, [_c("td", {
+    attrs: {
+      colspan: "2"
+    }
+  }, [_vm._v("\n                                    Total\n                                ")]), _vm._v(" "), _c("td", {
+    staticClass: "text-center"
+  }, [_vm._v("\n                                    " + _vm._s(_vm.SalesBillsTotal()) + "\n                                ")]), _vm._v(" "), _c("td", {
+    staticClass: "text-center"
+  }, [_vm._v("\n                                    " + _vm._s(_vm.GrossBillsTotal()) + "\n                                ")]), _vm._v(" "), _c("td", {
+    staticClass: "text-center"
+  }, [_vm._v("\n                                    " + _vm._s(_vm.VoidQtyTotal()) + "\n                                ")]), _vm._v(" "), _c("td", {
+    staticClass: "text-center"
+  }, [_vm._v("\n                                    " + _vm._s(_vm.totalNetSaleTotal()) + "\n                                ")])])])])])])])])], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -17413,12 +17576,7 @@ var render = function render() {
     staticStyle: {
       width: "10%"
     }
-  }, [_vm._v("\n                                        Sales Amount\n                                    ")]), _vm._v(" "), _c("th", {
-    staticClass: "text-center",
-    staticStyle: {
-      width: "10%"
-    }
-  }, [_vm._v("\n                                        Remark\n                                    ")])])]), _vm._v(" "), _c("tbody", {
+  }, [_vm._v("\n                                        Sales Amount\n                                    ")])])]), _vm._v(" "), _c("tbody", {
     staticStyle: {
       "background-color": "white"
     }
@@ -17433,10 +17591,20 @@ var render = function render() {
       staticClass: "text-center"
     }, [_vm._v("\n                                        " + _vm._s(_vm.SalesBills(table_list)) + "\n                                    ")]), _vm._v(" "), _c("td", {
       staticClass: "text-center"
-    }, [_vm._v("\n                                        " + _vm._s(_vm.SalesAmount(table_list)) + "\n                                    ")]), _vm._v(" "), _c("td", {
-      staticClass: "text-center"
-    }, [table_list.void_item_table ? _c("span", [_vm._v("\n                                            " + _vm._s(table_list.void_item_table.reason) + "\n                                        ")]) : _vm._e()])]);
-  }), 0)])])])])])])], 1);
+    }, [_vm._v("\n                                        " + _vm._s(_vm.SalesAmount(table_list)) + "\n                                    ")])]);
+  }), 0), _vm._v(" "), _c("tr", {
+    staticStyle: {
+      "background-color": "white"
+    }
+  }, [_c("td", {
+    attrs: {
+      colspan: "2"
+    }
+  }, [_vm._v("\n                                    Total\n                                ")]), _vm._v(" "), _c("td", {
+    staticClass: "text-center"
+  }, [_vm._v("\n                                    " + _vm._s(_vm.TotalSalesBills()) + "\n                                ")]), _vm._v(" "), _c("td", {
+    staticClass: "text-center"
+  }, [_vm._v("\n                                    " + _vm._s(_vm.TotalSalesAmount()) + "\n                                ")])])])])])])])])], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -17582,7 +17750,17 @@ var render = function render() {
     }, [_vm._v("\n                                        " + _vm._s(void_item.qty) + "\n                                    ")]), _vm._v(" "), _c("td", {
       staticClass: "text-center"
     }, [_vm._v("\n                                        " + _vm._s(void_item.reason) + "\n                                    ")])]);
-  }), 0)])])])])])])], 1);
+  }), 0), _vm._v(" "), _c("tr", {
+    staticStyle: {
+      "background-color": "white"
+    }
+  }, [_c("td", {
+    attrs: {
+      colspan: "3"
+    }
+  }, [_vm._v("\n                                    Total\n                                ")]), _vm._v(" "), _c("td", {
+    staticClass: "text-center"
+  }, [_vm._v("\n                                    " + _vm._s(_vm.voidTotalQty()) + "\n                                ")]), _vm._v(" "), _c("td")])])])])])])])], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -23935,7 +24113,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.main-menu-box {\n    height: 150px;\n}\n.centered {\n    font-size: 20px;\n    font-weight: bold;\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    transform: translate(-50%, -50%);\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.main-menu-box {\n    height: 160px;\n}\n.centered {\n    font-size: 20px;\n    font-weight: bold;\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    transform: translate(-50%, -50%);\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

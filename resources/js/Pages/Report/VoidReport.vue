@@ -73,6 +73,18 @@
                                         </td>
                                     </tr>
                                 </tbody>
+                                <tr style="background-color: white;">
+                                    <td colspan="3">
+                                        Total
+                                    </td>
+
+                                    <!--Discount Amount-->
+                                    <td class="text-center">
+                                        {{ voidTotalQty() }}
+                                    </td>
+
+                                    <td></td>
+                                </tr>
                             </table>
                         </div>
                     </div>
@@ -112,6 +124,14 @@ export default {
     ],
 
     methods: {
+        voidTotalQty() {
+            let sum = 0;
+            this.void_items.forEach(function (item) {
+                sum += parseFloat(item.qty);
+            });
+            return sum;
+        },
+
         searchDate() {
             this.$inertia.get(`/pos_void_report`, this.form);
         }

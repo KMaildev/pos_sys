@@ -10,7 +10,6 @@
                     <SaleButton></SaleButton>
                 </div>
 
-
                 <div class="row">
                     <div class="col-md-4 col-lg-4 col-sm-4 py-3">
                         <form @submit.prevent="searchDate">
@@ -46,10 +45,6 @@
                                         <th class="text-center">
                                             Net Sales Amount
                                         </th>
-
-                                        <th class="text-center">
-                                            Remark
-                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody style="background-color: white;">
@@ -78,14 +73,35 @@
                                             {{ totalNetSale(waiter) }}
                                         </td>
 
-                                        <td class="text-center">
-                                            <span v-if="waiter.remark_void_items_table">
-                                                {{ waiter.remark_void_items_table.reason }}
-                                            </span>
-                                        </td>
-
                                     </tr>
                                 </tbody>
+
+                                <tr style="background-color: white;">
+                                    <td colspan="2">
+                                        Total
+                                    </td>
+
+                                    <!-- Sales Bills -->
+                                    <td class="text-center">
+                                        {{ SalesBillsTotal() }}
+                                    </td>
+
+                                    <!--Gross Sales	-->
+                                    <td class="text-center">
+                                        {{ GrossBillsTotal() }}
+                                    </td>
+
+                                    <!--Void Qty	-->
+                                    <td class="text-center">
+                                        {{ VoidQtyTotal() }}
+                                    </td>
+
+                                    <!-- Net Sales Amount	-->
+                                    <td class="text-center">
+                                        {{ totalNetSaleTotal() }}
+                                    </td>
+
+                                </tr>
                             </table>
                         </div>
                     </div>
@@ -121,7 +137,9 @@ export default {
 
     props: [
         'user_name',
-        'waiters'
+        'waiters',
+        'bill_infos',
+        'void_items',
     ],
 
     methods: {
@@ -135,7 +153,22 @@ export default {
 
                 var totalTaxNetAmount = totalAmount * taxrate / 100;
                 var totalDiscNetAmount = totalAmount * disc / 100;
-                var netAmount = totalAmount - (totalTaxNetAmount + totalDiscNetAmount);
+                var netAmount = (+totalAmount + +totalTaxNetAmount) - +totalDiscNetAmount;
+                sum += netAmount;
+            });
+            return sum;
+        },
+
+        totalNetSaleTotal() {
+            let sum = 0;
+            this.bill_infos.forEach(function (item) {
+                var totalAmount = item.total_amount;
+                var taxrate = item.tax_amount;
+                var disc = item.discount;
+
+                var totalTaxNetAmount = totalAmount * taxrate / 100;
+                var totalDiscNetAmount = totalAmount * disc / 100;
+                var netAmount = (+totalAmount + +totalTaxNetAmount) - +totalDiscNetAmount;
                 sum += netAmount;
             });
             return sum;
@@ -149,6 +182,15 @@ export default {
             return sum;
         },
 
+
+        SalesBillsTotal() {
+            let sum = 0;
+            this.bill_infos.forEach(function (item) {
+                sum += 1;
+            });
+            return sum;
+        },
+
         GrossBills(waiter) {
             let sum = 0;
             waiter.bill_infos_table.forEach(function (item) {
@@ -157,9 +199,27 @@ export default {
             return sum;
         },
 
+
+        GrossBillsTotal() {
+            let sum = 0;
+            this.bill_infos.forEach(function (item) {
+                sum += +item.total_amount;
+            });
+            return sum;
+        },
+
         VoidQty(waiter) {
             let sum = 0;
             waiter.void_items_table.forEach(function (item) {
+                sum += +item.qty;
+            });
+            return sum;
+        },
+
+
+        VoidQtyTotal() {
+            let sum = 0;
+            this.void_items.forEach(function (item) {
                 sum += +item.qty;
             });
             return sum;

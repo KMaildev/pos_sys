@@ -39,9 +39,6 @@
                                         <th class="text-center" style="width: 10%;">
                                             Sales Amount
                                         </th>
-                                        <th class="text-center" style="width: 10%;">
-                                            Remark
-                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody style="background-color: white;">
@@ -61,14 +58,24 @@
                                         <td class="text-center">
                                             {{ SalesAmount(table_list) }}
                                         </td>
-
-                                        <td class="text-center">
-                                            <span v-if="table_list.void_item_table">
-                                                {{ table_list.void_item_table.reason }}
-                                            </span>
-                                        </td>
                                     </tr>
                                 </tbody>
+
+                                <tr style="background-color: white;">
+                                    <td colspan="2">
+                                        Total
+                                    </td>
+
+                                    <!--Sales Bills	-->
+                                    <td class="text-center">
+                                        {{ TotalSalesBills() }}
+                                    </td>
+
+                                    <!-- Sales Amount -->
+                                    <td class="text-center">
+                                        {{ TotalSalesAmount() }}
+                                    </td>
+                                </tr>
                             </table>
                         </div>
                     </div>
@@ -104,7 +111,8 @@ export default {
 
     props: [
         'user_name',
-        'table_lists'
+        'table_lists',
+        'bill_infos_table'
     ],
 
     methods: {
@@ -117,10 +125,26 @@ export default {
             return sum;
         },
 
+        TotalSalesBills() {
+            let sum = 0;
+            this.bill_infos_table.forEach(function (item) {
+                sum += 1;
+            });
+            return sum;
+        },
+
 
         SalesAmount(table_list) {
             let sum = 0;
             table_list.bill_infos_table.forEach(function (item) {
+                sum += +item.total_amount;
+            });
+            return sum;
+        },
+
+        TotalSalesAmount() {
+            let sum = 0;
+            this.bill_infos_table.forEach(function (item) {
                 sum += +item.total_amount;
             });
             return sum;

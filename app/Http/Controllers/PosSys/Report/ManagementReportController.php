@@ -26,8 +26,10 @@ class ManagementReportController extends Controller
                 ->get();
         }
 
+        $order_items = OrderItem::all();
         return Inertia::render('Report/SalesCategoryAmount', [
             'menu_lists' => $menu_lists,
+            'order_items' => $order_items,
         ]);
     }
 

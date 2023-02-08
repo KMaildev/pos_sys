@@ -66,10 +66,22 @@
                                         </td>
 
                                         <td class="text-center">
-                                            {{ salesPercentage(menu_list) }}
+                                            {{ salesPercentage(menu_list) }} %
                                         </td>
                                     </tr>
                                 </tbody>
+
+                                <tr style="background-color: white;">
+                                    <td colspan="3">
+                                        Total
+                                    </td>
+
+                                    <!--Cash Rec-->
+                                    <td class="text-center">
+                                        {{ totalSaleAmount() }}
+                                    </td>
+                                </tr>
+
                             </table>
                         </div>
                     </div>
@@ -104,6 +116,7 @@ export default {
     props: [
         'user_name',
         'menu_lists',
+        'order_items',
     ],
 
     methods: {
@@ -116,18 +129,26 @@ export default {
         },
 
         salesPercentage(menu_list) {
-            var total_amount = menu_list.price;
+            var total_amount = this.totalSaleAmount();
 
             let sale_amount = 0;
             menu_list.order_items_table.forEach(function (item) {
-                sale_amount += (parseFloat(item.price) * parseFloat(item.qty));
+                sale_amount += +item.price;
             });
 
             if (sale_amount == 0) {
                 return 0;
             }
-            var salesPercentage = total_amount / sale_amount * 100;
+            var salesPercentage = sale_amount / total_amount * 100;
             return salesPercentage.toLocaleString("en-US");
+        },
+
+        totalSaleAmount() {
+            let sum = 0;
+            this.order_items.forEach(function (item) {
+                sum += (parseFloat(item.price) * parseFloat(item.qty));
+            });
+            return sum;
         },
 
         searchDate() {

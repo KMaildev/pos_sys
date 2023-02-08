@@ -10,7 +10,6 @@
                     <CashierButton></CashierButton>
                 </div>
 
-
                 <div class="row">
                     <div class="col-md-4 col-lg-4 col-sm-4 py-3">
                         <form @submit.prevent="searchDate">
@@ -40,11 +39,7 @@
                                         </th>
 
                                         <th class="text-center">
-                                            Cash Rec (Total Amount)
-                                        </th>
-
-                                        <th class="text-center">
-                                            Net Amount
+                                            Cash Rec
                                         </th>
 
                                         <th class="text-center">
@@ -54,7 +49,6 @@
                                         <th class="text-center">
                                             Due Amount
                                         </th>
-
                                     </tr>
                                 </thead>
                                 <tbody style="background-color: white;">
@@ -73,11 +67,7 @@
                                         </td>
 
                                         <td class="text-center">
-                                            {{ bill_info.total_amount ?? '' }}
-                                        </td>
-
-                                        <td class="text-center">
-                                            {{ bill_info.net_amount ?? '' }}
+                                            {{ bill_info.received_amount ?? '' }}
                                         </td>
 
                                         <td class="text-center">
@@ -89,6 +79,25 @@
                                         </td>
                                     </tr>
                                 </tbody>
+
+                                <tr style="background-color: white;">
+                                    <td colspan="3">
+                                        Total
+                                    </td>
+
+                                    <!--Cash Rec-->
+                                    <td class="text-center">
+                                        {{ totalCashRec() }}
+                                    </td>
+
+                                    <!--Cash Rec-->
+                                    <td class="text-center">
+                                    </td>
+
+                                    <td class="text-center">
+                                        {{ totalDueAmount() }}
+                                    </td>
+                                </tr>
                             </table>
                         </div>
                     </div>
@@ -126,6 +135,24 @@ export default {
     ],
 
     methods: {
+        totalCashRec() {
+            let sum = 0;
+            this.bill_infos.forEach(function (item) {
+                sum += parseFloat(item.received_amount);
+            });
+            return sum;
+        },
+
+        totalDueAmount() {
+            let sum = 0;
+            this.bill_infos.forEach(function (item) {
+                sum += +item.net_amount
+            });
+            return sum;
+        },
+
+
+
         searchDate() {
             this.$inertia.get(`/pos_cash_report`, this.form);
         }

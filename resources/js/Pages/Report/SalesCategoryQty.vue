@@ -79,7 +79,8 @@
                                         {{ order_item_total }}
                                     </td>
 
-                                    <td class="text-center"></td>
+                                    <td class="text-center">
+                                    </td>
                                 </tr>
                             </table>
                         </div>

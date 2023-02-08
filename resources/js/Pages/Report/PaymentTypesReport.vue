@@ -10,7 +10,6 @@
                     <SaleButton></SaleButton>
                 </div>
 
-
                 <div class="row">
                     <div class="col-md-4 col-lg-4 col-sm-4 py-3">
                         <form @submit.prevent="searchDate">
@@ -53,6 +52,18 @@
                                         </td>
                                     </tr>
                                 </tbody>
+
+                                <tr style="background-color: white;">
+                                    <td colspan="2">
+                                        Total
+                                    </td>
+
+                                    <!--Sales Bills	-->
+                                    <td class="text-center">
+                                        {{ AlltotalAmount() }}
+                                    </td>
+
+                                </tr>
                             </table>
                         </div>
                     </div>
@@ -88,7 +99,8 @@ export default {
 
     props: [
         'user_name',
-        'payment_methods'
+        'payment_methods',
+        'bill_infos_table',
     ],
 
     methods: {
@@ -96,6 +108,14 @@ export default {
         totalAmount(payment_method) {
             let sum = 0;
             payment_method.bill_infos_table.forEach(function (item) {
+                sum += +item.total_amount;
+            });
+            return sum;
+        },
+
+        AlltotalAmount() {
+            let sum = 0;
+            this.bill_infos_table.forEach(function (item) {
                 sum += +item.total_amount;
             });
             return sum;

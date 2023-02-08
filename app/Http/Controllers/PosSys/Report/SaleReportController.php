@@ -51,8 +51,13 @@ class SaleReportController extends Controller
                 ->get();
         }
 
+        $bill_infos = BillInfo::all();
+        $void_items = VoidItem::all();
+
         return Inertia::render('Report/StaffSales', [
             'waiters' => $waiters,
+            'bill_infos' => $bill_infos,
+            'void_items' => $void_items,
         ]);
     }
 
@@ -73,8 +78,10 @@ class SaleReportController extends Controller
                 ->get();
         }
 
+        $bill_infos_table = BillInfo::all();
         return Inertia::render('Report/TablesSales', [
             'table_lists' => $table_lists,
+            'bill_infos_table' => $bill_infos_table,
         ]);
     }
 
@@ -94,8 +101,11 @@ class SaleReportController extends Controller
             }])->get();
         }
 
+        $bill_infos_table = BillInfo::all();
+
         return Inertia::render('Report/PaymentTypesReport', [
             'payment_methods' => $payment_methods,
+            'bill_infos_table' => $bill_infos_table,
         ]);
     }
 
