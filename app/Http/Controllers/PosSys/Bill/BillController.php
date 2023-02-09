@@ -78,6 +78,7 @@ class BillController extends Controller
             'service_charges' => 0,
             'net_amount' => $request->totalNetAmount ?? 0,
             'received_amount' => $request->received_amount ?? 0,
+            'refund_amount' => $request->refund_amount ?? 0,
             'change_amount' => 0,
             'cashier_user_id' => auth()->user()->id ?? 0,
             'waiter_user_id' => $order_info->waiter_user_id,

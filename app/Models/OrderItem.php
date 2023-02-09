@@ -24,6 +24,7 @@ class OrderItem extends Model
         'difference_time',
         'manager_remark',
         'menu_name',
+        'order_date',
     ];
 
     public function menu_lists_table()

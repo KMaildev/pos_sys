@@ -42,6 +42,7 @@ class TableListController extends Controller
         $table_id = $request->table_id;
         $choose_order_infos = OrderInfo::where('table_list_id', $table_id)
             ->where('check_out_status', NULL)
+            ->where('void_status', NULL)
             ->get();
 
         return response()->json(['choose_order_infos' => $choose_order_infos]);

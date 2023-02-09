@@ -21,9 +21,16 @@
                         </form>
                     </div>
 
+
+                    <div class="col-md-4 col-lg-4 col-sm-4 py-3">
+                        <button @click="exportExcel('xlsx')" class="btn btn-success">
+                            <i class="text-white fa fa-file-excel"></i> Excel
+                        </button>
+                    </div>
+
                     <div class="col-md-12 col-lg-12 col-sm-12">
                         <div class="table-responsive text-nowrap">
-                            <table class="table table-bordered">
+                            <table class="table table-bordered" id="tableId">
                                 <thead class="table-light">
                                     <tr class="tablebg">
                                         <th class="text-center" style="width: 1%;">
@@ -143,7 +150,20 @@ export default {
 
         searchDate() {
             this.$inertia.get(`/pos_sales_category_qty`, this.form);
-        }
+        },
+
+        exportExcel(type, fn, dl) {
+            var today = new Date();
+            var date = today.getFullYear() + '_' + (today.getMonth() + 1) + '_' + today.getDate();
+            var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+            var dateTime = date + '_' + time;
+
+            var tableId = document.getElementById('tableId');
+            var wb = XLSX.utils.table_to_book(tableId, { sheet: "sheet1" });
+            return dl ?
+                XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }) :
+                XLSX.writeFile(wb, fn || (`export_excel_${dateTime}.` + (type || 'xlsx')));
+        },
     },
 
     created() {

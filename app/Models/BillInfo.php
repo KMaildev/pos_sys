@@ -32,6 +32,7 @@ class BillInfo extends Model
         'inv_no',
         'first_table_id',
         'discount_amount',
+        'refund_amount',
     ];
 
     public function order_infos_table()
@@ -71,7 +72,7 @@ class BillInfo extends Model
 
     public function order_items_table()
     {
-        return $this->hasMany(OrderItem::class, 'order_info_id', 'id');
+        return $this->hasMany(OrderItem::class, 'order_info_id', 'order_info_id');
     }
 
     public function void_items_table()

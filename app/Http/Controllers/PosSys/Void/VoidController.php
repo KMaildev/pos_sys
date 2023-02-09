@@ -93,6 +93,14 @@ class VoidController extends Controller
         $void_item_id = $void_item->order_item_id;
         OrderItem::findOrFail($void_item_id)->delete();
         Helper::updateOrderInfoTotalAmount($void_item->order_info_id);
+
+        $order_info = OrderInfo::findOrFail($void_item->order_info_id);
+        $total_amount = $order_info->total_amount;
+        if ($total_amount == 0) {
+            $order_info->void_status = 'fully_void';
+            $order_info->check_out_status = 'paid';
+            $order_info->update();
+        }
         return redirect()->back()->with('success', 'Your processing has been completed.');
     }
 

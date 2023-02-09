@@ -210,6 +210,8 @@
                                         </td>
 
                                         <td colspan="2">
+                                            <!-- :value="ReceivedAmount()" -->
+                                            <!-- v-model="form.refund_amount" -->
                                             <input type="text" class="billInput" style="text-align: right; width: 100%;"
                                                 :value="ReceivedAmount()">
                                         </td>
@@ -326,6 +328,7 @@ export default {
                 received_amount: 0,
                 dueAmount: 0,
                 disc_amount: 0,
+                refund_amount: 0,
             },
 
             combile_form: {
@@ -345,19 +348,8 @@ export default {
 
         confirmCombine() {
             $('#showCombineBillModal').modal('hide');
-            // var main_order_infos = this.order_infos.id;
-            // var combile_order_info_id = combile_order_info_id;
-            // this.$inertia.get(`/pos_confirm_combine?main_order_infos=${main_order_infos}&combile_order_info_id=${combile_order_info_id}`);
             this.$inertia.post('/pos_confirm_combine', this.combile_form);
         },
-
-        // confirmCombine(combile_order_info_id) {
-        //     $('#showCombineBillModal').modal('hide');
-        //     var main_order_infos = this.order_infos.id;
-        //     var combile_order_info_id = combile_order_info_id;
-        //     this.$inertia.get(`/pos_confirm_combine?main_order_infos=${main_order_infos}&combile_order_info_id=${combile_order_info_id}`);
-        // },
-
 
         totalAmountCalc(order_items) {
             let sum = 0;
@@ -391,6 +383,7 @@ export default {
             var received_amount = this.form.received_amount;
             var due_amount = net_amount - received_amount;
             this.form.dueAmount = due_amount;
+            this.form.refund_amount = due_amount;
             return due_amount;
         },
 

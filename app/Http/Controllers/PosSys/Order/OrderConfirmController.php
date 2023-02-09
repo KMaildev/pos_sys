@@ -33,6 +33,7 @@ class OrderConfirmController extends Controller
                 'table_list_id' => $request->table_list_id,
                 'check_out_time' => NULL,
                 'check_out_status' => NULL,
+                'void_status' => NULL,
             ],
             [
                 'customer_id' => $request->customer_id ?? 0,
@@ -46,8 +47,11 @@ class OrderConfirmController extends Controller
                 'cashier_user_id' => auth()->user()->id ?? 0,
                 'waiter_user_id' => auth()->user()->id ?? 0,
                 'order_user_name' => auth()->user()->name ?? 0,
-                'order_no' => $order_infos_check->order_no ?? $order_no,
-                'inv_no' => $order_infos_check->inv_no ?? $inv_no,
+                'order_no' =>  $order_no,
+                'inv_no' => $inv_no,
+
+                // 'order_no' => $order_infos_check->order_no ?? $order_no,
+                // 'inv_no' => $order_infos_check->inv_no ?? $inv_no,
             ],
         );
         $order_info_id = $order_info->id;

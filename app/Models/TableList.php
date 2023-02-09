@@ -18,13 +18,15 @@ class TableList extends Model
     {
         return $this->belongsTo(OrderInfo::class, 'id', 'table_list_id')
             ->where('check_out_status', NULL)
+            ->where('void_status', NULL)
             ->latest();
     }
 
     public function all_order_infos_table()
     {
         return $this->hasMany(OrderInfo::class, 'table_list_id', 'id')
-            ->where('check_out_status', NULL);
+            ->where('check_out_status', NULL)
+            ->where('void_status', NULL);
     }
 
 
