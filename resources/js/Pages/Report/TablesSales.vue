@@ -31,8 +31,8 @@
 
                     <div class="col-md-12 col-lg-12 col-sm-12">
                         <div class="table-responsive text-nowrap">
-                            <table class="table table-bordered">
-                                <thead class="table-light" id="tableId">
+                            <table class="table table-bordered" id="tableId">
+                                <thead style="background-color: #D7ECD9;">
                                     <tr class="tablebg">
                                         <th class="text-center" style="width: 1%;">
                                             Sr

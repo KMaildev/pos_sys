@@ -31,7 +31,7 @@
                     <div class="col-md-12 col-lg-12 col-sm-12">
                         <div class="table-responsive text-nowrap">
                             <table class="table table-bordered" id="tableId">
-                                <thead class="table-light">
+                                <thead  style="background-color: #F6F6EB;">
                                     <tr class="tablebg">
                                         <th class="text-center" style="width: 1%;">
                                             Sr
@@ -157,10 +157,11 @@ export default {
                 var totalAmount = item.total_amount;
                 var taxrate = item.tax_amount;
                 var disc = item.discount;
+                var discount_amount = item.discount_amount;
 
                 var totalTaxNetAmount = totalAmount * taxrate / 100;
                 var totalDiscNetAmount = totalAmount * disc / 100;
-                var netAmount = (+totalAmount + +totalTaxNetAmount) - +totalDiscNetAmount;
+                var netAmount = (+totalAmount + +totalTaxNetAmount) - (+totalDiscNetAmount + +discount_amount);
                 sum += netAmount;
             });
             return sum;
@@ -172,10 +173,11 @@ export default {
                 var totalAmount = item.total_amount;
                 var taxrate = item.tax_amount;
                 var disc = item.discount;
+                var discount_amount = item.discount_amount;
 
                 var totalTaxNetAmount = totalAmount * taxrate / 100;
                 var totalDiscNetAmount = totalAmount * disc / 100;
-                var netAmount = (+totalAmount + +totalTaxNetAmount) - +totalDiscNetAmount;
+                var netAmount = (+totalAmount + +totalTaxNetAmount) - (+totalDiscNetAmount + +discount_amount);
                 sum += netAmount;
             });
             return sum;

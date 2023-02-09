@@ -32,7 +32,7 @@
                     <div class="col-md-12 col-lg-12 col-sm-12">
                         <div class="table-responsive text-nowrap">
                             <table class="table table-bordered" id="tableId">
-                                <thead class="table-light">
+                                <thead style="background-color: #F6ECF5;">
                                     <tr class="tablebg">
                                         <th class="text-center" style="width: 1%;">
                                             Sr
@@ -91,7 +91,7 @@
                                 </tbody>
 
                                 <tr style="background-color: white;">
-                                    <td colspan="5">
+                                    <td colspan="4">
                                         Total
                                     </td>
 
@@ -99,6 +99,8 @@
                                     <td class="text-center">
                                         {{ TotalDiscountAmount() }}
                                     </td>
+
+                                    <td></td>
                                 </tr>
                             </table>
                         </div>

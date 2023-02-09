@@ -31,7 +31,7 @@
                     <div class="col-md-12 col-lg-12 col-sm-12">
                         <div class="table-responsive text-nowrap">
                             <table class="table table-bordered" id="tableId">
-                                <thead class="table-light">
+                                <thead style="background-color: #D5D6EA;">
                                     <tr class="tablebg">
                                         <th class="text-center" style="width: 1%;">
                                             Sr

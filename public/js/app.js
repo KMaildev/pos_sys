@@ -7887,9 +7887,10 @@ window.Swal = (sweetalert2__WEBPACK_IMPORTED_MODULE_3___default());
         var totalAmount = item.total_amount;
         var taxrate = item.tax_amount;
         var disc = item.discount;
+        var discount_amount = item.discount_amount;
         var totalTaxNetAmount = totalAmount * taxrate / 100;
         var totalDiscNetAmount = totalAmount * disc / 100;
-        var netAmount = +totalAmount + +totalTaxNetAmount - +totalDiscNetAmount;
+        var netAmount = +totalAmount + +totalTaxNetAmount - (+totalDiscNetAmount + +discount_amount);
         sum += netAmount;
       });
       return sum;
@@ -7900,9 +7901,10 @@ window.Swal = (sweetalert2__WEBPACK_IMPORTED_MODULE_3___default());
         var totalAmount = item.total_amount;
         var taxrate = item.tax_amount;
         var disc = item.discount;
+        var discount_amount = item.discount_amount;
         var totalTaxNetAmount = totalAmount * taxrate / 100;
         var totalDiscNetAmount = totalAmount * disc / 100;
-        var netAmount = +totalAmount + +totalTaxNetAmount - +totalDiscNetAmount;
+        var netAmount = +totalAmount + +totalTaxNetAmount - (+totalDiscNetAmount + +discount_amount);
         sum += netAmount;
       });
       return sum;
@@ -16368,7 +16370,9 @@ var render = function render() {
       id: "tableId"
     }
   }, [_c("thead", {
-    staticClass: "table-light"
+    staticStyle: {
+      "background-color": "#D7ECD9"
+    }
   }, [_c("tr", {
     staticClass: "tablebg"
   }, [_c("th", {
@@ -16520,7 +16524,9 @@ var render = function render() {
       id: "tableId"
     }
   }, [_c("thead", {
-    staticClass: "table-light"
+    staticStyle: {
+      "background-color": "#D5D6EA"
+    }
   }, [_c("tr", {
     staticClass: "tablebg"
   }, [_c("th", {
@@ -16686,7 +16692,9 @@ var render = function render() {
       id: "tableId"
     }
   }, [_c("thead", {
-    staticClass: "table-light"
+    staticStyle: {
+      "background-color": "#F6ECF5"
+    }
   }, [_c("tr", {
     staticClass: "tablebg"
   }, [_c("th", {
@@ -16731,11 +16739,11 @@ var render = function render() {
     }
   }, [_c("td", {
     attrs: {
-      colspan: "5"
+      colspan: "4"
     }
   }, [_vm._v("\n                                    Total\n                                ")]), _vm._v(" "), _c("td", {
     staticClass: "text-center"
-  }, [_vm._v("\n                                    " + _vm._s(_vm.TotalDiscountAmount()) + "\n                                ")])])])])])])])])], 1);
+  }, [_vm._v("\n                                    " + _vm._s(_vm.TotalDiscountAmount()) + "\n                                ")]), _vm._v(" "), _c("td")])])])])])])])], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -16848,7 +16856,9 @@ var render = function render() {
       id: "tableId"
     }
   }, [_c("thead", {
-    staticClass: "table-light"
+    staticStyle: {
+      "background-color": "#F6F6EB"
+    }
   }, [_c("tr", {
     staticClass: "tablebg"
   }, [_c("th", {
@@ -17010,7 +17020,9 @@ var render = function render() {
       id: "tableId"
     }
   }, [_c("thead", {
-    staticClass: "table-light"
+    staticStyle: {
+      "background-color": "#F5D5CB"
+    }
   }, [_c("tr", {
     staticClass: "tablebg"
   }, [_c("th", {
@@ -17165,7 +17177,9 @@ var render = function render() {
       id: "tableId"
     }
   }, [_c("thead", {
-    staticClass: "table-light"
+    staticStyle: {
+      "background-color": "#D5D6EA"
+    }
   }, [_c("tr", {
     staticClass: "tablebg"
   }, [_c("th", {
@@ -17325,7 +17339,9 @@ var render = function render() {
       id: "tableId"
     }
   }, [_c("thead", {
-    staticClass: "table-light"
+    staticStyle: {
+      "background-color": "#F6F6EB"
+    }
   }, [_c("tr", {
     staticClass: "tablebg"
   }, [_c("th", {
@@ -17486,7 +17502,9 @@ var render = function render() {
       id: "tableId"
     }
   }, [_c("thead", {
-    staticClass: "table-light"
+    staticStyle: {
+      "background-color": "#D5D6EA"
+    }
   }, [_c("tr", {
     staticClass: "tablebg"
   }, [_c("th", {
@@ -17710,7 +17728,9 @@ var render = function render() {
       id: "tableId"
     }
   }, [_c("thead", {
-    staticClass: "table-light"
+    staticStyle: {
+      "background-color": "#F6F6EB"
+    }
   }, [_c("tr", {
     staticClass: "tablebg"
   }, [_c("th", {
@@ -17872,11 +17892,13 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "table-responsive text-nowrap"
   }, [_c("table", {
-    staticClass: "table table-bordered"
-  }, [_c("thead", {
-    staticClass: "table-light",
+    staticClass: "table table-bordered",
     attrs: {
       id: "tableId"
+    }
+  }, [_c("thead", {
+    staticStyle: {
+      "background-color": "#D7ECD9"
     }
   }, [_c("tr", {
     staticClass: "tablebg"
@@ -18041,7 +18063,9 @@ var render = function render() {
       id: "tableId"
     }
   }, [_c("thead", {
-    staticClass: "table-light"
+    staticStyle: {
+      "background-color": "#e8dff5"
+    }
   }, [_c("tr", {
     staticClass: "tablebg"
   }, [_c("th", {
