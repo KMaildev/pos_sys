@@ -7764,9 +7764,10 @@ window.Swal = (sweetalert2__WEBPACK_IMPORTED_MODULE_3___default());
       var totalAmount = bill_info.total_amount;
       var taxrate = bill_info.tax_amount;
       var disc = bill_info.discount;
+      var discount_amount = bill_info.discount_amount;
       var totalTaxNetAmount = totalAmount * taxrate / 100;
       var totalDiscNetAmount = totalAmount * disc / 100;
-      var netAmount = +totalAmount + +totalTaxNetAmount - +totalDiscNetAmount;
+      var netAmount = +totalAmount + +totalTaxNetAmount - (+totalDiscNetAmount + +discount_amount);
       return netAmount;
     },
     TotalSalesAmount: function TotalSalesAmount(bill_infos) {
@@ -7785,15 +7786,23 @@ window.Swal = (sweetalert2__WEBPACK_IMPORTED_MODULE_3___default());
       });
       return sum;
     },
+    DiscountAmountTotal: function DiscountAmountTotal(bill_infos) {
+      var sum = 0;
+      bill_infos.forEach(function (item) {
+        sum += +item.discount_amount;
+      });
+      return sum;
+    },
     TotalNetSalesAmount: function TotalNetSalesAmount(bill_infos) {
       var sum = 0;
       bill_infos.forEach(function (bill_info) {
         var totalAmount = bill_info.total_amount;
         var taxrate = bill_info.tax_amount;
         var disc = bill_info.discount;
+        var discount_amount = bill_info.discount_amount;
         var totalTaxNetAmount = totalAmount * taxrate / 100;
         var totalDiscNetAmount = totalAmount * disc / 100;
-        sum += +totalAmount + +totalTaxNetAmount - +totalDiscNetAmount;
+        sum += +totalAmount + +totalTaxNetAmount - (+totalDiscNetAmount + +discount_amount);
       });
       return sum;
     },
@@ -16689,11 +16698,11 @@ var render = function render() {
     staticClass: "text-center"
   }, [_vm._v("\n                                        Date\n                                    ")]), _vm._v(" "), _c("th", {
     staticClass: "text-center"
-  }, [_vm._v("\n                                        Discount Reason\n                                    ")]), _vm._v(" "), _c("th", {
-    staticClass: "text-center"
   }, [_vm._v("\n                                        Invoices No.\n                                    ")]), _vm._v(" "), _c("th", {
     staticClass: "text-center"
   }, [_vm._v("\n                                        Discount Percentage\n                                    ")]), _vm._v(" "), _c("th", {
+    staticClass: "text-center"
+  }, [_vm._v("\n                                        Amount of Dis (%)\n                                    ")]), _vm._v(" "), _c("th", {
     staticClass: "text-center"
   }, [_vm._v("\n                                        Discount Amount\n                                    ")])])]), _vm._v(" "), _c("tbody", {
     staticStyle: {
@@ -16707,13 +16716,15 @@ var render = function render() {
       staticClass: "text-center"
     }, [_vm._v("\n                                        " + _vm._s(index + 1) + "\n                                    ")]), _vm._v(" "), _c("td", {
       staticClass: "text-center"
-    }, [_vm._v("\n                                        " + _vm._s((_bill_info$bill_date_ = bill_info.bill_date_time) !== null && _bill_info$bill_date_ !== void 0 ? _bill_info$bill_date_ : "") + "\n                                    ")]), _vm._v(" "), _c("td"), _vm._v(" "), _c("td", {
+    }, [_vm._v("\n                                        " + _vm._s((_bill_info$bill_date_ = bill_info.bill_date_time) !== null && _bill_info$bill_date_ !== void 0 ? _bill_info$bill_date_ : "") + "\n                                    ")]), _vm._v(" "), _c("td", {
       staticClass: "text-center"
     }, [_vm._v("\n                                        " + _vm._s((_bill_info$inv_no = bill_info.inv_no) !== null && _bill_info$inv_no !== void 0 ? _bill_info$inv_no : "") + "\n                                    ")]), _vm._v(" "), _c("td", {
       staticClass: "text-center"
     }, [_vm._v("\n                                        " + _vm._s(bill_info.discount) + "\n                                        %\n                                    ")]), _vm._v(" "), _c("td", {
       staticClass: "text-center"
-    }, [_vm._v("\n                                        " + _vm._s(bill_info.total_amount * bill_info.discount / 100) + "\n                                    ")])]);
+    }, [_vm._v("\n                                        " + _vm._s(bill_info.total_amount * bill_info.discount / 100) + "\n                                    ")]), _vm._v(" "), _c("td", {
+      staticClass: "text-center"
+    }, [_vm._v("\n                                        " + _vm._s(bill_info.discount_amount) + "\n                                    ")])]);
   }), 0), _vm._v(" "), _c("tr", {
     staticStyle: {
       "background-color": "white"
@@ -17495,6 +17506,8 @@ var render = function render() {
     staticClass: "text-center"
   }, [_vm._v("\n                                        Discount Percentage\n                                    ")]), _vm._v(" "), _c("th", {
     staticClass: "text-center"
+  }, [_vm._v("\n                                        Amount of Dis (%)\n                                    ")]), _vm._v(" "), _c("th", {
+    staticClass: "text-center"
   }, [_vm._v("\n                                        Discount Amount\n                                    ")]), _vm._v(" "), _c("th", {
     staticClass: "text-center"
   }, [_vm._v("\n                                        Tax Percentage\n                                    ")]), _vm._v(" "), _c("th", {
@@ -17537,6 +17550,8 @@ var render = function render() {
       staticClass: "text-center"
     }, [_vm._v("\n                                        " + _vm._s(bill_info.total_amount * bill_info.discount / 100) + "\n                                    ")]), _vm._v(" "), _c("td", {
       staticClass: "text-center"
+    }, [_vm._v("\n                                        " + _vm._s(bill_info.discount_amount) + "\n                                    ")]), _vm._v(" "), _c("td", {
+      staticClass: "text-center"
     }, [_vm._v("\n                                        " + _vm._s(bill_info.tax_amount) + "\n                                        %\n                                    ")]), _vm._v(" "), _c("td", {
       staticClass: "text-center"
     }, [_vm._v("\n                                        " + _vm._s(bill_info.total_amount * bill_info.tax_amount / 100) + "\n                                    ")]), _vm._v(" "), _c("td", {
@@ -17569,6 +17584,8 @@ var render = function render() {
   }), _vm._v(" "), _c("td", {
     staticClass: "text-center"
   }, [_vm._v("\n                                    " + _vm._s(_vm.TotalDiscountAmount(_vm.bill_infos)) + "\n                                ")]), _vm._v(" "), _c("td", {
+    staticClass: "text-center"
+  }, [_vm._v("\n                                    " + _vm._s(_vm.DiscountAmountTotal(_vm.bill_infos)) + "\n                                ")]), _vm._v(" "), _c("td", {
     staticClass: "text-center",
     attrs: {
       colspan: "3"

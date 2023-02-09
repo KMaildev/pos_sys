@@ -49,8 +49,13 @@
                                         <th class="text-center">
                                             Sales Amount
                                         </th>
+
                                         <th class="text-center">
                                             Discount Percentage
+                                        </th>
+
+                                        <th class="text-center">
+                                            Amount of Dis (%)
                                         </th>
 
                                         <th class="text-center">
@@ -115,9 +120,14 @@
                                             %
                                         </td>
 
-                                        <!-- Discount Amount -->
+                                        <!-- Discount % Amount -->
                                         <td class="text-center">
                                             {{ bill_info.total_amount * bill_info.discount / 100 }}
+                                        </td>
+
+                                        <!-- Discount Amount -->
+                                        <td class="text-center">
+                                            {{ bill_info.discount_amount }}
                                         </td>
 
                                         <td class="text-center">
@@ -171,9 +181,14 @@
 
                                     <td class="text-center"></td>
 
-                                    <!-- Discount Amount -->
+                                    <!-- Discount % Amount -->
                                     <td class="text-center">
                                         {{ TotalDiscountAmount(bill_infos) }}
+                                    </td>
+
+                                    <!-- Discount Amount -->
+                                    <td class="text-center">
+                                        {{ DiscountAmountTotal(bill_infos) }}
                                     </td>
 
                                     <td colspan="3" class="text-center"></td>
@@ -229,10 +244,11 @@ export default {
             var totalAmount = bill_info.total_amount;
             var taxrate = bill_info.tax_amount;
             var disc = bill_info.discount;
+            var discount_amount = bill_info.discount_amount;
 
             var totalTaxNetAmount = totalAmount * taxrate / 100;
             var totalDiscNetAmount = totalAmount * disc / 100;
-            var netAmount = (+totalAmount + +totalTaxNetAmount) - +totalDiscNetAmount;
+            var netAmount = (+totalAmount + +totalTaxNetAmount) - (+totalDiscNetAmount + +discount_amount);
             return netAmount;
         },
 
@@ -255,16 +271,25 @@ export default {
             return sum;
         },
 
+        DiscountAmountTotal(bill_infos) {
+            let sum = 0;
+            bill_infos.forEach(function (item) {
+                sum += +item.discount_amount;
+            });
+            return sum;
+        },
+
         TotalNetSalesAmount(bill_infos) {
             let sum = 0;
             bill_infos.forEach(function (bill_info) {
                 var totalAmount = bill_info.total_amount;
                 var taxrate = bill_info.tax_amount;
                 var disc = bill_info.discount;
+                var discount_amount = bill_info.discount_amount;
 
                 var totalTaxNetAmount = totalAmount * taxrate / 100;
                 var totalDiscNetAmount = totalAmount * disc / 100;
-                sum += (+totalAmount + +totalTaxNetAmount) - +totalDiscNetAmount;
+                sum += (+totalAmount + +totalTaxNetAmount) - (+totalDiscNetAmount + +discount_amount);
             });
             return sum;
         },

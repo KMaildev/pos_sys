@@ -43,15 +43,15 @@
                                         </th>
 
                                         <th class="text-center">
-                                            Discount Reason
-                                        </th>
-
-                                        <th class="text-center">
                                             Invoices No.
                                         </th>
 
                                         <th class="text-center">
                                             Discount Percentage
+                                        </th>
+
+                                        <th class="text-center">
+                                            Amount of Dis (%)
                                         </th>
 
                                         <th class="text-center">
@@ -70,10 +70,6 @@
                                             {{ bill_info.bill_date_time ?? '' }}
                                         </td>
 
-                                        <td>
-
-                                        </td>
-
                                         <td class="text-center">
                                             {{ bill_info.inv_no ?? '' }}
                                         </td>
@@ -85,6 +81,10 @@
 
                                         <td class="text-center">
                                             {{ bill_info.total_amount * bill_info.discount / 100 }}
+                                        </td>
+
+                                        <td class="text-center">
+                                            {{ bill_info.discount_amount }}
                                         </td>
 
                                     </tr>
