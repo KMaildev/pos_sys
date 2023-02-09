@@ -60,6 +60,9 @@ class MenuListController extends Controller
         $menu->price = $request->price;
         $menu->categorie_id = $request->categorie_id;
 
+        $category = Category::findOrFail($request->categorie_id);
+        $menu->type = $category->type ?? '';
+
         $mm_short_menu = preg_replace(
             ['/[\p{L}\p{N}@#".]+[\p{L}\p{N}._-]*/u', '/\p{M}/u'],
             ["$0"],
@@ -116,6 +119,8 @@ class MenuListController extends Controller
         $menu->menu_name_mm = $request->menu_name_mm;
         $menu->price = $request->price;
         $menu->categorie_id = $request->categorie_id;
+        $category = Category::findOrFail($request->categorie_id);
+        $menu->type = $category->type ?? '';
 
         $mm_short_menu = preg_replace(
             ['/[\p{L}\p{N}@#".]+[\p{L}\p{N}._-]*/u', '/\p{M}/u'],

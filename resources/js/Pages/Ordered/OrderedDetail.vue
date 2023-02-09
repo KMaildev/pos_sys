@@ -84,7 +84,8 @@
                         </div>
 
                         <button class="additional_order"
-                            @click="setTableName(order_infos.table_list_id, order_infos.table_lists_table.table_name, order_infos.guest_no)">
+                            @click="setTableName(order_infos.table_list_id, order_infos.table_lists_table.table_name, order_infos.guest_no)"
+                            v-if="$inertia.page.props.department === 'waiter'">
                             Additional Order
                         </button>
                     </div>

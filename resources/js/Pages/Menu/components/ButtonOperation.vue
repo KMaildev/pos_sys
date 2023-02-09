@@ -35,8 +35,29 @@
                         </th>
                     </tr>
 
-                    <tbody style="background-color: #4D4D4D  color: #4D4D4D">
-                        <tr v-for="(cart_list, index) in cart_lists" :key="index">
+                    <tbody style="background-color: #4D4D4D;  color: #4D4D4D">
+                        <tr>
+                            <td colspan="2" style="background-color: #4D4D4D;  color: #4D4D4D">
+                                Food
+                            </td>
+                        </tr>
+                        <tr v-for="(cart_list, index) in cart_lists" :key="index" v-if="cart_list.type === 'Food'">
+                            <td style="color: #4D4D4D; text-align: left; font-size: 11px;">
+                                {{ cart_list.menu_name }}
+                                <br>
+                                Remark: {{ cart_list.remark }}
+                            </td>
+
+                            <td style="color: #4D4D4D; text-align: right; font-size: 11px;">
+                                {{ cart_list.qty }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="background-color: #4D4D4D;  color: #4D4D4D">
+                                Beverage
+                            </td>
+                        </tr>
+                        <tr v-for="(cart_list, index) in cart_lists" :key="index" v-if="cart_list.type === 'Beverage'">
                             <td style="color: #4D4D4D; text-align: left; font-size: 11px;">
                                 {{ cart_list.menu_name }}
                                 <br>
@@ -77,7 +98,6 @@ export default {
     methods: {
         orderConfirm() {
             this.form.guest_no = localStorage.getItem("guest_no");
-
             if (this.form.table_list_id == null || this.form.table_list_id == '' || this.form.table_list_id == undefined) {
                 swal({
                     title: "Please Select Seat",

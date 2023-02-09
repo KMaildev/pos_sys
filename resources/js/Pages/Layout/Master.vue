@@ -23,7 +23,7 @@
                             <p class="position-text" style="text-align: left;">
                                 Position:
                                 <span style="float: right;">
-                                    {{ $inertia.page.props.position }}
+                                    {{ $inertia.page.props.department }}
                                 </span>
                             </p>
                         </div>
@@ -52,8 +52,78 @@
         <div class="vertical-menu py-5" style="background-color: #333333;">
             <div data-simplebar class="h-100">
                 <div id="sidebar-menu">
-                    <ul class="metismenu list-unstyled d-flex align-items-end flex-column" id="side-menu">
 
+                    <ul class="metismenu list-unstyled d-flex align-items-end flex-column"
+                        v-if="$inertia.page.props.department === 'waiter'">
+
+                        <li style="width: 90%; margin-bottom: 10px;">
+                            <Link :href="route('pos_table_lists')" class="btn btn-default menubtn"
+                                :class="currentRoute == 'pos_table_lists' ? 'bg_color' : ''">
+                            <i class="fa fa-table text-white" style="font-size: 23px;"></i>
+                            &nbsp;&nbsp;&nbsp;
+                            Reservation
+                            </Link>
+                        </li>
+
+                        <li style="width: 90%; margin-bottom: 10px;">
+                            <a @click="linkMenu()" class="btn btn-default menubtn"
+                                :class="currentRoute == 'pos_menu' ? 'bg_color' : ''">
+                                <i class="fa fa-kitchen-set text-white" style="font-size: 23px;"></i>
+                                &nbsp;&nbsp;&nbsp;
+                                Menu
+                            </a>
+                        </li>
+
+                        <li style="width: 90%;">
+                            <div class="d-flex align-items-end" style="height: 100px;">
+                                <div class="mt-auto" style="width: 100%">
+                                    <a href="/pos_pin_logout" class="btn btn-default menubtn">
+                                        <i class="fa-solid fa-lock text-white" style="font-size: 23px;"></i>
+                                        &nbsp;&nbsp;&nbsp;
+                                        Sign Out
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+
+
+                    <ul class="metismenu list-unstyled d-flex align-items-end flex-column"
+                        v-if="$inertia.page.props.department === 'cashier'">
+                        <li style="width: 90%; margin-bottom: 10px;">
+                            <Link :href="route('pos_table_lists')" class="btn btn-default menubtn"
+                                :class="currentRoute == 'pos_table_lists' ? 'bg_color' : ''">
+                            <i class="fa fa-table text-white" style="font-size: 23px;"></i>
+                            &nbsp;&nbsp;&nbsp;
+                            Reservation
+                            </Link>
+                        </li>
+
+                        <li style="width: 90%; margin-bottom: 10px;">
+                            <Link :href="route('bill_table_lists')" class="btn btn-default menubtn"
+                                :class="currentRoute == 'bill_table_lists' ? 'bg_color' : ''">
+                            <i class="fa-solid fa-dollar-sign text-white" style="font-size: 23px;"></i>
+                            &nbsp;&nbsp;&nbsp;
+                            Bill
+                            </Link>
+                        </li>
+
+                        <li style="width: 90%;">
+                            <div class="d-flex align-items-end" style="height: 100px;">
+                                <div class="mt-auto" style="width: 100%">
+                                    <a href="/pos_pin_logout" class="btn btn-default menubtn">
+                                        <i class="fa-solid fa-lock text-white" style="font-size: 23px;"></i>
+                                        &nbsp;&nbsp;&nbsp;
+                                        Sign Out
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+
+
+                    <ul class="metismenu list-unstyled d-flex align-items-end flex-column"
+                        v-if="$inertia.page.props.department === 'admin' || $inertia.page.props.department === 'manager'">
                         <li style="width: 90%; margin-bottom: 10px;">
                             <Link :href="route('pos_table_lists')" class="btn btn-default menubtn"
                                 :class="currentRoute == 'pos_table_lists' ? 'bg_color' : ''">
@@ -108,8 +178,8 @@
                                 </div>
                             </div>
                         </li>
-
                     </ul>
+
                 </div>
             </div>
         </div>

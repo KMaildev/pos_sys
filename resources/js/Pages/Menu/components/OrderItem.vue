@@ -55,7 +55,6 @@
                                     Amount
                                 </th>
                                 <th class="text-center" style="width: 10%; font-size: 18px;">
-
                                 </th>
                             </tr>
                         </thead>

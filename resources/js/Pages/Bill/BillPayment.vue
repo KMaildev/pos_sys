@@ -133,18 +133,22 @@
                                                 </option>
                                             </select>
                                         </td>
+
                                     </tr>
 
                                     <!-- Disc -->
                                     <tr class="">
                                         <td style="font-size: 16px;" colspan="2">
-                                            Disc (%)
+                                            Disc
                                         </td>
 
                                         <td colspan="2">
                                             <input type="text" class="billInput" value="0"
                                                 style="text-align: right; width: 100%;" v-model="form.disc"
                                                 @change="netAmount()">
+                                        </td>
+                                        <td>
+                                            %
                                         </td>
                                     </tr>
 
@@ -210,8 +214,6 @@
                                         </td>
 
                                         <td colspan="2">
-                                            <!-- :value="ReceivedAmount()" -->
-                                            <!-- v-model="form.refund_amount" -->
                                             <input type="text" class="billInput" style="text-align: right; width: 100%;"
                                                 :value="ReceivedAmount()">
                                         </td>

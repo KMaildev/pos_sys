@@ -8695,7 +8695,7 @@ var render = function render() {
     attrs: {
       colspan: "2"
     }
-  }, [_vm._v("\n                                        Disc (%)\n                                    ")]), _vm._v(" "), _c("td", {
+  }, [_vm._v("\n                                        Disc\n                                    ")]), _vm._v(" "), _c("td", {
     attrs: {
       colspan: "2"
     }
@@ -8727,7 +8727,7 @@ var render = function render() {
         _vm.$set(_vm.form, "disc", $event.target.value);
       }
     }
-  })])]), _vm._v(" "), _c("tr", {}, [_c("td", {
+  })]), _vm._v(" "), _c("td", [_vm._v("\n                                        %\n                                    ")])]), _vm._v(" "), _c("tr", {}, [_c("td", {
     staticStyle: {
       "font-size": "16px"
     },
@@ -12271,7 +12271,7 @@ var render = function render() {
     staticStyle: {
       "float": "right"
     }
-  }, [_vm._v("\n                                " + _vm._s(_vm.$inertia.page.props.position) + "\n                            ")])])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                                " + _vm._s(_vm.$inertia.page.props.department) + "\n                            ")])])])]), _vm._v(" "), _c("div", {
     staticClass: "main-box"
   }, [_c("div", {
     staticStyle: {
@@ -12309,11 +12309,78 @@ var render = function render() {
     attrs: {
       id: "sidebar-menu"
     }
-  }, [_c("ul", {
-    staticClass: "metismenu list-unstyled d-flex align-items-end flex-column",
-    attrs: {
-      id: "side-menu"
+  }, [_vm.$inertia.page.props.department === "waiter" ? _c("ul", {
+    staticClass: "metismenu list-unstyled d-flex align-items-end flex-column"
+  }, [_c("li", {
+    staticStyle: {
+      width: "90%",
+      "margin-bottom": "10px"
     }
+  }, [_c("Link", {
+    staticClass: "btn btn-default menubtn",
+    "class": _vm.currentRoute == "pos_table_lists" ? "bg_color" : "",
+    attrs: {
+      href: _vm.route("pos_table_lists")
+    }
+  }, [_c("i", {
+    staticClass: "fa fa-table text-white",
+    staticStyle: {
+      "font-size": "23px"
+    }
+  }), _vm._v("\n                           \n                        Reservation\n                        ")])], 1), _vm._v(" "), _c("li", {
+    staticStyle: {
+      width: "90%",
+      "margin-bottom": "10px"
+    }
+  }, [_c("a", {
+    staticClass: "btn btn-default menubtn",
+    "class": _vm.currentRoute == "pos_menu" ? "bg_color" : "",
+    on: {
+      click: function click($event) {
+        return _vm.linkMenu();
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fa fa-kitchen-set text-white",
+    staticStyle: {
+      "font-size": "23px"
+    }
+  }), _vm._v("\n                               \n                            Menu\n                        ")])]), _vm._v(" "), _vm._m(0)]) : _vm._e(), _vm._v(" "), _vm.$inertia.page.props.department === "cashier" ? _c("ul", {
+    staticClass: "metismenu list-unstyled d-flex align-items-end flex-column"
+  }, [_c("li", {
+    staticStyle: {
+      width: "90%",
+      "margin-bottom": "10px"
+    }
+  }, [_c("Link", {
+    staticClass: "btn btn-default menubtn",
+    "class": _vm.currentRoute == "pos_table_lists" ? "bg_color" : "",
+    attrs: {
+      href: _vm.route("pos_table_lists")
+    }
+  }, [_c("i", {
+    staticClass: "fa fa-table text-white",
+    staticStyle: {
+      "font-size": "23px"
+    }
+  }), _vm._v("\n                           \n                        Reservation\n                        ")])], 1), _vm._v(" "), _c("li", {
+    staticStyle: {
+      width: "90%",
+      "margin-bottom": "10px"
+    }
+  }, [_c("Link", {
+    staticClass: "btn btn-default menubtn",
+    "class": _vm.currentRoute == "bill_table_lists" ? "bg_color" : "",
+    attrs: {
+      href: _vm.route("bill_table_lists")
+    }
+  }, [_c("i", {
+    staticClass: "fa-solid fa-dollar-sign text-white",
+    staticStyle: {
+      "font-size": "23px"
+    }
+  }), _vm._v("\n                           \n                        Bill\n                        ")])], 1), _vm._v(" "), _vm._m(1)]) : _vm._e(), _vm._v(" "), _vm.$inertia.page.props.department === "admin" || _vm.$inertia.page.props.department === "manager" ? _c("ul", {
+    staticClass: "metismenu list-unstyled d-flex align-items-end flex-column"
   }, [_c("li", {
     staticStyle: {
       width: "90%",
@@ -12394,7 +12461,7 @@ var render = function render() {
     staticStyle: {
       "font-size": "23px"
     }
-  }), _vm._v("\n                           \n                        Void Items\n                        ")])], 1), _vm._v(" "), _vm._m(0)])])])]), _vm._v(" "), _c("div", {
+  }), _vm._v("\n                           \n                        Void Items\n                        ")])], 1), _vm._v(" "), _vm._m(2)]) : _vm._e()])])]), _vm._v(" "), _c("div", {
     staticClass: "main-content"
   }, [_c("div", {
     staticClass: "page-content"
@@ -12403,6 +12470,62 @@ var render = function render() {
   }, [_vm._t("default")], 2)])])]);
 };
 var staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("li", {
+    staticStyle: {
+      width: "90%"
+    }
+  }, [_c("div", {
+    staticClass: "d-flex align-items-end",
+    staticStyle: {
+      height: "100px"
+    }
+  }, [_c("div", {
+    staticClass: "mt-auto",
+    staticStyle: {
+      width: "100%"
+    }
+  }, [_c("a", {
+    staticClass: "btn btn-default menubtn",
+    attrs: {
+      href: "/pos_pin_logout"
+    }
+  }, [_c("i", {
+    staticClass: "fa-solid fa-lock text-white",
+    staticStyle: {
+      "font-size": "23px"
+    }
+  }), _vm._v("\n                                       \n                                    Sign Out\n                                ")])])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("li", {
+    staticStyle: {
+      width: "90%"
+    }
+  }, [_c("div", {
+    staticClass: "d-flex align-items-end",
+    staticStyle: {
+      height: "100px"
+    }
+  }, [_c("div", {
+    staticClass: "mt-auto",
+    staticStyle: {
+      width: "100%"
+    }
+  }, [_c("a", {
+    staticClass: "btn btn-default menubtn",
+    attrs: {
+      href: "/pos_pin_logout"
+    }
+  }, [_c("i", {
+    staticClass: "fa-solid fa-lock text-white",
+    staticStyle: {
+      "font-size": "23px"
+    }
+  }), _vm._v("\n                                       \n                                    Sign Out\n                                ")])])])]);
+}, function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c("li", {
@@ -12711,10 +12834,11 @@ var render = function render() {
     }
   }, [_vm._m(0), _vm._v(" "), _c("tbody", {
     staticStyle: {
-      "background-color": "#4D4D4D  color: #4D4D4D"
+      "background-color": "#4D4D4D",
+      color: "#4D4D4D"
     }
-  }, _vm._l(_vm.cart_lists, function (cart_list, index) {
-    return _c("tr", {
+  }, [_vm._m(1), _vm._v(" "), _vm._l(_vm.cart_lists, function (cart_list, index) {
+    return cart_list.type === "Food" ? _c("tr", {
       key: index
     }, [_c("td", {
       staticStyle: {
@@ -12728,8 +12852,24 @@ var render = function render() {
         "text-align": "right",
         "font-size": "11px"
       }
-    }, [_vm._v("\n                            " + _vm._s(cart_list.qty) + "\n                        ")])]);
-  }), 0)])])])]);
+    }, [_vm._v("\n                            " + _vm._s(cart_list.qty) + "\n                        ")])]) : _vm._e();
+  }), _vm._v(" "), _vm._m(2), _vm._v(" "), _vm._l(_vm.cart_lists, function (cart_list, index) {
+    return cart_list.type === "Beverage" ? _c("tr", {
+      key: index
+    }, [_c("td", {
+      staticStyle: {
+        color: "#4D4D4D",
+        "text-align": "left",
+        "font-size": "11px"
+      }
+    }, [_vm._v("\n                            " + _vm._s(cart_list.menu_name) + "\n                            "), _c("br"), _vm._v("\n                            Remark: " + _vm._s(cart_list.remark) + "\n                        ")]), _vm._v(" "), _c("td", {
+      staticStyle: {
+        color: "#4D4D4D",
+        "text-align": "right",
+        "font-size": "11px"
+      }
+    }, [_vm._v("\n                            " + _vm._s(cart_list.qty) + "\n                        ")])]) : _vm._e();
+  })], 2)])])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -12751,6 +12891,30 @@ var staticRenderFns = [function () {
       "text-align": "right"
     }
   }, [_vm._v("\n                        Qty\n                    ")])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("tr", [_c("td", {
+    staticStyle: {
+      "background-color": "#4D4D4D",
+      color: "#4D4D4D"
+    },
+    attrs: {
+      colspan: "2"
+    }
+  }, [_vm._v("\n                            Food\n                        ")])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("tr", [_c("td", {
+    staticStyle: {
+      "background-color": "#4D4D4D",
+      color: "#4D4D4D"
+    },
+    attrs: {
+      colspan: "2"
+    }
+  }, [_vm._v("\n                            Beverage\n                        ")])]);
 }];
 render._withStripped = true;
 
@@ -15636,14 +15800,14 @@ var render = function render() {
       "font-weight": "bold",
       "text-align": "right"
     }
-  }, [_vm._v("\n                            Total : " + _vm._s(_vm.totalAmountCalc(_vm.order_infos.order_items_table)) + "\n                        ")])]), _vm._v(" "), _c("button", {
+  }, [_vm._v("\n                            Total : " + _vm._s(_vm.totalAmountCalc(_vm.order_infos.order_items_table)) + "\n                        ")])]), _vm._v(" "), _vm.$inertia.page.props.department === "waiter" ? _c("button", {
     staticClass: "additional_order",
     on: {
       click: function click($event) {
         return _vm.setTableName(_vm.order_infos.table_list_id, _vm.order_infos.table_lists_table.table_name, _vm.order_infos.guest_no);
       }
     }
-  }, [_vm._v("\n                        Additional Order\n                    ")])])])])])], 1);
+  }, [_vm._v("\n                        Additional Order\n                    ")]) : _vm._e()])])])])], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;

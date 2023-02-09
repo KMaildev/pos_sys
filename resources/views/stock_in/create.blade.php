@@ -80,7 +80,7 @@
                                             </option>
                                             @foreach ($ingredients as $ingredient)
                                                 <option value="{{ $ingredient->id }}">
-                                                    {{ $ingredient->item_code ?? $ingredient->name }}
+                                                    {{ $ingredient->name ?? '' }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -167,7 +167,7 @@
                     type: "GET",
                     dataType: "json",
                     success: function(data) {
-                        ItemName.value = data.name
+                        ItemName.value = data.item_code
                     }
                 });
             }
