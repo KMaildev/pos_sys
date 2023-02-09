@@ -129,7 +129,9 @@ export default {
         totalReceivedAmount() {
             let sum = 0;
             this.bill_infos.forEach(function (item) {
-                sum += +item.net_amount
+                if (item.payment_method_table.account_type == 'OnlinePayAccount') {
+                    sum += +item.net_amount
+                }
             });
             return sum;
         },

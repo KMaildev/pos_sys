@@ -80,6 +80,9 @@
                                     <td class="text-center">
                                         {{ totalSaleAmount() }}
                                     </td>
+
+                                    <td class="text-center"></td>
+
                                 </tr>
 
                             </table>
@@ -139,7 +142,7 @@ export default {
             if (sale_amount == 0) {
                 return 0;
             }
-            var salesPercentage = sale_amount / total_amount * 100;
+            var salesPercentage = +sale_amount / +total_amount * 100;
             return salesPercentage.toLocaleString("en-US");
         },
 

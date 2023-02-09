@@ -99,6 +99,7 @@ class BillController extends Controller
     {
         $id = $request->order_info_id;
         $combile_order_infos = OrderInfo::where('id', '!=', $id)
+            ->where('check_out_status', NULL)
             ->with('table_lists_table')
             ->get();
         return response()->json(['combile_order_infos' => $combile_order_infos]);

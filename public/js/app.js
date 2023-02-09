@@ -7413,7 +7413,9 @@ __webpack_require__.r(__webpack_exports__);
     totalReceivedAmount: function totalReceivedAmount() {
       var sum = 0;
       this.bill_infos.forEach(function (item) {
-        sum += +item.net_amount;
+        if (item.payment_method_table.account_type == 'OnlinePayAccount') {
+          sum += +item.net_amount;
+        }
       });
       return sum;
     },
@@ -7535,7 +7537,7 @@ __webpack_require__.r(__webpack_exports__);
       if (sale_amount == 0) {
         return 0;
       }
-      var salesPercentage = sale_amount / total_amount * 100;
+      var salesPercentage = +sale_amount / +total_amount * 100;
       return salesPercentage.toLocaleString("en-US");
     },
     totalSaleAmount: function totalSaleAmount() {
@@ -7659,7 +7661,7 @@ window.Swal = (sweetalert2__WEBPACK_IMPORTED_MODULE_3___default());
       var disc = bill_info.discount;
       var totalTaxNetAmount = totalAmount * taxrate / 100;
       var totalDiscNetAmount = totalAmount * disc / 100;
-      var netAmount = totalAmount + totalTaxNetAmount - totalDiscNetAmount;
+      var netAmount = +totalAmount + +totalTaxNetAmount - +totalDiscNetAmount;
       return netAmount;
     },
     TotalSalesAmount: function TotalSalesAmount(bill_infos) {
@@ -7674,7 +7676,7 @@ window.Swal = (sweetalert2__WEBPACK_IMPORTED_MODULE_3___default());
       bill_infos.forEach(function (item) {
         var total_amount = +item.total_amount;
         var discount = +item.discount;
-        sum += total_amount * discount / 100;
+        sum += +total_amount * +discount / 100;
       });
       return sum;
     },
@@ -7686,7 +7688,7 @@ window.Swal = (sweetalert2__WEBPACK_IMPORTED_MODULE_3___default());
         var disc = bill_info.discount;
         var totalTaxNetAmount = totalAmount * taxrate / 100;
         var totalDiscNetAmount = totalAmount * disc / 100;
-        sum += totalAmount + totalTaxNetAmount - totalDiscNetAmount;
+        sum += +totalAmount + +totalTaxNetAmount - +totalDiscNetAmount;
       });
       return sum;
     },
@@ -12719,20 +12721,18 @@ var render = function render() {
         "text-align": "center",
         "font-size": "17px"
       }
-    }, [_vm._v("\n                    " + _vm._s(category.title) + "\n                ")]), _vm._v(" "), category.photo ? _c("img", {
+    }, [_vm._v("\n                    " + _vm._s(category.title) + "\n                ")]), _vm._v(" "), _c("center", [category.photo ? _c("img", {
       staticStyle: {
-        width: "100%",
-        height: "140px",
-        "border-radius": "8%",
-        "background-size": "center",
-        "object-position": "top",
+        width: "85%",
+        height: "120px",
         "object-fit": "cover",
-        padding: "8px"
+        "object-position": "top",
+        "background-size": "contain"
       },
       attrs: {
         src: "/images/".concat(category.photo)
       }
-    }) : _vm._e()])]);
+    }) : _vm._e()])], 1)]);
   }), 0)]);
 };
 var staticRenderFns = [];
@@ -16950,7 +16950,9 @@ var render = function render() {
     }
   }, [_vm._v("\n                                    Total\n                                ")]), _vm._v(" "), _c("td", {
     staticClass: "text-center"
-  }, [_vm._v("\n                                    " + _vm._s(_vm.totalSaleAmount()) + "\n                                ")])])])])])])])])], 1);
+  }, [_vm._v("\n                                    " + _vm._s(_vm.totalSaleAmount()) + "\n                                ")]), _vm._v(" "), _c("td", {
+    staticClass: "text-center"
+  })])])])])])])])], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -18436,7 +18438,7 @@ var render = function render() {
       staticClass: "text-center"
     }, [void_item.manager_status == "nothing" ? _c("span", [_c("span", {
       staticClass: "badge bg-danger"
-    }, [_vm._v("Nothing")])]) : _vm._e(), _vm._v(" "), void_item.manager_status == "reject" ? _c("span", [_c("span", {
+    }, [_vm._v("Pending")])]) : _vm._e(), _vm._v(" "), void_item.manager_status == "reject" ? _c("span", [_c("span", {
       staticClass: "badge bg-primary"
     }, [_vm._v("Reject")])]) : _vm._e(), _vm._v(" "), void_item.manager_status == "done" ? _c("span", [_c("span", {
       staticClass: "badge bg-success"
@@ -24113,7 +24115,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.main-menu-box {\n    height: 160px;\n}\n.centered {\n    font-size: 20px;\n    font-weight: bold;\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    transform: translate(-50%, -50%);\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.main-menu-box {\n    height: 180px;\n}\n.centered {\n    font-size: 20px;\n    font-weight: bold;\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    transform: translate(-50%, -50%);\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

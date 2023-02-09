@@ -225,7 +225,7 @@ export default {
 
             var totalTaxNetAmount = totalAmount * taxrate / 100;
             var totalDiscNetAmount = totalAmount * disc / 100;
-            var netAmount = (totalAmount + totalTaxNetAmount) - totalDiscNetAmount;
+            var netAmount = (+totalAmount + +totalTaxNetAmount) - +totalDiscNetAmount;
             return netAmount;
         },
 
@@ -245,7 +245,7 @@ export default {
             bill_infos.forEach(function (item) {
                 var total_amount = +item.total_amount;
                 var discount = +item.discount;
-                sum += total_amount * discount / 100;
+                sum += +total_amount * +discount / 100;
             });
             return sum;
         },
@@ -259,7 +259,7 @@ export default {
 
                 var totalTaxNetAmount = totalAmount * taxrate / 100;
                 var totalDiscNetAmount = totalAmount * disc / 100;
-                sum += (totalAmount + totalTaxNetAmount) - totalDiscNetAmount;
+                sum += (+totalAmount + +totalTaxNetAmount) - +totalDiscNetAmount;
             });
             return sum;
         },

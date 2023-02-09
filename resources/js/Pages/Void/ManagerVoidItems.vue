@@ -70,7 +70,7 @@
 
                                         <td class="text-center">
                                             <span v-if="void_item.manager_status == 'nothing'">
-                                                <span class="badge bg-danger">Nothing</span>
+                                                <span class="badge bg-danger">Pending</span>
                                             </span>
 
                                             <span v-if="void_item.manager_status == 'reject'">

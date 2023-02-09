@@ -15,8 +15,11 @@
                     <span style="text-align: center; font-size: 17px;">
                         {{ category.title }}
                     </span>
-                    <img v-if="category.photo" :src="`/images/${category.photo}`"
-                        style="width: 100%; height: 140px; border-radius: 8%; background-size: center; object-position: top; object-fit: cover; padding: 8px;" />
+                    <!-- object-fit: cover; -->
+                    <center>
+                        <img v-if="category.photo" :src="`/images/${category.photo}`"
+                            style="width: 85%; height: 120px; object-fit: cover;  object-position: top; background-size: contain;" />
+                    </center>
                 </div>
             </div>
         </div>
@@ -48,7 +51,7 @@ export default {
 </script>
 <style>
 .main-menu-box {
-    height: 160px;
+    height: 180px;
 }
 
 .centered {
