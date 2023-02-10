@@ -15,10 +15,9 @@
                     <span style="text-align: center; font-size: 17px;">
                         {{ category.title }}
                     </span>
-                    <!-- object-fit: cover; -->
                     <center>
                         <img v-if="category.photo" :src="`/images/${category.photo}`"
-                            style="width: 85%; height: 120px; object-fit: cover;  object-position: top; background-size: contain;" />
+                            style="width: 80%; height: auto; object-fit: cover;  object-position: top; background-size: contain;" />
                     </center>
                 </div>
             </div>
@@ -52,6 +51,7 @@ export default {
 <style>
 .main-menu-box {
     height: 180px;
+    min-height: 180px;
 }
 
 .centered {

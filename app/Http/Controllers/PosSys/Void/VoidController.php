@@ -4,6 +4,7 @@ namespace App\Http\Controllers\PosSys\Void;
 
 use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
+use App\Models\NoticeBoard;
 use App\Models\OrderInfo;
 use App\Models\OrderItem;
 use App\Models\VoidItem;
@@ -18,9 +19,11 @@ class VoidController extends Controller
         $order_infos = OrderInfo::with('table_lists_table', 'waiter_user_table', 'order_items_table')
             ->findOrFail($id);
         $void_item = new OrderItem();
+        $void_reasons = NoticeBoard::all();
         return Inertia::render('Ordered/VoidOrder', [
             'order_infos' => $order_infos,
             'void_item' => $void_item,
+            'void_reasons' => $void_reasons,
         ]);
     }
 
@@ -35,6 +38,7 @@ class VoidController extends Controller
     {
         $item_id = $request->item_id;
         $reason = $request->reason;
+        $void_qty = $request->void_qty;
 
         $order_item = OrderItem::findOrFail($item_id);
         $order_info_id = $order_item->order_info_id;
@@ -44,7 +48,6 @@ class VoidController extends Controller
         $void_item->order_item_id = $order_item->id;
         $void_item->order_info_id = $order_item->order_info_id;
         $void_item->menu_list_id = $order_item->menu_list_id;
-        $void_item->qty = $order_item->qty;
         $void_item->price = $order_item->price;
         $void_item->remark = $order_item->remark;
         $void_item->waiter_user_id = $order_item->waiter_user_id;
@@ -56,6 +59,7 @@ class VoidController extends Controller
         $void_item->menu_name = $order_item->menu_name;
         $void_item->split_qty = $order_item->split_qty;
 
+        $void_item->qty = $void_qty;
         $void_item->reason = $reason;
         $void_item->void_by = auth()->user()->id ?? 0;
         $void_item->void_date = date('Y-m-d');
@@ -91,8 +95,20 @@ class VoidController extends Controller
         $void_item->manager_status = 'done';
         $void_item->update();
         $void_item_id = $void_item->order_item_id;
-        OrderItem::findOrFail($void_item_id)->delete();
+        $void_qty = $void_item->qty;
+
+
+        $order_item = OrderItem::findOrFail($void_item_id);
+        $org_qty = $order_item->qty;
+        $total_void = $org_qty - $void_qty;
+        if ($total_void == 0) {
+            OrderItem::findOrFail($void_item_id)->delete();
+        } else {
+            $order_item->qty = $total_void;
+            $order_item->update();
+        }
         Helper::updateOrderInfoTotalAmount($void_item->order_info_id);
+
 
         $order_info = OrderInfo::findOrFail($void_item->order_info_id);
         $total_amount = $order_info->total_amount;

@@ -99,33 +99,32 @@
                             </div>
                             <div class="modal-body">
                                 <form @submit.prevent="ConfirmVoidItem">
+
+                                    <div class="d-flex justify-content-between"
+                                        style="border: 1px solid black; border-radius: 10px;">
+                                        <button type="button" class="btn btn-dark btn-lg" v-on:click="reduceVoidQty()">
+                                            <i class="fas fa-arrow-circle-down"></i>
+                                        </button>
+
+                                        <button type="button" class="btn btn btn-lg text-black"
+                                            style="background-color: white; width: 100%;">
+                                            {{ void_qty }}
+                                        </button>
+
+                                        <button type="button" class="btn btn-dark btn-lg" v-on:click="addVoidQty()">
+                                            <i class="fas fa-arrow-alt-circle-up "></i>
+                                        </button>
+                                    </div>
+                                    <br>
                                     <select class="form-select form-select-lg mb-3" v-model="reason">
                                         <option selected value="">
                                             ---Select Reason---
                                         </option>
-                                        <option value="Customers' return">
-                                            Customers' return
-                                        </option>
-                                        <option value="Customers' time issue">
-                                            Customers' time issue
-                                        </option>
-                                        <option value="Mistake operation">
-                                            Mistake operation
-                                        </option>
-                                        <option value="Modifiers or kitchen remarks are incorrect">
-                                            Modifiers or kitchen remarks are incorrect
-                                        </option>
-                                        <option value="No seating">
-                                            No seating
-                                        </option>
-                                        <option value="System error">
-                                            System error
-                                        </option>
-                                        <option value="Other">
-                                            Other
+                                        <option :value="void_reason.description" v-for="void_reason in void_reasons"
+                                            :key="void_reason.id">
+                                            {{ void_reason.description }}
                                         </option>
                                     </select>
-
                                     <br>
                                     <div class="d-flex justify-content-between">
                                         <button type="submit" class="btn btn-dark btn-lg block" style="width: 100%;">
@@ -159,11 +158,13 @@ export default {
         'login_time',
         'order_infos',
         'void_item',
+        'void_reasons',
     ],
 
     data() {
         return {
             reason: this.reason,
+            void_qty: 1,
         }
     },
 
@@ -192,11 +193,33 @@ export default {
             $('#showVoidInfoModal').modal('show');
         },
 
+        addVoidQty() {
+            this.void_qty++;
+        },
+
+        reduceVoidQty() {
+            var void_qty = this.void_qty;
+            if (void_qty > 1) {
+                this.void_qty--;
+            } else {
+            }
+        },
+
         ConfirmVoidItem() {
             var item_id = this.void_item.id;
             var reason = this.reason;
-            this.$inertia.get(`/confirm_void_item?item_id=${item_id}&reason=${reason}`);
-            $('#showVoidInfoModal').modal('hide');
+            var void_qty = this.void_qty;
+            if (void_qty == 0 || void_qty == '') {
+                this.$toastr.e('error', 'Please Enter Void Qty');
+                return false;
+            } else if (reason == '' || reason == null) {
+                this.$toastr.e('error', 'Please Enter Void Reason');
+                return false;
+            } else {
+                this.$inertia.get(`/confirm_void_item?item_id=${item_id}&reason=${reason}&void_qty=${void_qty}`);
+                $('#showVoidInfoModal').modal('hide');
+            }
+
         },
     }
 };

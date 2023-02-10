@@ -4,7 +4,7 @@
         <div class="col-xl-12">
             <div class="card mb-4">
                 <h5 class="card-header">
-                    Notice
+                    Void Reason
                 </h5>
 
                 <div class="card-body">

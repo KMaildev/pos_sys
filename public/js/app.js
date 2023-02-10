@@ -7176,10 +7176,11 @@ __webpack_require__.r(__webpack_exports__);
     Master: _Layout_Master__WEBPACK_IMPORTED_MODULE_0__["default"],
     MenuButton: _MenuButton_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  props: ['user_name', 'login_time', 'order_infos', 'void_item'],
+  props: ['user_name', 'login_time', 'order_infos', 'void_item', 'void_reasons'],
   data: function data() {
     return {
-      reason: this.reason
+      reason: this.reason,
+      void_qty: 1
     };
   },
   methods: {
@@ -7205,11 +7206,29 @@ __webpack_require__.r(__webpack_exports__);
       });
       $('#showVoidInfoModal').modal('show');
     },
+    addVoidQty: function addVoidQty() {
+      this.void_qty++;
+    },
+    reduceVoidQty: function reduceVoidQty() {
+      var void_qty = this.void_qty;
+      if (void_qty > 1) {
+        this.void_qty--;
+      } else {}
+    },
     ConfirmVoidItem: function ConfirmVoidItem() {
       var item_id = this.void_item.id;
       var reason = this.reason;
-      this.$inertia.get("/confirm_void_item?item_id=".concat(item_id, "&reason=").concat(reason));
-      $('#showVoidInfoModal').modal('hide');
+      var void_qty = this.void_qty;
+      if (void_qty == 0 || void_qty == '') {
+        this.$toastr.e('error', 'Please Enter Void Qty');
+        return false;
+      } else if (reason == '' || reason == null) {
+        this.$toastr.e('error', 'Please Enter Void Reason');
+        return false;
+      } else {
+        this.$inertia.get("/confirm_void_item?item_id=".concat(item_id, "&reason=").concat(reason, "&void_qty=").concat(void_qty));
+        $('#showVoidInfoModal').modal('hide');
+      }
     }
   }
 });
@@ -13063,8 +13082,8 @@ var render = function render() {
       }
     }, [_vm._v("\n                    " + _vm._s(category.title) + "\n                ")]), _vm._v(" "), _c("center", [category.photo ? _c("img", {
       staticStyle: {
-        width: "85%",
-        height: "120px",
+        width: "80%",
+        height: "auto",
         "object-fit": "cover",
         "object-position": "top",
         "background-size": "contain"
@@ -16359,7 +16378,46 @@ var render = function render() {
         return _vm.ConfirmVoidItem.apply(null, arguments);
       }
     }
-  }, [_c("select", {
+  }, [_c("div", {
+    staticClass: "d-flex justify-content-between",
+    staticStyle: {
+      border: "1px solid black",
+      "border-radius": "10px"
+    }
+  }, [_c("button", {
+    staticClass: "btn btn-dark btn-lg",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.reduceVoidQty();
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-arrow-circle-down"
+  })]), _vm._v(" "), _c("button", {
+    staticClass: "btn btn btn-lg text-black",
+    staticStyle: {
+      "background-color": "white",
+      width: "100%"
+    },
+    attrs: {
+      type: "button"
+    }
+  }, [_vm._v("\n                                        " + _vm._s(_vm.void_qty) + "\n                                    ")]), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-dark btn-lg",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.addVoidQty();
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-arrow-alt-circle-up"
+  })])]), _vm._v(" "), _c("br"), _vm._v(" "), _c("select", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -16383,35 +16441,14 @@ var render = function render() {
       selected: "",
       value: ""
     }
-  }, [_vm._v("\n                                        ---Select Reason---\n                                    ")]), _vm._v(" "), _c("option", {
-    attrs: {
-      value: "Customers' return"
-    }
-  }, [_vm._v("\n                                        Customers' return\n                                    ")]), _vm._v(" "), _c("option", {
-    attrs: {
-      value: "Customers' time issue"
-    }
-  }, [_vm._v("\n                                        Customers' time issue\n                                    ")]), _vm._v(" "), _c("option", {
-    attrs: {
-      value: "Mistake operation"
-    }
-  }, [_vm._v("\n                                        Mistake operation\n                                    ")]), _vm._v(" "), _c("option", {
-    attrs: {
-      value: "Modifiers or kitchen remarks are incorrect"
-    }
-  }, [_vm._v("\n                                        Modifiers or kitchen remarks are incorrect\n                                    ")]), _vm._v(" "), _c("option", {
-    attrs: {
-      value: "No seating"
-    }
-  }, [_vm._v("\n                                        No seating\n                                    ")]), _vm._v(" "), _c("option", {
-    attrs: {
-      value: "System error"
-    }
-  }, [_vm._v("\n                                        System error\n                                    ")]), _vm._v(" "), _c("option", {
-    attrs: {
-      value: "Other"
-    }
-  }, [_vm._v("\n                                        Other\n                                    ")])]), _vm._v(" "), _c("br"), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                                        ---Select Reason---\n                                    ")]), _vm._v(" "), _vm._l(_vm.void_reasons, function (void_reason) {
+    return _c("option", {
+      key: void_reason.id,
+      domProps: {
+        value: void_reason.description
+      }
+    }, [_vm._v("\n                                        " + _vm._s(void_reason.description) + "\n                                    ")]);
+  })], 2), _vm._v(" "), _c("br"), _vm._v(" "), _c("div", {
     staticClass: "d-flex justify-content-between"
   }, [_c("button", {
     staticClass: "btn btn-dark btn-lg block",
@@ -24639,7 +24676,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.main-menu-box {\n    height: 180px;\n}\n.centered {\n    font-size: 20px;\n    font-weight: bold;\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    transform: translate(-50%, -50%);\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.main-menu-box {\n    height: 180px;\n    min-height: 180px;\n}\n.centered {\n    font-size: 20px;\n    font-weight: bold;\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    transform: translate(-50%, -50%);\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

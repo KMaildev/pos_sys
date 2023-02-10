@@ -287,12 +287,10 @@
                 </li>
 
 
-
-
                 <li>
                     <a href="{{ route('notice.index') }}">
                         <i data-feather="user-x"></i>
-                        Notice Board
+                        Void Reason
                     </a>
                 </li>
 
