@@ -20,6 +20,9 @@ class VoidController extends Controller
             ->findOrFail($id);
         $void_item = new OrderItem();
         $void_reasons = NoticeBoard::all();
+
+
+
         return Inertia::render('Ordered/VoidOrder', [
             'order_infos' => $order_infos,
             'void_item' => $void_item,
@@ -83,6 +86,15 @@ class VoidController extends Controller
     {
         $void_items = VoidItem::with('menu_list_table', 'table_list_table', 'void_by_table')
             ->get();
+
+        if (request('start_date') && request('end_date')) {
+            $void_items =  VoidItem::with('menu_list_table', 'table_list_table', 'void_by_table')
+                ->where('void_date', '>=', request('start_date'))
+                ->where('void_date', '<=', request('end_date'))
+                ->get();
+        }
+
+
         return Inertia::render('Void/ManagerVoidItems', [
             'void_items' => $void_items,
         ]);

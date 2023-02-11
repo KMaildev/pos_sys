@@ -3,6 +3,17 @@
         <master :user_name="user_name">
             <div class="ScrollStyle">
                 <div class="row py-2">
+                    <div class="row">
+                        <div class="col-md-4 col-lg-4 col-sm-4 py-3">
+                            <form @submit.prevent="searchDate">
+                                <div class="input-group">
+                                    <input type="date" class="form-control date_picker" v-model="form.start_date">
+                                    <input type="date" class="form-control date_picker" v-model="form.end_date">
+                                    <input type="submit" class="btn btn-dark" value="Search">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                     <div class="col-md-12 col-lg-12 col-sm-12">
                         <div class="card-body overflow-auto" style="background-color: white;">
                             <table class="table">
@@ -119,9 +130,13 @@ export default {
         Master
     },
 
+
     data() {
         return {
-
+            form: {
+                start_date: this.start_date,
+                end_date: this.end_date,
+            }
         }
     },
 
@@ -136,6 +151,10 @@ export default {
 
         RejectVoidItem(id) {
             this.$inertia.get(`/manager_void_item_reject?id=${id}`);
+        },
+
+        searchDate() {
+            this.$inertia.get(`/manager_void_item`, this.form);
         },
     },
 

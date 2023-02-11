@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 10, 2023 at 09:35 AM
+-- Generation Time: Feb 11, 2023 at 12:52 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.28
 
@@ -442,7 +442,8 @@ INSERT INTO `login_logs` (`id`, `user_id`, `login_time`, `login_ip`, `device`, `
 (22, 2, '2023-02-10 13:48:24', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', '2023-02-10 07:18:24', '2023-02-10 07:18:24'),
 (23, 2, '2023-02-10 13:56:21', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', '2023-02-10 07:26:21', '2023-02-10 07:26:21'),
 (24, 2, '2023-02-10 13:59:45', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', '2023-02-10 07:29:45', '2023-02-10 07:29:45'),
-(25, 1, '2023-02-10 14:04:40', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', '2023-02-10 07:34:40', '2023-02-10 07:34:40');
+(25, 1, '2023-02-10 14:04:40', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', '2023-02-10 07:34:40', '2023-02-10 07:34:40'),
+(26, 1, '2023-02-11 18:15:29', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', '2023-02-11 11:45:29', '2023-02-11 11:45:29');
 
 -- --------------------------------------------------------
 
@@ -771,13 +772,6 @@ CREATE TABLE `order_infos` (
   `first_table_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `void_status` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `order_infos`
---
-
-INSERT INTO `order_infos` (`id`, `customer_id`, `table_list_id`, `order_no`, `inv_no`, `order_date_time`, `order_date`, `order_time`, `check_out_status`, `check_out_time`, `payment_type`, `total_amount`, `tax_amount`, `discount`, `service_charges`, `net_amount`, `received_amount`, `cashier_user_id`, `created_at`, `updated_at`, `waiter_user_id`, `guest_no`, `change_amount`, `order_minutes`, `order_user_name`, `first_table_id`, `void_status`) VALUES
-(1, '0', '1', '000001', 'INV-10022023-0001', '2023-02-10 03:00:11 PM', '2023-02-10', '03:00:11 PM', 'paid', NULL, NULL, '0', NULL, NULL, NULL, NULL, NULL, '1', '2023-02-10 08:30:11', '2023-02-10 08:30:51', '1', '1', NULL, '03:00 PM', 'Admin', NULL, 'fully_void');
 
 -- --------------------------------------------------------
 
@@ -1281,7 +1275,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `employee_id`, `phone`, `nrc_number`, `gender`, `address`, `department_id`, `is_banned`, `last_login_at`, `last_login_ip`, `agent`, `nrc_front`, `nrc_back`, `members_list_file`, `other_file`, `leave_date`, `leave_remark`, `leave_by`, `contact_person`, `emergency_contact`, `passport_photo`, `join_date`, `employment_type`, `remember_token`, `created_at`, `updated_at`, `pin_code`) VALUES
-(1, 'Admin', 'admin@gmail.com', NULL, '$2y$10$H4Dl/7aFMsm1xck7mqa.PehZTR5oWppsGZ09pO7VHsE7euBe.sCQi', '00001', '09123123122', '1/agc(N)991223', 'male', 'YGN', '1', 1, '10/02/2023 14:04:40 pm', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Probation', NULL, '2023-01-27 00:37:41', '2023-02-10 07:34:40', 123458),
+(1, 'Admin', 'admin@gmail.com', NULL, '$2y$10$H4Dl/7aFMsm1xck7mqa.PehZTR5oWppsGZ09pO7VHsE7euBe.sCQi', '00001', '09123123122', '1/agc(N)991223', 'male', 'YGN', '1', 1, '11/02/2023 18:15:29 pm', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Probation', NULL, '2023-01-27 00:37:41', '2023-02-11 11:45:29', 123458),
 (2, 'Waiter1', 'waiter@gmail.com', NULL, '$2y$10$YlWrTGwZXqnf1/D4ifbXu.xDm5kdkbG4uNrbfqll.RIb3xHWUwKzG', '00002', '0912312313', '1/abc(n)009221', 'male', 'YGN', '4', 1, '10/02/2023 13:59:45 pm', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, 'Probation', 'm71hZa4H1SHkOo4QkliV7eFiIw2En3lDCyZqvOe2GRv6FwqS8mzv23HDHW4F', '2023-01-26 23:30:19', '2023-02-10 07:29:45', 123456),
 (3, 'Cashier1', 'cashier@gmail.com', NULL, '$2y$10$KL/3ZNF1BfbUI4ElchzP9uWxwfagZcAxiq9ISNMas439.IvR8ewrK', '00003', '09123123123', '1/abc(N)009221', 'male', 'YGN', '5', 1, '09/02/2023 20:44:58 pm', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, 'Probation', NULL, '2022-11-14 03:17:19', '2023-02-09 14:14:58', 123457),
 (4, 'Waiter2', 'waiter2@gmail.com', NULL, '$2y$10$37k4qpRw/3UTDJcuOWYz4O0Y0VzSGBmWPzQeqh4dqttW89g7zbNGW', '00004', '0912312312', '1/abc(N)009221', 'male', 'YGN', '4', 1, '26/01/2023 20:22:57 pm', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, '', '2023-01-26 08:21 PM', 'Probation', NULL, '2023-01-26 13:52:34', '2023-01-26 13:52:57', 123123);
@@ -1427,15 +1421,6 @@ CREATE TABLE `void_items` (
   `manager_status` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `order_item_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `void_items`
---
-
-INSERT INTO `void_items` (`id`, `order_info_id`, `menu_list_id`, `qty`, `price`, `remark`, `waiter_user_id`, `preparation_status`, `preparation_date`, `preparation_user_id`, `difference_time`, `manager_remark`, `menu_name`, `split_qty`, `reason`, `void_by`, `void_date`, `void_time`, `created_at`, `updated_at`, `table_list_id`, `manager_status`, `order_item_id`) VALUES
-(1, 1, 9, '2', '5000', NULL, '1', NULL, NULL, NULL, NULL, NULL, 'Antidote', '0', 'Customers\' return', '1', '2023-02-10', '03:00:23 PM', '2023-02-10 08:30:23', '2023-02-10 08:30:26', '1', 'done', '1'),
-(2, 1, 10, '1', '5000', NULL, '1', NULL, NULL, NULL, NULL, NULL, 'Let\'s Get LVA', '0', 'Customers\' return', '1', '2023-02-10', '03:00:37 PM', '2023-02-10 08:30:37', '2023-02-10 08:30:41', '1', 'reject', '2'),
-(3, 1, 10, '1', '5000', NULL, '1', NULL, NULL, NULL, NULL, NULL, 'Let\'s Get LVA', '0', 'Customers\' return', '1', '2023-02-10', '03:00:48 PM', '2023-02-10 08:30:48', '2023-02-10 08:30:51', '1', 'done', '2');
 
 --
 -- Indexes for dumped tables
@@ -1861,7 +1846,7 @@ ALTER TABLE `ingredient_lists`
 -- AUTO_INCREMENT for table `login_logs`
 --
 ALTER TABLE `login_logs`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `members_lists`
@@ -1891,13 +1876,13 @@ ALTER TABLE `notice_boards`
 -- AUTO_INCREMENT for table `order_infos`
 --
 ALTER TABLE `order_infos`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `payment_methods`
@@ -2029,7 +2014,7 @@ ALTER TABLE `variable_purchase_items`
 -- AUTO_INCREMENT for table `void_items`
 --
 ALTER TABLE `void_items`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables

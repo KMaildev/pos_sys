@@ -8418,7 +8418,12 @@ window.Swal = (sweetalert2__WEBPACK_IMPORTED_MODULE_1___default());
     Master: _Layout_Master__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   data: function data() {
-    return {};
+    return {
+      form: {
+        start_date: this.start_date,
+        end_date: this.end_date
+      }
+    };
   },
   props: ['void_items'],
   methods: {
@@ -8427,6 +8432,9 @@ window.Swal = (sweetalert2__WEBPACK_IMPORTED_MODULE_1___default());
     },
     RejectVoidItem: function RejectVoidItem(id) {
       this.$inertia.get("/manager_void_item_reject?id=".concat(id));
+    },
+    searchDate: function searchDate() {
+      this.$inertia.get("/manager_void_item", this.form);
     }
   },
   created: function created() {}
@@ -18919,6 +18927,65 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "row py-2"
   }, [_c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-md-4 col-lg-4 col-sm-4 py-3"
+  }, [_c("form", {
+    on: {
+      submit: function submit($event) {
+        $event.preventDefault();
+        return _vm.searchDate.apply(null, arguments);
+      }
+    }
+  }, [_c("div", {
+    staticClass: "input-group"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.start_date,
+      expression: "form.start_date"
+    }],
+    staticClass: "form-control date_picker",
+    attrs: {
+      type: "date"
+    },
+    domProps: {
+      value: _vm.form.start_date
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "start_date", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.end_date,
+      expression: "form.end_date"
+    }],
+    staticClass: "form-control date_picker",
+    attrs: {
+      type: "date"
+    },
+    domProps: {
+      value: _vm.form.end_date
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "end_date", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("input", {
+    staticClass: "btn btn-dark",
+    attrs: {
+      type: "submit",
+      value: "Search"
+    }
+  })])])])]), _vm._v(" "), _c("div", {
     staticClass: "col-md-12 col-lg-12 col-sm-12"
   }, [_c("div", {
     staticClass: "card-body overflow-auto",
