@@ -126,14 +126,13 @@
                                             <select
                                                 style="text-align: right; background-color: white;  border: none; text-overflow: ''; -webkit-appearance: none;"
                                                 v-model="form.taxrate" @change="netAmount()">
-                                                <option value="0">0</option>
+                                                <option value="0">0%</option>
                                                 <option :value="taxrate.taxrate" v-for="taxrate in taxrates"
                                                     :key="taxrate.id">
                                                     {{ taxrate.name }}
                                                 </option>
                                             </select>
                                         </td>
-
                                     </tr>
 
                                     <!-- Disc -->
@@ -142,13 +141,15 @@
                                             Disc
                                         </td>
 
-                                        <td colspan="2">
-                                            <input type="text" class="billInput" value="0"
-                                                style="text-align: right; width: 100%;" v-model="form.disc"
-                                                @change="netAmount()">
-                                        </td>
-                                        <td>
-                                            %
+                                        <td style="text-align: right;" colspan="2">
+                                            <select
+                                                style="text-align: right; background-color: white;  border: none; text-overflow: ''; -webkit-appearance: none;"
+                                                v-model="form.disc" @change="netAmount()">
+                                                <option :value="discount.rate" v-for="discount in discounts"
+                                                    :key="discount.id">
+                                                    {{ discount.name }}
+                                                </option>
+                                            </select>
                                         </td>
                                     </tr>
 
@@ -315,6 +316,7 @@ export default {
         'payment_methods',
         'taxrates',
         'combile_order_infos',
+        'discounts',
     ],
 
 

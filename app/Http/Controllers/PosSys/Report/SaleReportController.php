@@ -36,7 +36,6 @@ class SaleReportController extends Controller
     public function StaffSales(Request $request)
     {
         $waiters = User::with('bill_infos_table', 'void_items_table', 'remark_void_items_table')
-            ->where('department_id', 4)
             ->get();
 
         if (request('start_date') && request('end_date')) {

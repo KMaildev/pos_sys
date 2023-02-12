@@ -5347,7 +5347,7 @@ __webpack_require__.r(__webpack_exports__);
     Master: _Layout_Master__WEBPACK_IMPORTED_MODULE_0__["default"],
     BillMenuButton: _components_BillMenuButton_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  props: ['user_name', 'login_time', 'order_infos', 'customers', 'payment_methods', 'taxrates', 'combile_order_infos'],
+  props: ['user_name', 'login_time', 'order_infos', 'customers', 'payment_methods', 'taxrates', 'combile_order_infos', 'discounts'],
   data: function data() {
     return {
       form: {
@@ -8708,7 +8708,7 @@ var render = function render() {
     attrs: {
       value: "0"
     }
-  }, [_vm._v("0")]), _vm._v(" "), _vm._l(_vm.taxrates, function (taxrate) {
+  }, [_vm._v("0%")]), _vm._v(" "), _vm._l(_vm.taxrates, function (taxrate) {
     return _c("option", {
       key: taxrate.id,
       domProps: {
@@ -8723,38 +8723,47 @@ var render = function render() {
       colspan: "2"
     }
   }, [_vm._v("\n                                        Disc\n                                    ")]), _vm._v(" "), _c("td", {
+    staticStyle: {
+      "text-align": "right"
+    },
     attrs: {
       colspan: "2"
     }
-  }, [_c("input", {
+  }, [_c("select", {
     directives: [{
       name: "model",
       rawName: "v-model",
       value: _vm.form.disc,
       expression: "form.disc"
     }],
-    staticClass: "billInput",
     staticStyle: {
       "text-align": "right",
-      width: "100%"
-    },
-    attrs: {
-      type: "text",
-      value: "0"
-    },
-    domProps: {
-      value: _vm.form.disc
+      "background-color": "white",
+      border: "none",
+      "text-overflow": "''",
+      "-webkit-appearance": "none"
     },
     on: {
-      change: function change($event) {
+      change: [function ($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.form, "disc", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }, function ($event) {
         return _vm.netAmount();
-      },
-      input: function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "disc", $event.target.value);
-      }
+      }]
     }
-  })]), _vm._v(" "), _c("td", [_vm._v("\n                                        %\n                                    ")])]), _vm._v(" "), _c("tr", {}, [_c("td", {
+  }, _vm._l(_vm.discounts, function (discount) {
+    return _c("option", {
+      key: discount.id,
+      domProps: {
+        value: discount.rate
+      }
+    }, [_vm._v("\n                                                " + _vm._s(discount.name) + "\n                                            ")]);
+  }), 0)])]), _vm._v(" "), _c("tr", {}, [_c("td", {
     staticStyle: {
       "font-size": "16px"
     },

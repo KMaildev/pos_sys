@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSubmitPayment;
 use App\Models\BillInfo;
 use App\Models\Customer;
+use App\Models\Discount;
 use App\Models\Floor;
 use App\Models\OrderInfo;
 use App\Models\OrderItem;
@@ -46,12 +47,14 @@ class BillController extends Controller
         $customers = Customer::all();
         $payment_methods = PaymentMethod::all();
         $taxrates = Taxrate::all();
+        $discounts = Discount::all();
 
         return Inertia::render('Bill/BillPayment', [
             'order_infos' => $order_infos,
             'customers' => $customers,
             'payment_methods' => $payment_methods,
             'taxrates' => $taxrates,
+            'discounts' => $discounts,
         ]);
     }
 
@@ -111,12 +114,14 @@ class BillController extends Controller
     {
         $main_order_infos = $request->main_order_infos;
         $combile_order_info_id = $request->combile_order_info_id;
+
+
         if (empty($combile_order_info_id)) {
             return Redirect::route('bill_table_lists')->with('error', 'Something wrong please try again!');
         } else {
             $guest_no = [];
-            for ($i = 0; $i < count(array($combile_order_info_id)); $i++) {
-                $combile_order_info_id = $combile_order_info_id[$i];
+            foreach ($combile_order_info_id as $key => $value) {
+                $combile_order_info_id = $value;
 
                 $combile_order_items = OrderItem::where('order_info_id', $combile_order_info_id)->get();
                 foreach ($combile_order_items as $key => $combile_order_item) {
@@ -126,7 +131,6 @@ class BillController extends Controller
 
                 $combile_order_info = OrderInfo::findOrFail($combile_order_info_id);
                 $guest_no[] = $combile_order_info->guest_no;
-
 
                 OrderInfo::findOrFail($combile_order_info_id)->delete();
             }

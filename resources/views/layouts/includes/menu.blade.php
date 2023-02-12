@@ -286,12 +286,32 @@
                     </a>
                 </li>
 
+                <li>
+                    <a href="{{ route('discount.index') }}">
+                        <i data-feather="user-x"></i>
+                        Discount
+                    </a>
+                </li>
+
 
                 <li>
                     <a href="{{ route('notice.index') }}">
                         <i data-feather="user-x"></i>
                         Void Reason
                     </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();">
+                        <i class="mdi mdi-logout font-size-16 align-middle me-1"></i>
+                        {{ __('Logout') }}
+                    </a>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
                 </li>
 
 
