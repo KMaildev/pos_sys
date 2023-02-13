@@ -18,7 +18,11 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        $permission = Permission::all();
+        $permission = Permission::query();
+        if (request('q')) {
+            $permission->where('name', 'Like', '%' . request('q') . '%');
+        }
+        $permission = $permission->get();
         return view('hr.permission.index', compact('permission'));
     }
 

@@ -20,6 +20,9 @@
                 @enderror
                 <input type="submit" class="dt-button create-new btn btn-primary" value="Upload">
             </div>
+            <a href="{{ route('stock_damage.index') }}" class="btn btn-success w-md">
+                Back
+            </a>
         </form>
 
         <h5 class="card-header">Files</h5>

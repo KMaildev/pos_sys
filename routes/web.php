@@ -34,6 +34,7 @@ use App\Http\Controllers\PosSys\Cart\CartTempController;
 use App\Http\Controllers\PosSys\Guest\GuestController;
 use App\Http\Controllers\PosSys\Main\MainController;
 use App\Http\Controllers\PosSys\Menu\PosMenuController;
+use App\Http\Controllers\PosSys\Menu\ViewMenuController;
 use App\Http\Controllers\PosSys\Order\OrderConfirmController;
 use App\Http\Controllers\PosSys\Ordered\OrderedController;
 use App\Http\Controllers\PosSys\Pin\PinController;
@@ -148,6 +149,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/pos_menu', [PosMenuController::class, 'index'])->name('pos_menu');
     Route::get('/pos_menu_lists', [PosMenuController::class, 'menuLists'])->name('pos_menu_lists');
     Route::get('/pos_menu_lists_search', [PosMenuController::class, 'menuListsSearch'])->name('pos_menu_lists_search');
+
     Route::post('/order_confirm', [OrderConfirmController::class, 'store'])->name('order_confirm');
     Route::get('/pos_test_page', [TestController::class, 'index'])->name('pos_test_page');
     Route::get('/pos_pin_logout', [PinController::class, 'pinLogout'])->name('pos_pin_logout');
@@ -164,6 +166,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/manager_void_item_accept', [VoidController::class, 'managerVoidItemsAccept'])->name('manager_void_item_accept');
     Route::get('/manager_void_item_reject', [VoidController::class, 'managerVoidItemsReject'])->name('manager_void_item_reject');
 
+    Route::get('/view_pos_menu', [ViewMenuController::class, 'index'])->name('view_pos_menu');
+    Route::get('/view_pos_menu_lists', [ViewMenuController::class, 'menuLists'])->name('view_pos_menu_lists');
+    Route::get('/view_menu_lists_search', [ViewMenuController::class, 'menuListsSearch'])->name('view_menu_lists_search');
     // BILL 
     Route::get('/bill_table_lists', [BillController::class, 'billTable'])->name('bill_table_lists');
     Route::get('/bill_payment/{id}', [BillController::class, 'BillPayment'])->name('bill_payment');

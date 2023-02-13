@@ -238,6 +238,7 @@ export default {
         this.form.guest_no = localStorage.getItem("guest_no");
 
         this.cart_lists = this.$root.cart;
+        console.log(this.$root.cart)
 
         var date = new Date();
         this.currentTime = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();

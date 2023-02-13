@@ -15,6 +15,9 @@
                                 <div class="invalid-feedback"> {{ $message }} </div>
                             @enderror
                             <button type="submit" class="btn btn-secondary">Submit</button>
+                            <a href="{{ route('department.index') }}" class="btn btn-success w-md">
+                                Back
+                            </a>
                         </div>
                     </form>
                 </div>

@@ -17,7 +17,7 @@ class StoreTypeController extends Controller
     {
         $stores = StoreType::query();
         if (request('q')) {
-            $stores->where('name', 'Like', '%' . request('q') . '%');
+            $stores->where('title', 'Like', '%' . request('q') . '%');
         }
         $stores = $stores->get();
         return view('system.store_type.index', compact('stores'));

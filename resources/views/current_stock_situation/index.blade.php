@@ -26,6 +26,19 @@
 
                     <div class="row mb-2">
                         <div class="col-sm-4">
+                            
+                        </div>
+
+                        <div class="col-sm-8">
+                            <div class="text-sm-end">
+                                @include('layouts.includes.excel')
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row mb-2">
+                        <div class="col-sm-4">
                             <h4>
                                 Current Stock Situation
                             </h4>
@@ -33,7 +46,7 @@
                     </div>
 
                     <div class="table-responsive">
-                        <table class="table table-bordered mydatatable">
+                        <table class="table table-bordered mydatatable" id="tableId">
                             <thead class="table-light">
                                 <tr class="tablebg">
                                     <th class="text-center" style="width: 1%;">#</th>

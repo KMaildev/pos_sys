@@ -16,8 +16,7 @@ class PinController extends Controller
 {
     public function index()
     {
-        $notices = NoticeBoard::all();
-        return view('auth.pin.index', compact('notices'));
+        return view('auth.pin.index');
         // return Inertia::render('Pin/PinLogin');
     }
 

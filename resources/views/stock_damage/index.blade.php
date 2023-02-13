@@ -32,6 +32,7 @@
                     <div class="row mb-2">
                         <div class="col-sm-12">
                             <div class="text-sm-end">
+                                @include('layouts.includes.excel')
                                 <a href="{{ route('stock_damage.create') }}"
                                     class="btn btn-primary aves-effect waves-light mb-2 me-2">
                                     <i class="mdi mdi-plus me-1"></i>
@@ -42,7 +43,7 @@
                     </div>
 
                     <div class="table-responsive">
-                        <table class="table table-bordered mydatatable">
+                        <table class="table table-bordered mydatatable" id="tableId">
                             <thead class="table-light">
                                 <tr class="tablebg">
                                     <th class="text-center" style="width: 1%;">

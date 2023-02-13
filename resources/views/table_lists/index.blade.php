@@ -43,7 +43,7 @@
 
                         <div class="col-sm-8">
                             <div class="text-sm-end">
-
+                                @include('layouts.includes.excel')
                                 <a href="{{ route('table_list.index') }}"
                                     class="btn btn-primary aves-effect waves-light mb-2 me-2">
                                     All
@@ -66,7 +66,7 @@
                     </div>
 
                     <div class="table-responsive">
-                        <table class="table border-no mydatatable">
+                        <table class="table border-no mydatatable" id="tableId">
                             <thead class="table-light">
                                 <tr class="tablebg">
                                     <th class="text-center" style="width: 1%;">#</th>

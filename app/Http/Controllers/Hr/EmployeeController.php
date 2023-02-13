@@ -23,7 +23,15 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employees = User::all();
+
+        $employees = User::query();
+        if (request('q')) {
+            $employees->where('name', 'Like', '%' . request('q') . '%');
+            $employees->orWhere('email', 'Like', '%' . request('q') . '%');
+            $employees->orWhere('employee_id', 'Like', '%' . request('q') . '%');
+        }
+        $employees = $employees->get();
+
         return view('hr.employee.index', compact('employees'));
     }
 

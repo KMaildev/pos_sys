@@ -15,7 +15,11 @@ class NoticeBoardController extends Controller
      */
     public function index()
     {
-        $floors = NoticeBoard::all();
+        $floors = NoticeBoard::query();
+        if (request('q')) {
+            $floors->where('description', 'Like', '%' . request('q') . '%');
+        }
+        $floors = $floors->get();
         return view('notice.index', compact('floors'));
     }
 

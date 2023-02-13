@@ -17,7 +17,11 @@ class FloorController extends Controller
      */
     public function index()
     {
-        $floors = Floor::all();
+        $floors = Floor::query();
+        if (request('q')) {
+            $floors->where('title', 'Like', '%' . request('q') . '%');
+        }
+        $floors = $floors->get();
         return view('floor.index', compact('floors'));
     }
 

@@ -30,6 +30,8 @@ class TableListController extends Controller
             ->where('floor_id', $floor_id)
             ->get();
 
+
+
         return Inertia::render('TableList/Index', [
             'floors_categories' => $floors_categories,
             'table_lists' => $table_lists,

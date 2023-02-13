@@ -19,7 +19,12 @@ class TableListController extends Controller
     public function index(Request $request)
     {
         $floors = Floor::all();
-        $table_lists = TableList::all();
+
+        $table_lists = TableList::query();
+        if (request('q')) {
+            $table_lists->where('table_name', 'Like', '%' . request('q') . '%');
+        }
+        $table_lists = $table_lists->get();
 
         if ($request->floor_id) {
             $table_lists = TableList::where('floor_id', $request->floor_id)->get();

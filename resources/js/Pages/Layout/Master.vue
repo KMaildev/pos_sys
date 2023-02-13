@@ -53,6 +53,7 @@
             <div data-simplebar class="h-100">
                 <div id="sidebar-menu">
 
+                    <!-- Waiter  -->
                     <ul class="metismenu list-unstyled d-flex align-items-end flex-column"
                         v-if="$inertia.page.props.department === 'waiter'">
 
@@ -62,6 +63,15 @@
                             <i class="fa fa-table text-white" style="font-size: 23px;"></i>
                             &nbsp;&nbsp;&nbsp;
                             Reservation
+                            </Link>
+                        </li>
+
+                        <li style="width: 90%; margin-bottom: 10px;">
+                            <Link :href="route('view_pos_menu')" class="btn btn-default menubtn"
+                                :class="currentRoute == 'view_pos_menu' ? 'bg_color' : ''">
+                            <i class="fa fa-kitchen-set text-white" style="font-size: 23px;"></i>
+                            &nbsp;&nbsp;&nbsp;
+                            View Menu
                             </Link>
                         </li>
 
@@ -87,7 +97,7 @@
                         </li>
                     </ul>
 
-
+                    <!-- Cashier  -->
                     <ul class="metismenu list-unstyled d-flex align-items-end flex-column"
                         v-if="$inertia.page.props.department === 'cashier'">
                         <li style="width: 90%; margin-bottom: 10px;">
@@ -96,6 +106,15 @@
                             <i class="fa fa-table text-white" style="font-size: 23px;"></i>
                             &nbsp;&nbsp;&nbsp;
                             Reservation
+                            </Link>
+                        </li>
+
+                        <li style="width: 90%; margin-bottom: 10px;">
+                            <Link :href="route('view_pos_menu')" class="btn btn-default menubtn"
+                                :class="currentRoute == 'view_pos_menu' ? 'bg_color' : ''">
+                            <i class="fa fa-kitchen-set text-white" style="font-size: 23px;"></i>
+                            &nbsp;&nbsp;&nbsp;
+                            View Menu
                             </Link>
                         </li>
 
@@ -121,7 +140,7 @@
                         </li>
                     </ul>
 
-
+                    <!-- Admin HR  -->
                     <ul class="metismenu list-unstyled d-flex align-items-end flex-column"
                         v-if="$inertia.page.props.department === 'admin' || $inertia.page.props.department === 'manager'">
                         <li style="width: 90%; margin-bottom: 10px;">
@@ -133,12 +152,22 @@
                             </Link>
                         </li>
 
+
+                        <li style="width: 90%; margin-bottom: 10px;">
+                            <Link :href="route('view_pos_menu')" class="btn btn-default menubtn"
+                                :class="currentRoute == 'view_pos_menu' ? 'bg_color' : ''">
+                            <i class="fa fa-kitchen-set text-white" style="font-size: 23px;"></i>
+                            &nbsp;&nbsp;&nbsp;
+                            View Menu
+                            </Link>
+                        </li>
+
                         <li style="width: 90%; margin-bottom: 10px;">
                             <a @click="linkMenu()" class="btn btn-default menubtn"
                                 :class="currentRoute == 'pos_menu' ? 'bg_color' : ''">
                                 <i class="fa fa-kitchen-set text-white" style="font-size: 23px;"></i>
                                 &nbsp;&nbsp;&nbsp;
-                                Menu
+                                Order Menu
                             </a>
                         </li>
 

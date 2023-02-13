@@ -25,6 +25,7 @@ class OrderItem extends Model
         'manager_remark',
         'menu_name',
         'order_date',
+        'type',
     ];
 
     public function menu_lists_table()

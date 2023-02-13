@@ -142,6 +142,7 @@ export default {
 
     props: [
         'void_items',
+        'user_name',
     ],
 
     methods: {
@@ -156,11 +157,6 @@ export default {
         searchDate() {
             this.$inertia.get(`/manager_void_item`, this.form);
         },
-    },
-
-
-    created() {
-
     },
 
 };

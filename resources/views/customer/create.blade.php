@@ -126,6 +126,9 @@
                         <div class="mb-3 row">
                             <label for="html5-search-input" class="col-md-3 col-form-label"></label>
                             <div class="col-md-9">
+                                <a href="{{ route('customer.index') }}" class="btn btn-success waves-effect waves-light">
+                                    Back
+                                </a>
                                 <button type="submit" class="btn btn-primary waves-effect waves-light">Save</button>
                             </div>
                         </div>

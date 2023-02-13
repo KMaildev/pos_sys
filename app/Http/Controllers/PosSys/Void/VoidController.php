@@ -21,8 +21,6 @@ class VoidController extends Controller
         $void_item = new OrderItem();
         $void_reasons = NoticeBoard::all();
 
-
-
         return Inertia::render('Ordered/VoidOrder', [
             'order_infos' => $order_infos,
             'void_item' => $void_item,

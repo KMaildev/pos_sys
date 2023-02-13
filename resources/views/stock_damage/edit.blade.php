@@ -120,6 +120,9 @@
                         <div class="row justify-content-end">
                             <div class="col-sm-9">
                                 <div>
+                                    <a href="{{ route('stock_damage.index') }}" class="btn btn-success w-md">
+                                        Back
+                                    </a>
                                     <button type="submit" class="btn btn-primary w-md">
                                         Save
                                     </button>

@@ -144,6 +144,9 @@
                         </table>
 
                         <div style="text-align: right">
+                            <a href="{{ route('stock_in.index') }}" class="btn btn-success w-md">
+                                Back
+                            </a>
                             <a href="{{ route('confirm_stock_in_entry') }}" class="btn btn-primary float-right">
                                 Confirm
                             </a>

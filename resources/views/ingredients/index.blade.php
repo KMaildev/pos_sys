@@ -4,7 +4,7 @@
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                 <h4 class="mb-sm-0 font-size-18">
-                    Ingredients
+                    Inventory
                 </h4>
 
                 <div class="page-title-right">
@@ -15,7 +15,7 @@
                             </a>
                         </li>
                         <li class="breadcrumb-item active">
-                            Ingredients
+                            Inventory
                         </li>
                     </ol>
                 </div>
@@ -43,6 +43,7 @@
 
                         <div class="col-sm-8">
                             <div class="text-sm-end">
+                                @include('layouts.includes.excel')
                                 <a href="{{ route('ingredients.create') }}"
                                     class="btn btn-primary aves-effect waves-light mb-2 me-2">
                                     <i class="mdi mdi-plus me-1"></i>
@@ -53,7 +54,7 @@
                     </div>
 
                     <div class="table-responsive">
-                        <table class="table border-no mydatatable">
+                        <table class="table border-no mydatatable" id="tableId">
                             <thead class="table-light">
                                 <tr class="tablebg">
                                     <th class="text-center" style="width: 1%;">#</th>
@@ -130,3 +131,4 @@
         </div>
     </div>
 @endsection
+

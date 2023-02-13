@@ -43,6 +43,9 @@
                         </div>
 
                         <div class="box-footer">
+                            <a href="{{ route('permission.index') }}" class="btn btn-success w-md">
+                                Back
+                            </a>
                             <button type="submit" class="btn btn-info pull-right">
                                 Save
                             </button>

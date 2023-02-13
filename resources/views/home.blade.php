@@ -36,16 +36,6 @@
     </div>
 
     <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <div style="height: 500px; width: 100%;">
-                        <h6>{{ $order_items->options['chart_title'] }}</h6>
-                        {!! $order_items->renderHtml() !!}
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <div class="col-12">
             <div class="card">
@@ -57,6 +47,20 @@
                 </div>
             </div>
         </div>
+
+
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div style="height: 500px; width: 100%;">
+                        <h6>{{ $order_items->options['chart_title'] }}</h6>
+                        {!! $order_items->renderHtml() !!}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

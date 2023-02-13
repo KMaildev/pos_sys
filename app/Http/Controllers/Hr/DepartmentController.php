@@ -17,7 +17,11 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        $departments = Department::all();
+        $departments = Department::query();
+        if (request('q')) {
+            $departments->where('title', 'Like', '%' . request('q') . '%');
+        }
+        $departments = $departments->get();
         return view('hr.department.index', compact('departments'));
     }
 

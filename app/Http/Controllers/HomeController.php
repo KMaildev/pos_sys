@@ -72,11 +72,11 @@ class HomeController extends Controller
 
 
         $chart_options = [
-            'chart_title' => 'Revenue of Menu',
+            'chart_title' => 'Revenue of Types',
             'report_type' => 'group_by_string',
             'model' => 'App\Models\OrderItem',
-            'group_by_field' => 'menu_name',
-            'chart_type' => 'line',
+            'group_by_field' => 'type',
+            'chart_type' => 'pie',
             'filter_field' => 'created_at',
             'aggregate_function' => 'sum',
             'aggregate_field' => 'price',

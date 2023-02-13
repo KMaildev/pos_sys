@@ -39,7 +39,7 @@
 
 <script src="{{ asset('assets/datetime/jquery.datetimepicker.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/custom.js') }}"></script>
-
+<script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
 
 @include('layouts.js.javascript')
 <script>

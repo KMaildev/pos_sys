@@ -20,7 +20,11 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles = Role::all();
+        $roles = Role::query();
+        if (request('q')) {
+            $roles->where('name', 'Like', '%' . request('q') . '%');
+        }
+        $roles = $roles->get();
         return view('hr.role.index', compact('roles'));
     }
 

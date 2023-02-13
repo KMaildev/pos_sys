@@ -19,6 +19,7 @@
 
                         <div class="col-sm-8">
                             <div class="text-sm-end">
+                                @include('layouts.includes.excel')
                                 <a href="{{ route('role.create') }}"
                                     class="btn btn-primary aves-effect waves-light mb-2 me-2">
                                     <i class="mdi mdi-plus me-1"></i>
@@ -29,7 +30,7 @@
                     </div>
 
                     <div class="table-responsive">
-                        <table class="table table-bordered table-hover">
+                        <table class="table table-bordered table-hover" id="tableId">
                             <thead class="table-light">
                                 <tr class="tablebg">
                                     <th class="text-center" style="width: 1%;">#</th>
