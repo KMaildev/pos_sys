@@ -39,12 +39,28 @@ class BillController extends Controller
     }
 
 
-    public function BillPayment($id)
+    public function BillPayment(Request $request, $id)
     {
+
         $order_infos = OrderInfo::with('table_lists_table', 'waiter_user_table', 'order_items_table')
             ->findOrFail($id);
 
-        $customers = Customer::all();
+        $custom_search = $request->custom_search;
+        $customers = Customer::query();
+        if ($custom_search) {
+            $customers->where('name', 'Like', '%' . $custom_search . '%');
+            $customers->orWhere('customer_id', 'Like', '%' . $custom_search . '%');
+            $customers->orWhere('primary_number', 'Like', '%' . $custom_search . '%');
+            $customers->orWhere('additional_number', 'Like', '%' . $custom_search . '%');
+            $customers->orWhere('email', 'Like', '%' . $custom_search . '%');
+            $customers->orWhere('address', 'Like', '%' . $custom_search . '%');
+            $customers->orWhere('date_of_birth', 'Like', '%' . $custom_search . '%');
+            $customers->orWhere('join_date', 'Like', '%' . $custom_search . '%');
+            $customers->orWhere('remark', 'Like', '%' . $custom_search . '%');
+        }
+        $customers = $customers->get();
+
+
         $payment_methods = PaymentMethod::all();
         $taxrates = Taxrate::all();
         $discounts = Discount::all();
@@ -57,7 +73,6 @@ class BillController extends Controller
             'discounts' => $discounts,
         ]);
     }
-
 
 
     public function submitPayment(StoreSubmitPayment $request)

@@ -13,6 +13,14 @@
     <link rel="manifest" href="{{ asset('/manifest.json') }}">
     <link href="{{ asset('pos/css/bootstrap.min.css') }}" id="bootstrap-style" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/ds_digital/DS-DIGI.TTF') }}">
+
+    <style>
+        @font-face {
+            font-family: myFirstFont;
+            src: url({{ asset('assets/ds_digital/DS-DIGI.TTF') }});
+        }
+    </style>
 </head>
 
 <body>

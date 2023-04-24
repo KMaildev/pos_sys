@@ -234,7 +234,6 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'LaravelPwa' => \Ladumor\LaravelPwa\LaravelPwa::class,
 
-
     ],
 
 ];

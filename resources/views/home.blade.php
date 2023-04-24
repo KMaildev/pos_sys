@@ -14,7 +14,7 @@
         </div>
     </div>
 
-    <div class="col-12">
+    <div class="col-12 py-5">
         <div class="card">
             <div class="card-body">
                 <div style="height: 300px; width: 100%;">
@@ -23,8 +23,9 @@
                 </div>
             </div>
         </div>
+    </div>
 
-
+    <div class="col-12 py-5">
         <div class="card">
             <div class="card-body">
                 <div style="height: 300px; width: 100%;">

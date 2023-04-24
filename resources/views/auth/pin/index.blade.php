@@ -128,14 +128,26 @@
     </div>
 
     <div class="col-md-6 col-lg-6 col-sm-12 py-5">
-        <br><br>
+        <br><br><br><br><br><br><br><br>
         <center>
 
             <body onload="startTime()">
                 <div id="clockdate">
                     <div class="clockdate-wrapper">
-                        <div id="clock" style="font-size: 110px; color: rgb(239, 237, 237);"></div>
-                        <div id="date" style="font-size: 60px;  color: rgb(165, 162, 162);"></div>
+                        <div id="clock"
+                            style="font-size: 160px;
+                            color: rgb(239, 237, 237); 
+                            font-family: myFirstFont;
+                            display: inline-block;
+                            transform: scale(1, 1.5);
+                            ">
+                        </div>
+                        <div id="date"
+                            style="
+                                font-size: 60px;  
+                                color: rgb(165, 162, 162);
+                                font-family: myFirstFont;">
+                        </div>
                     </div>
                 </div>
             </body>

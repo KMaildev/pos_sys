@@ -37,8 +37,8 @@
                                 <div class="col-md-12">
                                     <form @submit.prevent="search">
                                         <div class="input-group">
-                                            <input type="text" class="form-control form-control-lg"
-                                                v-model="search_keyword" readonly="true">
+                                            <input type="text" class="form-control form-control-lg" v-model="search_keyword"
+                                                readonly="true">
                                             <button type="submit" class="btn btn-secondary btn-lg">
                                                 Search
                                             </button>
@@ -270,8 +270,8 @@
                                 <div class="col-md-12">
                                     <form @submit.prevent="search">
                                         <div class="input-group">
-                                            <input type="text" class="form-control form-control-lg"
-                                                v-model="search_keyword" readonly="true">
+                                            <input type="text" class="form-control form-control-lg" v-model="search_keyword"
+                                                readonly="true">
                                             <button type="submit" class="btn btn-secondary btn-lg">
                                                 Search
                                             </button>
