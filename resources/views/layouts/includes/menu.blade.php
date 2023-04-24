@@ -68,7 +68,7 @@
                     </a>
                 </li>
 
-                <li class="menu-title" data-key="t-menu" style="font-size: 18px;">
+                <li class="menu-title" data-key="t-menu" style="font-size: 18px;" hidden>
                     Inventory
                 </li>
 
@@ -101,42 +101,42 @@
                     </a>
                 </li>
 
-                <li>
+                <li hidden>
                     <a href="{{ route('stock_in.index') }}">
                         <i class="fas fa-align-right"></i>
                         Stock In
                     </a>
                 </li>
 
-                <li>
+                <li hidden>
                     <a href="{{ route('stock_transfer.index') }}">
                         <i class="fas fa-align-right"></i>
                         Stock Transfer
                     </a>
                 </li>
 
-                <li>
+                <li hidden>
                     <a href="{{ route('stock_damage.index') }}">
                         <i class="fas fa-align-right"></i>
                         Damage
                     </a>
                 </li>
 
-                <li>
+                <li hidden>
                     <a href="{{ route('stock_out.index') }}">
                         <i class="fas fa-align-right"></i>
                         Stock Out
                     </a>
                 </li>
 
-                <li>
+                <li hidden>
                     <a href="{{ route('current_stock_situation.index') }}">
                         <i class="fas fa-align-right"></i>
                         Current Stock Situation
                     </a>
                 </li>
 
-                <li>
+                <li hidden>
                     <a href="{{ route('stock_ledger.index') }}">
                         <i class="fas fa-align-right"></i>
                         Stock Ledger
@@ -274,29 +274,35 @@
 
                 <li>
                     <a href="{{ route('payment_method.index') }}">
-                        <i data-feather="user-x"></i>
+                        <i data-feather="check-square"></i>
                         Payment Method
                     </a>
                 </li>
 
                 <li>
                     <a href="{{ route('taxrate.index') }}">
-                        <i data-feather="user-x"></i>
+                        <i data-feather="check-square"></i>
                         Taxrate
                     </a>
                 </li>
 
                 <li>
                     <a href="{{ route('discount.index') }}">
-                        <i data-feather="user-x"></i>
+                        <i data-feather="check-square"></i>
                         Discount
                     </a>
                 </li>
 
+                <li>
+                    <a href="{{ route('service_charge.index') }}">
+                        <i data-feather="check-square"></i>
+                        Service Charges
+                    </a>
+                </li>
 
                 <li>
                     <a href="{{ route('notice.index') }}">
-                        <i data-feather="user-x"></i>
+                        <i data-feather="check-square"></i>
                         Void Reason
                     </a>
                 </li>

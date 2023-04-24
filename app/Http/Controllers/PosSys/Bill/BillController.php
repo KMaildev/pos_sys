@@ -12,6 +12,7 @@ use App\Models\Floor;
 use App\Models\OrderInfo;
 use App\Models\OrderItem;
 use App\Models\PaymentMethod;
+use App\Models\ServiceCharge;
 use App\Models\TableList;
 use App\Models\Taxrate;
 use Illuminate\Http\Request;
@@ -64,6 +65,7 @@ class BillController extends Controller
         $payment_methods = PaymentMethod::all();
         $taxrates = Taxrate::all();
         $discounts = Discount::all();
+        $service_charges = ServiceCharge::all();
 
         return Inertia::render('Bill/BillPayment', [
             'order_infos' => $order_infos,
@@ -71,6 +73,7 @@ class BillController extends Controller
             'payment_methods' => $payment_methods,
             'taxrates' => $taxrates,
             'discounts' => $discounts,
+            'service_charges' => $service_charges,
         ]);
     }
 
@@ -93,7 +96,10 @@ class BillController extends Controller
             'tax_amount' => $request->taxrate ?? 0,
             'discount' => $request->disc ?? 0,
             'discount_amount' => $request->disc_amount ?? 0,
-            'service_charges' => 0,
+
+            'service_charges' => $request->service_charge ?? 0,
+            'service_charge_amount' => $request->service_charge_amount ?? 0,
+
             'net_amount' => $request->totalNetAmount ?? 0,
             'received_amount' => $request->received_amount ?? 0,
             'refund_amount' => $request->refund_amount ?? 0,

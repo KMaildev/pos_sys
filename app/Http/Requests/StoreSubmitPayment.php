@@ -31,6 +31,9 @@ class StoreSubmitPayment extends FormRequest
             'disc_amount' => 'numeric',
             'totalNetAmount' => 'numeric',
             'received_amount' => 'numeric',
+
+            'service_charge' => 'numeric',
+            'service_charge_amount' => 'numeric',
         ];
     }
 }

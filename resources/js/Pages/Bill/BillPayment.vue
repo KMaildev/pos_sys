@@ -29,8 +29,8 @@
                                         </div>
                                         <div class="address" style="font-size: 16px;">
                                             Yangon, Myanmar
-                                            <br> Phone No- 09123123123
                                         </div>
+                                        <br>
                                     </div>
 
                                     <div>
@@ -167,6 +167,38 @@
                                             </td>
                                         </tr>
 
+
+                                        <!-- Service Charges % -->
+                                        <tr class="">
+                                            <td style="font-size: 16px;" colspan="2">
+                                                Service Charge
+                                            </td>
+
+                                            <td style="text-align: right;" colspan="2">
+                                                <select
+                                                    style="text-align: right; background-color: white;  border: none; text-overflow: ''; -webkit-appearance: none;"
+                                                    v-model="form.service_charge" @change="netAmount()">
+                                                    <option :value="service_charge.rate"
+                                                        v-for="service_charge in service_charges" :key="service_charge.id">
+                                                        {{ service_charge.name }}
+                                                    </option>
+                                                </select>
+                                            </td>
+                                        </tr>
+
+                                        <!-- Service Charges Amount -->
+                                        <tr class="">
+                                            <td style="font-size: 16px;" colspan="2">
+                                                Service Charge
+                                            </td>
+
+                                            <td colspan="2">
+                                                <input type="text" class="billInput" value="0"
+                                                    style="text-align: right; width: 100%;"
+                                                    v-model="form.service_charge_amount" @change="netAmount()">
+                                            </td>
+                                        </tr>
+
                                         <!-- payment_type -->
                                         <tr class="">
                                             <td style="font-size: 16px;" colspan="2">
@@ -183,7 +215,6 @@
                                                 </select>
                                             </td>
                                         </tr>
-
 
                                         <!-- Net Amount  -->
                                         <tr class="">
@@ -230,12 +261,10 @@
                             </div>
                         </div>
                         <br>
-                        <center>
-                            <button type="submit" class="btn btn-dark btn-lg" style="width: 70%;">
-                                <i class="fa fa-print"></i>
-                                Payment & Print
-                            </button>
-                        </center>
+                        <button type="submit" class="btn btn-dark btn-lg" style="width: 85%;">
+                            <i class="fa fa-print"></i>
+                            Payment & Print
+                        </button>
                     </form>
                 </div>
 
@@ -374,6 +403,7 @@ export default {
         'taxrates',
         'combile_order_infos',
         'discounts',
+        'service_charges',
     ],
 
 
@@ -390,6 +420,8 @@ export default {
                 received_amount: 0,
                 dueAmount: 0,
                 disc_amount: 0,
+                service_charge: 0,
+                service_charge_amount: 0,
                 refund_amount: 0,
             },
 
@@ -432,10 +464,13 @@ export default {
             var taxrate = this.form.taxrate;
             var disc = this.form.disc;
             var disc_amount = this.form.disc_amount;
+            var service_charge = this.form.service_charge;
+            var service_charge_amount = this.form.service_charge_amount;
 
             var totalTaxNetAmount = totalAmount * taxrate / 100;
             var totalDiscNetAmount = totalAmount * disc / 100;
-            var netAmount = (totalAmount + totalTaxNetAmount) - (totalDiscNetAmount + +disc_amount);
+            var totalServiceChargeNetAmount = totalAmount * service_charge / 100;
+            var netAmount = (totalAmount + totalTaxNetAmount + totalServiceChargeNetAmount + +service_charge_amount) - (totalDiscNetAmount + +disc_amount);
             this.form.totalNetAmount = netAmount;
             return netAmount;
         },

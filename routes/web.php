@@ -52,6 +52,7 @@ use App\Http\Controllers\Purchase\VariablePurchaseItemController;
 use App\Http\Controllers\Supplier\SupplierController;
 use App\Http\Controllers\System\DiscountController;
 use App\Http\Controllers\System\PaymentMethodController;
+use App\Http\Controllers\System\ServiceChargesController;
 use App\Http\Controllers\System\StoreController;
 use App\Http\Controllers\System\TaxrateController;
 use App\Http\Controllers\Table\TableListController;
@@ -138,6 +139,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('store_type', StoreTypeController::class);
     Route::resource('taxrate', TaxrateController::class);
     Route::resource('discount', DiscountController::class);
+    Route::resource('service_charge', ServiceChargesController::class);
     Route::resource('payment_method', PaymentMethodController::class);
 
     // POSSYS

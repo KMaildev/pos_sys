@@ -33,6 +33,7 @@ class BillInfo extends Model
         'first_table_id',
         'discount_amount',
         'refund_amount',
+        'service_charge_amount',
     ];
 
     public function order_infos_table()

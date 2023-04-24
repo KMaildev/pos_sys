@@ -5347,7 +5347,7 @@ __webpack_require__.r(__webpack_exports__);
     Master: _Layout_Master__WEBPACK_IMPORTED_MODULE_0__["default"],
     BillMenuButton: _components_BillMenuButton_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  props: ['user_name', 'login_time', 'order_infos', 'customers', 'payment_methods', 'taxrates', 'combile_order_infos', 'discounts'],
+  props: ['user_name', 'login_time', 'order_infos', 'customers', 'payment_methods', 'taxrates', 'combile_order_infos', 'discounts', 'service_charges'],
   data: function data() {
     return {
       search_keyword: '',
@@ -5361,6 +5361,8 @@ __webpack_require__.r(__webpack_exports__);
         received_amount: 0,
         dueAmount: 0,
         disc_amount: 0,
+        service_charge: 0,
+        service_charge_amount: 0,
         refund_amount: 0
       },
       combile_form: {
@@ -5397,9 +5399,12 @@ __webpack_require__.r(__webpack_exports__);
       var taxrate = this.form.taxrate;
       var disc = this.form.disc;
       var disc_amount = this.form.disc_amount;
+      var service_charge = this.form.service_charge;
+      var service_charge_amount = this.form.service_charge_amount;
       var totalTaxNetAmount = totalAmount * taxrate / 100;
       var totalDiscNetAmount = totalAmount * disc / 100;
-      var netAmount = totalAmount + totalTaxNetAmount - (totalDiscNetAmount + +disc_amount);
+      var totalServiceChargeNetAmount = totalAmount * service_charge / 100;
+      var netAmount = totalAmount + totalTaxNetAmount + totalServiceChargeNetAmount + +service_charge_amount - (totalDiscNetAmount + +disc_amount);
       this.form.totalNetAmount = netAmount;
       return netAmount;
     },
@@ -9259,7 +9264,7 @@ var render = function render() {
     staticStyle: {
       "font-size": "16px"
     }
-  }, [_vm._v("\n                                        Yangon, Myanmar\n                                        "), _c("br"), _vm._v(" Phone No- 09123123123\n                                    ")])]), _vm._v(" "), _c("div", [_c("span", {
+  }, [_vm._v("\n                                        Yangon, Myanmar\n                                    ")]), _vm._v(" "), _c("br")]), _vm._v(" "), _c("div", [_c("span", {
     staticStyle: {
       "text-align": "left",
       "font-size": "16px"
@@ -9553,6 +9558,93 @@ var render = function render() {
     attrs: {
       colspan: "2"
     }
+  }, [_vm._v("\n                                            Service Charge\n                                        ")]), _vm._v(" "), _c("td", {
+    staticStyle: {
+      "text-align": "right"
+    },
+    attrs: {
+      colspan: "2"
+    }
+  }, [_c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.service_charge,
+      expression: "form.service_charge"
+    }],
+    staticStyle: {
+      "text-align": "right",
+      "background-color": "white",
+      border: "none",
+      "text-overflow": "''",
+      "-webkit-appearance": "none"
+    },
+    on: {
+      change: [function ($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.form, "service_charge", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }, function ($event) {
+        return _vm.netAmount();
+      }]
+    }
+  }, _vm._l(_vm.service_charges, function (service_charge) {
+    return _c("option", {
+      key: service_charge.id,
+      domProps: {
+        value: service_charge.rate
+      }
+    }, [_vm._v("\n                                                    " + _vm._s(service_charge.name) + "\n                                                ")]);
+  }), 0)])]), _vm._v(" "), _c("tr", {}, [_c("td", {
+    staticStyle: {
+      "font-size": "16px"
+    },
+    attrs: {
+      colspan: "2"
+    }
+  }, [_vm._v("\n                                            Service Charge\n                                        ")]), _vm._v(" "), _c("td", {
+    attrs: {
+      colspan: "2"
+    }
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.service_charge_amount,
+      expression: "form.service_charge_amount"
+    }],
+    staticClass: "billInput",
+    staticStyle: {
+      "text-align": "right",
+      width: "100%"
+    },
+    attrs: {
+      type: "text",
+      value: "0"
+    },
+    domProps: {
+      value: _vm.form.service_charge_amount
+    },
+    on: {
+      change: function change($event) {
+        return _vm.netAmount();
+      },
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "service_charge_amount", $event.target.value);
+      }
+    }
+  })])]), _vm._v(" "), _c("tr", {}, [_c("td", {
+    staticStyle: {
+      "font-size": "16px"
+    },
+    attrs: {
+      colspan: "2"
+    }
   }, [_vm._v("\n                                            Pay Type\n                                        ")]), _vm._v(" "), _c("td", {
     staticStyle: {
       "text-align": "right"
@@ -9681,17 +9773,17 @@ var render = function render() {
     staticStyle: {
       "text-align": "center"
     }
-  }, [_vm._v("\n                                    ** Thank You ** "), _c("br"), _vm._v("\n                                    Please visit again\n                                ")])])])]), _vm._v(" "), _c("br"), _vm._v(" "), _c("center", [_c("button", {
+  }, [_vm._v("\n                                    ** Thank You ** "), _c("br"), _vm._v("\n                                    Please visit again\n                                ")])])])]), _vm._v(" "), _c("br"), _vm._v(" "), _c("button", {
     staticClass: "btn btn-dark btn-lg",
     staticStyle: {
-      width: "70%"
+      width: "85%"
     },
     attrs: {
       type: "submit"
     }
   }, [_c("i", {
     staticClass: "fa fa-print"
-  }), _vm._v("\n                            Payment & Print\n                        ")])])], 1)]), _vm._v(" "), _c("div", {
+  }), _vm._v("\n                        Payment & Print\n                    ")])])]), _vm._v(" "), _c("div", {
     staticClass: "col-md-8"
   }, [_c("form", {
     on: {
@@ -18645,6 +18737,12 @@ var render = function render() {
     staticClass: "text-center"
   }, [_vm._v("\n                                        Tax Amount\n                                    ")]), _vm._v(" "), _c("th", {
     staticClass: "text-center"
+  }, [_vm._v("\n                                        Service Charges Percentage\n                                    ")]), _vm._v(" "), _c("th", {
+    staticClass: "text-center"
+  }, [_vm._v("\n                                        Amount of Service Charges (%)\n                                    ")]), _vm._v(" "), _c("th", {
+    staticClass: "text-center"
+  }, [_vm._v("\n                                        Service Charges Amount\n                                    ")]), _vm._v(" "), _c("th", {
+    staticClass: "text-center"
   }, [_vm._v("\n                                        Void\n                                    ")]), _vm._v(" "), _c("th", {
     staticClass: "text-center"
   }, [_vm._v("\n                                        Total Net Sales\n                                    ")]), _vm._v(" "), _c("th", {
@@ -18687,6 +18785,12 @@ var render = function render() {
       staticClass: "text-center"
     }, [_vm._v("\n                                        " + _vm._s(bill_info.total_amount * bill_info.tax_amount / 100) + "\n                                    ")]), _vm._v(" "), _c("td", {
       staticClass: "text-center"
+    }, [_vm._v("\n                                        " + _vm._s(bill_info.service_charges) + "\n                                        %\n                                    ")]), _vm._v(" "), _c("td", {
+      staticClass: "text-center"
+    }, [_vm._v("\n                                        " + _vm._s(bill_info.total_amount * bill_info.service_charges / 100) + "\n                                    ")]), _vm._v(" "), _c("td", {
+      staticClass: "text-center"
+    }, [_vm._v("\n                                        " + _vm._s(bill_info.service_charge_amount) + "\n                                    ")]), _vm._v(" "), _c("td", {
+      staticClass: "text-center"
     }, [_vm._v("\n                                        " + _vm._s(_vm.voidTotalQty(bill_info)) + "\n                                    ")]), _vm._v(" "), _c("td", {
       staticClass: "text-center"
     }, [_vm._v("\n                                        " + _vm._s(_vm.totalNetSale(bill_info)) + "\n                                    ")]), _vm._v(" "), _c("td", {
@@ -18719,7 +18823,7 @@ var render = function render() {
   }, [_vm._v("\n                                    " + _vm._s(_vm.DiscountAmountTotal(_vm.bill_infos)) + "\n                                ")]), _vm._v(" "), _c("td", {
     staticClass: "text-center",
     attrs: {
-      colspan: "3"
+      colspan: "6"
     }
   }), _vm._v(" "), _c("td", {
     staticClass: "text-center"

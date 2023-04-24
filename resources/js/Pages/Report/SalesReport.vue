@@ -32,20 +32,24 @@
                         <div class="table-responsive text-nowrap">
 
                             <table class="table table-bordered" id="tableId">
-                                <thead  style="background-color: #D5D6EA;">
+                                <thead style="background-color: #D5D6EA;">
                                     <tr class="tablebg">
                                         <th class="text-center" style="width: 1%;">
                                             Sr
                                         </th>
+
                                         <th class="text-center">
                                             Date
                                         </th>
+
                                         <th class="text-center">
                                             Invoices No.
                                         </th>
+
                                         <th class="text-center">
                                             Item Qty
                                         </th>
+
                                         <th class="text-center">
                                             Sales Amount
                                         </th>
@@ -71,23 +75,41 @@
                                         </th>
 
                                         <th class="text-center">
+                                            Service Charges Percentage
+                                        </th>
+
+                                        <th class="text-center">
+                                            Amount of Service Charges (%)
+                                        </th>
+
+                                        <th class="text-center">
+                                            Service Charges Amount
+                                        </th>
+
+                                        <th class="text-center">
                                             Void
                                         </th>
+
                                         <th class="text-center">
                                             Total Net Sales
                                         </th>
+
                                         <th class="text-center">
                                             First Tables
                                         </th>
+
                                         <th class="text-center">
                                             Main Tables
                                         </th>
+
                                         <th class="text-center">
                                             Payment Types
                                         </th>
+
                                         <th class="text-center">
                                             Sales Person
                                         </th>
+
                                         <th class="text-center">
                                             Cashier
                                         </th>
@@ -137,6 +159,20 @@
 
                                         <td class="text-center">
                                             {{ bill_info.total_amount * bill_info.tax_amount / 100 }}
+                                        </td>
+
+                                        <!-- Service Charge  -->
+                                        <td class="text-center">
+                                            {{ bill_info.service_charges }}
+                                            %
+                                        </td>
+
+                                        <td class="text-center">
+                                            {{ bill_info.total_amount * bill_info.service_charges / 100 }}
+                                        </td>
+
+                                        <td class="text-center">
+                                            {{ bill_info.service_charge_amount }}
                                         </td>
 
                                         <td class="text-center">
@@ -191,7 +227,7 @@
                                         {{ DiscountAmountTotal(bill_infos) }}
                                     </td>
 
-                                    <td colspan="3" class="text-center"></td>
+                                    <td colspan="6" class="text-center"></td>
 
                                     <!--Total Net Sales	-->
                                     <td class="text-center">
@@ -331,6 +367,4 @@ export default {
     }
 };
 </script>
-<style>
-
-</style>
+<style></style>
