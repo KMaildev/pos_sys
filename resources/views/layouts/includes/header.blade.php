@@ -25,6 +25,7 @@
     <link href="{{ asset('assets/select2/css/select2.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
 
     <link rel="stylesheet" href="{{ asset('assets/datetime/jquery.datetimepicker.css') }}">
+
 </head>
 <style>
     .select2-selection__rendered {

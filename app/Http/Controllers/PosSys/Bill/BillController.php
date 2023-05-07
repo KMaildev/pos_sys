@@ -119,7 +119,6 @@ class BillController extends Controller
     }
 
 
-
     public function CombineBill(Request $request)
     {
         $id = $request->order_info_id;
@@ -162,5 +161,28 @@ class BillController extends Controller
 
             return Redirect::route('bill_table_lists')->with('success', 'Your processing has been completed.');
         }
+    }
+
+
+    public function BillHistory(Request $request, $id)
+    {
+        $order_info = OrderInfo::with('table_lists_table', 'waiter_user_table', 'order_items_table', 'customer_table')
+            ->findOrFail($id);
+
+        // Bill Info 
+        $order_info_id = $order_info->id;
+        $bill_info = BillInfo::with('payment_method_table')
+            ->where('order_info_id', $order_info_id)->first();
+
+        $customer_id = $order_info->customer_id;
+        if ($customer_id != 0) {
+            $customer = Customer::findOrFail($customer_id);
+        }
+
+        return Inertia::render('Bill/BillHistory', [
+            'order_info' => $order_info,
+            'bill_info' => $bill_info,
+            'customer' => $customer ?? '',
+        ]);
     }
 }

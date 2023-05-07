@@ -155,7 +155,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/order_confirm', [OrderConfirmController::class, 'store'])->name('order_confirm');
     Route::get('/pos_test_page', [TestController::class, 'index'])->name('pos_test_page');
     Route::get('/pos_pin_logout', [PinController::class, 'pinLogout'])->name('pos_pin_logout');
+
     Route::get('/pos_guest_index', [GuestController::class, 'index'])->name('pos_guest_index');
+   
+
+
     Route::get('/ordered_detail/{id}', [OrderedController::class, 'orderedDetail'])->name('ordered_detail');
     Route::get('/pos_split_bill/{id}', [SplitBillController::class, 'SplitBill'])->name('pos_split_bill');
     Route::get('/split_qty_update', [SplitBillController::class, 'SplitQtyUpdate'])->name('split_qty_update');
@@ -171,11 +175,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/view_pos_menu', [ViewMenuController::class, 'index'])->name('view_pos_menu');
     Route::get('/view_pos_menu_lists', [ViewMenuController::class, 'menuLists'])->name('view_pos_menu_lists');
     Route::get('/view_menu_lists_search', [ViewMenuController::class, 'menuListsSearch'])->name('view_menu_lists_search');
+   
     // BILL 
     Route::get('/bill_table_lists', [BillController::class, 'billTable'])->name('bill_table_lists');
     Route::get('/bill_payment/{id}', [BillController::class, 'BillPayment'])->name('bill_payment');
     Route::post('/pos_submit_payment', [BillController::class, 'submitPayment'])->name('pos_submit_payment');
-
+    Route::get('/bill_history/{id}', [BillController::class, 'BillHistory'])->name('bill_history');
+    
     Route::get('/pos_combine_bill', [BillController::class, 'CombineBill'])->name('pos_combine_bill');
     Route::post('/pos_confirm_combine', [BillController::class, 'ConfirmCombine'])->name('pos_confirm_combine');
 

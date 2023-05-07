@@ -7,6 +7,10 @@
         <button class="floor_button" @click="customerLink()">
             Customer
         </button>
+
+        <button class="floor_button" @click="guestDetailIndex()">
+            Guest Details
+        </button>
     </div>
 </template>
 <script>
@@ -20,6 +24,10 @@ export default {
 
         customerLink() {
             this.$inertia.get(`/cashier_customer`);
+        },
+
+        guestDetailIndex() {
+            this.$inertia.get(`/pos_guest_index`);
         },
     }
 }

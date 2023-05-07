@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BillInfo;
+use App\Models\Customer;
 use App\Models\Department;
+use App\Models\OrderInfo;
+use App\Models\OrderItem;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -31,65 +35,117 @@ class HomeController extends Controller
         $department_id = auth()->user()->department_id;
         $departmemt = Department::findOrFail($department_id);
 
-        $chart_options = [
-            'chart_title' => 'Customers by months',
-            'report_type' => 'group_by_date',
-            'model' => 'App\Models\Customer',
-            'group_by_field' => 'created_at',
-            'group_by_period' => 'month',
-            'chart_type' => 'bar',
-            'filter_field' => 'created_at',
-            'filter_days' => 30, // show only last 30 days
+        // Count Data
+        $allOrderCount = OrderInfo::count();
+        $todayOrderCount = OrderInfo::whereDay('created_at', date('d'))->count();
+
+        $allIncome = BillInfo::sum('total_amount');
+        $todayIncome = BillInfo::whereDay('created_at', date('d'))->sum('total_amount');
+
+        $allCustomer = Customer::count();
+        $todayCustomer = Customer::whereDay('created_at', date('d'))->count();
+
+        $allOrderQty = OrderItem::count();
+        $todayOrderQty = OrderItem::whereDay('created_at', date('d'))->sum('qty');
+
+
+        // Sale Data Chart 
+        $months = [date('F')];
+        $yearMonths = [
+            [
+                'year' => date('Y'),
+                'month' => date('m'),
+            ]
         ];
-        $customers = new LaravelChart($chart_options);
 
+        for ($i = 1; $i <= 6; $i++) {
+            $months[] = date('F', strtotime("-$i month"));
 
-        $chart_options = [
-            'chart_title' => 'Daily Income',
-            'report_type' => 'group_by_date',
-            'model' => 'App\Models\BillInfo',
-            'group_by_field' => 'created_at',
-            'group_by_period' => 'day',
-            'aggregate_function' => 'sum',
-            'aggregate_field' => 'total_amount',
-            'chart_type' => 'line',
+            $yearMonths[] = [
+                'year' => date('Y', strtotime("-$i month")),
+                'month' => date('m', strtotime("-$i month")),
+            ];
+        }
+
+        $saleData = [];
+        foreach ($yearMonths as $key => $ym) {
+            $saleData[] =  BillInfo::whereYear('created_at', $ym['year'])->whereMonth('created_at', $ym['month'])->count();
+        }
+        // Sale Data Chart End
+
+        // Daily Income
+        $dayMonths = [date('F d')];
+        $dayMonthsData = [
+            [
+                'day' => date('d'),
+                'month' => date('m'),
+            ]
         ];
-        $bill_infos = new LaravelChart($chart_options);
+
+        for ($i = 1; $i <= 6; $i++) {
+            $dayMonths[] = date('F d', strtotime("-$i day"));
+
+            $dayMonthsData[] = [
+                'day' => date('d', strtotime("-$i day")),
+                'month' => date('m', strtotime("-$i month")),
+            ];
+        }
+
+        $DailyIncome = [];
+        foreach ($dayMonthsData as $key => $dm) {
+            $DailyIncome[] =  BillInfo::whereDay('created_at', $dm['day'])->whereMonth('created_at', $dm['month'])->sum('total_amount');
+        }
+        // Daily Income End
+
+        // Category Sale Report 
+        $categories = ['Beverage', 'Food'];
+        $categorySaleReport = [];
+        foreach ($categories as $key => $value) {
+            $categorySaleReport[] = OrderItem::where('type', $value)->sum('qty');
+        }
 
 
-        $chart_options = [
-            'chart_title' => 'Sold out qty',
-            'report_type' => 'group_by_string',
-            'model' => 'App\Models\OrderItem',
-            'group_by_field' => 'menu_name',
-            'chart_type' => 'line',
-            'filter_field' => 'created_at',
-            'aggregate_function' => 'sum',
-            'aggregate_field' => 'qty',
-            'filter_period' => 'month', // show users only registered this month
+        // itemsSaleReport
+        $menuNameData = [];
+        $menuQtyData = [];
+        $menu_names = OrderItem::groupBy('menu_name')->get();
+        foreach ($menu_names as $key => $value) {
+            $menuNameData[] = $value->menu_name;
+            $menuQtyData[] = OrderItem::where('menu_name', $value->menu_name)->sum('qty');
+        }
+
+        // Sale Data Chart End
+
+
+        // Hourly Report
+        $hourlyData = [date('h:i:s')];
+        $hourlyDataData = [
+            [
+                'hourly' => date('h:i:s'),
+            ]
         ];
-        $order_items = new LaravelChart($chart_options);
 
+        for ($i = 1; $i <= 6; $i++) {
+            $hourlyData[] = date('h:i:s', strtotime("-$i hour"));
 
-        $chart_options = [
-            'chart_title' => 'Revenue of Types',
-            'report_type' => 'group_by_string',
-            'model' => 'App\Models\OrderItem',
-            'group_by_field' => 'type',
-            'chart_type' => 'pie',
-            'filter_field' => 'created_at',
-            'aggregate_function' => 'sum',
-            'aggregate_field' => 'price',
-            'filter_period' => 'month', // show users only registered this month
-        ];
-        $order_items_price = new LaravelChart($chart_options);
+            $hourlyDataData[] = [
+                'hourly' => date('h:i:s', strtotime("-$i hour")),
+            ];
+        }
+
+        $HourlyIncome = [];
+        foreach ($hourlyData as $key => $h) {
+            $HourlyIncome[] =  BillInfo::where('date_only', date('Y-m-d'))->whereTime('created_at', $h)->sum('total_amount');
+        }
+        // Hourly Report
+
 
         if ($departmemt->title == 'Waiter') {
             return redirect()->route('pos_table_lists');
         } elseif ($departmemt->title == 'Cashier') {
             return redirect()->route('pos_table_lists');
         } else {
-            return view('home', compact('customers', 'bill_infos', 'order_items', 'order_items_price'));
+            return view('home', compact('allOrderCount', 'todayOrderCount', 'allIncome', 'todayIncome', 'allCustomer', 'todayCustomer', 'allOrderQty', 'todayOrderQty', 'months', 'saleData', 'dayMonths', 'DailyIncome', 'categories', 'categorySaleReport', 'menuNameData', 'menuQtyData', 'hourlyData', 'HourlyIncome'));
         }
     }
 }

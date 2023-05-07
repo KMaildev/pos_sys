@@ -65,7 +65,12 @@
         // Select 2
         $('.select2').select2();
 
+
     });
+
+    window.onload = function() {
+        document.getElementById('vertical-menu-btn').click();
+    }
 </script>
 @yield('script')
 
