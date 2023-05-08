@@ -24,35 +24,35 @@
                                 <div class="receipt" style="background-color: white;">
 
                                     <div class="mybill">
-                                        <div class="brand" style="font-size: 16px;">
+                                        <div class="brand" style="font-size: 13px;">
                                             LEVITATE Bar & Restaurant
                                         </div>
-                                        <div class="address" style="font-size: 16px;">
+                                        <div class="address" style="font-size: 13px;">
                                             Yangon, Myanmar
                                         </div>
                                         <br>
                                     </div>
 
                                     <div>
-                                        <span style="text-align: left; font-size: 16px;">
+                                        <span style="text-align: left; font-size: 13px;">
                                             {{ order_infos.inv_no ?? '' }}
                                         </span>
                                         <br>
-                                        <span style="text-align: left; font-size: 16px;">
+                                        <span style="text-align: left; font-size: 13px;">
                                             Date: {{ order_infos.order_date_time }}
                                         </span>
                                         <br>
-                                        <span style="text-align: right; font-size: 16px;">
+                                        <span style="text-align: right; font-size: 13px;">
                                             Table: {{ order_infos.table_lists_table.table_name }}
                                         </span>
                                         <br>
-                                        <span style="text-align: right; font-size: 16px;">
+                                        <span style="text-align: right; font-size: 13px;">
                                             Guest: {{ order_infos.guest_no }}
                                         </span>
                                     </div>
 
                                     <div class="d-flex justify-content-between">
-                                        <span style="text-align: left; font-size: 16px;">
+                                        <span style="text-align: left; font-size: 13px;">
                                             Customer:
                                             <select
                                                 style="text-align: right; background-color: white;  border: none; text-overflow: ''; -webkit-appearance: none;"
@@ -69,36 +69,36 @@
 
                                     <table class="table" style="width: 100%">
                                         <tr class="header">
-                                            <th style="font-size: 16px; width: 50px; text-align: left;">
+                                            <th style="font-size: 13px; width: 50px; text-align: left;">
                                                 Description
                                             </th>
-                                            <th style="font-size: 16px; width: 20%; text-align: right;">
+                                            <th style="font-size: 13px; width: 20%; text-align: right;">
                                                 Qty
                                             </th>
-                                            <th style="font-size: 16px; width: 20%; text-align: right;">
+                                            <th style="font-size: 13px; width: 20%; text-align: right;">
                                                 Price
                                             </th>
-                                            <th style="font-size: 16px; width: 20%; text-align: right;">
+                                            <th style="font-size: 13px; width: 20%; text-align: right;">
                                                 Amount
                                             </th>
                                         </tr>
 
                                         <tr v-for="order_item in order_infos.order_items_table" :key="order_item.id">
-                                            <td style="width: 250px; padding: 3px; font-size: 16px;">
+                                            <td style="width: 250px; padding: 3px; font-size: 13px;">
                                                 {{ order_item.menu_name }}
                                                 <br>
                                                 {{ order_item.remark }}
                                             </td>
 
-                                            <td style="width: 20%; padding: 3px; text-align: right; font-size: 16px;">
+                                            <td style="width: 20%; padding: 3px; text-align: right; font-size: 13px;">
                                                 {{ order_item.qty }}
                                             </td>
 
-                                            <td style="width: 20%; padding: 3px; text-align: right; font-size: 16px;">
+                                            <td style="width: 20%; padding: 3px; text-align: right; font-size: 13px;">
                                                 {{ order_item.price }}
                                             </td>
 
-                                            <td style="width: 20%; padding: 3px; text-align: right; font-size: 16px;">
+                                            <td style="width: 20%; padding: 3px; text-align: right; font-size: 13px;">
                                                 {{ order_item.qty * order_item.price }}
                                             </td>
                                         </tr>
@@ -107,12 +107,12 @@
 
                                         <!-- Total  -->
                                         <tr class="">
-                                            <td style="font-size: 16px;" colspan="2">
+                                            <td style="font-size: 12px;" colspan="2">
                                                 Total
                                             </td>
 
                                             <td colspan="2">
-                                                <input type="text" class="billInput"
+                                                <input readonly type="text" class="billInput"
                                                     :value="totalAmountCalc(order_infos.order_items_table)"
                                                     style="text-align: right; width: 100%;">
                                             </td>
@@ -120,9 +120,10 @@
 
                                         <!-- Tax  -->
                                         <tr class="">
-                                            <td style="font-size: 16px;" colspan="2">
+                                            <td style="font-size: 12px;">
                                                 Tax (%)
                                             </td>
+
                                             <td style="text-align: right;" colspan="2">
                                                 <select
                                                     style="text-align: right; background-color: white;  border: none; text-overflow: ''; -webkit-appearance: none;"
@@ -134,11 +135,16 @@
                                                     </option>
                                                 </select>
                                             </td>
+
+                                            <td style="text-align: right; width: 100%;">
+                                                <input readonly type="text" class="billInput" v-model="taxAmount"
+                                                    style="text-align: right; width: 100%;">
+                                            </td>
                                         </tr>
 
                                         <!-- Disc -->
                                         <tr class="">
-                                            <td style="font-size: 16px;" colspan="2">
+                                            <td style="font-size: 12px;">
                                                 Disc
                                             </td>
 
@@ -152,25 +158,36 @@
                                                     </option>
                                                 </select>
                                             </td>
+
+                                            <td style="text-align: right; width: 100%;">
+                                                <input readonly type="text" class="billInput" v-model="DiscountAmount"
+                                                    style="text-align: right; width: 100%;">
+                                            </td>
                                         </tr>
 
                                         <!-- Amount -->
                                         <tr class="">
-                                            <td style="font-size: 16px;" colspan="2">
+                                            <td style="font-size: 12px; width: 100%;">
                                                 Disc Amount
                                             </td>
 
-                                            <td colspan="2">
+                                            <td style="text-align: right;" colspan="2">
                                                 <input type="text" class="billInput" value="0"
                                                     style="text-align: right; width: 100%;" v-model="form.disc_amount"
                                                     @change="netAmount()">
+                                            </td>
+
+                                            <td style="text-align: right; width: 100%;">
+                                                <span class="billInput">
+                                                    {{ DiscountAmountToPercent }}%
+                                                </span>
                                             </td>
                                         </tr>
 
 
                                         <!-- Service Charges % -->
                                         <tr class="">
-                                            <td style="font-size: 16px;" colspan="2">
+                                            <td style="font-size: 12px;">
                                                 Service Charge
                                             </td>
 
@@ -184,24 +201,36 @@
                                                     </option>
                                                 </select>
                                             </td>
+
+                                            <td style="text-align: right; width: 100%;">
+                                                <span class="billInput">
+                                                    {{ ServiceChargeAmount }}
+                                                </span>
+                                            </td>
                                         </tr>
 
                                         <!-- Service Charges Amount -->
                                         <tr class="">
-                                            <td style="font-size: 16px;" colspan="2">
+                                            <td style="font-size: 12px;">
                                                 Service Charge
                                             </td>
 
-                                            <td colspan="2">
+                                            <td style="text-align: right;" colspan="2">
                                                 <input type="text" class="billInput" value="0"
                                                     style="text-align: right; width: 100%;"
                                                     v-model="form.service_charge_amount" @change="netAmount()">
+                                            </td>
+
+                                            <td style="text-align: right; width: 100%;">
+                                                <span class="billInput">
+                                                    {{ ServiceChargeAmountToPercent }}%
+                                                </span>
                                             </td>
                                         </tr>
 
                                         <!-- payment_type -->
                                         <tr class="">
-                                            <td style="font-size: 16px;" colspan="2">
+                                            <td style="font-size: 12px;" colspan="2">
                                                 Pay Type
                                             </td>
                                             <td style="text-align: right;" colspan="2">
@@ -218,7 +247,7 @@
 
                                         <!-- Net Amount  -->
                                         <tr class="">
-                                            <td style="font-size: 16px;" colspan="2">
+                                            <td style="font-size: 12px;" colspan="2">
                                                 Net Amount
                                             </td>
 
@@ -230,7 +259,7 @@
 
                                         <!-- Received Amount -->
                                         <tr class="">
-                                            <td style="font-size: 16px;" colspan="2">
+                                            <td style="font-size: 12px;" colspan="2">
                                                 Received Amount
                                             </td>
 
@@ -242,7 +271,7 @@
 
                                         <!-- Due Amount -->
                                         <tr class="">
-                                            <td style="font-size: 16px;" colspan="2">
+                                            <td style="font-size: 12px;" colspan="2">
                                                 Refund
                                             </td>
 
@@ -410,6 +439,13 @@ export default {
     data() {
         return {
             search_keyword: '',
+
+            taxAmount: 0,
+            DiscountAmount: 0,
+            DiscountAmountToPercent: 0,
+            ServiceChargeAmount: 0,
+            ServiceChargeAmountToPercent: 0,
+
             form: {
                 customer: null,
                 taxrate: 0,
@@ -463,13 +499,23 @@ export default {
             var totalAmount = sum;
             var taxrate = this.form.taxrate;
             var disc = this.form.disc;
+
             var disc_amount = this.form.disc_amount;
-            var service_charge = this.form.service_charge;
+            this.DiscountAmountToPercent = +disc_amount / +sum * 100;
+
             var service_charge_amount = this.form.service_charge_amount;
+            this.ServiceChargeAmountToPercent = +service_charge_amount / +sum * 100;
 
             var totalTaxNetAmount = totalAmount * taxrate / 100;
+            this.taxAmount = totalTaxNetAmount;
+
             var totalDiscNetAmount = totalAmount * disc / 100;
+            this.DiscountAmount = totalDiscNetAmount;
+
+            var service_charge = this.form.service_charge;
             var totalServiceChargeNetAmount = totalAmount * service_charge / 100;
+            this.ServiceChargeAmount = totalServiceChargeNetAmount;
+
             var netAmount = (totalAmount + totalTaxNetAmount + totalServiceChargeNetAmount + +service_charge_amount) - (totalDiscNetAmount + +disc_amount);
             this.form.totalNetAmount = netAmount;
             return netAmount;
@@ -519,5 +565,6 @@ export default {
 .billInput {
     width: 100%;
     border: none;
+    font-size: 12px !important;
 }
 </style>

@@ -5394,6 +5394,11 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       search_keyword: '',
+      taxAmount: 0,
+      DiscountAmount: 0,
+      DiscountAmountToPercent: 0,
+      ServiceChargeAmount: 0,
+      ServiceChargeAmountToPercent: 0,
       form: {
         customer: null,
         taxrate: 0,
@@ -5442,11 +5447,16 @@ __webpack_require__.r(__webpack_exports__);
       var taxrate = this.form.taxrate;
       var disc = this.form.disc;
       var disc_amount = this.form.disc_amount;
-      var service_charge = this.form.service_charge;
+      this.DiscountAmountToPercent = +disc_amount / +sum * 100;
       var service_charge_amount = this.form.service_charge_amount;
+      this.ServiceChargeAmountToPercent = +service_charge_amount / +sum * 100;
       var totalTaxNetAmount = totalAmount * taxrate / 100;
+      this.taxAmount = totalTaxNetAmount;
       var totalDiscNetAmount = totalAmount * disc / 100;
+      this.DiscountAmount = totalDiscNetAmount;
+      var service_charge = this.form.service_charge;
       var totalServiceChargeNetAmount = totalAmount * service_charge / 100;
+      this.ServiceChargeAmount = totalServiceChargeNetAmount;
       var netAmount = totalAmount + totalTaxNetAmount + totalServiceChargeNetAmount + +service_charge_amount - (totalDiscNetAmount + +disc_amount);
       this.form.totalNetAmount = netAmount;
       return netAmount;
@@ -9729,39 +9739,39 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "brand",
     staticStyle: {
-      "font-size": "16px"
+      "font-size": "13px"
     }
   }, [_vm._v("\n                                        LEVITATE Bar & Restaurant\n                                    ")]), _vm._v(" "), _c("div", {
     staticClass: "address",
     staticStyle: {
-      "font-size": "16px"
+      "font-size": "13px"
     }
   }, [_vm._v("\n                                        Yangon, Myanmar\n                                    ")]), _vm._v(" "), _c("br")]), _vm._v(" "), _c("div", [_c("span", {
     staticStyle: {
       "text-align": "left",
-      "font-size": "16px"
+      "font-size": "13px"
     }
   }, [_vm._v("\n                                        " + _vm._s((_vm$order_infos$inv_n = _vm.order_infos.inv_no) !== null && _vm$order_infos$inv_n !== void 0 ? _vm$order_infos$inv_n : "") + "\n                                    ")]), _vm._v(" "), _c("br"), _vm._v(" "), _c("span", {
     staticStyle: {
       "text-align": "left",
-      "font-size": "16px"
+      "font-size": "13px"
     }
   }, [_vm._v("\n                                        Date: " + _vm._s(_vm.order_infos.order_date_time) + "\n                                    ")]), _vm._v(" "), _c("br"), _vm._v(" "), _c("span", {
     staticStyle: {
       "text-align": "right",
-      "font-size": "16px"
+      "font-size": "13px"
     }
   }, [_vm._v("\n                                        Table: " + _vm._s(_vm.order_infos.table_lists_table.table_name) + "\n                                    ")]), _vm._v(" "), _c("br"), _vm._v(" "), _c("span", {
     staticStyle: {
       "text-align": "right",
-      "font-size": "16px"
+      "font-size": "13px"
     }
   }, [_vm._v("\n                                        Guest: " + _vm._s(_vm.order_infos.guest_no) + "\n                                    ")])]), _vm._v(" "), _c("div", {
     staticClass: "d-flex justify-content-between"
   }, [_c("span", {
     staticStyle: {
       "text-align": "left",
-      "font-size": "16px"
+      "font-size": "13px"
     }
   }, [_vm._v("\n                                        Customer:\n                                        "), _c("select", {
     directives: [{
@@ -9808,25 +9818,25 @@ var render = function render() {
     staticClass: "header"
   }, [_c("th", {
     staticStyle: {
-      "font-size": "16px",
+      "font-size": "13px",
       width: "50px",
       "text-align": "left"
     }
   }, [_vm._v("\n                                            Description\n                                        ")]), _vm._v(" "), _c("th", {
     staticStyle: {
-      "font-size": "16px",
+      "font-size": "13px",
       width: "20%",
       "text-align": "right"
     }
   }, [_vm._v("\n                                            Qty\n                                        ")]), _vm._v(" "), _c("th", {
     staticStyle: {
-      "font-size": "16px",
+      "font-size": "13px",
       width: "20%",
       "text-align": "right"
     }
   }, [_vm._v("\n                                            Price\n                                        ")]), _vm._v(" "), _c("th", {
     staticStyle: {
-      "font-size": "16px",
+      "font-size": "13px",
       width: "20%",
       "text-align": "right"
     }
@@ -9837,33 +9847,33 @@ var render = function render() {
       staticStyle: {
         width: "250px",
         padding: "3px",
-        "font-size": "16px"
+        "font-size": "13px"
       }
     }, [_vm._v("\n                                            " + _vm._s(order_item.menu_name) + "\n                                            "), _c("br"), _vm._v("\n                                            " + _vm._s(order_item.remark) + "\n                                        ")]), _vm._v(" "), _c("td", {
       staticStyle: {
         width: "20%",
         padding: "3px",
         "text-align": "right",
-        "font-size": "16px"
+        "font-size": "13px"
       }
     }, [_vm._v("\n                                            " + _vm._s(order_item.qty) + "\n                                        ")]), _vm._v(" "), _c("td", {
       staticStyle: {
         width: "20%",
         padding: "3px",
         "text-align": "right",
-        "font-size": "16px"
+        "font-size": "13px"
       }
     }, [_vm._v("\n                                            " + _vm._s(order_item.price) + "\n                                        ")]), _vm._v(" "), _c("td", {
       staticStyle: {
         width: "20%",
         padding: "3px",
         "text-align": "right",
-        "font-size": "16px"
+        "font-size": "13px"
       }
     }, [_vm._v("\n                                            " + _vm._s(order_item.qty * order_item.price) + "\n                                        ")])]);
   }), _vm._v(" "), _c("br"), _vm._v(" "), _c("tr", {}, [_c("td", {
     staticStyle: {
-      "font-size": "16px"
+      "font-size": "12px"
     },
     attrs: {
       colspan: "2"
@@ -9879,6 +9889,7 @@ var render = function render() {
       width: "100%"
     },
     attrs: {
+      readonly: "",
       type: "text"
     },
     domProps: {
@@ -9886,10 +9897,7 @@ var render = function render() {
     }
   })])]), _vm._v(" "), _c("tr", {}, [_c("td", {
     staticStyle: {
-      "font-size": "16px"
-    },
-    attrs: {
-      colspan: "2"
+      "font-size": "12px"
     }
   }, [_vm._v("\n                                            Tax (%)\n                                        ")]), _vm._v(" "), _c("td", {
     staticStyle: {
@@ -9936,12 +9944,39 @@ var render = function render() {
         value: taxrate.taxrate
       }
     }, [_vm._v("\n                                                    " + _vm._s(taxrate.name) + "\n                                                ")]);
-  })], 2)])]), _vm._v(" "), _c("tr", {}, [_c("td", {
+  })], 2)]), _vm._v(" "), _c("td", {
     staticStyle: {
-      "font-size": "16px"
+      "text-align": "right",
+      width: "100%"
+    }
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.taxAmount,
+      expression: "taxAmount"
+    }],
+    staticClass: "billInput",
+    staticStyle: {
+      "text-align": "right",
+      width: "100%"
     },
     attrs: {
-      colspan: "2"
+      readonly: "",
+      type: "text"
+    },
+    domProps: {
+      value: _vm.taxAmount
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.taxAmount = $event.target.value;
+      }
+    }
+  })])]), _vm._v(" "), _c("tr", {}, [_c("td", {
+    staticStyle: {
+      "font-size": "12px"
     }
   }, [_vm._v("\n                                            Disc\n                                        ")]), _vm._v(" "), _c("td", {
     staticStyle: {
@@ -9984,14 +10019,45 @@ var render = function render() {
         value: discount.rate
       }
     }, [_vm._v("\n                                                    " + _vm._s(discount.name) + "\n                                                ")]);
-  }), 0)])]), _vm._v(" "), _c("tr", {}, [_c("td", {
+  }), 0)]), _vm._v(" "), _c("td", {
     staticStyle: {
-      "font-size": "16px"
+      "text-align": "right",
+      width: "100%"
+    }
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.DiscountAmount,
+      expression: "DiscountAmount"
+    }],
+    staticClass: "billInput",
+    staticStyle: {
+      "text-align": "right",
+      width: "100%"
     },
     attrs: {
-      colspan: "2"
+      readonly: "",
+      type: "text"
+    },
+    domProps: {
+      value: _vm.DiscountAmount
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.DiscountAmount = $event.target.value;
+      }
+    }
+  })])]), _vm._v(" "), _c("tr", {}, [_c("td", {
+    staticStyle: {
+      "font-size": "12px",
+      width: "100%"
     }
   }, [_vm._v("\n                                            Disc Amount\n                                        ")]), _vm._v(" "), _c("td", {
+    staticStyle: {
+      "text-align": "right"
+    },
     attrs: {
       colspan: "2"
     }
@@ -10023,12 +10089,16 @@ var render = function render() {
         _vm.$set(_vm.form, "disc_amount", $event.target.value);
       }
     }
-  })])]), _vm._v(" "), _c("tr", {}, [_c("td", {
+  })]), _vm._v(" "), _c("td", {
     staticStyle: {
-      "font-size": "16px"
-    },
-    attrs: {
-      colspan: "2"
+      "text-align": "right",
+      width: "100%"
+    }
+  }, [_c("span", {
+    staticClass: "billInput"
+  }, [_vm._v("\n                                                " + _vm._s(_vm.DiscountAmountToPercent) + "%\n                                            ")])])]), _vm._v(" "), _c("tr", {}, [_c("td", {
+    staticStyle: {
+      "font-size": "12px"
     }
   }, [_vm._v("\n                                            Service Charge\n                                        ")]), _vm._v(" "), _c("td", {
     staticStyle: {
@@ -10071,14 +10141,21 @@ var render = function render() {
         value: service_charge.rate
       }
     }, [_vm._v("\n                                                    " + _vm._s(service_charge.name) + "\n                                                ")]);
-  }), 0)])]), _vm._v(" "), _c("tr", {}, [_c("td", {
+  }), 0)]), _vm._v(" "), _c("td", {
     staticStyle: {
-      "font-size": "16px"
-    },
-    attrs: {
-      colspan: "2"
+      "text-align": "right",
+      width: "100%"
+    }
+  }, [_c("span", {
+    staticClass: "billInput"
+  }, [_vm._v("\n                                                " + _vm._s(_vm.ServiceChargeAmount) + "\n                                            ")])])]), _vm._v(" "), _c("tr", {}, [_c("td", {
+    staticStyle: {
+      "font-size": "12px"
     }
   }, [_vm._v("\n                                            Service Charge\n                                        ")]), _vm._v(" "), _c("td", {
+    staticStyle: {
+      "text-align": "right"
+    },
     attrs: {
       colspan: "2"
     }
@@ -10110,9 +10187,16 @@ var render = function render() {
         _vm.$set(_vm.form, "service_charge_amount", $event.target.value);
       }
     }
-  })])]), _vm._v(" "), _c("tr", {}, [_c("td", {
+  })]), _vm._v(" "), _c("td", {
     staticStyle: {
-      "font-size": "16px"
+      "text-align": "right",
+      width: "100%"
+    }
+  }, [_c("span", {
+    staticClass: "billInput"
+  }, [_vm._v("\n                                                " + _vm._s(_vm.ServiceChargeAmountToPercent) + "%\n                                            ")])])]), _vm._v(" "), _c("tr", {}, [_c("td", {
+    staticStyle: {
+      "font-size": "12px"
     },
     attrs: {
       colspan: "2"
@@ -10159,7 +10243,7 @@ var render = function render() {
     }, [_vm._v("\n                                                    " + _vm._s(payment_method.name) + "\n                                                ")]);
   }), 0)])]), _vm._v(" "), _c("tr", {}, [_c("td", {
     staticStyle: {
-      "font-size": "16px"
+      "font-size": "12px"
     },
     attrs: {
       colspan: "2"
@@ -10182,7 +10266,7 @@ var render = function render() {
     }
   })])]), _vm._v(" "), _c("tr", {}, [_c("td", {
     staticStyle: {
-      "font-size": "16px"
+      "font-size": "12px"
     },
     attrs: {
       colspan: "2"
@@ -10220,7 +10304,7 @@ var render = function render() {
     }
   })])]), _vm._v(" "), _c("tr", {}, [_c("td", {
     staticStyle: {
-      "font-size": "16px"
+      "font-size": "12px"
     },
     attrs: {
       colspan: "2"
@@ -29550,7 +29634,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.billInput {\n    width: 100%;\n    border: none;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.billInput {\n    width: 100%;\n    border: none;\n    font-size: 12px !important;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
