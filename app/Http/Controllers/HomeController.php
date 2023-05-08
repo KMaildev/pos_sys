@@ -8,6 +8,7 @@ use App\Models\Department;
 use App\Models\OrderInfo;
 use App\Models\OrderItem;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
@@ -133,11 +134,13 @@ class HomeController extends Controller
             ];
         }
 
+
         $HourlyIncome = [];
-        foreach ($hourlyData as $key => $h) {
-            $HourlyIncome[] =  BillInfo::where('date_only', date('Y-m-d'))->whereTime('created_at', $h)->sum('total_amount');
+        foreach ($hourlyDataData as $key => $h) {
+            //   BillInfo::where('date_only', date('Y-m-d'))->whereTime('created_at' <= $h['hourly'])->sum('total_amount');
         }
         // Hourly Report
+
 
 
         if ($departmemt->title == 'Waiter') {

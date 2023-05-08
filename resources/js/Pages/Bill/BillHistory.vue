@@ -225,10 +225,6 @@ export default {
     ],
 
 
-    data() {
-       
-    },
-
     methods: {
         totalAmountCalc(order_items) {
             let sum = 0;

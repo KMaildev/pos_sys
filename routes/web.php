@@ -208,6 +208,8 @@ Route::middleware('auth')->group(function () {
     // Management Report 
     Route::get('/pos_sales_category_amount', [ManagementReportController::class, 'SalesCategoryAmount'])->name('pos_sales_category_amount');
     Route::get('/pos_sales_category_qty', [ManagementReportController::class, 'SalesCategoryQty'])->name('pos_sales_category_qty');
+    Route::get('/pos_customer_report', [ManagementReportController::class, 'customerReport'])->name('pos_customer_report');
+    Route::get('/pos_customer_bill_history/{id}', [ManagementReportController::class, 'customerBillHistory'])->name('pos_customer_bill_history');
 
     // Cashier 
     Route::get('/cashier_main_page', [CashierMainController::class, 'index'])->name('cashier_main_page');

@@ -8,6 +8,10 @@
             <button class="report_button_sub_sale" @click="saleCategoryQty()" style="background-color: #f6f6eb; color: black !important">
                 Sales Category Qty
             </button>
+
+            <button class="report_button_sub_sale" @click="customerReport()" style="background-color: #f5d5cb; color: black !important">
+                Customer Report
+            </button>
         </div>
     </div>
 </template>
@@ -22,6 +26,10 @@ export default {
 
         saleCategoryQty() {
             this.$inertia.get(`/pos_sales_category_qty`);
+        },
+
+        customerReport(){
+            this.$inertia.get(`/pos_customer_report`);
         },
     }
 }
