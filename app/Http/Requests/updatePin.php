@@ -25,7 +25,7 @@ class updatePin extends FormRequest
     {
         $id = $this->route('update_pin');
         return [
-            'pin_code' => 'required|numeric|min:6|unique:users,pin_code,' . $id,
+            'pin_code' => 'required|numeric|unique:users,pin_code,' . $id,
             'user_id' => 'required',
         ];
     }

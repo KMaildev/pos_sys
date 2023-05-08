@@ -17,7 +17,7 @@
 
             <div class="row">
                 <!-- Form Here  -->
-                <div class="col-md-4 col-lg-4 col-sm-12">
+                <div class="col-md-4 col-lg-4 col-sm-12 row d-flex justify-content-evenly">
                     <form @submit.prevent="submitPayment">
                         <div id="printArea" style="width: 100% !important">
                             <div class="bill" style="width: 100% !important">
@@ -290,10 +290,18 @@
                             </div>
                         </div>
                         <br>
-                        <button type="submit" class="btn btn-dark btn-lg" style="width: 85%;">
-                            <i class="fa fa-print"></i>
-                            Payment & Print
-                        </button>
+
+                        <div class="row d-flex justify-content-evenly">
+                            <button @click="printInvoice()" type="button" class="btn btn-dark btn-lg" style="width: 45%;">
+                                <i class="fa fa-print"></i>
+                                Print
+                            </button>
+
+                            <button type="submit" class="btn btn-dark btn-lg" style="width: 45%;">
+                                <i class="fa fa-dollar"></i>
+                                Payment
+                            </button>
+                        </div>
                     </form>
                 </div>
 

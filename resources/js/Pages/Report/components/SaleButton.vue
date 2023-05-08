@@ -21,6 +21,10 @@
                 Discount Report
             </button>
 
+            <button class="report_button_sub" @click="DiscountAmpReport()" style="background-color: #f6ecf5; color: black !important">
+                AMP Report
+            </button>
+
             <button class="report_button_sub" @click="VoidReport()" style="background-color: #e8dff5; color: black !important">
                 Void Report
             </button>
@@ -50,6 +54,10 @@ export default {
 
         DiscountReport() {
             this.$inertia.get(`/pos_discount_report`);
+        },
+
+        DiscountAmpReport(){
+            this.$inertia.get(`/pos_amp_report`);
         },
 
         VoidReport() {

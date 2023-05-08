@@ -95,14 +95,12 @@
 
                                         <td class="text-center">
                                             <div v-if="void_item.manager_status == 'nothing'">
-                                                <span class="btn btn-sm btn-success"
-                                                    @click="AcceptVoidItem(void_item.id)">
+                                                <span class="btn btn-sm btn-success" @click="AcceptVoidItem(void_item.id)">
                                                     <i class="fa fa-plus"></i>
                                                     Accept
                                                 </span>
 
-                                                <span class="btn btn-sm btn-danger"
-                                                    @click="RejectVoidItem(void_item.id)">
+                                                <span class="btn btn-sm btn-danger" @click="RejectVoidItem(void_item.id)">
                                                     <i class="fa fa-plus"></i>
                                                     Reject
                                                 </span>

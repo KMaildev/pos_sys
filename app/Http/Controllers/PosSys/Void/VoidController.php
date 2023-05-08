@@ -92,7 +92,6 @@ class VoidController extends Controller
                 ->get();
         }
 
-
         return Inertia::render('Void/ManagerVoidItems', [
             'void_items' => $void_items,
         ]);

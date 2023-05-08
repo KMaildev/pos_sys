@@ -49,5 +49,5 @@
 @endsection
 
 @section('script')
-    {!! JsValidator::formRequest('App\Http\Requests\UpdatePermission', '#edit-form') !!}
+    {!! JsValidator::formRequest('App\Http\Requests\updatePin', '#edit-form') !!}
 @endsection

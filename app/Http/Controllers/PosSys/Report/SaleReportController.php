@@ -127,6 +127,26 @@ class SaleReportController extends Controller
         ]);
     }
 
+    public function DiscountAMPReport(Request $request)
+    {
+        $bill_infos = BillInfo::with('table_lists_table', 'first_table_lists_table', 'cashier_user', 'waiter_user_table', 'payment_method_table', 'order_items_table', 'void_items_table')
+            ->where('discount', 100)
+            ->get();
+
+        if (request('start_date') && request('end_date')) {
+            $bill_infos = BillInfo::with('table_lists_table', 'first_table_lists_table', 'cashier_user', 'waiter_user_table', 'payment_method_table', 'order_items_table', 'void_items_table')
+                ->where('date_only', '>=', request('start_date'))
+                ->where('date_only', '<=', request('end_date'))
+                ->get();
+        }
+
+        return Inertia::render('Report/DiscountAmpReport', [
+            'bill_infos' => $bill_infos,
+        ]);
+    }
+
+    
+
 
     public function VoidReport(Request $request)
     {

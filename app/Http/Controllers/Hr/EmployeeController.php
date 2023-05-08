@@ -217,7 +217,7 @@ class EmployeeController extends Controller
     {
         $id = $request->user_id;
         $employee = User::findOrFail($id);
-        $employee->pin_code = $employee->pin_code ?? $request->pin_code;
+        $employee->pin_code = $request->pin_code ?? $employee->pin_code;
         $employee->update();
         return redirect()->back()->with('success', 'Success.');
     }

@@ -57,10 +57,18 @@ use App\Http\Controllers\System\StoreController;
 use App\Http\Controllers\System\TaxrateController;
 use App\Http\Controllers\Table\TableListController;
 use App\Http\Controllers\Tempo\TempFixedPurchaseItemController;
+use App\Mail\VoidMail;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 
+Route::get('/send-mail', function(){
+    $data = [
+        'code' => 123123,
+    ];
+    Mail::to('kkay0261@gmail.com')->send(new VoidMail($data));
+});
 
 // PIN Login 
 Route::get('/', [PinController::class, 'index'])->name('pin');
@@ -159,7 +167,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/pos_guest_index', [GuestController::class, 'index'])->name('pos_guest_index');
    
 
-
     Route::get('/ordered_detail/{id}', [OrderedController::class, 'orderedDetail'])->name('ordered_detail');
     Route::get('/pos_split_bill/{id}', [SplitBillController::class, 'SplitBill'])->name('pos_split_bill');
     Route::get('/split_qty_update', [SplitBillController::class, 'SplitQtyUpdate'])->name('split_qty_update');
@@ -198,6 +205,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/pos_tables_sales', [SaleReportController::class, 'TablesSales'])->name('pos_tables_sales');
     Route::get('/pos_payment_types_report', [SaleReportController::class, 'PaymentTypesReport'])->name('pos_payment_types_report');
     Route::get('/pos_discount_report', [SaleReportController::class, 'DiscountReport'])->name('pos_discount_report');
+    Route::get('/pos_amp_report', [SaleReportController::class, 'DiscountAMPReport'])->name('pos_amp_report');
     Route::get('/pos_void_report', [SaleReportController::class, 'VoidReport'])->name('pos_void_report');
 
     // Cashier Report 

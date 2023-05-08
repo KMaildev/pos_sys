@@ -1,0 +1,1 @@
+<h1>Your {{ $data['code'] }}</h1>
