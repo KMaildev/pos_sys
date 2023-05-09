@@ -15,6 +15,22 @@ class TestController extends Controller
      */
     public function index()
     {
+
+        // if (PHP_OS_FAMILY === 'Windows') {
+        //     exec('wmic printer list brief', $output);
+        // }elseif(PHP_OS_FAMILY === 'Linux'){
+        //     exec('lpstat -p', $output);
+        // }else {
+        //     exec('lpstat -p', $output);
+        // }
+
+        // foreach ($output as $line) {
+        //     $printer = explode(',', $line);
+        //     $printer_name_lists = $printer[0];
+        //     $printer_name = explode(' ', $printer_name_lists);
+        //     print_r($printer_name[0]);
+        // }
+
         return Inertia::render('Test/Index');
     }
 

@@ -41,6 +41,7 @@
                                 Food
                             </td>
                         </tr>
+                        
                         <tr v-for="(cart_list, index) in cart_lists" :key="index" v-if="cart_list.type === 'Food'">
                             <td style="color: #4D4D4D; text-align: left; font-size: 11px;">
                                 {{ cart_list.menu_name }}
@@ -52,6 +53,8 @@
                                 {{ cart_list.qty }}
                             </td>
                         </tr>
+
+
                         <tr>
                             <td colspan="2" style="background-color: #4D4D4D;  color: #4D4D4D">
                                 Beverage
@@ -76,6 +79,7 @@
     </div>
 </template>
 <script>
+import printJS from 'print-js';
 export default {
 
     name: "ButtonProcress",
