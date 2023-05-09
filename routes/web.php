@@ -57,23 +57,13 @@ use App\Http\Controllers\System\StoreController;
 use App\Http\Controllers\System\TaxrateController;
 use App\Http\Controllers\Table\TableListController;
 use App\Http\Controllers\Tempo\TempFixedPurchaseItemController;
-use App\Mail\VoidMail;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
-
-Route::get('/send-mail', function(){
-    $data = [
-        'code' => 123123,
-    ];
-    Mail::to('kkay0261@gmail.com')->send(new VoidMail($data));
-});
 
 // PIN Login 
 Route::get('/', [PinController::class, 'index'])->name('pin');
 Route::post('pin_login', [PinController::class, 'pinLogin'])->name('pin_login');
-
 
 Route::get('/admin', function () {
     return view('auth.login');

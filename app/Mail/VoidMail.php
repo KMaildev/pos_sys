@@ -30,6 +30,6 @@ class VoidMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('You have void item')->view('mail.void_mail');
+        return $this->subject('Void Item Notification')->view('mail.void_mail');
     }
 }

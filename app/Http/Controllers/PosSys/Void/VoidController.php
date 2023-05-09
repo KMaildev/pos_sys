@@ -4,11 +4,13 @@ namespace App\Http\Controllers\PosSys\Void;
 
 use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
+use App\Mail\VoidMail;
 use App\Models\NoticeBoard;
 use App\Models\OrderInfo;
 use App\Models\OrderItem;
 use App\Models\VoidItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
@@ -68,11 +70,35 @@ class VoidController extends Controller
         $void_item->table_list_id = $order_info->table_list_id;
         $void_item->manager_status = 'nothing';
         $void_item->save();
+        $id = $void_item->id;
 
         // OrderItem::findOrFail($item_id)
         //     ->delete();
         Helper::updateOrderInfoTotalAmount($order_item->order_info_id);
+        $this->sendEmail($id);
         return redirect()->back()->with('success', 'Your processing has been completed.');
+    }
+
+    
+    public function sendEmail($id){
+
+        $void_item = VoidItem::with('menu_list_table', 'table_list_table', 'void_by_table')
+            ->findOrFail($id);
+
+        $data = [
+            'id' => $void_item->id,
+            'table_name' => $void_item->table_list_table->table_name,
+            'menu_name' => $void_item->menu_list_table->menu_name,
+            'qty' => $void_item->qty,
+            'price' => $void_item->price,
+            'void_date' => $void_item->void_date,
+            'void_time' => $void_item->void_time,
+            'reason' => $void_item->reason,
+            'void_by_table' => $void_item->void_by_table->name,
+            'manager_status' => $void_item->manager_status,
+        ];
+
+        Mail::to('kkay0261@gmail.com')->send(new VoidMail($data));
     }
 
 
