@@ -242,6 +242,28 @@ export default {
             let type = 'Beverage';
             this.$inertia.get(`/pos_menu?type=${type}`);
         },
+
+
+        callVoidItemTotal() {
+            axios.get(`/pos_void_item_count`)
+                .then(response => (this.notification(response.data.void_item_total)));
+        },
+
+        notification(void_item_total) {
+            if (void_item_total != 0) {
+                if (Notification?.permission === "granted") {
+                    const greeting = new Notification('Void Notification', {
+                        tag: "soManyNotification"
+                    });
+                }
+            }
+        },
+    },
+
+    mounted: function () {
+        window.setInterval(() => {
+            this.callVoidItemTotal()
+        }, 10000) //10 Seconds
     },
 
     created() {

@@ -219,7 +219,6 @@ export default {
                 this.$inertia.get(`/confirm_void_item?item_id=${item_id}&reason=${reason}&void_qty=${void_qty}`);
                 $('#showVoidInfoModal').modal('hide');
             }
-
         },
     }
 };

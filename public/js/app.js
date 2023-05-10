@@ -6245,7 +6245,29 @@ __webpack_require__.r(__webpack_exports__);
     linkMenu: function linkMenu() {
       var type = 'Beverage';
       this.$inertia.get("/pos_menu?type=".concat(type));
+    },
+    callVoidItemTotal: function callVoidItemTotal() {
+      var _this = this;
+      axios.get("/pos_void_item_count").then(function (response) {
+        return _this.notification(response.data.void_item_total);
+      });
+    },
+    notification: function notification(void_item_total) {
+      if (void_item_total != 0) {
+        var _Notification;
+        if (((_Notification = Notification) === null || _Notification === void 0 ? void 0 : _Notification.permission) === "granted") {
+          var greeting = new Notification('Void Notification', {
+            tag: "soManyNotification"
+          });
+        }
+      }
     }
+  },
+  mounted: function mounted() {
+    var _this2 = this;
+    window.setInterval(function () {
+      _this2.callVoidItemTotal();
+    }, 10000); //10 Seconds
   },
   created: function created() {
     var date = new Date();

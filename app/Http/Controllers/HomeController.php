@@ -59,7 +59,7 @@ class HomeController extends Controller
             ]
         ];
 
-        for ($i = 1; $i <= 6; $i++) {
+        for ($i = 1; $i <= 11; $i++) {
             $months[] = date('F', strtotime("-$i month"));
 
             $yearMonths[] = [

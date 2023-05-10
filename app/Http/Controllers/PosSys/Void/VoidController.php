@@ -164,4 +164,16 @@ class VoidController extends Controller
         $void_item->update();
         return redirect()->back()->with('success', 'Your processing has been completed.');
     }
+
+
+
+    public function voidItemCount(){
+        $void_item_total = VoidItem::whereBetween('created_at', [now()->subMinutes(3), now()])
+            ->where('manager_status', 'nothing')
+            ->count();
+        
+        return response()->json([
+            'void_item_total' => $void_item_total
+        ]);
+    }
 }

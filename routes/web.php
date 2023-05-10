@@ -165,9 +165,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/pos_void_order/{id}', [VoidController::class, 'VoidOrder'])->name('pos_void_order');
     Route::get('/pos_void_item', [VoidController::class, 'VoidItem'])->name('pos_void_item');
     Route::get('/confirm_void_item', [VoidController::class, 'ConfirmVoidItem'])->name('confirm_void_item');
+    
     Route::get('/manager_void_item', [VoidController::class, 'getManagerVoidItems'])->name('manager_void_item');
     Route::get('/manager_void_item_accept', [VoidController::class, 'managerVoidItemsAccept'])->name('manager_void_item_accept');
     Route::get('/manager_void_item_reject', [VoidController::class, 'managerVoidItemsReject'])->name('manager_void_item_reject');
+    Route::get('/pos_void_item_count', [VoidController::class, 'voidItemCount'])->name('pos_void_item_count');
 
     Route::get('/view_pos_menu', [ViewMenuController::class, 'index'])->name('view_pos_menu');
     Route::get('/view_pos_menu_lists', [ViewMenuController::class, 'menuLists'])->name('view_pos_menu_lists');
