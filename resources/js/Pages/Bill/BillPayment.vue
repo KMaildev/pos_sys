@@ -125,12 +125,11 @@
                                             </td>
 
                                             <td style="text-align: right;" colspan="2">
-                                                <select
-                                                    style="text-align: right; background-color: white;  border: none; text-overflow: ''; -webkit-appearance: none;"
-                                                    v-model="form.taxrate" @change="netAmount()">
+                                                <select class="select-style" v-model="form.taxrate" @change="netAmount()">
                                                     <option value="0">0%</option>
                                                     <option :value="taxrate.taxrate" v-for="taxrate in taxrates"
-                                                        :key="taxrate.id">
+                                                        :key="taxrate.id"
+                                                        :selected="taxrate.taxrate == bill_info.tax_amount">
                                                         {{ taxrate.name }}
                                                     </option>
                                                 </select>
@@ -416,6 +415,7 @@
                     </div>
                 </div>
             </div>
+
         </master>
     </div>
 </template>
@@ -441,6 +441,7 @@ export default {
         'combile_order_infos',
         'discounts',
         'service_charges',
+        'bill_info',
     ],
 
 
@@ -569,6 +570,18 @@ export default {
                 scanStyles: false
             });
         },
+    },
+
+    mounted() {
+        this.form.customer = this.bill_info[0].customer_id;
+        this.form.taxrate = this.bill_info[0].tax_amount;
+        this.form.disc = this.bill_info[0].discount;
+        this.form.payment_method_id = this.bill_info[0].payment_type;
+        this.form.received_amount = this.bill_info[0].received_amount;
+        this.form.disc_amount = this.bill_info[0].discount_amount;
+        this.form.service_charge = this.bill_info[0].service_charges;
+        this.form.service_charge_amount = this.bill_info[0].service_charge_amount;
+        this.form.refund_amount = this.bill_info[0].received_amount;
     }
 };
 </script>
@@ -577,5 +590,13 @@ export default {
     width: 100%;
     border: none;
     font-size: 12px !important;
+}
+
+.select-style {
+    text-align: right;
+    background-color: white;
+    border: none;
+    text-overflow: '';
+    -webkit-appearance: none;
 }
 </style>

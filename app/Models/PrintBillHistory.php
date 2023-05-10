@@ -35,4 +35,9 @@ class PrintBillHistory extends Model
         'refund_amount',
         'service_charge_amount',
     ];
+
+    public function payment_method_table()
+    {
+        return $this->belongsTo(PaymentMethod::class, 'payment_type', 'id');
+    }
 }

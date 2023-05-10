@@ -12,6 +12,7 @@ use App\Models\Floor;
 use App\Models\OrderInfo;
 use App\Models\OrderItem;
 use App\Models\PaymentMethod;
+use App\Models\PrintBillHistory;
 use App\Models\ServiceCharge;
 use App\Models\TableList;
 use App\Models\Taxrate;
@@ -46,6 +47,14 @@ class BillController extends Controller
         $order_infos = OrderInfo::with('table_lists_table', 'waiter_user_table', 'order_items_table')
             ->findOrFail($id);
 
+        $order_info_id = $order_infos->id;
+
+        $bill_info = PrintBillHistory::with('payment_method_table')
+            ->where('order_info_id', $order_info_id)
+            ->latest()
+            ->get();
+
+        // Customer 
         $custom_search = $request->custom_search;
         $customers = Customer::query();
         if ($custom_search) {
@@ -73,6 +82,7 @@ class BillController extends Controller
             'taxrates' => $taxrates,
             'discounts' => $discounts,
             'service_charges' => $service_charges,
+            'bill_info' => $bill_info,
         ]);
     }
 

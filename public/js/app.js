@@ -5390,7 +5390,7 @@ __webpack_require__.r(__webpack_exports__);
     Master: _Layout_Master__WEBPACK_IMPORTED_MODULE_0__["default"],
     BillMenuButton: _components_BillMenuButton_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  props: ['user_name', 'login_time', 'order_infos', 'customers', 'payment_methods', 'taxrates', 'combile_order_infos', 'discounts', 'service_charges'],
+  props: ['user_name', 'login_time', 'order_infos', 'customers', 'payment_methods', 'taxrates', 'combile_order_infos', 'discounts', 'service_charges', 'bill_info'],
   data: function data() {
     return {
       search_keyword: '',
@@ -5493,6 +5493,17 @@ __webpack_require__.r(__webpack_exports__);
         scanStyles: false
       });
     }
+  },
+  mounted: function mounted() {
+    this.form.customer = this.bill_info[0].customer_id;
+    this.form.taxrate = this.bill_info[0].tax_amount;
+    this.form.disc = this.bill_info[0].discount;
+    this.form.payment_method_id = this.bill_info[0].payment_type;
+    this.form.received_amount = this.bill_info[0].received_amount;
+    this.form.disc_amount = this.bill_info[0].discount_amount;
+    this.form.service_charge = this.bill_info[0].service_charges;
+    this.form.service_charge_amount = this.bill_info[0].service_charge_amount;
+    this.form.refund_amount = this.bill_info[0].received_amount;
   }
 });
 
@@ -10012,13 +10023,7 @@ var render = function render() {
       value: _vm.form.taxrate,
       expression: "form.taxrate"
     }],
-    staticStyle: {
-      "text-align": "right",
-      "background-color": "white",
-      border: "none",
-      "text-overflow": "''",
-      "-webkit-appearance": "none"
-    },
+    staticClass: "select-style",
     on: {
       change: [function ($event) {
         var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
@@ -10040,7 +10045,8 @@ var render = function render() {
     return _c("option", {
       key: taxrate.id,
       domProps: {
-        value: taxrate.taxrate
+        value: taxrate.taxrate,
+        selected: taxrate.taxrate == _vm.bill_info.tax_amount
       }
     }, [_vm._v("\n                                                    " + _vm._s(taxrate.name) + "\n                                                ")]);
   })], 2)]), _vm._v(" "), _c("td", {
@@ -29933,7 +29939,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.billInput {\n    width: 100%;\n    border: none;\n    font-size: 12px !important;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.billInput {\n    width: 100%;\n    border: none;\n    font-size: 12px !important;\n}\n.select-style {\n    text-align: right;\n    background-color: white;\n    border: none;\n    text-overflow: '';\n    -webkit-appearance: none;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
