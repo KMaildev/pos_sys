@@ -6199,8 +6199,12 @@ __webpack_require__.r(__webpack_exports__);
     searchDate: function searchDate() {
       this.$inertia.get("/pos_guest_index", this.form);
     },
-    billHistory: function billHistory(id) {
-      this.$inertia.get("/bill_history/".concat(id));
+    billHistory: function billHistory(id, check_out_status) {
+      if (check_out_status === 'paid') {
+        this.$inertia.get("/bill_history/".concat(id));
+      } else {
+        this.$inertia.get("/bill_payment/".concat(id));
+      }
     }
   }
 });
@@ -13825,7 +13829,7 @@ var render = function render() {
     }, [_c("div", {
       on: {
         click: function click($event) {
-          return _vm.billHistory(order_info.id);
+          return _vm.billHistory(order_info.id, order_info.check_out_status);
         }
       }
     }, [_c("div", {

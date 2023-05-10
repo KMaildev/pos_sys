@@ -47,7 +47,6 @@ class GuestController extends Controller
         $order_infos = $query->get();
         // Order Lists End
 
-
         $tables = TableList::all();
         $users = User::all();
 

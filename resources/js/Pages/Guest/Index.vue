@@ -8,14 +8,14 @@
                         <div class="col-md-3">
                             <div class="input-group">
                                 <span class="input-group-text" id="basic-addon1">Start Date</span>
-                                <input type="date" class="form-control date_picker"  v-model="form.start_date">
+                                <input type="date" class="form-control date_picker" v-model="form.start_date">
                             </div>
                         </div>
 
                         <div class="col-md-3">
                             <div class="input-group">
                                 <span class="input-group-text" id="basic-addon1">End Date</span>
-                                <input type="date" class="form-control date_picker"  v-model="form.end_date">
+                                <input type="date" class="form-control date_picker" v-model="form.end_date">
                             </div>
                         </div>
 
@@ -26,8 +26,7 @@
                                 </span>
                                 <select v-model="form.table_name" class="form-control">
                                     <option value="" selected>All Table</option>
-                                    <option :value="table.table_name" v-for="table in tables"
-                                        :key="table.id">
+                                    <option :value="table.table_name" v-for="table in tables" :key="table.id">
                                         {{ table.table_name }}
                                     </option>
                                 </select>
@@ -41,8 +40,7 @@
                                 </span>
                                 <select v-model="form.waiter_name" class="form-control">
                                     <option value="" selected>All</option>
-                                    <option :value="user.name" v-for="user in users"
-                                        :key="user.id">
+                                    <option :value="user.name" v-for="user in users" :key="user.id">
                                         {{ user.name }}
                                     </option>
                                 </select>
@@ -61,7 +59,8 @@
 
             <div class="col-xl-3 col-md-3 col-lg-3" style="height: 300px;" v-for="order_info in order_infos"
                 :key="order_info.id">
-                <div @click="billHistory(order_info.id)">
+                <div @click="billHistory(order_info.id, order_info.check_out_status)">
+
                     <div class="card-header d-flex">
                         <h4 class="card-title mb-0 flex-grow-1 guest_title" style="font-size: 11px; text-align: left;">
                             TBL : {{ order_info.table_lists_table.table_name }}
@@ -178,8 +177,12 @@ export default {
             this.$inertia.get(`/pos_guest_index`, this.form);
         },
 
-        billHistory(id){
-            this.$inertia.get(`/bill_history/${id}`);
+        billHistory(id, check_out_status) {
+            if (check_out_status === 'paid') {
+                this.$inertia.get(`/bill_history/${id}`);
+            }else{
+                this.$inertia.get(`/bill_payment/${id}`);
+            }
         },
     }
 }
