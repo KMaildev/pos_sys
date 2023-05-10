@@ -61,7 +61,6 @@ class BillController extends Controller
         }
         $customers = $customers->get();
 
-
         $payment_methods = PaymentMethod::all();
         $taxrates = Taxrate::all();
         $discounts = Discount::all();

@@ -22,9 +22,13 @@
                 <div class="row py-2">
                     <div class="col-md-2 col-lg-2 col-sm-2 mb-4" v-for="table_list in table_lists" :key="table_list.id">
                         <div v-if="table_list.order_infos_table">
-                            <!-- @click="orderedDetail(table_list.order_infos_table.id)" -->
                             <div class="imgcontainer" @click="showOrderInfos(table_list.id)">
-                                <img :src="'/data/table_unavailable.png'" style="width: 100%; border-radius: 2%;">
+                                <span v-if="table_list.order_infos_table.print_status === 'print'">
+                                    <img :src="'/data/table_print.png'" style="width: 100%; border-radius: 2%;">
+                                </span>
+                                <span v-else>
+                                    <img :src="'/data/table_unavailable.png'" style="width: 100%; border-radius: 2%;">
+                                </span>
 
                                 <div class="top-left text-black">
                                     {{ table_list.order_infos_table.order_user_name ?? '' }}
@@ -49,6 +53,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div v-else>
                             <!-- @click="setTableName(table_list.id, table_list.table_name)" -->
                             <div class="imgcontainer"

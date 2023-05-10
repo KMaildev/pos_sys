@@ -34,6 +34,7 @@ class OrderInfo extends Model
         'change_amount',
         'order_minutes',
         'order_user_name',
+        'print_status',
     ];
 
     public function table_lists_table()

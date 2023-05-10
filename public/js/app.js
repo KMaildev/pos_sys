@@ -5485,6 +5485,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$inertia.get("/bill_payment/".concat(this.order_infos.id, "?custom_search=").concat(this.search_keyword));
     },
     printInvoice: function printInvoice() {
+      this.$inertia.post('/pos_submit_print_bill', this.form);
       printJS({
         printable: "printArea",
         type: "html",
@@ -21025,7 +21026,15 @@ var render = function render() {
           return _vm.showOrderInfos(table_list.id);
         }
       }
-    }, [_c("img", {
+    }, [table_list.order_infos_table.print_status === "print" ? _c("span", [_c("img", {
+      staticStyle: {
+        width: "100%",
+        "border-radius": "2%"
+      },
+      attrs: {
+        src: "/data/table_print.png"
+      }
+    })]) : _c("span", [_c("img", {
       staticStyle: {
         width: "100%",
         "border-radius": "2%"
@@ -21033,7 +21042,7 @@ var render = function render() {
       attrs: {
         src: "/data/table_unavailable.png"
       }
-    }), _vm._v(" "), _c("div", {
+    })]), _vm._v(" "), _c("div", {
       staticClass: "top-left text-black"
     }, [_vm._v("\n                                " + _vm._s((_table_list$order_inf = table_list.order_infos_table.order_user_name) !== null && _table_list$order_inf !== void 0 ? _table_list$order_inf : "") + "\n                            ")]), _vm._v(" "), _c("div", {
       staticClass: "top-right text-black"

@@ -30,6 +30,7 @@ use App\Http\Controllers\Notice\NoticeBoardController;
 use App\Http\Controllers\Order\OrderListController;
 use App\Http\Controllers\Pos\MenuControlController;
 use App\Http\Controllers\PosSys\Bill\BillController;
+use App\Http\Controllers\PosSys\Bill\PrintBillHistoryController;
 use App\Http\Controllers\PosSys\Cart\CartTempController;
 use App\Http\Controllers\PosSys\Guest\GuestController;
 use App\Http\Controllers\PosSys\Main\MainController;
@@ -57,6 +58,7 @@ use App\Http\Controllers\System\StoreController;
 use App\Http\Controllers\System\TaxrateController;
 use App\Http\Controllers\Table\TableListController;
 use App\Http\Controllers\Tempo\TempFixedPurchaseItemController;
+use App\Models\PrintBillHistory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -155,7 +157,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/pos_pin_logout', [PinController::class, 'pinLogout'])->name('pos_pin_logout');
 
     Route::get('/pos_guest_index', [GuestController::class, 'index'])->name('pos_guest_index');
-   
 
     Route::get('/ordered_detail/{id}', [OrderedController::class, 'orderedDetail'])->name('ordered_detail');
     Route::get('/pos_split_bill/{id}', [SplitBillController::class, 'SplitBill'])->name('pos_split_bill');
@@ -183,6 +184,9 @@ Route::middleware('auth')->group(function () {
     
     Route::get('/pos_combine_bill', [BillController::class, 'CombineBill'])->name('pos_combine_bill');
     Route::post('/pos_confirm_combine', [BillController::class, 'ConfirmCombine'])->name('pos_confirm_combine');
+
+    // Print Bill 
+    Route::post('/pos_submit_print_bill', [PrintBillHistoryController::class, 'submitPrintBill'])->name('pos_submit_print_bill');
 
     // Customer Group 
     Route::get('/cashier_customer', [CashierCustomerController::class, 'index'])->name('cashier_customer');

@@ -557,6 +557,9 @@ export default {
         },
 
         printInvoice() {
+
+            this.$inertia.post('/pos_submit_print_bill', this.form);
+
             printJS({
                 printable: "printArea",
                 type: "html",
