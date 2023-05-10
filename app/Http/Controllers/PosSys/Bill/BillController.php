@@ -16,6 +16,7 @@ use App\Models\PrintBillHistory;
 use App\Models\ServiceCharge;
 use App\Models\TableList;
 use App\Models\Taxrate;
+use App\Models\VoidItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
@@ -54,6 +55,10 @@ class BillController extends Controller
             ->latest()
             ->get();
 
+        $void_item_total = VoidItem::where('order_info_id', $order_info_id)
+            ->where('manager_status', 'nothing')
+            ->count();
+
         // Customer 
         $custom_search = $request->custom_search;
         $customers = Customer::query();
@@ -83,6 +88,7 @@ class BillController extends Controller
             'discounts' => $discounts,
             'service_charges' => $service_charges,
             'bill_info' => $bill_info,
+            'void_item_total' => $void_item_total,
         ]);
     }
 

@@ -5390,7 +5390,7 @@ __webpack_require__.r(__webpack_exports__);
     Master: _Layout_Master__WEBPACK_IMPORTED_MODULE_0__["default"],
     BillMenuButton: _components_BillMenuButton_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  props: ['user_name', 'login_time', 'order_infos', 'customers', 'payment_methods', 'taxrates', 'combile_order_infos', 'discounts', 'service_charges', 'bill_info'],
+  props: ['user_name', 'login_time', 'order_infos', 'customers', 'payment_methods', 'taxrates', 'combile_order_infos', 'discounts', 'service_charges', 'bill_info', 'void_item_total'],
   data: function data() {
     return {
       search_keyword: '',
@@ -5470,12 +5470,22 @@ __webpack_require__.r(__webpack_exports__);
       return due_amount;
     },
     submitPayment: function submitPayment() {
-      if (this.form.payment_method_id == '' || this.form.payment_method_id == null) {
-        this.$toastr.e('Pleast Select Pay Type');
-        return false;
+      if (this.void_item_total == 0) {
+        if (this.form.payment_method_id == '' || this.form.payment_method_id == null) {
+          this.$toastr.e('Pleast Select Pay Type');
+          return false;
+        } else {
+          this.$inertia.post('/pos_submit_payment', this.form);
+          this.printInvoice();
+        }
       } else {
-        this.$inertia.post('/pos_submit_payment', this.form);
-        this.printInvoice();
+        swal({
+          title: "Cannot Submit to Payment",
+          text: 'Need to Accept or Reject Void Item.',
+          icon: "warning",
+          buttons: true,
+          dangerMode: true
+        });
       }
     },
     selectCustomer: function selectCustomer(id) {

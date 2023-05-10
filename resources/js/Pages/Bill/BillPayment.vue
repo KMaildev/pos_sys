@@ -415,7 +415,6 @@
                     </div>
                 </div>
             </div>
-
         </master>
     </div>
 </template>
@@ -442,6 +441,7 @@ export default {
         'discounts',
         'service_charges',
         'bill_info',
+        'void_item_total',
     ],
 
 
@@ -540,13 +540,24 @@ export default {
         },
 
         submitPayment() {
-            if (this.form.payment_method_id == '' || this.form.payment_method_id == null) {
-                this.$toastr.e('Pleast Select Pay Type');
-                return false;
+            if (this.void_item_total == 0) {
+                if (this.form.payment_method_id == '' || this.form.payment_method_id == null) {
+                    this.$toastr.e('Pleast Select Pay Type');
+                    return false;
+                } else {
+                    this.$inertia.post('/pos_submit_payment', this.form);
+                    this.printInvoice();
+                }
             } else {
-                this.$inertia.post('/pos_submit_payment', this.form);
-                this.printInvoice();
+                swal({
+                    title: "Cannot Submit to Payment",
+                    text: 'Need to Accept or Reject Void Item.',
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
             }
+
         },
 
         selectCustomer(id) {

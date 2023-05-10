@@ -144,7 +144,6 @@ class VoidController extends Controller
         }
         Helper::updateOrderInfoTotalAmount($void_item->order_info_id);
 
-
         $order_info = OrderInfo::findOrFail($void_item->order_info_id);
         $total_amount = $order_info->total_amount;
         if ($total_amount == 0) {
