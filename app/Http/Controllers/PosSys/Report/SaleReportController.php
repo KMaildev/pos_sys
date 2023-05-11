@@ -169,22 +169,27 @@ class SaleReportController extends Controller
     public function XReport()
     {
 
+        // Order Item 
         $category_arr = [];
-
         $order_items = OrderItem::groupBy('categorie_id')
+            ->where('order_date', '2023-05-11')
             ->get();
         foreach ($order_items as $key => $order_item) {
             $category_arr[] = $order_item->categorie_id;
-        }        
+        }
 
+        // Category with Order Item 
         $categories = Category::with('order_items')
             ->whereHas('order_items', function ($q) use ($category_arr) {
                 $q->whereIn('categorie_id', $category_arr);
             })->get();
 
-        
+        $bill_infos = BillInfo::where('date_only', '2023-05-11')
+            ->get();
+
         return Inertia::render('Report/Xreport', [
             'categories' => $categories,
+            'bill_infos' => $bill_infos,
         ]);
     }
 

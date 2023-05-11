@@ -78,6 +78,7 @@
                                                 </td>
                                             </tr>
                                         </tbody>
+                                        <br>
                                         <tr>
                                             <td>
                                                 Grand-Total
@@ -89,13 +90,53 @@
                                                 {{ TotalGrandAmount() }}
                                             </td>
                                         </tr>
+
+                                        <tr>
+                                            <td>
+                                               Total Discount
+                                            </td>
+                                            <td></td>
+                                            <td style="width: 20%; padding: 3px; text-align: right; font-size: 13px;">
+                                                {{ TotalDiscount() }}
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                               Total Services
+                                            </td>
+                                            <td></td>
+                                            <td style="width: 20%; padding: 3px; text-align: right; font-size: 13px;">
+                                                {{ TotalServices() }}
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                               Total Tax
+                                            </td>
+                                            <td></td>
+                                            <td style="width: 20%; padding: 3px; text-align: right; font-size: 13px;">
+                                                {{ TotalTax() }}
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                               Gross Sales
+                                            </td>
+                                            <td></td>
+                                            <td style="width: 20%; padding: 3px; text-align: right; font-size: 13px;">
+                                                {{ TotalGrossSale() }}
+                                            </td>
+                                        </tr>
                                     </table>
                                 </div>
                             </div>
                         </div>
 
                         <div class="row d-flex justify-content-evenly py-3">
-                            <button @click="printInvoice()" type="button" class="btn btn-dark btn-lg" style="width: 100%;">
+                            <button @click="printReport()" type="button" class="btn btn-dark btn-lg" style="width: 100%;">
                                 <i class="fa fa-print"></i>
                                 Print
                             </button>
@@ -134,7 +175,8 @@ export default {
 
     props: [
         'user_name',
-        'categories'
+        'categories',
+        'bill_infos',
     ],
 
     methods: {
@@ -175,22 +217,63 @@ export default {
             return sum;
         },
 
+        TotalDiscount(){
+            let sum = 0;
+            this.bill_infos.forEach(function (item) {
+                var total_amount = +item.total_amount;
+                var discount = +item.discount;
+                var dis_present_amount = total_amount * discount / 100;
+                var dis_amount = +item.discount_amount;
+                sum += dis_present_amount + dis_amount;
+            });
+            return sum;
+        },
+
+        TotalServices(){
+            let sum = 0;
+            this.bill_infos.forEach(function (item) {
+                var total_amount = +item.total_amount;
+                var service_charges = +item.service_charges;
+                var service_charges_present_amount = total_amount * service_charges / 100;
+                var service_amount = +item.service_charge_amount;
+                sum += service_charges_present_amount + service_amount;
+            });
+            return sum;
+        },
+
+        TotalTax(){
+            let sum = 0;
+            this.bill_infos.forEach(function (item) {
+                var total_amount = +item.total_amount;
+                var tax_amount = +item.tax_amount;
+                sum += total_amount * tax_amount / 100;
+            });
+            return sum;
+        },
+
+        TotalGrossSale(){
+            let total_amount = this.TotalGrandAmount();
+            let total_discount = this.TotalDiscount();
+            let total_services = this.TotalServices();
+            let total_tax = this.TotalTax();
+            let total_gross_sale = total_amount - total_discount + total_services + total_tax;
+            return total_gross_sale;
+        },
+
         searchDate() {
-            this.$inertia.get(`/pos_void_report`, this.form);
+            // this.$inertia.get(`/pos_void_report`, this.form);
         },
 
-        exportExcel(type, fn, dl) {
-            var today = new Date();
-            var date = today.getFullYear() + '_' + (today.getMonth() + 1) + '_' + today.getDate();
-            var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-            var dateTime = date + '_' + time;
-
-            var tableId = document.getElementById('tableId');
-            var wb = XLSX.utils.table_to_book(tableId, { sheet: "sheet1" });
-            return dl ?
-                XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }) :
-                XLSX.writeFile(wb, fn || (`export_excel_${dateTime}.` + (type || 'xlsx')));
-        },
+        printReport(){
+            printJS({
+                printable: "printArea",
+                type: "html",
+                css: [
+                    "https://pos-sys.skgroupmm.com/pos/css/bill.css"
+                ],
+                scanStyles: false
+            });
+        }
     }
 };
 </script>

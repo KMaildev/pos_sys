@@ -38,4 +38,6 @@ class OrderItem extends Model
     {
         return $this->hasMany(IngredientList::class, 'menu_list_id', 'menu_list_id');
     }
+
+
 }

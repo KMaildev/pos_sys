@@ -8492,7 +8492,7 @@ window.Swal = (sweetalert2__WEBPACK_IMPORTED_MODULE_3___default());
       }
     };
   },
-  props: ['user_name', 'categories'],
+  props: ['user_name', 'categories', 'bill_infos'],
   methods: {
     TotalQty: function TotalQty(category_order_item) {
       var sum = 0;
@@ -8526,23 +8526,55 @@ window.Swal = (sweetalert2__WEBPACK_IMPORTED_MODULE_3___default());
       });
       return sum;
     },
-    searchDate: function searchDate() {
-      this.$inertia.get("/pos_void_report", this.form);
-    },
-    exportExcel: function exportExcel(type, fn, dl) {
-      var today = new Date();
-      var date = today.getFullYear() + '_' + (today.getMonth() + 1) + '_' + today.getDate();
-      var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-      var dateTime = date + '_' + time;
-      var tableId = document.getElementById('tableId');
-      var wb = XLSX.utils.table_to_book(tableId, {
-        sheet: "sheet1"
+    TotalDiscount: function TotalDiscount() {
+      var sum = 0;
+      this.bill_infos.forEach(function (item) {
+        var total_amount = +item.total_amount;
+        var discount = +item.discount;
+        var dis_present_amount = total_amount * discount / 100;
+        var dis_amount = +item.discount_amount;
+        sum += dis_present_amount + dis_amount;
       });
-      return dl ? XLSX.write(wb, {
-        bookType: type,
-        bookSST: true,
-        type: 'base64'
-      }) : XLSX.writeFile(wb, fn || "export_excel_".concat(dateTime, ".") + (type || 'xlsx'));
+      return sum;
+    },
+    TotalServices: function TotalServices() {
+      var sum = 0;
+      this.bill_infos.forEach(function (item) {
+        var total_amount = +item.total_amount;
+        var service_charges = +item.service_charges;
+        var service_charges_present_amount = total_amount * service_charges / 100;
+        var service_amount = +item.service_charge_amount;
+        sum += service_charges_present_amount + service_amount;
+      });
+      return sum;
+    },
+    TotalTax: function TotalTax() {
+      var sum = 0;
+      this.bill_infos.forEach(function (item) {
+        var total_amount = +item.total_amount;
+        var tax_amount = +item.tax_amount;
+        sum += total_amount * tax_amount / 100;
+      });
+      return sum;
+    },
+    TotalGrossSale: function TotalGrossSale() {
+      var total_amount = this.TotalGrandAmount();
+      var total_discount = this.TotalDiscount();
+      var total_services = this.TotalServices();
+      var total_tax = this.TotalTax();
+      var total_gross_sale = total_amount - total_discount + total_services + total_tax;
+      return total_gross_sale;
+    },
+    searchDate: function searchDate() {
+      // this.$inertia.get(`/pos_void_report`, this.form);
+    },
+    printReport: function printReport() {
+      printJS({
+        printable: "printArea",
+        type: "html",
+        css: ["https://pos-sys.skgroupmm.com/pos/css/bill.css"],
+        scanStyles: false
+      });
     }
   }
 });
@@ -21045,7 +21077,7 @@ var render = function render() {
         "font-size": "13px"
       }
     }, [_vm._v("\n                                                " + _vm._s(_vm.TotalAmount(category.order_items)) + "\n                                            ")])])], 2);
-  }), _vm._v(" "), _c("tr", [_c("td", [_vm._v("\n                                            Grand-Total\n                                        ")]), _vm._v(" "), _c("td", {
+  }), _vm._v(" "), _c("br"), _vm._v(" "), _c("tr", [_c("td", [_vm._v("\n                                            Grand-Total\n                                        ")]), _vm._v(" "), _c("td", {
     staticStyle: {
       width: "20%",
       padding: "3px",
@@ -21059,7 +21091,35 @@ var render = function render() {
       "text-align": "right",
       "font-size": "13px"
     }
-  }, [_vm._v("\n                                            " + _vm._s(_vm.TotalGrandAmount()) + "\n                                        ")])])], 2)])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                                            " + _vm._s(_vm.TotalGrandAmount()) + "\n                                        ")])]), _vm._v(" "), _c("tr", [_c("td", [_vm._v("\n                                           Total Discount\n                                        ")]), _vm._v(" "), _c("td"), _vm._v(" "), _c("td", {
+    staticStyle: {
+      width: "20%",
+      padding: "3px",
+      "text-align": "right",
+      "font-size": "13px"
+    }
+  }, [_vm._v("\n                                            " + _vm._s(_vm.TotalDiscount()) + "\n                                        ")])]), _vm._v(" "), _c("tr", [_c("td", [_vm._v("\n                                           Total Services\n                                        ")]), _vm._v(" "), _c("td"), _vm._v(" "), _c("td", {
+    staticStyle: {
+      width: "20%",
+      padding: "3px",
+      "text-align": "right",
+      "font-size": "13px"
+    }
+  }, [_vm._v("\n                                            " + _vm._s(_vm.TotalServices()) + "\n                                        ")])]), _vm._v(" "), _c("tr", [_c("td", [_vm._v("\n                                           Total Tax\n                                        ")]), _vm._v(" "), _c("td"), _vm._v(" "), _c("td", {
+    staticStyle: {
+      width: "20%",
+      padding: "3px",
+      "text-align": "right",
+      "font-size": "13px"
+    }
+  }, [_vm._v("\n                                            " + _vm._s(_vm.TotalTax()) + "\n                                        ")])]), _vm._v(" "), _c("tr", [_c("td", [_vm._v("\n                                           Gross Sales\n                                        ")]), _vm._v(" "), _c("td"), _vm._v(" "), _c("td", {
+    staticStyle: {
+      width: "20%",
+      padding: "3px",
+      "text-align": "right",
+      "font-size": "13px"
+    }
+  }, [_vm._v("\n                                            " + _vm._s(_vm.TotalGrossSale()) + "\n                                        ")])])], 2)])])]), _vm._v(" "), _c("div", {
     staticClass: "row d-flex justify-content-evenly py-3"
   }, [_c("button", {
     staticClass: "btn btn-dark btn-lg",
@@ -21071,7 +21131,7 @@ var render = function render() {
     },
     on: {
       click: function click($event) {
-        return _vm.printInvoice();
+        return _vm.printReport();
       }
     }
   }, [_c("i", {
