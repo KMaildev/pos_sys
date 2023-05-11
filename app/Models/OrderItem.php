@@ -26,6 +26,7 @@ class OrderItem extends Model
         'menu_name',
         'order_date',
         'type',
+        'categorie_id',
     ];
 
     public function menu_lists_table()

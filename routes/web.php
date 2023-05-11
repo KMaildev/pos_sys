@@ -203,6 +203,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/pos_discount_report', [SaleReportController::class, 'DiscountReport'])->name('pos_discount_report');
     Route::get('/pos_amp_report', [SaleReportController::class, 'DiscountAMPReport'])->name('pos_amp_report');
     Route::get('/pos_void_report', [SaleReportController::class, 'VoidReport'])->name('pos_void_report');
+    Route::get('/pos_x_report', [SaleReportController::class, 'XReport'])->name('pos_x_report');
+    Route::get('/pos_y_report', [SaleReportController::class, 'YReport'])->name('pos_y_report');
+
 
     // Cashier Report 
     Route::get('/pos_cash_report', [CashierReportController::class, 'CashReport'])->name('pos_cash_report');

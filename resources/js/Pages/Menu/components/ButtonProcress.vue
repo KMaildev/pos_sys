@@ -75,7 +75,6 @@ export default {
     methods: {
         orderConfirm() {
             this.form.guest_no = localStorage.getItem("guest_no");
-
             if (this.form.table_list_id == null || this.form.table_list_id == '' || this.form.table_list_id == undefined) {
                 swal({
                     title: "Please Select Seat",

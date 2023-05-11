@@ -4,6 +4,8 @@ namespace App\Http\Controllers\PosSys\Report;
 
 use App\Http\Controllers\Controller;
 use App\Models\BillInfo;
+use App\Models\Category;
+use App\Models\OrderItem;
 use App\Models\PaymentMethod;
 use App\Models\TableList;
 use App\Models\User;
@@ -145,7 +147,7 @@ class SaleReportController extends Controller
         ]);
     }
 
-    
+
 
 
     public function VoidReport(Request $request)
@@ -160,6 +162,45 @@ class SaleReportController extends Controller
                 ->get();
         }
         return Inertia::render('Report/VoidReport', [
+            'void_items' => $void_items,
+        ]);
+    }
+
+    public function XReport()
+    {
+
+        $category_arr = [];
+
+        $order_items = OrderItem::groupBy('categorie_id')
+            ->get();
+        foreach ($order_items as $key => $order_item) {
+            $category_arr[] = $order_item->categorie_id;
+        }        
+
+        $categories = Category::with('order_items')
+            ->whereHas('order_items', function ($q) use ($category_arr) {
+                $q->whereIn('categorie_id', $category_arr);
+            })->get();
+
+        
+        return Inertia::render('Report/Xreport', [
+            'categories' => $categories,
+        ]);
+    }
+
+
+    public function YReport()
+    {
+        $void_items = VoidItem::with('menu_list_table')
+            ->get();
+
+        if (request('start_date') && request('end_date')) {
+            $void_items = VoidItem::with('menu_list_table')
+                ->where('void_date', '>=', request('start_date'))
+                ->where('void_date', '<=', request('end_date'))
+                ->get();
+        }
+        return Inertia::render('Report/Yreport', [
             'void_items' => $void_items,
         ]);
     }

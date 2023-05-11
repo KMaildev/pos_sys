@@ -60,6 +60,7 @@ class OrderConfirmController extends Controller
         foreach ($items as $key => $value) {
             OrderItem::create([
                 'menu_list_id' => $value['id'],
+                'categorie_id' => $value['categorie_id'],
                 'qty' => $value['qty'],
                 'price' => $value['price'],
                 'remark' => $value['remark'],

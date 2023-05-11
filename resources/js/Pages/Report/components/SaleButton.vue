@@ -28,6 +28,10 @@
             <button class="report_button_sub" @click="VoidReport()" style="background-color: #e8dff5; color: black !important">
                 Void Report
             </button>
+
+            <button class="report_button_sub" @click="XReport()" style="background-color: #e8dff5; color: black !important">
+                X Report
+            </button>
         </div>
     </div>
 </template>
@@ -63,6 +67,14 @@ export default {
         VoidReport() {
             this.$inertia.get(`/pos_void_report`);
         },
+
+        XReport(){
+            this.$inertia.get(`/pos_x_report`);
+        },
+
+        YReport(){
+            this.$inertia.get(`/pos_y_report`);
+        }
     }
 }
 </script>

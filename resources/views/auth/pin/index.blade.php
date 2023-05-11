@@ -135,7 +135,7 @@
                 <div id="clockdate">
                     <div class="clockdate-wrapper">
                         <div id="clock"
-                            style="font-size: 160px;
+                            style="font-size: 150px;
                             color: rgb(239, 237, 237); 
                             font-family: myFirstFont;
                             display: inline-block;
