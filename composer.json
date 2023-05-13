@@ -16,6 +16,7 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
         "laraveldaily/laravel-charts": "^0.1.29",
+        "mike42/escpos-php": "^2.2",
         "proengsoft/laravel-jsvalidation": "^4.7",
         "spatie/laravel-permission": "^5.5",
         "tightenco/ziggy": "^1.5"

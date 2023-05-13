@@ -46,6 +46,7 @@ use App\Http\Controllers\PosSys\Split\SplitBillController;
 use App\Http\Controllers\PosSys\TableList\TableListController as TableListTableListController;
 use App\Http\Controllers\PosSys\Test\TestController;
 use App\Http\Controllers\PosSys\Void\VoidController;
+use App\Http\Controllers\PrintController;
 use App\Http\Controllers\Purchase\FixedPurchaseController;
 use App\Http\Controllers\Purchase\FixedPurchaseItemController;
 use App\Http\Controllers\Purchase\VariablePurchaseController;
@@ -265,3 +266,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('fixed_damage', FixedDamageController::class);
     Route::resource('variable_damage', VariableDamageController::class);
 });
+
+
+Route::get('/print', [PrintController::class, 'printReceipt']);
