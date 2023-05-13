@@ -7,6 +7,7 @@ use App\Http\Requests\StoreMenuList;
 use App\Http\Requests\UpdateMenuList;
 use App\Models\Category;
 use App\Models\MenuList;
+use App\Models\PrintConfig;
 use Illuminate\Http\Request;
 
 class MenuListController extends Controller
@@ -36,7 +37,8 @@ class MenuListController extends Controller
     public function create()
     {
         $categories = Category::orderBy('type', 'ASC')->get();
-        return view('menu_list.create', compact('categories'));
+        $print_configs = PrintConfig::all();
+        return view('menu_list.create', compact('categories', 'print_configs'));
     }
 
     /**
@@ -62,6 +64,11 @@ class MenuListController extends Controller
 
         $category = Category::findOrFail($request->categorie_id);
         $menu->type = $category->type ?? '';
+
+        $print_config = PrintConfig::findOrFail($request->print_config_id);
+        $menu->printer_name = $print_config->printer_name ?? '';
+        $menu->ip_address = $print_config->ip_address ?? '';
+
 
         $mm_short_menu = preg_replace(
             ['/[\p{L}\p{N}@#".]+[\p{L}\p{N}._-]*/u', '/\p{M}/u'],
@@ -95,7 +102,8 @@ class MenuListController extends Controller
     {
         $categories = Category::orderBy('type', 'ASC')->get();
         $menu_list = MenuList::findOrFail($id);
-        return view('menu_list.edit', compact('categories', 'menu_list'));
+        $print_configs = PrintConfig::all();
+        return view('menu_list.edit', compact('categories', 'menu_list', 'print_configs'));
     }
 
     /**
@@ -121,6 +129,10 @@ class MenuListController extends Controller
         $menu->categorie_id = $request->categorie_id;
         $category = Category::findOrFail($request->categorie_id);
         $menu->type = $category->type ?? '';
+
+        $print_config = PrintConfig::findOrFail($request->print_config_id);
+        $menu->printer_name = $print_config->name ?? '';
+        $menu->ip_address = $print_config->ip_address ?? '';
 
         $mm_short_menu = preg_replace(
             ['/[\p{L}\p{N}@#".]+[\p{L}\p{N}._-]*/u', '/\p{M}/u'],

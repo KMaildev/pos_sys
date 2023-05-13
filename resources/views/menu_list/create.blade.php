@@ -72,6 +72,25 @@
                             </div>
                         </div>
 
+
+                        <div class="mb-3 row">
+                            <label for="html5-text-input" class="col-md-3 col-form-label">
+                                Printer
+                            </label>
+                            <div class="col-md-9">
+                                <select name="print_config_id" class="form-control select2" required>
+                                    @foreach ($print_configs as $print_config)
+                                        <option value="{{ $print_config->id }}">
+                                            {{ $print_config->name ?? '' }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('print_config_id')
+                                    <div class="invalid-feedback"> {{ $message }} </div>
+                                @enderror
+                            </div>
+                        </div>
+
                         <div class="mb-3 row">
                             <label for="html5-text-input" class="col-md-3 col-form-label">
                                 Photo

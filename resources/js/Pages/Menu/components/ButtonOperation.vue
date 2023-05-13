@@ -131,7 +131,7 @@ export default {
                     dangerMode: false,
                 }).then((willDelete) => {
                     if (willDelete) {
-                        this.printInvoice();
+                        // this.printInvoice();
                         this.$inertia.post('/order_confirm', this.form);
                         this.orderSuccess();
                         this.clearAllNoAlert();
