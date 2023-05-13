@@ -54,12 +54,12 @@ use App\Http\Controllers\Purchase\VariablePurchaseItemController;
 use App\Http\Controllers\Supplier\SupplierController;
 use App\Http\Controllers\System\DiscountController;
 use App\Http\Controllers\System\PaymentMethodController;
+use App\Http\Controllers\System\PrintConfigController;
 use App\Http\Controllers\System\ServiceChargesController;
 use App\Http\Controllers\System\StoreController;
 use App\Http\Controllers\System\TaxrateController;
 use App\Http\Controllers\Table\TableListController;
 use App\Http\Controllers\Tempo\TempFixedPurchaseItemController;
-use App\Models\PrintBillHistory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -142,6 +142,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('discount', DiscountController::class);
     Route::resource('service_charge', ServiceChargesController::class);
     Route::resource('payment_method', PaymentMethodController::class);
+    Route::resource('print_config', PrintConfigController::class);
+
 
     // POSSYS
     Route::get('/pos_main_page', [MainController::class, 'index'])->name('pos_main_page');

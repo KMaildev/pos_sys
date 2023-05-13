@@ -308,6 +308,13 @@
                 </li>
 
                 <li>
+                    <a href="{{ route('print_config.index') }}">
+                        <i data-feather="check-square"></i>
+                        Printer
+                    </a>
+                </li>
+
+                <li>
                     <a href="{{ route('logout') }}"
                         onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();">

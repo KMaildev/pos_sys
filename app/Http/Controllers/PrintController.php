@@ -28,14 +28,6 @@ class PrintController extends Controller
 
             $printer = new Printer($connector);
             $printer->text("Hello World Printer Test!\n");
-            $printer->text("Hello World Printer Test!\n");
-            $printer->text("Hello World Printer Test!\n");
-            $printer->text("Hello World Printer Test!\n");
-            $printer->text("Hello World Printer Test!\n");
-            $printer->text("Hello World Printer Test!\n");
-            $printer->text("Hello World Printer Test!\n");
-            $printer->text("Hello World Printer Test!\n");
-            $printer->text("Hello World Printer Test!\n");
             $printer->cut();
             $printer->close();
 		} catch (Exception $e) {
