@@ -9,7 +9,7 @@ use Mike42\Escpos\Printer;
 class PrintHelper
 {
 
-    public static function kitchenPrinter($items)
+    public static function kitchenPrinter($items, $user_name, $order_date_time, $table_no)
     {
 
         function buatBaris3Kolom($kolom2, $kolom3)
@@ -70,6 +70,15 @@ class PrintHelper
                 // $connector = new WindowsPrintConnector('smb://' . $host_name . '/' . $printer_name);
 
                 $printer = new Printer($connector);
+                $printer->text('Waiter: ' . $user_name);
+                $printer->feed();
+                $printer->text('Time: ' . $order_date_time);
+                $printer->feed();
+                $printer->text('Table: ' . $table_no);
+                $printer->feed();
+                $printer->text('==============================================');
+                $printer->feed();
+
                 foreach ($items as $key => $value) {
                     if ($value['printer_name'] == $printer_name) {
                         $printer->text(buatBaris3Kolom($value['menu_name'], $value['qty']));

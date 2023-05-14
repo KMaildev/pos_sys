@@ -11,6 +11,7 @@ use App\Helpers\Helper;
 use App\Helpers\PrintHelper;
 use App\Http\Requests\StoreOrderConfirm;
 use App\Models\PrintConfig;
+use App\Models\TableList;
 use Exception;
 use Illuminate\Support\Facades\Redirect;
 use Mike42\Escpos\PrintConnectors\MultiplePrintConnector;
@@ -24,6 +25,7 @@ class OrderConfirmController extends Controller
     public function store(StoreOrderConfirm $request)
     {
         $user_id = auth()->user()->id ?? 0;
+
         $countOrderInfo = OrderInfo::count();
         $order_no = sprintf('%06d', $countOrderInfo + 1);
         $inv_count_no = sprintf('%04d', $countOrderInfo + 1);
@@ -79,8 +81,16 @@ class OrderConfirmController extends Controller
             ]);
         }
 
+
         Helper::updateOrderInfoTotalAmount($order_info_id);
-        PrintHelper::kitchenPrinter($items);
+
+
+        $user_name = auth()->user()->name ?? 0;
+        $order_date_time = $order_info->order_date_time;
+        $table = TableList::findOrFail($order_info->table_list_id);
+        $table_no = $table->table_name;
+
+        PrintHelper::kitchenPrinter($items, $user_name, $order_date_time, $table_no);
         PrintHelper::barPrinter($items);
     }
 }
