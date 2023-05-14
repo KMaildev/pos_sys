@@ -98,7 +98,7 @@ class VoidController extends Controller
             'manager_status' => $void_item->manager_status,
         ];
 
-        Mail::to('kkay0261@gmail.com')->send(new VoidMail($data));
+        // Mail::to('kkay0261@gmail.com')->send(new VoidMail($data));
     }
 
 
