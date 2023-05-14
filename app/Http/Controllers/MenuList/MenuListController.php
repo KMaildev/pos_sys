@@ -66,6 +66,7 @@ class MenuListController extends Controller
         $menu->type = $category->type ?? '';
 
         $print_config = PrintConfig::findOrFail($request->print_config_id);
+        $menu->print_config_id = $request->print_config_id;
         $menu->printer_name = $print_config->printer_name ?? '';
         $menu->ip_address = $print_config->ip_address ?? '';
 
@@ -131,6 +132,7 @@ class MenuListController extends Controller
         $menu->type = $category->type ?? '';
 
         $print_config = PrintConfig::findOrFail($request->print_config_id);
+        $menu->print_config_id = $request->print_config_id;
         $menu->printer_name = $print_config->name ?? '';
         $menu->ip_address = $print_config->ip_address ?? '';
 
