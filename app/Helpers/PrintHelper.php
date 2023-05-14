@@ -11,6 +11,44 @@ class PrintHelper
 
     public static function kitchenPrinter($items)
     {
+
+        function buatBaris3Kolom($kolom2, $kolom3)
+        {
+            // Mengatur lebar setiap kolom (dalam satuan karakter)
+            $lebar_kolom_2 = 20;
+            $lebar_kolom_3 = 20;
+
+            // Melakukan wordwrap(), jadi jika karakter teks melebihi lebar kolom, ditambahkan \n 
+            $kolom2 = wordwrap($kolom2, $lebar_kolom_2, "\n", true);
+            $kolom3 = wordwrap($kolom3, $lebar_kolom_3, "\n", true);
+
+            // Merubah hasil wordwrap menjadi array, kolom yang memiliki 2 index array berarti memiliki 2 baris (kena wordwrap)
+            $kolom2Array = explode("\n", $kolom2);
+            $kolom3Array = explode("\n", $kolom3);
+
+            // Mengambil jumlah baris terbanyak dari kolom-kolom untuk dijadikan titik akhir perulangan
+            $jmlBarisTerbanyak = max(count($kolom2Array), count($kolom3Array));
+
+            // Mendeklarasikan variabel untuk menampung kolom yang sudah di edit
+            $hasilBaris = array();
+
+            // Melakukan perulangan setiap baris (yang dibentuk wordwrap), untuk menggabungkan setiap kolom menjadi 1 baris 
+            for ($i = 0; $i < $jmlBarisTerbanyak; $i++) {
+
+                // memberikan rata kanan pada kolom 3 dan 4 karena akan kita gunakan untuk harga dan total harga
+                $hasilKolom2 = str_pad((isset($kolom2Array[$i]) ? $kolom2Array[$i] : ""), $lebar_kolom_2, " ", STR_PAD_RIGHT);
+
+                $hasilKolom3 = str_pad((isset($kolom3Array[$i]) ? $kolom3Array[$i] : ""), $lebar_kolom_3, " ", STR_PAD_LEFT);
+
+                // Menggabungkan kolom tersebut menjadi 1 baris dan ditampung ke variabel hasil (ada 1 spasi disetiap kolom)
+                $hasilBaris[] = $hasilKolom2 . " " . $hasilKolom3;
+            }
+
+            // Hasil yang berupa array, disatukan kembali menjadi string dan tambahkan \n disetiap barisnya.
+            return implode($hasilBaris) . "\n";
+        }
+
+
         $host_name = gethostname();
         $printer_name = 'POS-80';
         $itemTotal = [];
@@ -34,11 +72,12 @@ class PrintHelper
                 $printer = new Printer($connector);
                 foreach ($items as $key => $value) {
                     if ($value['printer_name'] == $printer_name) {
-                        $printer->text($value['menu_name'] . "\n");
-                        $printer->text($value['qty'] . "\n");
+                        $printer->text(buatBaris3Kolom($value['menu_name'], $value['qty']));
+                        $printer->feed();
                     }
                 }
 
+                $printer->feed(4);
                 $printer->cut();
                 $printer->close();
             } catch (Exception $e) {
@@ -61,7 +100,7 @@ class PrintHelper
             }
         }
         $item_total = array_sum($itemTotal);
-        
+
         if ($item_total != 0) {
             try {
                 $connector = new WindowsPrintConnector($printer_name);
