@@ -91,6 +91,6 @@ class OrderConfirmController extends Controller
         $table_no = $table->table_name;
 
         PrintHelper::kitchenPrinter($items, $user_name, $order_date_time, $table_no);
-        PrintHelper::barPrinter($items);
+        PrintHelper::barPrinter($items, $user_name, $order_date_time, $table_no);
     }
 }
