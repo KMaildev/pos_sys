@@ -81,9 +81,7 @@ class OrderConfirmController extends Controller
             ]);
         }
 
-
         Helper::updateOrderInfoTotalAmount($order_info_id);
-
 
         $user_name = auth()->user()->name ?? 0;
         $order_date_time = $order_info->order_date_time;
@@ -91,6 +89,8 @@ class OrderConfirmController extends Controller
         $table_no = $table->table_name;
 
         PrintHelper::kitchenPrinter($items, $user_name, $order_date_time, $table_no);
-        PrintHelper::barPrinter($items, $user_name, $order_date_time, $table_no);
+        PrintHelper::barPrinter1($items, $user_name, $order_date_time, $table_no);
+        // PrintHelper::barPrinter2($items, $user_name, $order_date_time, $table_no);
+        // PrintHelper::barPrinter3($items, $user_name, $order_date_time, $table_no);
     }
 }

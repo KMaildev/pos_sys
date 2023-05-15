@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\PosSys\Void;
 
 use App\Helpers\Helper;
+use App\Helpers\PrintHelper;
 use App\Http\Controllers\Controller;
 use App\Mail\VoidMail;
+use App\Models\MenuList;
 use App\Models\NoticeBoard;
 use App\Models\OrderInfo;
 use App\Models\OrderItem;
@@ -132,7 +134,6 @@ class VoidController extends Controller
         $void_item_id = $void_item->order_item_id;
         $void_qty = $void_item->qty;
 
-
         $order_item = OrderItem::findOrFail($void_item_id);
         $org_qty = $order_item->qty;
         $total_void = $org_qty - $void_qty;
@@ -142,8 +143,8 @@ class VoidController extends Controller
             $order_item->qty = $total_void;
             $order_item->update();
         }
+       
         Helper::updateOrderInfoTotalAmount($void_item->order_info_id);
-
         $order_info = OrderInfo::findOrFail($void_item->order_info_id);
         $total_amount = $order_info->total_amount;
         if ($total_amount == 0) {
@@ -151,8 +152,17 @@ class VoidController extends Controller
             $order_info->check_out_status = 'paid';
             $order_info->update();
         }
+
+        $menu_list = MenuList::findOrFail($void_item->menu_list_id);
+        $printer_name = $menu_list->printer_name;
+        $item_name = $void_item->menu_name;
+        $item_qty = $void_item->qty;
+        $void_manager_status = 'accept';
+        $table_no = $order_info->table_lists_table->table_name;
+        PrintHelper::voidPrinter($printer_name, $item_name, $item_qty, $void_manager_status, $table_no);
         return redirect()->back()->with('success', 'Your processing has been completed.');
     }
+
 
 
     public function managerVoidItemsReject(Request $request)
@@ -161,6 +171,16 @@ class VoidController extends Controller
         $void_item = VoidItem::findOrFail($id);
         $void_item->manager_status = 'reject';
         $void_item->update();
+
+        $order_info = OrderInfo::findOrFail($void_item->order_info_id);
+        $menu_list = MenuList::findOrFail($void_item->menu_list_id);
+        $printer_name = $menu_list->printer_name;
+        $item_name = $void_item->menu_name;
+        $item_qty = $void_item->qty;
+        $void_manager_status = 'reject';
+        $table_no = $order_info->table_lists_table->table_name;
+        PrintHelper::voidPrinter($printer_name, $item_name, $item_qty, $void_manager_status, $table_no);
+
         return redirect()->back()->with('success', 'Your processing has been completed.');
     }
 

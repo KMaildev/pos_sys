@@ -81,7 +81,7 @@
                             <div class="col-md-9">
                                 <select name="print_config_id" class="form-control select2" required>
                                     @foreach ($print_configs as $print_config)
-                                        <option value="{{ $print_config->id }}">
+                                        <option value="{{ $print_config->id }}" @if ($print_config->id == $menu_list->print_config_id) selected @endif>
                                             {{ $print_config->name ?? '' }}
                                         </option>
                                     @endforeach
