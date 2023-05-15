@@ -10209,7 +10209,11 @@ var render = function render() {
     staticClass: "billInput",
     staticStyle: {
       "text-align": "right",
-      width: "100%"
+      width: "100%",
+      "background-color": "white",
+      border: "none",
+      "text-overflow": "''",
+      "-webkit-appearance": "none"
     },
     attrs: {
       readonly: "",
@@ -10237,6 +10241,13 @@ var render = function render() {
       expression: "form.taxrate"
     }],
     staticClass: "select-style",
+    staticStyle: {
+      "text-align": "right",
+      "background-color": "white",
+      border: "none",
+      "text-overflow": "''",
+      "-webkit-appearance": "none"
+    },
     on: {
       change: [function ($event) {
         var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
@@ -10277,7 +10288,11 @@ var render = function render() {
     staticClass: "billInput",
     staticStyle: {
       "text-align": "right",
-      width: "100%"
+      width: "100%",
+      "background-color": "white",
+      border: "none",
+      "text-overflow": "''",
+      "-webkit-appearance": "none"
     },
     attrs: {
       readonly: "",
@@ -10352,7 +10367,11 @@ var render = function render() {
     staticClass: "billInput",
     staticStyle: {
       "text-align": "right",
-      width: "100%"
+      width: "100%",
+      "background-color": "white",
+      border: "none",
+      "text-overflow": "''",
+      "-webkit-appearance": "none"
     },
     attrs: {
       readonly: "",
@@ -10374,7 +10393,11 @@ var render = function render() {
     }
   }, [_vm._v("\n                                            Disc Amount\n                                        ")]), _vm._v(" "), _c("td", {
     staticStyle: {
-      "text-align": "right"
+      "text-align": "right",
+      "background-color": "white",
+      border: "none",
+      "text-overflow": "''",
+      "-webkit-appearance": "none"
     },
     attrs: {
       colspan: "2"
@@ -10389,7 +10412,11 @@ var render = function render() {
     staticClass: "billInput",
     staticStyle: {
       "text-align": "right",
-      width: "100%"
+      width: "100%",
+      "background-color": "white",
+      border: "none",
+      "text-overflow": "''",
+      "-webkit-appearance": "none"
     },
     attrs: {
       type: "text",
@@ -10472,7 +10499,11 @@ var render = function render() {
     }
   }, [_vm._v("\n                                            Service Charge\n                                        ")]), _vm._v(" "), _c("td", {
     staticStyle: {
-      "text-align": "right"
+      "text-align": "right",
+      "background-color": "white",
+      border: "none",
+      "text-overflow": "''",
+      "-webkit-appearance": "none"
     },
     attrs: {
       colspan: "2"
@@ -10487,7 +10518,11 @@ var render = function render() {
     staticClass: "billInput",
     staticStyle: {
       "text-align": "right",
-      width: "100%"
+      width: "100%",
+      "background-color": "white",
+      border: "none",
+      "text-overflow": "''",
+      "-webkit-appearance": "none"
     },
     attrs: {
       type: "text",
@@ -10508,7 +10543,11 @@ var render = function render() {
   })]), _vm._v(" "), _c("td", {
     staticStyle: {
       "text-align": "right",
-      width: "100%"
+      width: "100%",
+      "background-color": "white",
+      border: "none",
+      "text-overflow": "''",
+      "-webkit-appearance": "none"
     }
   }, [_c("span", {
     staticClass: "billInput"
@@ -10521,7 +10560,11 @@ var render = function render() {
     }
   }, [_vm._v("\n                                            Pay Type\n                                        ")]), _vm._v(" "), _c("td", {
     staticStyle: {
-      "text-align": "right"
+      "text-align": "right",
+      "background-color": "white",
+      border: "none",
+      "text-overflow": "''",
+      "-webkit-appearance": "none"
     },
     attrs: {
       colspan: "2"
@@ -10574,7 +10617,11 @@ var render = function render() {
     staticClass: "billInput",
     staticStyle: {
       "text-align": "right",
-      width: "100%"
+      width: "100%",
+      "background-color": "white",
+      border: "none",
+      "text-overflow": "''",
+      "-webkit-appearance": "none"
     },
     attrs: {
       type: "text"
@@ -10603,7 +10650,11 @@ var render = function render() {
     staticClass: "billInput",
     staticStyle: {
       "text-align": "right",
-      width: "100%"
+      width: "100%",
+      "background-color": "white",
+      border: "none",
+      "text-overflow": "''",
+      "-webkit-appearance": "none"
     },
     attrs: {
       type: "text"
@@ -10635,7 +10686,11 @@ var render = function render() {
     staticClass: "billInput",
     staticStyle: {
       "text-align": "right",
-      width: "100%"
+      width: "100%",
+      "background-color": "white",
+      border: "none",
+      "text-overflow": "''",
+      "-webkit-appearance": "none"
     },
     attrs: {
       type: "text"
@@ -10647,7 +10702,7 @@ var render = function render() {
     staticStyle: {
       "text-align": "center"
     }
-  }, [_vm._v("\n                                    ** Thank You ** "), _c("br"), _vm._v("\n                                    Please visit again\n                                ")])])])]), _vm._v(" "), _c("br"), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                                    ** Thank You ** "), _c("br"), _vm._v("\n                                    Please visit again\n                                ")])]), _vm._v(" "), _c("br"), _c("br"), _c("br"), _c("br")])]), _vm._v(" "), _c("br"), _vm._v(" "), _c("div", {
     staticClass: "row d-flex justify-content-evenly"
   }, [_c("button", {
     staticClass: "btn btn-dark btn-lg",

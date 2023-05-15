@@ -114,7 +114,7 @@
                                             <td colspan="2">
                                                 <input readonly type="text" class="billInput"
                                                     :value="totalAmountCalc(order_infos.order_items_table)"
-                                                    style="text-align: right; width: 100%;">
+                                                    style="text-align: right; width: 100%; background-color: white;  border: none; text-overflow: ''; -webkit-appearance: none;">
                                             </td>
                                         </tr>
 
@@ -125,7 +125,7 @@
                                             </td>
 
                                             <td style="text-align: right;" colspan="2">
-                                                <select class="select-style" v-model="form.taxrate" @change="netAmount()">
+                                                <select class="select-style" v-model="form.taxrate" @change="netAmount()" style="text-align: right; background-color: white;  border: none; text-overflow: ''; -webkit-appearance: none;">
                                                     <option value="0">0%</option>
                                                     <option :value="taxrate.taxrate" v-for="taxrate in taxrates"
                                                         :key="taxrate.id"
@@ -137,7 +137,7 @@
 
                                             <td style="text-align: right; width: 100%;">
                                                 <input readonly type="text" class="billInput" v-model="taxAmount"
-                                                    style="text-align: right; width: 100%;">
+                                                    style="text-align: right; width: 100%; background-color: white;  border: none; text-overflow: ''; -webkit-appearance: none;">
                                             </td>
                                         </tr>
 
@@ -160,7 +160,7 @@
 
                                             <td style="text-align: right; width: 100%;">
                                                 <input readonly type="text" class="billInput" v-model="DiscountAmount"
-                                                    style="text-align: right; width: 100%;">
+                                                    style="text-align: right; width: 100%; background-color: white;  border: none; text-overflow: ''; -webkit-appearance: none;">
                                             </td>
                                         </tr>
 
@@ -170,9 +170,9 @@
                                                 Disc Amount
                                             </td>
 
-                                            <td style="text-align: right;" colspan="2">
+                                            <td style="text-align: right; background-color: white;  border: none; text-overflow: ''; -webkit-appearance: none;" colspan="2">
                                                 <input type="text" class="billInput" value="0"
-                                                    style="text-align: right; width: 100%;" v-model="form.disc_amount"
+                                                    style="text-align: right; width: 100%; background-color: white;  border: none; text-overflow: ''; -webkit-appearance: none;" v-model="form.disc_amount"
                                                     @change="netAmount()">
                                             </td>
 
@@ -214,13 +214,13 @@
                                                 Service Charge
                                             </td>
 
-                                            <td style="text-align: right;" colspan="2">
+                                            <td style="text-align: right; background-color: white;  border: none; text-overflow: ''; -webkit-appearance: none;" colspan="2">
                                                 <input type="text" class="billInput" value="0"
-                                                    style="text-align: right; width: 100%;"
+                                                    style="text-align: right; width: 100%; background-color: white;  border: none; text-overflow: ''; -webkit-appearance: none;"
                                                     v-model="form.service_charge_amount" @change="netAmount()">
                                             </td>
 
-                                            <td style="text-align: right; width: 100%;">
+                                            <td style="text-align: right; width: 100%; background-color: white;  border: none; text-overflow: ''; -webkit-appearance: none;">
                                                 <span class="billInput">
                                                     {{ ServiceChargeAmountToPercent }}%
                                                 </span>
@@ -232,7 +232,7 @@
                                             <td style="font-size: 12px;" colspan="2">
                                                 Pay Type
                                             </td>
-                                            <td style="text-align: right;" colspan="2">
+                                            <td style="text-align: right; background-color: white;  border: none; text-overflow: ''; -webkit-appearance: none;" colspan="2">
                                                 <select class="billInput"
                                                     style="text-align: right; background-color: white;  border: none; text-overflow: ''; -webkit-appearance: none;"
                                                     v-model="form.payment_method_id">
@@ -252,7 +252,7 @@
 
                                             <td colspan="2">
                                                 <input type="text" class="billInput" :value="netAmount()"
-                                                    style="text-align: right; width: 100%;">
+                                                    style="text-align: right; width: 100%; background-color: white;  border: none; text-overflow: ''; -webkit-appearance: none;">
                                             </td>
                                         </tr>
 
@@ -263,7 +263,7 @@
                                             </td>
 
                                             <td colspan="2">
-                                                <input type="text" class="billInput" style="text-align: right; width: 100%;"
+                                                <input type="text" class="billInput" style="text-align: right; width: 100%; background-color: white;  border: none; text-overflow: ''; -webkit-appearance: none;"
                                                     @change="ReceivedAmount()" v-model="form.received_amount">
                                             </td>
                                         </tr>
@@ -275,7 +275,7 @@
                                             </td>
 
                                             <td colspan="2">
-                                                <input type="text" class="billInput" style="text-align: right; width: 100%;"
+                                                <input type="text" class="billInput" style="text-align: right; width: 100%; background-color: white;  border: none; text-overflow: ''; -webkit-appearance: none;"
                                                     :value="ReceivedAmount()">
                                             </td>
                                         </tr>
@@ -286,6 +286,7 @@
                                         Please visit again
                                     </p>
                                 </div>
+                                <br><br><br><br>
                             </div>
                         </div>
                         <br>
