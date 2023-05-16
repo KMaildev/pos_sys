@@ -38,10 +38,6 @@
                                     <option value="Food" @if ($category->type == 'Food') selected @endif>
                                         Food
                                     </option>
-                                    <option value="Bar" @if ($category->type == 'Bar') selected @endif>
-                                        Bar
-                                    </option>
-
                                     <option value="Beverage" @if ($category->type == 'Beverage') selected @endif>
                                         Beverage
                                     </option>

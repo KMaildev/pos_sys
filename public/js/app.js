@@ -10702,7 +10702,7 @@ var render = function render() {
     staticStyle: {
       "text-align": "center"
     }
-  }, [_vm._v("\n                                    ** Thank You ** "), _c("br"), _vm._v("\n                                    Please visit again\n                                ")])]), _vm._v(" "), _c("br"), _c("br"), _c("br"), _c("br")])]), _vm._v(" "), _c("br"), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                                    ** Thank You ** "), _c("br"), _vm._v("\n                                    Please visit again\n                                ")])])])]), _vm._v(" "), _c("br"), _vm._v(" "), _c("div", {
     staticClass: "row d-flex justify-content-evenly"
   }, [_c("button", {
     staticClass: "btn btn-dark btn-lg",

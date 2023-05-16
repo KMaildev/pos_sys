@@ -169,7 +169,7 @@
                                     </div>
                                 </div>
 
-                                <div class="mb-3 row">
+                                <div class="mb-3 row" hidden>
                                     <label for="choices-multiple-default" class="col-md-3 form-label">Role</label>
                                     <div class="col-md-9">
                                         <select id="choices-multiple-default" class="select2 form-select" multiple

@@ -31,7 +31,7 @@
                     </a>
                 </li>
 
-                <li>
+                <li hidden>
                     <a href="{{ route('supplier.index') }}">
                         <i data-feather="user-check"></i>
                         Supplier
@@ -52,6 +52,12 @@
                     </a>
                 </li>
 
+                <li >
+                    <a href="{{ route('ingredients.index') }}">
+                        <i class="fas fa-align-right"></i>
+                        Ingredients
+                    </a>
+                </li>
 
 
                 <li>
@@ -87,14 +93,9 @@
                     </a>
                 </li>
 
-                <li>
-                    <a href="{{ route('ingredients.index') }}">
-                        <i class="fas fa-align-right"></i>
-                        Inventory Items List
-                    </a>
-                </li>
+             
 
-                <li>
+                <li hidden>
                     <a href="{{ route('stock_opening.index') }}">
                         <i class="fas fa-align-right"></i>
                         Stock Opening
@@ -253,14 +254,14 @@
                     </a>
                 </li>
 
-                <li>
+                <li hidden>
                     <a href="{{ route('role.index') }}">
                         <i data-feather="user"></i>
                         Role
                     </a>
                 </li>
 
-                <li>
+                <li hidden>
                     <a href="{{ route('permission.index') }}">
                         <i data-feather="user-x"></i>
                         Permission

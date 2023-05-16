@@ -159,7 +159,7 @@
                             </div>
                         </div>
 
-                        <div class="mb-3 row">
+                        <div class="mb-3 row" hidden>
                             <label for="choices-multiple-default" class="col-md-3 form-label">Role</label>
                             <div class="col-md-9">
                                 <select class="select2 form-select" multiple name="roles[]" data-trigger

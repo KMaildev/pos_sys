@@ -37,9 +37,6 @@
                                     <option value="Food">
                                         Food
                                     </option>
-                                    <option value="Bar">
-                                        Bar
-                                    </option>
                                     <option value="Beverage">
                                         Beverage
                                     </option>

@@ -64,7 +64,6 @@
                                     <th class="text-center">Email</th>
                                     <th class="text-center">Phone</th>
                                     <th class="text-center">Department</th>
-                                    <th class="text-center">Role</th>
                                     <th class="text-center">Actions</th>
                                 </tr>
                             </thead>
@@ -103,9 +102,6 @@
                                             {{ $value->department->title ?? '' }}
                                         </td>
 
-                                        <td>
-                                            Role
-                                        </td>
 
                                         <td style="text-align: center;">
                                             <div class="btn-group">
