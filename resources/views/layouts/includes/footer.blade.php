@@ -71,6 +71,11 @@
     window.onload = function() {
         document.getElementById('vertical-menu-btn').click();
     }
+
+    // window.addEventListener('load', function (){
+    //     document.getElementById('vertical-menu-btn').click();
+    // }, true);
+
 </script>
 @yield('script')
 
