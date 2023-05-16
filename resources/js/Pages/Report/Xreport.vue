@@ -261,7 +261,7 @@ export default {
         },
 
         searchDate() {
-            // this.$inertia.get(`/pos_void_report`, this.form);
+            this.$inertia.get(`/pos_x_report`, this.form);
         },
 
         printReport(){

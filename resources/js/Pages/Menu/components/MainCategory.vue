@@ -17,7 +17,7 @@
                     </span>
                     <center>
                         <img v-if="category.photo" :src="`/images/${category.photo}`"
-                            style="width: 80%; height: auto; object-fit: cover;  object-position: top; background-size: contain;" />
+                            style="width: 80%; height: auto; object-fit: cover;  object-position: top; background-size: contain; display: block; margin-left: auto; margin-right: auto;" />
                     </center>
                 </div>
             </div>

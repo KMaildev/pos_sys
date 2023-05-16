@@ -166,14 +166,16 @@ class SaleReportController extends Controller
         ]);
     }
 
-    public function XReport()
+    public function XReport(Request $request)
     {
 
         // Order Item 
         $category_arr = [];
         $order_items = OrderItem::groupBy('categorie_id')
-            ->where('order_date', '2023-05-11')
+            ->where('order_date', '>=', request('start_date') ?? date('Y-m-d'))
+            ->where('order_date', '<=', request('end_date') ?? date('Y-m-d'))
             ->get();
+
         foreach ($order_items as $key => $order_item) {
             $category_arr[] = $order_item->categorie_id;
         }

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.3
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Feb 11, 2023 at 12:52 PM
--- Server version: 10.4.21-MariaDB
--- PHP Version: 7.4.28
+-- Host: 127.0.0.1
+-- Generation Time: May 16, 2023 at 04:51 AM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 7.4.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `levitatemm`
+-- Database: `pos_sys_cls`
 --
 
 -- --------------------------------------------------------
@@ -29,29 +29,30 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `bill_infos` (
   `id` int(10) UNSIGNED NOT NULL,
-  `order_info_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `customer_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `table_list_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `bill_date_time` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `bill_time` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `payment_type` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `total_amount` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `tax_amount` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `discount` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `service_charges` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `net_amount` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `received_amount` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `cashier_user_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `order_info_id` text DEFAULT NULL,
+  `customer_id` text DEFAULT NULL,
+  `table_list_id` text DEFAULT NULL,
+  `bill_date_time` text DEFAULT NULL,
+  `bill_time` text DEFAULT NULL,
+  `payment_type` text DEFAULT NULL,
+  `total_amount` text DEFAULT NULL,
+  `tax_amount` text DEFAULT NULL,
+  `discount` text DEFAULT NULL,
+  `service_charges` text DEFAULT NULL,
+  `net_amount` text DEFAULT NULL,
+  `received_amount` text DEFAULT NULL,
+  `cashier_user_id` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `change_amount` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `change_amount` text DEFAULT NULL,
   `waiter_user_id` int(11) DEFAULT NULL,
-  `date_only` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `order_no` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `inv_no` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `first_table_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `discount_amount` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `refund_amount` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `date_only` text DEFAULT NULL,
+  `order_no` text DEFAULT NULL,
+  `inv_no` text DEFAULT NULL,
+  `first_table_id` text DEFAULT NULL,
+  `discount_amount` text DEFAULT NULL,
+  `refund_amount` text DEFAULT NULL,
+  `service_charge_amount` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -63,11 +64,11 @@ CREATE TABLE `bill_infos` (
 CREATE TABLE `cart_temps` (
   `id` int(10) UNSIGNED NOT NULL,
   `menu_list_id` int(11) DEFAULT NULL,
-  `qty` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `price` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `remark` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `session_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `user_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `qty` text DEFAULT NULL,
+  `price` text DEFAULT NULL,
+  `remark` text DEFAULT NULL,
+  `session_id` text DEFAULT NULL,
+  `user_id` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -80,12 +81,12 @@ CREATE TABLE `cart_temps` (
 
 CREATE TABLE `categories` (
   `id` int(10) UNSIGNED NOT NULL,
-  `title` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `type` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `title` text DEFAULT NULL,
+  `type` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `background_color` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `photo` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `background_color` text DEFAULT NULL,
+  `photo` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -116,16 +117,16 @@ INSERT INTO `categories` (`id`, `title`, `type`, `created_at`, `updated_at`, `ba
 
 CREATE TABLE `customers` (
   `id` int(10) UNSIGNED NOT NULL,
-  `customer_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `name` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `primary_number` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `additional_number` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `email` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `address` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `date_of_birth` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `join_date` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `remark` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `gender` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `customer_id` text DEFAULT NULL,
+  `name` text DEFAULT NULL,
+  `primary_number` text DEFAULT NULL,
+  `additional_number` text DEFAULT NULL,
+  `email` text DEFAULT NULL,
+  `address` text DEFAULT NULL,
+  `date_of_birth` text DEFAULT NULL,
+  `join_date` text DEFAULT NULL,
+  `remark` text DEFAULT NULL,
+  `gender` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -138,12 +139,12 @@ CREATE TABLE `customers` (
 
 CREATE TABLE `damages` (
   `id` int(10) UNSIGNED NOT NULL,
-  `ingredient_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `damage_date` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `damage_unit` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `cause_of_damage` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `store_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `user_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `ingredient_id` text DEFAULT NULL,
+  `damage_date` text DEFAULT NULL,
+  `damage_unit` text DEFAULT NULL,
+  `cause_of_damage` text DEFAULT NULL,
+  `store_id` text DEFAULT NULL,
+  `user_id` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -156,10 +157,10 @@ CREATE TABLE `damages` (
 
 CREATE TABLE `damage_files` (
   `id` int(10) UNSIGNED NOT NULL,
-  `damage_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `files` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `original_name` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `user_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `damage_id` text DEFAULT NULL,
+  `files` text DEFAULT NULL,
+  `original_name` text DEFAULT NULL,
+  `user_id` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -172,7 +173,7 @@ CREATE TABLE `damage_files` (
 
 CREATE TABLE `departments` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -191,16 +192,44 @@ INSERT INTO `departments` (`id`, `title`, `created_at`, `updated_at`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `discounts`
+--
+
+CREATE TABLE `discounts` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` text DEFAULT NULL,
+  `rate` text DEFAULT NULL,
+  `status` text DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `discounts`
+--
+
+INSERT INTO `discounts` (`id`, `name`, `rate`, `status`, `user_id`, `created_at`, `updated_at`) VALUES
+(1, '0%', '0', 'Active', 1, '2023-02-12 10:40:53', '2023-02-12 10:45:21'),
+(2, '3%', '3', 'Active', 1, '2023-02-12 10:42:02', '2023-02-12 10:42:02'),
+(3, '5%', '5', 'Active', 1, '2023-02-12 10:42:07', '2023-02-12 10:42:07'),
+(4, '7%', '7', 'Active', 1, '2023-02-12 10:42:18', '2023-02-12 10:42:18'),
+(5, '10%', '10', 'Active', 1, '2023-02-12 10:42:25', '2023-02-12 10:42:25'),
+(6, 'AMP', '100', 'Active', 1, '2023-05-08 17:18:15', '2023-05-08 17:18:15');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `failed_jobs`
 --
 
 CREATE TABLE `failed_jobs` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `uuid` varchar(255) NOT NULL,
+  `connection` text NOT NULL,
+  `queue` text NOT NULL,
+  `payload` longtext NOT NULL,
+  `exception` longtext NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -212,9 +241,9 @@ CREATE TABLE `failed_jobs` (
 
 CREATE TABLE `fixed_assets` (
   `id` int(10) UNSIGNED NOT NULL,
-  `inventory_code` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `unit` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `inventory_code` text DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `unit` text DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -229,17 +258,17 @@ CREATE TABLE `fixed_assets` (
 
 CREATE TABLE `fixed_damages` (
   `id` int(10) UNSIGNED NOT NULL,
-  `fixed_asset_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `damage_qty` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `causes_of_accidents` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `compensation` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `voucher_attach` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `remark` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `user_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `date_at` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `fixed_asset_id` text DEFAULT NULL,
+  `damage_qty` text DEFAULT NULL,
+  `causes_of_accidents` text DEFAULT NULL,
+  `compensation` text DEFAULT NULL,
+  `voucher_attach` text DEFAULT NULL,
+  `remark` text DEFAULT NULL,
+  `user_id` text DEFAULT NULL,
+  `date_at` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `damage_date` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `damage_date` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -250,11 +279,11 @@ CREATE TABLE `fixed_damages` (
 
 CREATE TABLE `fixed_damange_files` (
   `id` int(10) UNSIGNED NOT NULL,
-  `attachments` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `original_name` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `user_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `fixed_damage_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `date_at` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `attachments` text DEFAULT NULL,
+  `original_name` text DEFAULT NULL,
+  `user_id` text DEFAULT NULL,
+  `fixed_damage_id` text DEFAULT NULL,
+  `date_at` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -267,16 +296,16 @@ CREATE TABLE `fixed_damange_files` (
 
 CREATE TABLE `fixed_purchases` (
   `id` int(10) UNSIGNED NOT NULL,
-  `supplier_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `invoice_no` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `purchase_date` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `remark` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `total_amount` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `representative_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `user_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `supplier_id` text DEFAULT NULL,
+  `invoice_no` text DEFAULT NULL,
+  `purchase_date` text DEFAULT NULL,
+  `remark` text DEFAULT NULL,
+  `total_amount` text DEFAULT NULL,
+  `representative_id` text DEFAULT NULL,
+  `user_id` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `date_at` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `date_at` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -287,13 +316,13 @@ CREATE TABLE `fixed_purchases` (
 
 CREATE TABLE `fixed_purchase_files` (
   `id` int(10) UNSIGNED NOT NULL,
-  `attachments` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `original_name` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `user_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `attachments` text DEFAULT NULL,
+  `original_name` text DEFAULT NULL,
+  `user_id` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `fixed_purchase_id` int(11) DEFAULT NULL,
-  `date_at` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `date_at` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -304,12 +333,12 @@ CREATE TABLE `fixed_purchase_files` (
 
 CREATE TABLE `fixed_purchase_items` (
   `id` int(10) UNSIGNED NOT NULL,
-  `fixed_purchase_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `fixed_asset_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `qty` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `cost` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `remark` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `user_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `fixed_purchase_id` text DEFAULT NULL,
+  `fixed_asset_id` text DEFAULT NULL,
+  `qty` text DEFAULT NULL,
+  `cost` text DEFAULT NULL,
+  `remark` text DEFAULT NULL,
+  `user_id` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -322,7 +351,7 @@ CREATE TABLE `fixed_purchase_items` (
 
 CREATE TABLE `floors` (
   `id` int(10) UNSIGNED NOT NULL,
-  `title` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `title` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -344,13 +373,13 @@ INSERT INTO `floors` (`id`, `title`, `created_at`, `updated_at`) VALUES
 
 CREATE TABLE `ingredients` (
   `id` int(10) UNSIGNED NOT NULL,
-  `name` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `unit` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` text DEFAULT NULL,
+  `unit` text DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `item_code` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `category` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `item_code` text DEFAULT NULL,
+  `category` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -384,17 +413,17 @@ CREATE TABLE `ingredient_lists` (
   `id` int(10) UNSIGNED NOT NULL,
   `ingredient_id` int(11) DEFAULT NULL,
   `menu_list_id` int(11) DEFAULT NULL,
-  `ingredient_name` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `qty` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `one_kg_price` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `price_kg` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `total_amount` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `user_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `ingredient_name` text DEFAULT NULL,
+  `qty` text DEFAULT NULL,
+  `one_kg_price` text DEFAULT NULL,
+  `price_kg` text DEFAULT NULL,
+  `total_amount` text DEFAULT NULL,
+  `user_id` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `gram_to_kg` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `unit` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `one_kg_per_price` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `gram_to_kg` text DEFAULT NULL,
+  `unit` text DEFAULT NULL,
+  `one_kg_per_price` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -406,9 +435,9 @@ CREATE TABLE `ingredient_lists` (
 CREATE TABLE `login_logs` (
   `id` int(10) UNSIGNED NOT NULL,
   `user_id` int(11) DEFAULT NULL,
-  `login_time` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `login_ip` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `device` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `login_time` text DEFAULT NULL,
+  `login_ip` text DEFAULT NULL,
+  `device` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -418,32 +447,58 @@ CREATE TABLE `login_logs` (
 --
 
 INSERT INTO `login_logs` (`id`, `user_id`, `login_time`, `login_ip`, `device`, `created_at`, `updated_at`) VALUES
-(1, 2, '2023-01-27 14:42:29', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', '2023-01-27 08:12:29', '2023-01-27 08:12:29'),
-(2, 2, '2023-01-27 14:42:52', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/109.0', '2023-01-27 08:12:52', '2023-01-27 08:12:52'),
-(3, 2, '2023-02-07 21:47:06', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', '2023-02-07 15:17:06', '2023-02-07 15:17:06'),
-(4, 2, '2023-02-08 08:08:52', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', '2023-02-08 01:38:52', '2023-02-08 01:38:52'),
-(5, 2, '2023-02-08 11:14:12', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', '2023-02-08 04:44:12', '2023-02-08 04:44:12'),
-(6, 2, '2023-02-08 13:48:12', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', '2023-02-08 07:18:12', '2023-02-08 07:18:12'),
-(7, 2, '2023-02-09 11:38:38', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', '2023-02-09 05:08:38', '2023-02-09 05:08:38'),
-(8, 2, '2023-02-09 19:27:15', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', '2023-02-09 12:57:15', '2023-02-09 12:57:15'),
-(9, 2, '2023-02-09 19:44:57', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', '2023-02-09 13:14:57', '2023-02-09 13:14:57'),
-(10, 2, '2023-02-09 20:07:39', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', '2023-02-09 13:37:39', '2023-02-09 13:37:39'),
-(11, 2, '2023-02-09 20:12:28', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', '2023-02-09 13:42:28', '2023-02-09 13:42:28'),
-(12, 3, '2023-02-09 20:12:58', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', '2023-02-09 13:42:58', '2023-02-09 13:42:58'),
-(13, 2, '2023-02-09 20:28:38', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', '2023-02-09 13:58:38', '2023-02-09 13:58:38'),
-(14, 2, '2023-02-09 20:31:50', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', '2023-02-09 14:01:50', '2023-02-09 14:01:50'),
-(15, 3, '2023-02-09 20:31:59', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', '2023-02-09 14:01:59', '2023-02-09 14:01:59'),
-(16, 1, '2023-02-09 20:42:06', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', '2023-02-09 14:12:06', '2023-02-09 14:12:06'),
-(17, 2, '2023-02-09 20:42:15', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', '2023-02-09 14:12:15', '2023-02-09 14:12:15'),
-(18, 3, '2023-02-09 20:42:21', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', '2023-02-09 14:12:21', '2023-02-09 14:12:21'),
-(19, 3, '2023-02-09 20:44:58', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', '2023-02-09 14:14:58', '2023-02-09 14:14:58'),
-(20, 2, '2023-02-10 13:41:55', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', '2023-02-10 07:11:55', '2023-02-10 07:11:55'),
-(21, 2, '2023-02-10 13:46:42', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', '2023-02-10 07:16:42', '2023-02-10 07:16:42'),
-(22, 2, '2023-02-10 13:48:24', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', '2023-02-10 07:18:24', '2023-02-10 07:18:24'),
-(23, 2, '2023-02-10 13:56:21', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', '2023-02-10 07:26:21', '2023-02-10 07:26:21'),
-(24, 2, '2023-02-10 13:59:45', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', '2023-02-10 07:29:45', '2023-02-10 07:29:45'),
-(25, 1, '2023-02-10 14:04:40', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', '2023-02-10 07:34:40', '2023-02-10 07:34:40'),
-(26, 1, '2023-02-11 18:15:29', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', '2023-02-11 11:45:29', '2023-02-11 11:45:29');
+(1, 2, '2023-04-24 10:52:33', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36', '2023-04-24 04:22:33', '2023-04-24 04:22:33'),
+(2, 1, '2023-04-24 10:53:04', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36', '2023-04-24 04:23:04', '2023-04-24 04:23:04'),
+(3, 1, '2023-04-24 23:15:40', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36', '2023-04-24 16:45:40', '2023-04-24 16:45:40'),
+(4, 1, '2023-04-24 23:33:22', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36', '2023-04-24 17:03:22', '2023-04-24 17:03:22'),
+(5, 1, '2023-05-06 10:55:22', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36', '2023-05-06 04:25:22', '2023-05-06 04:25:22'),
+(6, 1, '2023-05-07 09:25:40', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36', '2023-05-07 02:55:40', '2023-05-07 02:55:40'),
+(7, 1, '2023-05-08 00:04:49', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36', '2023-05-07 17:34:49', '2023-05-07 17:34:49'),
+(8, 1, '2023-05-08 01:29:46', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36', '2023-05-07 18:59:46', '2023-05-07 18:59:46'),
+(9, 1, '2023-05-08 02:08:49', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36', '2023-05-07 19:38:49', '2023-05-07 19:38:49'),
+(10, 1, '2023-05-08 09:48:11', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36', '2023-05-08 03:18:11', '2023-05-08 03:18:11'),
+(11, 1, '2023-05-08 09:51:24', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36', '2023-05-08 03:21:24', '2023-05-08 03:21:24'),
+(12, 1, '2023-05-08 23:43:42', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36', '2023-05-08 17:13:42', '2023-05-08 17:13:42'),
+(13, 1, '2023-05-09 01:03:35', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36', '2023-05-08 18:33:35', '2023-05-08 18:33:35'),
+(14, 5, '2023-05-09 01:22:25', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36', '2023-05-08 18:52:25', '2023-05-08 18:52:25'),
+(15, 1, '2023-05-09 08:21:53', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36', '2023-05-09 01:51:53', '2023-05-09 01:51:53'),
+(16, 5, '2023-05-09 08:25:11', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36', '2023-05-09 01:55:11', '2023-05-09 01:55:11'),
+(17, 1, '2023-05-10 04:43:44', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36', '2023-05-09 22:13:44', '2023-05-09 22:13:44'),
+(18, 1, '2023-05-10 11:41:13', '192.168.43.173', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36', '2023-05-10 05:11:13', '2023-05-10 05:11:13'),
+(19, 1, '2023-05-10 13:15:33', '192.168.100.8', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36', '2023-05-10 06:45:33', '2023-05-10 06:45:33'),
+(20, 1, '2023-05-10 13:16:36', '192.168.100.27', 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Mobile Safari/537.36', '2023-05-10 06:46:36', '2023-05-10 06:46:36'),
+(21, 1, '2023-05-10 13:19:12', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36', '2023-05-10 06:49:12', '2023-05-10 06:49:12'),
+(22, 1, '2023-05-10 08:53:27', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36', '2023-05-10 02:23:27', '2023-05-10 02:23:27'),
+(23, 1, '2023-05-10 08:54:29', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36', '2023-05-10 02:24:29', '2023-05-10 02:24:29'),
+(24, 1, '2023-05-10 12:32:56', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36', '2023-05-10 06:02:56', '2023-05-10 06:02:56'),
+(25, 1, '2023-05-10 23:01:59', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36', '2023-05-10 16:31:59', '2023-05-10 16:31:59'),
+(26, 2, '2023-05-10 23:46:50', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36', '2023-05-10 17:16:50', '2023-05-10 17:16:50'),
+(27, 1, '2023-05-10 23:47:27', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36', '2023-05-10 17:17:27', '2023-05-10 17:17:27'),
+(28, 1, '2023-05-11 01:13:42', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36', '2023-05-10 18:43:42', '2023-05-10 18:43:42'),
+(29, 1, '2023-05-11 18:09:15', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36', '2023-05-11 11:39:15', '2023-05-11 11:39:15'),
+(30, 1, '2023-05-11 18:22:28', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36', '2023-05-11 11:52:28', '2023-05-11 11:52:28'),
+(31, 1, '2023-05-12 08:51:09', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36', '2023-05-12 02:21:09', '2023-05-12 02:21:09'),
+(32, 1, '2023-05-12 08:41:42', '192.168.100.27', 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Mobile Safari/537.36', '2023-05-12 02:11:42', '2023-05-12 02:11:42'),
+(33, 1, '2023-05-12 08:44:12', '192.168.100.8', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36', '2023-05-12 02:14:12', '2023-05-12 02:14:12'),
+(34, 1, '2023-05-13 12:35:41', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36', '2023-05-13 06:05:41', '2023-05-13 06:05:41'),
+(35, 1, '2023-05-13 14:16:52', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36', '2023-05-13 07:46:52', '2023-05-13 07:46:52'),
+(36, 1, '2023-05-13 21:12:14', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36', '2023-05-13 14:42:14', '2023-05-13 14:42:14'),
+(37, 1, '2023-05-13 21:35:51', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36', '2023-05-13 15:05:51', '2023-05-13 15:05:51'),
+(38, 1, '2023-05-13 21:40:41', '192.168.100.8', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36', '2023-05-13 15:10:41', '2023-05-13 15:10:41'),
+(39, 1, '2023-05-13 23:29:33', '192.168.100.8', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36', '2023-05-13 16:59:33', '2023-05-13 16:59:33'),
+(40, 1, '2023-05-14 00:08:50', '192.168.100.56', 'Mozilla/5.0 (iPhone; CPU iPhone OS 15_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/113.0.5672.69 Mobile/15E148 Safari/604.1', '2023-05-13 17:38:50', '2023-05-13 17:38:50'),
+(41, 1, '2023-05-14 10:11:04', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36', '2023-05-14 03:41:04', '2023-05-14 03:41:04'),
+(42, 1, '2023-05-14 13:49:12', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36', '2023-05-14 07:19:12', '2023-05-14 07:19:12'),
+(43, 1, '2023-05-15 08:53:54', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36', '2023-05-15 02:23:54', '2023-05-15 02:23:54'),
+(44, 1, '2023-05-15 08:03:21', '192.168.88.158', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36', '2023-05-15 01:33:21', '2023-05-15 01:33:21'),
+(45, 1, '2023-05-15 11:13:10', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36', '2023-05-15 04:43:10', '2023-05-15 04:43:10'),
+(46, 5, '2023-05-15 11:48:08', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36', '2023-05-15 05:18:08', '2023-05-15 05:18:08'),
+(47, 1, '2023-05-15 11:48:47', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36', '2023-05-15 05:18:47', '2023-05-15 05:18:47'),
+(48, 1, '2023-05-15 12:01:00', '192.168.100.56', 'Mozilla/5.0 (iPhone; CPU iPhone OS 15_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/113.0.5672.69 Mobile/15E148 Safari/604.1', '2023-05-15 05:31:00', '2023-05-15 05:31:00'),
+(49, 1, '2023-05-15 17:12:40', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36', '2023-05-15 10:42:40', '2023-05-15 10:42:40'),
+(50, 1, '2023-05-15 18:40:23', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36', '2023-05-15 12:10:23', '2023-05-15 12:10:23'),
+(51, 1, '2023-05-16 01:42:05', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36', '2023-05-15 19:12:05', '2023-05-15 19:12:05'),
+(52, 1, '2023-05-16 08:15:49', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36', '2023-05-16 01:45:49', '2023-05-16 01:45:49');
 
 -- --------------------------------------------------------
 
@@ -453,8 +508,8 @@ INSERT INTO `login_logs` (`id`, `user_id`, `login_time`, `login_ip`, `device`, `
 
 CREATE TABLE `members_lists` (
   `id` int(10) UNSIGNED NOT NULL,
-  `members_list_file` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `original_name` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `members_list_file` text DEFAULT NULL,
+  `original_name` text DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   `insert_user_id` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -469,108 +524,111 @@ CREATE TABLE `members_lists` (
 
 CREATE TABLE `menu_lists` (
   `id` int(10) UNSIGNED NOT NULL,
-  `menu_name` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `price` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `menu_name` text DEFAULT NULL,
+  `price` text DEFAULT NULL,
   `categorie_id` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `menu_name_mm` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `mm_short_menu` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `photo` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `type` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `menu_name_mm` text DEFAULT NULL,
+  `mm_short_menu` text DEFAULT NULL,
+  `photo` text DEFAULT NULL,
+  `type` text DEFAULT NULL,
+  `printer_name` text DEFAULT NULL,
+  `ip_address` text DEFAULT NULL,
+  `print_config_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `menu_lists`
 --
 
-INSERT INTO `menu_lists` (`id`, `menu_name`, `price`, `categorie_id`, `created_at`, `updated_at`, `menu_name_mm`, `mm_short_menu`, `photo`, `type`) VALUES
-(9, 'Antidote', '5000', 2, '2022-12-28 09:43:20', '2023-01-17 08:15:05', NULL, NULL, NULL, 'Beverage'),
-(10, 'Let\'s Get LVA', '5000', 2, '2022-12-28 09:43:30', '2023-01-17 08:15:18', NULL, NULL, NULL, 'Beverage'),
-(11, 'Blue Rosy Romance', '5000', 2, '2022-12-28 09:43:39', '2023-01-17 08:15:29', NULL, NULL, NULL, 'Beverage'),
-(12, 'Atomic Bomb', '5000', 2, '2022-12-28 09:43:48', '2023-01-17 08:16:13', NULL, NULL, NULL, 'Beverage'),
-(13, 'LVA Rainbow Saphire', '15000', 2, '2022-12-28 09:43:58', '2023-01-17 08:16:02', NULL, NULL, NULL, 'Beverage'),
-(14, 'Black Velvet', '8000', 3, '2022-12-28 09:44:16', '2023-01-17 08:17:57', NULL, NULL, NULL, 'Beverage'),
-(17, 'Radler Melon', '8000', 3, '2022-12-28 09:44:45', '2023-01-17 08:18:08', NULL, NULL, NULL, 'Beverage'),
-(18, 'Pussy Beer', '8000', 3, '2022-12-28 09:44:54', '2023-01-17 08:18:18', NULL, NULL, NULL, 'Beverage'),
-(19, 'Raise Of The Moon', '10800', 4, '2022-12-28 09:45:18', '2023-01-17 08:32:34', NULL, NULL, NULL, 'Beverage'),
-(20, 'Jack Rabbit', '10800', 4, '2022-12-28 09:45:28', '2023-01-17 08:32:51', NULL, NULL, NULL, 'Beverage'),
-(21, 'Spaghetti Mafia', '10800', 4, '2022-12-28 09:45:37', '2023-01-17 08:22:34', NULL, NULL, NULL, 'Beverage'),
-(22, 'Happier Melows', '10800', 4, '2022-12-28 09:45:46', '2023-01-17 09:01:18', NULL, NULL, NULL, 'Beverage'),
-(26, 'Live In Luxury', '10800', 4, '2022-12-28 09:46:27', '2023-01-17 09:01:30', NULL, NULL, NULL, 'Beverage'),
-(28, 'L-G-B-T', '10800', 4, '2022-12-28 09:46:45', '2023-01-17 09:01:49', NULL, NULL, NULL, 'Beverage'),
-(29, 'Royal After Noon', '13000', 5, '2022-12-28 09:46:56', '2023-01-17 09:06:12', NULL, NULL, NULL, 'Beverage'),
-(30, 'The Prince Consort', '13000', 5, '2022-12-28 09:47:05', '2023-01-17 09:06:53', NULL, NULL, NULL, 'Beverage'),
-(32, 'Eastern Rocky Levitate', '13000', 5, '2022-12-28 09:47:25', '2023-01-17 09:07:14', NULL, NULL, NULL, 'Beverage'),
-(33, 'Blossom Bottle', '130000', 5, '2022-12-28 09:47:33', '2023-01-17 09:07:32', NULL, NULL, NULL, 'Beverage'),
-(44, 'Chicken Mushroom cream soup', '6500', 8, '2022-12-28 09:57:59', '2023-02-09 13:14:15', 'ဥရောပစတိုင်ကြက်သားနှင့်မှိုဟင်းရည်', 'ဥရပစတငကကသနငမဟငရည', NULL, 'Food'),
-(45, 'Tom Zaab Soup', '9500', 8, '2022-12-28 09:58:09', '2023-02-09 13:14:21', 'ထိုင်းစတိုင်ဝက်နံရိုးနုချဉ်စပ်ဟင်းရည်', 'ထငစတငဝကနရနခဉစပဟငရည', NULL, 'Food'),
-(46, 'Pea & Ham soup', '7500', 8, '2022-12-28 09:59:09', '2023-01-17 04:40:45', 'ဥရောပစတိုင် ပဲနှင့်ဝက်ပေါင်ခြောက်ဟင်းရည်', NULL, NULL, 'Food'),
-(47, 'Lobster Soup', '7500', 8, '2022-12-28 09:59:20', '2023-02-09 13:14:35', 'ဥရောပစတိုင်ဝက်နံရိုးနုချဉ်စပ်ဟင်းရည်', 'ဥရပစတငဝကနရနခဉစပဟငရည', NULL, 'Food'),
-(48, 'Deep Fry Chicken wing', '7500', 9, '2022-12-28 09:59:41', '2023-01-17 04:44:48', 'ကြက်တောင်ပံအကြွပ်ကြော်', NULL, NULL, 'Food'),
-(49, 'Chicken Satay/Pork Satay', '6500', 9, '2022-12-28 09:59:51', '2023-01-17 04:47:18', 'ကြက်ဝက်ဆာတေး', NULL, NULL, 'Food'),
-(50, 'Grill Chicken Butt', '6500', 9, '2022-12-28 10:00:07', '2023-01-17 04:47:56', 'ကြက်ဆီဘူးကင်', NULL, NULL, 'Food'),
-(52, 'Deep Fried Eel', '8500', 9, '2022-12-28 10:00:25', '2023-01-17 04:49:46', 'ငါးရှည့်ခြောက်စပ်', NULL, NULL, 'Food'),
-(53, 'Corn Creakers with Hot and  Spicy Sauce', '5000', 9, '2022-12-28 10:00:39', '2023-01-17 04:50:35', 'ပြောင်းဖူးကြော်နှင့် မန်ကျည်းသီးဆော့စ်', NULL, NULL, 'Food'),
-(62, 'Crapes with Brandy sauce', '7000', 10, '2022-12-28 10:02:15', '2023-01-17 05:13:29', 'ဘရန်ဒီခေါက်မုန့်', NULL, NULL, 'Food'),
-(63, 'Cream brulee', '8500', 10, '2022-12-28 10:02:25', '2023-01-17 05:15:06', 'ပူတင်း', NULL, NULL, 'Food'),
-(64, 'Deep Fried Ice Cream', '6500', 10, '2022-12-28 10:02:36', '2023-01-17 05:07:38', 'ရေခဲမုန့်ကြော်', NULL, NULL, 'Food'),
-(101, 'Tom Yum Soup', '9500', 8, '2023-01-17 04:41:45', '2023-01-17 04:41:45', 'တုံယမ်းဟင်းရည်', NULL, NULL, 'Food'),
-(102, 'Scotch Egg', '8500', 9, '2023-01-17 04:57:12', '2023-01-17 04:57:12', 'စကောတလန် စတိုင်အသားလုံးကြော်', NULL, NULL, 'Food'),
-(103, 'Deep fried loach with sauces', '6500', 9, '2023-01-17 04:58:02', '2023-01-17 04:58:02', 'ငါးသလဲထိုး အကြွပ်ကြော်', NULL, NULL, 'Food'),
-(104, 'Tea leaf salad with dry mutton', '9500', 9, '2023-01-17 04:58:45', '2023-01-17 04:58:45', 'ဆိတ်လဖက်ထောင်း', NULL, NULL, 'Food'),
-(105, 'Prawn Tempura', '9500', 9, '2023-01-17 05:00:40', '2023-01-17 05:00:40', 'ပုစွန်ပေါင်မုန့်ကပ်ကြော်', NULL, NULL, 'Food'),
-(106, 'Deep fried fish finger', '8500', 9, '2023-01-17 05:01:27', '2023-01-17 05:01:27', 'ငါးအသားချောင်းကြော်', NULL, NULL, 'Food'),
-(107, 'Crispy prawn spring roll', '10500', 9, '2023-01-17 05:02:11', '2023-01-17 05:02:11', 'ပုစွန်ကော်ပြန့်လိပ်အကြွပ်ကြော်', NULL, NULL, 'Food'),
-(108, 'Prawn cake with plum sauce', '9500', 9, '2023-01-17 05:03:12', '2023-01-17 05:03:12', 'ထိုင်းပုစွန်ကြော်နှင့် ဇီးသီးဆော့စ်', NULL, NULL, 'Food'),
-(109, 'Deep fried pork ball Tai style', '8000', 9, '2023-01-17 05:03:53', '2023-01-17 05:03:53', 'ထိုင်းစတိုင်ဝက်သားလုံးကြော်', NULL, NULL, 'Food'),
-(110, 'Varity of chip with 4 dipping sauce', '7500', 9, '2023-01-17 05:04:53', '2023-01-17 05:04:53', 'အားလူးကြော်အစုံနှင့် ဆော့စ် (၄) မျိုး', NULL, NULL, 'Food'),
-(111, 'Banga & Mash', '10500', 9, '2023-01-17 05:05:31', '2023-01-17 05:05:31', 'ဥရောပစတိုင် ဝက်အူချောင်းကြော်နှင့် အာလူးထောင်း', NULL, NULL, 'Food'),
-(112, 'Brownnie', '9500', 10, '2023-01-17 05:16:41', '2023-01-17 05:16:41', 'ဘရောင်နီ', NULL, NULL, 'Food'),
-(113, 'Soft bone pork rib stew', '9500', 11, '2023-01-17 05:36:18', '2023-01-17 05:36:18', 'နံရိုးပေါင်းနှင့် စပါယ်ရှယ်ဆော့စ်', NULL, NULL, 'Food'),
-(114, 'Deep fried fish with red curry sauce', '18000', 11, '2023-01-17 05:38:29', '2023-01-17 05:38:29', 'ငါးအကြွပ်ကြော်နှင့် ယိုးဒယားအနီရောင်ဟင်းအနှစ်', NULL, NULL, 'Food'),
-(115, 'Deep fried soft crab with curry sauce', '8500', 11, '2023-01-17 05:43:15', '2023-01-17 05:43:15', 'ဂဏန်းပျော့်အကြွပ်ကြော်ထိုင်းမဆလာဟင်း', NULL, NULL, 'Food'),
-(116, 'Crispy prok bell with spicy sauce', '8000', 11, '2023-01-17 05:44:15', '2023-01-17 05:44:15', 'ဝက်ခေါက်အကြွပ်ကြော်နှင့် စပါယ်ရှယ်ချဉ်စပ်ဆော့စ်', NULL, NULL, 'Food'),
-(117, 'Mapo tofu', '5500', 11, '2023-01-17 06:24:49', '2023-01-17 06:24:49', 'မာပိုတို့ဟူး', NULL, NULL, 'Food'),
-(118, 'Kung pao chicken', '8000', 11, '2023-01-17 06:25:22', '2023-01-17 06:25:22', 'စီချွမ်စတိုင်ကြက်ကုန်းဘောင်', NULL, NULL, 'Food'),
-(119, 'Sweet & sour pork ball', '8500', 11, '2023-01-17 06:25:58', '2023-01-17 06:25:58', 'ဝက်သားလုံးချိုချဉ်', NULL, NULL, 'Food'),
-(120, 'Mala chicken', '7500', 11, '2023-01-17 06:26:35', '2023-01-17 06:26:35', 'စီချွမ်စတိုင် မာလာကြက်သား', NULL, NULL, 'Food'),
-(121, 'Green curyy fried rice', '7500', 12, '2023-01-17 06:30:12', '2023-01-17 06:30:12', 'ထိုင်းစတိုင် အစိမ်းရောင်ဟင်းနှင့်ထမင်းကြော်', NULL, NULL, 'Food'),
-(122, 'Pineapple fried rice', '8500', 12, '2023-01-17 06:30:48', '2023-01-17 06:30:48', 'နာနတ်သီးထမင်းကြော်', NULL, NULL, 'Food'),
-(123, 'Pad thai', '7500', 12, '2023-01-17 06:31:18', '2023-01-17 06:31:18', 'ယိုးဒယားဖက်ထိုင်းကြော်', NULL, NULL, 'Food'),
-(124, 'Big Mac', '15000', 13, '2023-01-17 06:34:21', '2023-01-17 06:34:21', 'အမဲသားနှစ်ထပ်ဘာဂါ', NULL, NULL, 'Food'),
-(125, 'Chicken burger', '9000', 13, '2023-01-17 06:34:48', '2023-01-17 06:34:48', 'ကြက်သားဘာဂါ', NULL, NULL, 'Food'),
-(126, 'Calzone pizza', '11000', 13, '2023-01-17 06:35:21', '2023-01-19 15:16:45', 'Calzone ပီဇာ', 'Calzone ပဇ', NULL, 'Food'),
-(127, 'Hawaiian pizza', '12000', 13, '2023-01-17 06:35:42', '2023-01-17 06:35:42', 'Hawaiian ပီဇာ', NULL, NULL, 'Food'),
-(128, 'BBQ pork rib', '18000', 14, '2023-01-17 06:38:32', '2023-01-17 06:38:32', 'ဝက်နံရိုးကင်', NULL, NULL, 'Food'),
-(129, 'Fish & chips', '9500', 14, '2023-01-17 06:39:08', '2023-01-17 06:39:08', 'ငါးအသားပြားနှင့် အာလူးချောင်းကြော်', NULL, NULL, 'Food'),
-(130, 'Beef steak with 3 choices sauce', '18000', 14, '2023-01-17 06:39:47', '2023-01-17 06:39:47', 'အမဲသားကင်နှင့် ဆော့စ် (၃) မျိုး', NULL, NULL, 'Food'),
-(131, 'Mix grill', '27000', 14, '2023-01-17 06:40:20', '2023-01-17 06:40:20', 'ဥရောပစတိုင်အသားစုံကင်', NULL, NULL, 'Food'),
-(132, 'Pork steak with season veg & sauce', '15000', 14, '2023-01-17 06:41:13', '2023-01-17 06:41:13', 'ဥရောပစတိုင်ဝက်သားကင်', NULL, NULL, 'Food'),
-(133, 'Surf & turf', '15000', 14, '2023-01-17 06:42:33', '2023-01-17 06:42:33', 'ပုစွန်အမဲသား အာလူးကိတ်', NULL, NULL, 'Food'),
-(134, 'Chicken parmigiana', '15000', 14, '2023-01-17 06:43:08', '2023-01-17 06:43:08', 'ကြက်သားပြားပါမဆန်ချိစ် အကြော်', NULL, NULL, 'Food'),
-(135, 'Chicken Shawarma', '7500', 14, '2023-01-17 06:43:39', '2023-01-17 06:43:39', 'ကြက်သား Shawarma', NULL, NULL, 'Food'),
-(136, 'Japanese style chicken', '8500', 15, '2023-01-17 07:41:28', '2023-01-17 07:41:28', 'ဂျပန်စတိုင်ကြက်သားသုပ်', NULL, NULL, 'Food'),
-(137, 'Grill pork neck salad', '9500', 15, '2023-01-17 07:42:10', '2023-01-17 07:42:10', 'ဝက်ဂုတ်သားကင်သုပ်', NULL, NULL, 'Food'),
-(138, 'Yam talay seafood', '9500', 15, '2023-01-17 07:42:44', '2023-02-09 13:14:02', 'ထိုင်းစတိုင်ပင်လယ်စာသုပ်', 'ထငစတငပငလယစသပ', NULL, 'Food'),
-(139, 'laab muu', '6500', 15, '2023-01-17 07:43:18', '2023-01-17 07:43:18', 'ထိုင်းစတိုင် ဝက်သားစင်းကောသုပ်', NULL, NULL, 'Food'),
-(140, 'Prawn cocktail', '10500', 15, '2023-01-17 07:43:56', '2023-01-17 07:43:56', 'ပုစွန်ကော့တေး', NULL, NULL, 'Food'),
-(141, 'Tai style fruit salad', '5000', 15, '2023-01-17 07:44:41', '2023-01-17 07:44:41', 'ထိုင်းစတိုင်သစ်သီးစုံသုပ်', NULL, NULL, 'Food'),
-(142, 'Papaya salad', '6500', 15, '2023-01-17 07:45:23', '2023-01-17 07:45:23', 'ယိုးဒယားသင်္ဘောသီးထောင်း', NULL, NULL, 'Food'),
-(143, 'Caprese salad', '8500', 15, '2023-01-17 07:46:07', '2023-01-17 07:46:07', 'ခရမ်းချဉ်သီးနှင့် chees salad', NULL, NULL, 'Food'),
-(144, 'Raw prawn salad', '9000', 15, '2023-01-17 07:46:56', '2023-01-17 07:46:56', 'ပုစွန်အစိမ်းသုပ်', NULL, NULL, 'Food'),
-(145, 'Pork intestine salad', '8500', 15, '2023-01-17 07:47:28', '2023-01-19 15:16:28', 'ဝက်အူအစုံသုပ်', 'ဝကအအစသပ', NULL, 'Food'),
-(146, 'Stir fried beef with asian demiglace', '8500', 16, '2023-01-17 07:49:41', '2023-01-17 07:49:41', 'ဥရောပအာရှအရောအမဲသားပန်းပွင့်စိမ်းကြော်', NULL, NULL, 'Food'),
-(147, 'Stir fried pork liver with chinese chive', '8000', 16, '2023-01-17 07:50:26', '2023-01-17 07:50:26', 'ဝက်အသည်းနှင့်ကုဆိုင်ကြော်', NULL, NULL, 'Food'),
-(148, 'Stir fried asparagus with gingko nuts', '11000', 16, '2023-01-17 07:51:32', '2023-01-17 07:51:32', 'ကညွတ်ပုစွန်နှင့် နှစ်တစ်ရာသီးကြော်', NULL, NULL, 'Food'),
-(149, 'Tofu stew', '6000', 16, '2023-01-17 07:52:19', '2023-01-17 07:52:19', 'တို့ဟူးစတူး', NULL, NULL, 'Food'),
-(150, 'Stir fried morning glory with mushroom', '4500', 16, '2023-01-17 07:52:53', '2023-01-17 07:52:53', 'မှိုကန်စွန်းကြော်', NULL, NULL, 'Food'),
-(151, 'Crazy Monkey', '9000', 1, '2023-01-17 08:13:05', '2023-02-09 13:13:09', 'Crazy Monkey', 'Crazy Monkey', NULL, 'Beverage'),
-(152, 'Passionate Kiss', '9000', 1, '2023-01-17 08:13:21', '2023-02-09 13:13:21', NULL, '', NULL, 'Beverage'),
-(153, 'LVA Sangaria', '9000', 1, '2023-01-17 08:13:34', '2023-02-09 13:13:26', NULL, '', NULL, 'Beverage'),
-(154, 'Mad Monday', '9000', 1, '2023-01-17 08:13:54', '2023-01-17 08:13:54', NULL, NULL, NULL, 'Beverage'),
-(155, 'Yin Yang (Lvaitation)', '9000', 1, '2023-01-17 08:14:12', '2023-01-17 08:14:12', NULL, NULL, NULL, 'Beverage'),
-(156, 'Grill Chicken Butt', '2000', 1, '2023-01-19 15:16:05', '2023-01-19 15:16:05', 'ကြက်ဆီဘူးကင်', 'ကကဆဘကင', NULL, 'Beverage');
+INSERT INTO `menu_lists` (`id`, `menu_name`, `price`, `categorie_id`, `created_at`, `updated_at`, `menu_name_mm`, `mm_short_menu`, `photo`, `type`, `printer_name`, `ip_address`, `print_config_id`) VALUES
+(9, 'Antidote', '5000', 2, '2022-12-28 09:43:20', '2023-01-17 08:15:05', NULL, NULL, NULL, 'Beverage', 'EPSONTMT81III', NULL, 1),
+(10, 'Let\'s Get LVA', '5000', 2, '2022-12-28 09:43:30', '2023-01-17 08:15:18', NULL, NULL, NULL, 'Beverage', 'EPSONTMT81III', NULL, 1),
+(11, 'Blue Rosy Romance', '5000', 2, '2022-12-28 09:43:39', '2023-01-17 08:15:29', NULL, NULL, NULL, 'Beverage', 'POS-80', NULL, 1),
+(12, 'Atomic Bomb', '5000', 2, '2022-12-28 09:43:48', '2023-01-17 08:16:13', NULL, NULL, NULL, 'Beverage', 'POS-80', NULL, 1),
+(13, 'LVA Rainbow Saphire', '15000', 2, '2022-12-28 09:43:58', '2023-01-17 08:16:02', NULL, NULL, NULL, 'Beverage', 'POS-80', NULL, 1),
+(14, 'Black Velvet', '8000', 3, '2022-12-28 09:44:16', '2023-01-17 08:17:57', NULL, NULL, NULL, 'Beverage', 'POS-80', NULL, 1),
+(17, 'Radler Melon', '8000', 3, '2022-12-28 09:44:45', '2023-01-17 08:18:08', NULL, NULL, NULL, 'Beverage', 'POS-80', NULL, 1),
+(18, 'Pussy Beer', '8000', 3, '2022-12-28 09:44:54', '2023-01-17 08:18:18', NULL, NULL, NULL, 'Beverage', 'POS-80', NULL, 1),
+(19, 'Raise Of The Moon', '10800', 4, '2022-12-28 09:45:18', '2023-01-17 08:32:34', NULL, NULL, NULL, 'Beverage', 'POS-80', NULL, 1),
+(20, 'Jack Rabbit', '10800', 4, '2022-12-28 09:45:28', '2023-01-17 08:32:51', NULL, NULL, NULL, 'Beverage', 'POS-80', NULL, 1),
+(21, 'Spaghetti Mafia', '10800', 4, '2022-12-28 09:45:37', '2023-01-17 08:22:34', NULL, NULL, NULL, 'Beverage', 'POS-80', NULL, 1),
+(22, 'Happier Melows', '10800', 4, '2022-12-28 09:45:46', '2023-01-17 09:01:18', NULL, NULL, NULL, 'Beverage', 'POS-80', NULL, 1),
+(26, 'Live In Luxury', '10800', 4, '2022-12-28 09:46:27', '2023-01-17 09:01:30', NULL, NULL, NULL, 'Beverage', 'POS-80', NULL, 1),
+(28, 'L-G-B-T', '10800', 4, '2022-12-28 09:46:45', '2023-01-17 09:01:49', NULL, NULL, NULL, 'Beverage', 'POS-80', NULL, 1),
+(29, 'Royal After Noon', '13000', 5, '2022-12-28 09:46:56', '2023-01-17 09:06:12', NULL, NULL, NULL, 'Beverage', 'POS-80', NULL, 1),
+(30, 'The Prince Consort', '13000', 5, '2022-12-28 09:47:05', '2023-01-17 09:06:53', NULL, NULL, NULL, 'Beverage', 'POS-80', NULL, 1),
+(32, 'Eastern Rocky Levitate', '13000', 5, '2022-12-28 09:47:25', '2023-01-17 09:07:14', NULL, NULL, NULL, 'Beverage', 'POS-80', NULL, 1),
+(33, 'Blossom Bottle', '130000', 5, '2022-12-28 09:47:33', '2023-01-17 09:07:32', NULL, NULL, NULL, 'Beverage', 'POS-80', NULL, 1),
+(44, 'Chicken Mushroom cream soup', '6500', 8, '2022-12-28 09:57:59', '2023-05-15 12:11:17', 'ဥရောပစတိုင်ကြက်သားနှင့်မှိုဟင်းရည်', 'ဥရပစတငကကသနငမဟငရည', NULL, 'Food', 'EPSONTMT81III', '192.168.100.8', 2),
+(45, 'Tom Zaab Soup', '9500', 8, '2022-12-28 09:58:09', '2023-05-15 12:14:51', 'ထိုင်းစတိုင်ဝက်နံရိုးနုချဉ်စပ်ဟင်းရည်', 'ထငစတငဝကနရနခဉစပဟငရည', NULL, 'Food', 'EPSONTMT81III', '192.168.100.8', 2),
+(46, 'Pea & Ham soup', '7500', 8, '2022-12-28 09:59:09', '2023-05-15 12:15:26', 'ဥရောပစတိုင် ပဲနှင့်ဝက်ပေါင်ခြောက်ဟင်းရည်', 'ဥရပစတင ပနငဝကပငခကဟငရည', NULL, 'Food', 'EPSONTMT81III', '192.168.100.8', 2),
+(47, 'Lobster Soup', '7500', 8, '2022-12-28 09:59:20', '2023-02-09 13:14:35', 'ဥရောပစတိုင်ဝက်နံရိုးနုချဉ်စပ်ဟင်းရည်', 'ဥရပစတငဝကနရနခဉစပဟငရည', NULL, 'Food', 'EPSONTMT81III', NULL, 1),
+(48, 'Deep Fry Chicken wing', '7500', 9, '2022-12-28 09:59:41', '2023-01-17 04:44:48', 'ကြက်တောင်ပံအကြွပ်ကြော်', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(49, 'Chicken Satay/Pork Satay', '6500', 9, '2022-12-28 09:59:51', '2023-01-17 04:47:18', 'ကြက်ဝက်ဆာတေး', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(50, 'Grill Chicken Butt', '6500', 9, '2022-12-28 10:00:07', '2023-01-17 04:47:56', 'ကြက်ဆီဘူးကင်', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(52, 'Deep Fried Eel', '8500', 9, '2022-12-28 10:00:25', '2023-01-17 04:49:46', 'ငါးရှည့်ခြောက်စပ်', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(53, 'Corn Creakers with Hot and  Spicy Sauce', '5000', 9, '2022-12-28 10:00:39', '2023-01-17 04:50:35', 'ပြောင်းဖူးကြော်နှင့် မန်ကျည်းသီးဆော့စ်', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(62, 'Crapes with Brandy sauce', '7000', 10, '2022-12-28 10:02:15', '2023-01-17 05:13:29', 'ဘရန်ဒီခေါက်မုန့်', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(63, 'Cream brulee', '8500', 10, '2022-12-28 10:02:25', '2023-01-17 05:15:06', 'ပူတင်း', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(64, 'Deep Fried Ice Cream', '6500', 10, '2022-12-28 10:02:36', '2023-01-17 05:07:38', 'ရေခဲမုန့်ကြော်', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(101, 'Tom Yum Soup', '9500', 8, '2023-01-17 04:41:45', '2023-01-17 04:41:45', 'တုံယမ်းဟင်းရည်', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(102, 'Scotch Egg', '8500', 9, '2023-01-17 04:57:12', '2023-01-17 04:57:12', 'စကောတလန် စတိုင်အသားလုံးကြော်', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(103, 'Deep fried loach with sauces', '6500', 9, '2023-01-17 04:58:02', '2023-01-17 04:58:02', 'ငါးသလဲထိုး အကြွပ်ကြော်', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(104, 'Tea leaf salad with dry mutton', '9500', 9, '2023-01-17 04:58:45', '2023-01-17 04:58:45', 'ဆိတ်လဖက်ထောင်း', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(105, 'Prawn Tempura', '9500', 9, '2023-01-17 05:00:40', '2023-01-17 05:00:40', 'ပုစွန်ပေါင်မုန့်ကပ်ကြော်', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(106, 'Deep fried fish finger', '8500', 9, '2023-01-17 05:01:27', '2023-01-17 05:01:27', 'ငါးအသားချောင်းကြော်', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(107, 'Crispy prawn spring roll', '10500', 9, '2023-01-17 05:02:11', '2023-01-17 05:02:11', 'ပုစွန်ကော်ပြန့်လိပ်အကြွပ်ကြော်', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(108, 'Prawn cake with plum sauce', '9500', 9, '2023-01-17 05:03:12', '2023-01-17 05:03:12', 'ထိုင်းပုစွန်ကြော်နှင့် ဇီးသီးဆော့စ်', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(109, 'Deep fried pork ball Tai style', '8000', 9, '2023-01-17 05:03:53', '2023-01-17 05:03:53', 'ထိုင်းစတိုင်ဝက်သားလုံးကြော်', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(110, 'Varity of chip with 4 dipping sauce', '7500', 9, '2023-01-17 05:04:53', '2023-01-17 05:04:53', 'အားလူးကြော်အစုံနှင့် ဆော့စ် (၄) မျိုး', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(111, 'Banga & Mash', '10500', 9, '2023-01-17 05:05:31', '2023-01-17 05:05:31', 'ဥရောပစတိုင် ဝက်အူချောင်းကြော်နှင့် အာလူးထောင်း', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(112, 'Brownnie', '9500', 10, '2023-01-17 05:16:41', '2023-01-17 05:16:41', 'ဘရောင်နီ', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(113, 'Soft bone pork rib stew', '9500', 11, '2023-01-17 05:36:18', '2023-01-17 05:36:18', 'နံရိုးပေါင်းနှင့် စပါယ်ရှယ်ဆော့စ်', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(114, 'Deep fried fish with red curry sauce', '18000', 11, '2023-01-17 05:38:29', '2023-01-17 05:38:29', 'ငါးအကြွပ်ကြော်နှင့် ယိုးဒယားအနီရောင်ဟင်းအနှစ်', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(115, 'Deep fried soft crab with curry sauce', '8500', 11, '2023-01-17 05:43:15', '2023-01-17 05:43:15', 'ဂဏန်းပျော့်အကြွပ်ကြော်ထိုင်းမဆလာဟင်း', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(116, 'Crispy prok bell with spicy sauce', '8000', 11, '2023-01-17 05:44:15', '2023-01-17 05:44:15', 'ဝက်ခေါက်အကြွပ်ကြော်နှင့် စပါယ်ရှယ်ချဉ်စပ်ဆော့စ်', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(117, 'Mapo tofu', '5500', 11, '2023-01-17 06:24:49', '2023-01-17 06:24:49', 'မာပိုတို့ဟူး', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(118, 'Kung pao chicken', '8000', 11, '2023-01-17 06:25:22', '2023-01-17 06:25:22', 'စီချွမ်စတိုင်ကြက်ကုန်းဘောင်', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(119, 'Sweet & sour pork ball', '8500', 11, '2023-01-17 06:25:58', '2023-01-17 06:25:58', 'ဝက်သားလုံးချိုချဉ်', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(120, 'Mala chicken', '7500', 11, '2023-01-17 06:26:35', '2023-01-17 06:26:35', 'စီချွမ်စတိုင် မာလာကြက်သား', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(121, 'Green curyy fried rice', '7500', 12, '2023-01-17 06:30:12', '2023-01-17 06:30:12', 'ထိုင်းစတိုင် အစိမ်းရောင်ဟင်းနှင့်ထမင်းကြော်', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(122, 'Pineapple fried rice', '8500', 12, '2023-01-17 06:30:48', '2023-01-17 06:30:48', 'နာနတ်သီးထမင်းကြော်', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(123, 'Pad thai', '7500', 12, '2023-01-17 06:31:18', '2023-01-17 06:31:18', 'ယိုးဒယားဖက်ထိုင်းကြော်', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(124, 'Big Mac', '15000', 13, '2023-01-17 06:34:21', '2023-01-17 06:34:21', 'အမဲသားနှစ်ထပ်ဘာဂါ', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(125, 'Chicken burger', '9000', 13, '2023-01-17 06:34:48', '2023-01-17 06:34:48', 'ကြက်သားဘာဂါ', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(126, 'Calzone pizza', '11000', 13, '2023-01-17 06:35:21', '2023-01-19 15:16:45', 'Calzone ပီဇာ', 'Calzone ပဇ', NULL, 'Food', 'POS-80', NULL, 1),
+(127, 'Hawaiian pizza', '12000', 13, '2023-01-17 06:35:42', '2023-01-17 06:35:42', 'Hawaiian ပီဇာ', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(128, 'BBQ pork rib', '18000', 14, '2023-01-17 06:38:32', '2023-01-17 06:38:32', 'ဝက်နံရိုးကင်', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(129, 'Fish & chips', '9500', 14, '2023-01-17 06:39:08', '2023-01-17 06:39:08', 'ငါးအသားပြားနှင့် အာလူးချောင်းကြော်', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(130, 'Beef steak with 3 choices sauce', '18000', 14, '2023-01-17 06:39:47', '2023-01-17 06:39:47', 'အမဲသားကင်နှင့် ဆော့စ် (၃) မျိုး', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(131, 'Mix grill', '27000', 14, '2023-01-17 06:40:20', '2023-01-17 06:40:20', 'ဥရောပစတိုင်အသားစုံကင်', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(132, 'Pork steak with season veg & sauce', '15000', 14, '2023-01-17 06:41:13', '2023-01-17 06:41:13', 'ဥရောပစတိုင်ဝက်သားကင်', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(133, 'Surf & turf', '15000', 14, '2023-01-17 06:42:33', '2023-01-17 06:42:33', 'ပုစွန်အမဲသား အာလူးကိတ်', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(134, 'Chicken parmigiana', '15000', 14, '2023-01-17 06:43:08', '2023-01-17 06:43:08', 'ကြက်သားပြားပါမဆန်ချိစ် အကြော်', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(135, 'Chicken Shawarma', '7500', 14, '2023-01-17 06:43:39', '2023-01-17 06:43:39', 'ကြက်သား Shawarma', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(136, 'Japanese style chicken', '8500', 15, '2023-01-17 07:41:28', '2023-01-17 07:41:28', 'ဂျပန်စတိုင်ကြက်သားသုပ်', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(137, 'Grill pork neck salad', '9500', 15, '2023-01-17 07:42:10', '2023-01-17 07:42:10', 'ဝက်ဂုတ်သားကင်သုပ်', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(138, 'Yam talay seafood', '9500', 15, '2023-01-17 07:42:44', '2023-02-09 13:14:02', 'ထိုင်းစတိုင်ပင်လယ်စာသုပ်', 'ထငစတငပငလယစသပ', NULL, 'Food', 'POS-80', NULL, 1),
+(139, 'laab muu', '6500', 15, '2023-01-17 07:43:18', '2023-01-17 07:43:18', 'ထိုင်းစတိုင် ဝက်သားစင်းကောသုပ်', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(140, 'Prawn cocktail', '10500', 15, '2023-01-17 07:43:56', '2023-01-17 07:43:56', 'ပုစွန်ကော့တေး', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(141, 'Tai style fruit salad', '5000', 15, '2023-01-17 07:44:41', '2023-01-17 07:44:41', 'ထိုင်းစတိုင်သစ်သီးစုံသုပ်', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(142, 'Papaya salad', '6500', 15, '2023-01-17 07:45:23', '2023-01-17 07:45:23', 'ယိုးဒယားသင်္ဘောသီးထောင်း', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(143, 'Caprese salad', '8500', 15, '2023-01-17 07:46:07', '2023-01-17 07:46:07', 'ခရမ်းချဉ်သီးနှင့် chees salad', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(144, 'Raw prawn salad', '9000', 15, '2023-01-17 07:46:56', '2023-01-17 07:46:56', 'ပုစွန်အစိမ်းသုပ်', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(145, 'Pork intestine salad', '8500', 15, '2023-01-17 07:47:28', '2023-01-19 15:16:28', 'ဝက်အူအစုံသုပ်', 'ဝကအအစသပ', NULL, 'Food', 'POS-80', NULL, 1),
+(146, 'Stir fried beef with asian demiglace', '8500', 16, '2023-01-17 07:49:41', '2023-01-17 07:49:41', 'ဥရောပအာရှအရောအမဲသားပန်းပွင့်စိမ်းကြော်', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(147, 'Stir fried pork liver with chinese chive', '8000', 16, '2023-01-17 07:50:26', '2023-01-17 07:50:26', 'ဝက်အသည်းနှင့်ကုဆိုင်ကြော်', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(148, 'Stir fried asparagus with gingko nuts', '11000', 16, '2023-01-17 07:51:32', '2023-01-17 07:51:32', 'ကညွတ်ပုစွန်နှင့် နှစ်တစ်ရာသီးကြော်', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(149, 'Tofu stew', '6000', 16, '2023-01-17 07:52:19', '2023-01-17 07:52:19', 'တို့ဟူးစတူး', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(150, 'Stir fried morning glory with mushroom', '4500', 16, '2023-01-17 07:52:53', '2023-01-17 07:52:53', 'မှိုကန်စွန်းကြော်', NULL, NULL, 'Food', 'POS-80', NULL, 1),
+(151, 'Crazy Monkey', '9000', 1, '2023-01-17 08:13:05', '2023-05-15 12:15:55', 'Crazy Monkey', 'Crazy Monkey', NULL, 'Beverage', 'POS-80', '192.168.100.8', 1),
+(152, 'Passionate Kiss', '9000', 1, '2023-01-17 08:13:21', '2023-05-13 16:58:42', NULL, '', NULL, 'Beverage', 'POS-80', '192.168.100.8', 1),
+(153, 'LVA Sangaria', '9000', 1, '2023-01-17 08:13:34', '2023-05-15 12:15:06', NULL, '', NULL, 'Beverage', 'EPSONTM-T81III', '192.168.100.8', 2),
+(154, 'Mad Monday', '9000', 1, '2023-01-17 08:13:54', '2023-05-13 16:59:02', NULL, '', NULL, 'Beverage', 'POS-80', '192.168.100.8', 1),
+(155, 'Yin Yang (Lvaitation)', '9000', 1, '2023-01-17 08:14:12', '2023-01-17 08:14:12', NULL, NULL, NULL, 'Beverage', 'POS-80', NULL, 1),
+(156, 'Grill Chicken Butt', '2000', 1, '2023-01-19 15:16:05', '2023-01-19 15:16:05', 'ကြက်ဆီဘူးကင်', 'ကကဆဘကင', NULL, 'Beverage', 'POS-80', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -580,7 +638,7 @@ INSERT INTO `menu_lists` (`id`, `menu_name`, `price`, `categorie_id`, `created_a
 
 CREATE TABLE `migrations` (
   `id` int(10) UNSIGNED NOT NULL,
-  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `migration` varchar(255) NOT NULL,
   `batch` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -675,7 +733,17 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (98, '2023_02_08_093113_add_order_item_id_to_void_items_table', 74),
 (99, '2023_02_09_114751_add_void_status_to_order_infos_table', 75),
 (100, '2023_02_09_125439_add_refund_amount_to_bill_infos_table', 76),
-(101, '2023_02_09_193758_add_type_to_menu_lists_table', 77);
+(101, '2023_02_09_193758_add_type_to_menu_lists_table', 77),
+(102, '2023_02_12_170014_create_discounts_table', 78),
+(103, '2023_02_13_074900_add_type_to_order_items_table', 79),
+(104, '2023_04_24_231905_create_service_charges_table', 80),
+(105, '2023_04_24_234853_add_service_charge_to_bill_infos_table', 81),
+(106, '2023_05_10_091100_create_print_bill_histories_table', 82),
+(107, '2023_05_10_092718_add_print_status_to_order_infos_table', 83),
+(108, '2023_05_11_182636_add_categorie_id_to_order_items_table', 84),
+(109, '2023_05_13_221609_create_print_configs_table', 85),
+(110, '2023_05_13_232022_add_printer_info_to_menu_lists_table', 86),
+(111, '2023_05_14_103027_add_printer_ip_id_to_menu_lists_table', 87);
 
 -- --------------------------------------------------------
 
@@ -685,7 +753,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 
 CREATE TABLE `model_has_permissions` (
   `permission_id` bigint(20) UNSIGNED NOT NULL,
-  `model_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `model_type` varchar(255) NOT NULL,
   `model_id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -697,7 +765,7 @@ CREATE TABLE `model_has_permissions` (
 
 CREATE TABLE `model_has_roles` (
   `role_id` bigint(20) UNSIGNED NOT NULL,
-  `model_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `model_type` varchar(255) NOT NULL,
   `model_id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -719,7 +787,7 @@ INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 
 CREATE TABLE `notice_boards` (
   `id` int(10) UNSIGNED NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -745,32 +813,33 @@ INSERT INTO `notice_boards` (`id`, `description`, `created_at`, `updated_at`) VA
 
 CREATE TABLE `order_infos` (
   `id` int(10) UNSIGNED NOT NULL,
-  `customer_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `table_list_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `order_no` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `inv_no` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `order_date_time` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `order_date` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `order_time` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `check_out_status` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `check_out_time` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `payment_type` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `total_amount` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `tax_amount` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `discount` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `service_charges` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `net_amount` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `received_amount` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `cashier_user_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `customer_id` text DEFAULT NULL,
+  `table_list_id` text DEFAULT NULL,
+  `order_no` text DEFAULT NULL,
+  `inv_no` text DEFAULT NULL,
+  `order_date_time` text DEFAULT NULL,
+  `order_date` text DEFAULT NULL,
+  `order_time` text DEFAULT NULL,
+  `check_out_status` text DEFAULT NULL,
+  `check_out_time` text DEFAULT NULL,
+  `payment_type` text DEFAULT NULL,
+  `total_amount` text DEFAULT NULL,
+  `tax_amount` text DEFAULT NULL,
+  `discount` text DEFAULT NULL,
+  `service_charges` text DEFAULT NULL,
+  `net_amount` text DEFAULT NULL,
+  `received_amount` text DEFAULT NULL,
+  `cashier_user_id` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `waiter_user_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `guest_no` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `change_amount` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `order_minutes` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `order_user_name` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `first_table_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `void_status` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `waiter_user_id` text DEFAULT NULL,
+  `guest_no` text DEFAULT NULL,
+  `change_amount` text DEFAULT NULL,
+  `order_minutes` text DEFAULT NULL,
+  `order_user_name` text DEFAULT NULL,
+  `first_table_id` text DEFAULT NULL,
+  `void_status` text DEFAULT NULL,
+  `print_status` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -783,20 +852,22 @@ CREATE TABLE `order_items` (
   `id` int(10) UNSIGNED NOT NULL,
   `order_info_id` int(11) DEFAULT NULL,
   `menu_list_id` int(11) DEFAULT NULL,
-  `qty` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `price` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `remark` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `waiter_user_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `qty` text DEFAULT NULL,
+  `price` text DEFAULT NULL,
+  `remark` text DEFAULT NULL,
+  `waiter_user_id` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `preparation_status` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `preparation_date` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `preparation_user_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `difference_time` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `manager_remark` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `menu_name` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `preparation_status` text DEFAULT NULL,
+  `preparation_date` text DEFAULT NULL,
+  `preparation_user_id` text DEFAULT NULL,
+  `difference_time` text DEFAULT NULL,
+  `manager_remark` text DEFAULT NULL,
+  `menu_name` text DEFAULT NULL,
   `split_qty` int(11) NOT NULL DEFAULT 0,
-  `order_date` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `order_date` text DEFAULT NULL,
+  `type` text DEFAULT NULL,
+  `categorie_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -806,8 +877,8 @@ CREATE TABLE `order_items` (
 --
 
 CREATE TABLE `password_resets` (
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -819,13 +890,13 @@ CREATE TABLE `password_resets` (
 
 CREATE TABLE `payment_methods` (
   `id` int(10) UNSIGNED NOT NULL,
-  `name` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `remark` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` text DEFAULT NULL,
+  `remark` text DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `status` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `account_type` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `status` text DEFAULT NULL,
+  `account_type` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -851,11 +922,11 @@ INSERT INTO `payment_methods` (`id`, `name`, `remark`, `user_id`, `created_at`, 
 
 CREATE TABLE `permissions` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `guard_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `guard_name` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `status` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `status` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -874,15 +945,72 @@ INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at
 
 CREATE TABLE `personal_access_tokens` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tokenable_type` varchar(255) NOT NULL,
   `tokenable_id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `abilities` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
+  `token` varchar(64) NOT NULL,
+  `abilities` text DEFAULT NULL,
   `last_used_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `print_bill_histories`
+--
+
+CREATE TABLE `print_bill_histories` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `order_info_id` text DEFAULT NULL,
+  `customer_id` text DEFAULT NULL,
+  `table_list_id` text DEFAULT NULL,
+  `bill_date_time` text DEFAULT NULL,
+  `bill_time` text DEFAULT NULL,
+  `payment_type` text DEFAULT NULL,
+  `total_amount` text DEFAULT NULL,
+  `tax_amount` text DEFAULT NULL,
+  `discount` text DEFAULT NULL,
+  `service_charges` text DEFAULT NULL,
+  `net_amount` text DEFAULT NULL,
+  `received_amount` text DEFAULT NULL,
+  `cashier_user_id` text DEFAULT NULL,
+  `change_amount` text DEFAULT NULL,
+  `waiter_user_id` text DEFAULT NULL,
+  `date_only` text DEFAULT NULL,
+  `order_no` text DEFAULT NULL,
+  `inv_no` text DEFAULT NULL,
+  `first_table_id` text DEFAULT NULL,
+  `discount_amount` text DEFAULT NULL,
+  `refund_amount` text DEFAULT NULL,
+  `service_charge_amount` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `print_configs`
+--
+
+CREATE TABLE `print_configs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` text DEFAULT NULL,
+  `ip_address` text DEFAULT NULL,
+  `user_id` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `print_configs`
+--
+
+INSERT INTO `print_configs` (`id`, `name`, `ip_address`, `user_id`, `created_at`, `updated_at`) VALUES
+(1, 'POS-80', '192.168.100.8', '1', '2023-05-13 15:49:19', '2023-05-13 15:50:25'),
+(2, 'EPSONTM-T81III', '192.168.100.8', '1', '2023-05-15 04:44:44', '2023-05-15 04:49:30');
 
 -- --------------------------------------------------------
 
@@ -892,8 +1020,8 @@ CREATE TABLE `personal_access_tokens` (
 
 CREATE TABLE `roles` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `guard_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `guard_name` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -928,19 +1056,43 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `service_charges`
+--
+
+CREATE TABLE `service_charges` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` text DEFAULT NULL,
+  `rate` text DEFAULT NULL,
+  `status` text DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `service_charges`
+--
+
+INSERT INTO `service_charges` (`id`, `name`, `rate`, `status`, `user_id`, `created_at`, `updated_at`) VALUES
+(1, '0%', '0', 'Active', 1, '2023-04-24 16:56:51', '2023-04-24 16:58:02'),
+(2, '5%', '5', 'Active', 1, '2023-04-24 16:57:17', '2023-04-24 16:57:17');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `stock_ins`
 --
 
 CREATE TABLE `stock_ins` (
   `id` int(10) UNSIGNED NOT NULL,
-  `ingredient_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `stock_in_date` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `purchase_unit` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `price_per_unit` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `total_stock_value` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `store_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `user_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `session_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `ingredient_id` text DEFAULT NULL,
+  `stock_in_date` text DEFAULT NULL,
+  `purchase_unit` text DEFAULT NULL,
+  `price_per_unit` text DEFAULT NULL,
+  `total_stock_value` text DEFAULT NULL,
+  `store_id` text DEFAULT NULL,
+  `user_id` text DEFAULT NULL,
+  `session_id` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -960,17 +1112,24 @@ INSERT INTO `stock_ins` (`id`, `ingredient_id`, `stock_in_date`, `purchase_unit`
 
 CREATE TABLE `stock_openings` (
   `id` int(10) UNSIGNED NOT NULL,
-  `ingredient_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `opening_date` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `opening_unit` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `price_per_unit` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `total_stock_value` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `store_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `user_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `session_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `ingredient_id` text DEFAULT NULL,
+  `opening_date` text DEFAULT NULL,
+  `opening_unit` text DEFAULT NULL,
+  `price_per_unit` text DEFAULT NULL,
+  `total_stock_value` text DEFAULT NULL,
+  `store_id` text DEFAULT NULL,
+  `user_id` text DEFAULT NULL,
+  `session_id` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `stock_openings`
+--
+
+INSERT INTO `stock_openings` (`id`, `ingredient_id`, `opening_date`, `opening_unit`, `price_per_unit`, `total_stock_value`, `store_id`, `user_id`, `session_id`, `created_at`, `updated_at`) VALUES
+(1, '1', '2023-04-24', '10', '10', '100', '1', '1', NULL, '2023-04-24 17:02:12', '2023-04-24 17:02:13');
 
 -- --------------------------------------------------------
 
@@ -980,12 +1139,12 @@ CREATE TABLE `stock_openings` (
 
 CREATE TABLE `stock_transfers` (
   `id` int(10) UNSIGNED NOT NULL,
-  `ingredient_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `transfer_date` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `transfer_unit` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `location_from_store_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `to_location_store_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `user_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `ingredient_id` text DEFAULT NULL,
+  `transfer_date` text DEFAULT NULL,
+  `transfer_unit` text DEFAULT NULL,
+  `location_from_store_id` text DEFAULT NULL,
+  `to_location_store_id` text DEFAULT NULL,
+  `user_id` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -998,13 +1157,13 @@ CREATE TABLE `stock_transfers` (
 
 CREATE TABLE `stores` (
   `id` int(10) UNSIGNED NOT NULL,
-  `name` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `code_name` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `address` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `user_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` text DEFAULT NULL,
+  `code_name` text DEFAULT NULL,
+  `address` text DEFAULT NULL,
+  `user_id` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `store_types` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `store_types` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -1024,7 +1183,7 @@ INSERT INTO `stores` (`id`, `name`, `code_name`, `address`, `user_id`, `created_
 
 CREATE TABLE `store_types` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `title` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `title` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1049,15 +1208,15 @@ INSERT INTO `store_types` (`id`, `title`, `created_at`, `updated_at`) VALUES
 
 CREATE TABLE `suppliers` (
   `id` int(10) UNSIGNED NOT NULL,
-  `name` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `shop_name` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `phone` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `email` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `address` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `user_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` text DEFAULT NULL,
+  `shop_name` text DEFAULT NULL,
+  `phone` text DEFAULT NULL,
+  `email` text DEFAULT NULL,
+  `address` text DEFAULT NULL,
+  `user_id` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `remark` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `remark` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -1068,7 +1227,7 @@ CREATE TABLE `suppliers` (
 
 CREATE TABLE `table_lists` (
   `id` int(10) UNSIGNED NOT NULL,
-  `table_name` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `table_name` text DEFAULT NULL,
   `floor_id` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -1178,9 +1337,9 @@ INSERT INTO `table_lists` (`id`, `table_name`, `floor_id`, `created_at`, `update
 
 CREATE TABLE `table_transfer_histories` (
   `id` int(10) UNSIGNED NOT NULL,
-  `order_info_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `first_table` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `main_table` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `order_info_id` text DEFAULT NULL,
+  `first_table` text DEFAULT NULL,
+  `main_table` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1193,9 +1352,9 @@ CREATE TABLE `table_transfer_histories` (
 
 CREATE TABLE `taxrates` (
   `id` int(10) UNSIGNED NOT NULL,
-  `name` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `taxrate` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` text DEFAULT NULL,
+  `taxrate` text DEFAULT NULL,
+  `status` text DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -1219,15 +1378,15 @@ INSERT INTO `taxrates` (`id`, `name`, `taxrate`, `status`, `user_id`, `created_a
 CREATE TABLE `temp_fixed_purchase_items` (
   `id` int(10) UNSIGNED NOT NULL,
   `temp_id` int(11) DEFAULT NULL,
-  `temp_name` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `qty` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `cost` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `remark` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `session_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `user_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `temp_name` text DEFAULT NULL,
+  `qty` text DEFAULT NULL,
+  `cost` text DEFAULT NULL,
+  `remark` text DEFAULT NULL,
+  `session_id` text DEFAULT NULL,
+  `user_id` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `status` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `status` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -1238,33 +1397,33 @@ CREATE TABLE `temp_fixed_purchase_items` (
 
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `employee_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `phone` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `nrc_number` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `gender` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `address` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `department_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
+  `employee_id` varchar(255) DEFAULT NULL,
+  `phone` varchar(255) DEFAULT NULL,
+  `nrc_number` varchar(255) DEFAULT NULL,
+  `gender` text DEFAULT NULL,
+  `address` text DEFAULT NULL,
+  `department_id` text DEFAULT NULL,
   `is_banned` int(11) NOT NULL DEFAULT 1,
-  `last_login_at` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `last_login_ip` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `agent` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `nrc_front` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `nrc_back` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `members_list_file` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `other_file` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `leave_date` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `leave_remark` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `leave_by` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `contact_person` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `emergency_contact` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `passport_photo` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `join_date` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `employment_type` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `last_login_at` text DEFAULT NULL,
+  `last_login_ip` text DEFAULT NULL,
+  `agent` text DEFAULT NULL,
+  `nrc_front` text DEFAULT NULL,
+  `nrc_back` text DEFAULT NULL,
+  `members_list_file` text DEFAULT NULL,
+  `other_file` text DEFAULT NULL,
+  `leave_date` text DEFAULT NULL,
+  `leave_remark` text DEFAULT NULL,
+  `leave_by` text DEFAULT NULL,
+  `contact_person` text DEFAULT NULL,
+  `emergency_contact` text DEFAULT NULL,
+  `passport_photo` text DEFAULT NULL,
+  `join_date` text DEFAULT NULL,
+  `employment_type` text DEFAULT NULL,
+  `remember_token` varchar(100) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `pin_code` int(11) DEFAULT NULL
@@ -1275,10 +1434,12 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `employee_id`, `phone`, `nrc_number`, `gender`, `address`, `department_id`, `is_banned`, `last_login_at`, `last_login_ip`, `agent`, `nrc_front`, `nrc_back`, `members_list_file`, `other_file`, `leave_date`, `leave_remark`, `leave_by`, `contact_person`, `emergency_contact`, `passport_photo`, `join_date`, `employment_type`, `remember_token`, `created_at`, `updated_at`, `pin_code`) VALUES
-(1, 'Admin', 'admin@gmail.com', NULL, '$2y$10$H4Dl/7aFMsm1xck7mqa.PehZTR5oWppsGZ09pO7VHsE7euBe.sCQi', '00001', '09123123122', '1/agc(N)991223', 'male', 'YGN', '1', 1, '11/02/2023 18:15:29 pm', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Probation', NULL, '2023-01-27 00:37:41', '2023-02-11 11:45:29', 123458),
-(2, 'Waiter1', 'waiter@gmail.com', NULL, '$2y$10$YlWrTGwZXqnf1/D4ifbXu.xDm5kdkbG4uNrbfqll.RIb3xHWUwKzG', '00002', '0912312313', '1/abc(n)009221', 'male', 'YGN', '4', 1, '10/02/2023 13:59:45 pm', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, 'Probation', 'm71hZa4H1SHkOo4QkliV7eFiIw2En3lDCyZqvOe2GRv6FwqS8mzv23HDHW4F', '2023-01-26 23:30:19', '2023-02-10 07:29:45', 123456),
+(1, 'Admin', 'admin@gmail.com', NULL, '$2y$10$H4Dl/7aFMsm1xck7mqa.PehZTR5oWppsGZ09pO7VHsE7euBe.sCQi', '00001', '09123123122', '1/agc(N)991223', 'male', 'YGN', '1', 1, '16/05/2023 08:15:49 am', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36', NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Probation', NULL, '2023-01-27 00:37:41', '2023-05-16 01:45:49', 123458),
+(2, 'Waiter1', 'waiter@gmail.com', NULL, '$2y$10$YlWrTGwZXqnf1/D4ifbXu.xDm5kdkbG4uNrbfqll.RIb3xHWUwKzG', '00002', '0912312313', '1/abc(n)009221', 'male', 'YGN', '4', 1, '10/05/2023 23:46:50 pm', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, 'Probation', 'zIhKNN8CyD03hKOytHK5sJ5irYtT8inAHFMJsWSTvi0ld3bOZYt8Oi3BjO5l', '2023-01-26 23:30:19', '2023-05-10 17:16:50', 123456),
 (3, 'Cashier1', 'cashier@gmail.com', NULL, '$2y$10$KL/3ZNF1BfbUI4ElchzP9uWxwfagZcAxiq9ISNMas439.IvR8ewrK', '00003', '09123123123', '1/abc(N)009221', 'male', 'YGN', '5', 1, '09/02/2023 20:44:58 pm', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, 'Probation', NULL, '2022-11-14 03:17:19', '2023-02-09 14:14:58', 123457),
-(4, 'Waiter2', 'waiter2@gmail.com', NULL, '$2y$10$37k4qpRw/3UTDJcuOWYz4O0Y0VzSGBmWPzQeqh4dqttW89g7zbNGW', '00004', '0912312312', '1/abc(N)009221', 'male', 'YGN', '4', 1, '26/01/2023 20:22:57 pm', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, '', '2023-01-26 08:21 PM', 'Probation', NULL, '2023-01-26 13:52:34', '2023-01-26 13:52:57', 123123);
+(4, 'Waiter2', 'waiter2@gmail.com', NULL, '$2y$10$37k4qpRw/3UTDJcuOWYz4O0Y0VzSGBmWPzQeqh4dqttW89g7zbNGW', '00004', '0912312312', '1/abc(N)009221', 'male', 'YGN', '4', 1, '26/01/2023 20:22:57 pm', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, '', '2023-01-26 08:21 PM', 'Probation', NULL, '2023-01-26 13:52:34', '2023-01-26 13:52:57', 123123),
+(5, 'Manager', 'manager@gmail.com', NULL, '$2y$10$AP0zY7YegX7vga/tIVvjyetYiwVTAjTXpenwFpwx3XIBHIVTrcHAy', 'EMP-00005', '09777181776', '-', 'male', '-', '2', 1, '15/05/2023 11:48:08 am', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, '', '2023-05-09 01:16 AM', 'Probation', NULL, '2023-05-08 18:47:35', '2023-05-15 05:18:08', 123451),
+(6, 'Mg Mg', 'mgmg@gmail.com', NULL, '$2y$10$bRr4LpFpqh63D8R9Xbqbi.PFAGbbHkZ4QkDfCbgJ0DXK/I2OAtDda', 'EMP-00003', '98333827322', '1/abc(N)009332', 'male', 'YGN', '4', 1, NULL, NULL, NULL, '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, '', '2023-05-16 01:40 AM', 'Probation', NULL, '2023-05-15 19:09:22', '2023-05-15 19:10:41', NULL);
 
 -- --------------------------------------------------------
 
@@ -1288,9 +1449,9 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `em
 
 CREATE TABLE `variable_assets` (
   `id` int(10) UNSIGNED NOT NULL,
-  `inventory_code` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `unit` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `inventory_code` text DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `unit` text DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   `store_id` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -1305,15 +1466,15 @@ CREATE TABLE `variable_assets` (
 
 CREATE TABLE `variable_damages` (
   `id` int(10) UNSIGNED NOT NULL,
-  `variable_asset_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `damage_qty` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `causes_of_accidents` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `compensation` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `voucher_attach` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `remark` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `user_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `date_at` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `damage_date` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `variable_asset_id` text DEFAULT NULL,
+  `damage_qty` text DEFAULT NULL,
+  `causes_of_accidents` text DEFAULT NULL,
+  `compensation` text DEFAULT NULL,
+  `voucher_attach` text DEFAULT NULL,
+  `remark` text DEFAULT NULL,
+  `user_id` text DEFAULT NULL,
+  `date_at` text DEFAULT NULL,
+  `damage_date` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1326,11 +1487,11 @@ CREATE TABLE `variable_damages` (
 
 CREATE TABLE `variable_damange_files` (
   `id` int(10) UNSIGNED NOT NULL,
-  `attachments` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `original_name` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `user_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `variable_damage_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `date_at` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `attachments` text DEFAULT NULL,
+  `original_name` text DEFAULT NULL,
+  `user_id` text DEFAULT NULL,
+  `variable_damage_id` text DEFAULT NULL,
+  `date_at` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1343,14 +1504,14 @@ CREATE TABLE `variable_damange_files` (
 
 CREATE TABLE `variable_purchases` (
   `id` int(10) UNSIGNED NOT NULL,
-  `supplier_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `invoice_no` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `purchase_date` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `remark` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `total_amount` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `representative_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `user_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `date_at` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `supplier_id` text DEFAULT NULL,
+  `invoice_no` text DEFAULT NULL,
+  `purchase_date` text DEFAULT NULL,
+  `remark` text DEFAULT NULL,
+  `total_amount` text DEFAULT NULL,
+  `representative_id` text DEFAULT NULL,
+  `user_id` text DEFAULT NULL,
+  `date_at` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1363,11 +1524,11 @@ CREATE TABLE `variable_purchases` (
 
 CREATE TABLE `variable_purchase_files` (
   `id` int(10) UNSIGNED NOT NULL,
-  `attachments` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `original_name` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `user_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `date_at` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `variable_purchase_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `attachments` text DEFAULT NULL,
+  `original_name` text DEFAULT NULL,
+  `user_id` text DEFAULT NULL,
+  `date_at` text DEFAULT NULL,
+  `variable_purchase_id` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1380,12 +1541,12 @@ CREATE TABLE `variable_purchase_files` (
 
 CREATE TABLE `variable_purchase_items` (
   `id` int(10) UNSIGNED NOT NULL,
-  `variable_purchase_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `fixed_asset_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `qty` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `cost` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `remark` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `user_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `variable_purchase_id` text DEFAULT NULL,
+  `fixed_asset_id` text DEFAULT NULL,
+  `qty` text DEFAULT NULL,
+  `cost` text DEFAULT NULL,
+  `remark` text DEFAULT NULL,
+  `user_id` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1400,26 +1561,26 @@ CREATE TABLE `void_items` (
   `id` int(10) UNSIGNED NOT NULL,
   `order_info_id` int(11) DEFAULT NULL,
   `menu_list_id` int(11) DEFAULT NULL,
-  `qty` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `price` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `remark` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `waiter_user_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `preparation_status` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `preparation_date` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `preparation_user_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `difference_time` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `manager_remark` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `menu_name` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `split_qty` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `reason` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `void_by` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `void_date` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `void_time` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `qty` text DEFAULT NULL,
+  `price` text DEFAULT NULL,
+  `remark` text DEFAULT NULL,
+  `waiter_user_id` text DEFAULT NULL,
+  `preparation_status` text DEFAULT NULL,
+  `preparation_date` text DEFAULT NULL,
+  `preparation_user_id` text DEFAULT NULL,
+  `difference_time` text DEFAULT NULL,
+  `manager_remark` text DEFAULT NULL,
+  `menu_name` text DEFAULT NULL,
+  `split_qty` text DEFAULT NULL,
+  `reason` text DEFAULT NULL,
+  `void_by` text DEFAULT NULL,
+  `void_date` text DEFAULT NULL,
+  `void_time` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `table_list_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `manager_status` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `order_item_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `table_list_id` text DEFAULT NULL,
+  `manager_status` text DEFAULT NULL,
+  `order_item_id` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -1466,6 +1627,12 @@ ALTER TABLE `damage_files`
 -- Indexes for table `departments`
 --
 ALTER TABLE `departments`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `discounts`
+--
+ALTER TABLE `discounts`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1613,6 +1780,18 @@ ALTER TABLE `personal_access_tokens`
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
 
 --
+-- Indexes for table `print_bill_histories`
+--
+ALTER TABLE `print_bill_histories`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `print_configs`
+--
+ALTER TABLE `print_configs`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `roles`
 --
 ALTER TABLE `roles`
@@ -1625,6 +1804,12 @@ ALTER TABLE `roles`
 ALTER TABLE `role_has_permissions`
   ADD PRIMARY KEY (`permission_id`,`role_id`),
   ADD KEY `role_has_permissions_role_id_foreign` (`role_id`);
+
+--
+-- Indexes for table `service_charges`
+--
+ALTER TABLE `service_charges`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `stock_ins`
@@ -1783,6 +1968,12 @@ ALTER TABLE `departments`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT for table `discounts`
+--
+ALTER TABLE `discounts`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -1846,7 +2037,7 @@ ALTER TABLE `ingredient_lists`
 -- AUTO_INCREMENT for table `login_logs`
 --
 ALTER TABLE `login_logs`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `members_lists`
@@ -1864,7 +2055,7 @@ ALTER TABLE `menu_lists`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
 
 --
 -- AUTO_INCREMENT for table `notice_boards`
@@ -1903,10 +2094,28 @@ ALTER TABLE `personal_access_tokens`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `print_bill_histories`
+--
+ALTER TABLE `print_bill_histories`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `print_configs`
+--
+ALTER TABLE `print_configs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `service_charges`
+--
+ALTER TABLE `service_charges`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `stock_ins`
@@ -1918,7 +2127,7 @@ ALTER TABLE `stock_ins`
 -- AUTO_INCREMENT for table `stock_openings`
 --
 ALTER TABLE `stock_openings`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `stock_transfers`
@@ -1972,7 +2181,7 @@ ALTER TABLE `temp_fixed_purchase_items`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `variable_assets`

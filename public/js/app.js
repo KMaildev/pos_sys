@@ -8566,7 +8566,7 @@ window.Swal = (sweetalert2__WEBPACK_IMPORTED_MODULE_3___default());
       return total_gross_sale;
     },
     searchDate: function searchDate() {
-      // this.$inertia.get(`/pos_void_report`, this.form);
+      this.$inertia.get("/pos_x_report", this.form);
     },
     printReport: function printReport() {
       printJS({
@@ -15216,7 +15216,10 @@ var render = function render() {
         height: "auto",
         "object-fit": "cover",
         "object-position": "top",
-        "background-size": "contain"
+        "background-size": "contain",
+        display: "block",
+        "margin-left": "auto",
+        "margin-right": "auto"
       },
       attrs: {
         src: "/images/".concat(category.photo)
