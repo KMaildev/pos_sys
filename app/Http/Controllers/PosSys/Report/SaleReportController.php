@@ -20,6 +20,8 @@ class SaleReportController extends Controller
     {
 
         $bill_infos = BillInfo::with('table_lists_table', 'first_table_lists_table', 'cashier_user', 'waiter_user_table', 'payment_method_table', 'order_items_table', 'void_items_table')
+            ->where('date_only', '>=', date('Y-m-d'))
+            ->where('date_only', '<=', date('Y-m-d'))    
             ->get();
 
         if (request('start_date') && request('end_date')) {
@@ -37,20 +39,15 @@ class SaleReportController extends Controller
 
     public function StaffSales(Request $request)
     {
-        $waiters = User::with('bill_infos_table', 'void_items_table', 'remark_void_items_table')
-            ->get();
+        $start_date =  request('start_date') ?? date('Y-m-d');
+        $end_date =  request('end_date') ?? date('Y-m-d');
 
-        if (request('start_date') && request('end_date')) {
-            $start_date =  request('start_date');
-            $end_date =  request('end_date');
-            $waiters = User::where('department_id', 4)
-                ->with(['bill_infos_table' => function ($query) use ($start_date, $end_date) {
-                    $query->where('date_only', '>=', $start_date);
-                    $query->where('date_only', '<=', $end_date);
-                }])
-                ->with('void_items_table', 'remark_void_items_table')
-                ->get();
-        }
+        $waiters = User::with(['bill_infos_table' => function ($query) use ($start_date, $end_date) {
+                $query->where('date_only', '>=', $start_date);
+                $query->where('date_only', '<=', $end_date);
+            }])
+            ->with('void_items_table', 'remark_void_items_table')
+            ->get();
 
         $bill_infos = BillInfo::all();
         $void_items = VoidItem::all();
@@ -66,18 +63,14 @@ class SaleReportController extends Controller
 
     public function TablesSales(Request $request)
     {
-        $table_lists = TableList::with('bill_infos_table', 'void_item_table')
-            ->get();
+        $start_date =  request('start_date') ?? date('Y-m-d');
+        $end_date =  request('end_date') ?? date('Y-m-d');
 
-        if (request('start_date') && request('end_date')) {
-            $start_date =  request('start_date');
-            $end_date =  request('end_date');
-            $table_lists = TableList::with(['bill_infos_table' => function ($query) use ($start_date, $end_date) {
-                $query->where('date_only', '>=', $start_date);
-                $query->where('date_only', '<=', $end_date);
-            }])->with('void_item_table')
-                ->get();
-        }
+        $table_lists = TableList::with(['bill_infos_table' => function ($query) use ($start_date, $end_date) {
+            $query->where('date_only', '>=', $start_date);
+            $query->where('date_only', '<=', $end_date);
+        }])->with('void_item_table')
+            ->get();
 
         $bill_infos_table = BillInfo::all();
         return Inertia::render('Report/TablesSales', [
@@ -90,17 +83,13 @@ class SaleReportController extends Controller
 
     public function PaymentTypesReport(Request $request)
     {
-        $payment_methods = PaymentMethod::with('bill_infos_table')
-            ->get();
 
-        if (request('start_date') && request('end_date')) {
-            $start_date =  request('start_date');
-            $end_date =  request('end_date');
-            $payment_methods = PaymentMethod::with(['bill_infos_table' => function ($query) use ($start_date, $end_date) {
-                $query->where('date_only', '>=', $start_date);
-                $query->where('date_only', '<=', $end_date);
-            }])->get();
-        }
+        $start_date =  request('start_date') ?? date('Y-m-d');
+        $end_date =  request('end_date') ?? date('Y-m-d');
+        $payment_methods = PaymentMethod::with(['bill_infos_table' => function ($query) use ($start_date, $end_date) {
+            $query->where('date_only', '>=', $start_date);
+            $query->where('date_only', '<=', $end_date);
+        }])->get();
 
         $bill_infos_table = BillInfo::all();
 
@@ -114,15 +103,13 @@ class SaleReportController extends Controller
 
     public function DiscountReport(Request $request)
     {
-        $bill_infos = BillInfo::with('table_lists_table', 'first_table_lists_table', 'cashier_user', 'waiter_user_table', 'payment_method_table', 'order_items_table', 'void_items_table')
-            ->get();
+        $start_date =  request('start_date') ?? date('Y-m-d');
+        $end_date =  request('end_date') ?? date('Y-m-d');
 
-        if (request('start_date') && request('end_date')) {
-            $bill_infos = BillInfo::with('table_lists_table', 'first_table_lists_table', 'cashier_user', 'waiter_user_table', 'payment_method_table', 'order_items_table', 'void_items_table')
-                ->where('date_only', '>=', request('start_date'))
-                ->where('date_only', '<=', request('end_date'))
-                ->get();
-        }
+        $bill_infos = BillInfo::with('table_lists_table', 'first_table_lists_table', 'cashier_user', 'waiter_user_table', 'payment_method_table', 'order_items_table', 'void_items_table')
+            ->where('date_only', '>=', $start_date)
+            ->where('date_only', '<=', $end_date)
+            ->get();
 
         return Inertia::render('Report/DiscountReport', [
             'bill_infos' => $bill_infos,
@@ -131,16 +118,16 @@ class SaleReportController extends Controller
 
     public function DiscountAMPReport(Request $request)
     {
-        $bill_infos = BillInfo::with('table_lists_table', 'first_table_lists_table', 'cashier_user', 'waiter_user_table', 'payment_method_table', 'order_items_table', 'void_items_table')
-            ->where('discount', 100)
-            ->get();
 
-        if (request('start_date') && request('end_date')) {
-            $bill_infos = BillInfo::with('table_lists_table', 'first_table_lists_table', 'cashier_user', 'waiter_user_table', 'payment_method_table', 'order_items_table', 'void_items_table')
-                ->where('date_only', '>=', request('start_date'))
-                ->where('date_only', '<=', request('end_date'))
-                ->get();
-        }
+        $start_date =  request('start_date') ?? date('Y-m-d');
+        $end_date =  request('end_date') ?? date('Y-m-d');
+
+        $bill_infos = BillInfo::with('table_lists_table', 'first_table_lists_table', 'cashier_user', 'waiter_user_table', 'payment_method_table', 'order_items_table', 'void_items_table')
+        ->where('discount', 100)
+        ->where('date_only', '>=', $start_date)
+        ->where('date_only', '<=', $end_date)
+        ->get();
+
 
         return Inertia::render('Report/DiscountAmpReport', [
             'bill_infos' => $bill_infos,
@@ -152,15 +139,15 @@ class SaleReportController extends Controller
 
     public function VoidReport(Request $request)
     {
-        $void_items = VoidItem::with('menu_list_table')
-            ->get();
+       
+        $start_date =  request('start_date') ?? date('Y-m-d');
+        $end_date =  request('end_date') ?? date('Y-m-d');
 
-        if (request('start_date') && request('end_date')) {
-            $void_items = VoidItem::with('menu_list_table')
-                ->where('void_date', '>=', request('start_date'))
-                ->where('void_date', '<=', request('end_date'))
-                ->get();
-        }
+        $void_items = VoidItem::with('menu_list_table')
+            ->where('void_date', '>=', $start_date)
+            ->where('void_date', '<=', $end_date)
+            ->get();
+            
         return Inertia::render('Report/VoidReport', [
             'void_items' => $void_items,
         ]);

@@ -12,15 +12,13 @@ class CashierReportController extends Controller
 {
     public function CashReport(Request $request)
     {
-        $bill_infos = BillInfo::with('payment_method_table')
-            ->get();
+        $start_date =  request('start_date') ?? date('Y-m-d');
+        $end_date =  request('end_date') ?? date('Y-m-d');
 
-        if (request('start_date') && request('end_date')) {
-            $bill_infos = BillInfo::with('payment_method_table')
-                ->where('date_only', '>=', request('start_date'))
-                ->where('date_only', '<=', request('end_date'))
-                ->get();
-        }
+        $bill_infos = BillInfo::with('payment_method_table')
+            ->where('date_only', '>=', $start_date)
+            ->where('date_only', '<=', $end_date)
+            ->get();
 
         return Inertia::render('Report/CashReport', [
             'bill_infos' => $bill_infos,
@@ -31,15 +29,13 @@ class CashierReportController extends Controller
 
     public function OnlinePay(Request $request)
     {
-        $bill_infos = BillInfo::with('payment_method_table')
-            ->get();
+        $start_date =  request('start_date') ?? date('Y-m-d');
+        $end_date =  request('end_date') ?? date('Y-m-d');
 
-        if (request('start_date') && request('end_date')) {
-            $bill_infos = BillInfo::with('payment_method_table')
-                ->where('date_only', '>=', request('start_date'))
-                ->where('date_only', '<=', request('end_date'))
-                ->get();
-        }
+        $bill_infos = BillInfo::with('payment_method_table')
+            ->where('date_only', '>=', $start_date)
+            ->where('date_only', '<=', $end_date)
+            ->get();
 
         return Inertia::render('Report/OnlinePay', [
             'bill_infos' => $bill_infos,
@@ -50,15 +46,13 @@ class CashierReportController extends Controller
 
     public function BankingReport(Request $request)
     {
+        $start_date =  request('start_date') ?? date('Y-m-d');
+        $end_date =  request('end_date') ?? date('Y-m-d');
+        
         $bill_infos = BillInfo::with('payment_method_table')
+            ->where('date_only', '>=', $start_date)
+            ->where('date_only', '<=', $end_date)
             ->get();
-
-        if (request('start_date') && request('end_date')) {
-            $bill_infos = BillInfo::with('payment_method_table')
-                ->where('date_only', '>=', request('start_date'))
-                ->where('date_only', '<=', request('end_date'))
-                ->get();
-        }
 
         return Inertia::render('Report/BankingReport', [
             'bill_infos' => $bill_infos,

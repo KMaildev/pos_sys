@@ -16,20 +16,17 @@ class ManagementReportController extends Controller
 
     public function SalesCategoryAmount(Request $request)
     {
-        $menu_lists = MenuList::with('order_items_table', 'category_table')
+        
+        $start_date =  request('start_date') ?? date('Y-m-d');
+        $end_date =  request('end_date') ?? date('Y-m-d');
+        $menu_lists = MenuList::with(['order_items_table' => function ($query) use ($start_date, $end_date) {
+            $query->where('order_date', '>=', $start_date);
+            $query->where('order_date', '<=', $end_date);
+        }])->with('category_table')
             ->get();
-
-        if (request('start_date') && request('end_date')) {
-            $start_date =  request('start_date');
-            $end_date =  request('end_date');
-            $menu_lists = MenuList::with(['order_items_table' => function ($query) use ($start_date, $end_date) {
-                $query->where('order_date', '>=', $start_date);
-                $query->where('order_date', '<=', $end_date);
-            }])->with('category_table')
-                ->get();
-        }
-
+            
         $order_items = OrderItem::all();
+
         return Inertia::render('Report/SalesCategoryAmount', [
             'menu_lists' => $menu_lists,
             'order_items' => $order_items,
