@@ -26,6 +26,7 @@ class MenuListController extends Controller
             $menu_lists->orWhere('price', 'Like', '%' . request('q') . '%');
         }
         $menu_lists = $menu_lists->orderBy('categorie_id', 'ASC')->paginate(20);
+        $print_configs = PrintConfig::all();
         return view('menu_list.index', compact('menu_lists'));
     }
 

@@ -21,7 +21,7 @@ class CategoryController extends Controller
             $categories->where('title', 'Like', '%' . request('q') . '%');
             $categories->orWhere('type', 'Like', '%' . request('q') . '%');
         }
-        $categories = $categories->orderBy('type', 'ASC')->get();
+        $categories = $categories->orderBy('type', 'DESC')->get();
         return view('category.index', compact('categories'));
     }
 

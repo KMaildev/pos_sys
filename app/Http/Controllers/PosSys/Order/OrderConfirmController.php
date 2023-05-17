@@ -58,9 +58,6 @@ class OrderConfirmController extends Controller
                 'order_user_name' => auth()->user()->name ?? 0,
                 'order_no' =>  $order_no,
                 'inv_no' => $inv_no,
-
-                // 'order_no' => $order_infos_check->order_no ?? $order_no,
-                // 'inv_no' => $order_infos_check->inv_no ?? $inv_no,
             ],
         );
         $order_info_id = $order_info->id;
@@ -87,9 +84,16 @@ class OrderConfirmController extends Controller
         $order_date_time = $order_info->order_date_time;
         $table = TableList::findOrFail($order_info->table_list_id);
         $table_no = $table->table_name;
+      
+        $printers = PrintConfig::all();
+        foreach ($printers as $key => $printer) {
+            $printer_name = $printer->name ?? '';
+            $printer_id = $printer->id ?? 0;
+            PrintHelper::orderPrinter($items, $user_name, $order_date_time, $table_no, $printer_name, $printer_id);
+        }
 
-        PrintHelper::kitchenPrinter($items, $user_name, $order_date_time, $table_no);
-        PrintHelper::barPrinter1($items, $user_name, $order_date_time, $table_no);
+        // PrintHelper::kitchenPrinter($items, $user_name, $order_date_time, $table_no);
+        // PrintHelper::barPrinter1($items, $user_name, $order_date_time, $table_no);
         // PrintHelper::barPrinter2($items, $user_name, $order_date_time, $table_no);
         // PrintHelper::barPrinter3($items, $user_name, $order_date_time, $table_no);
     }

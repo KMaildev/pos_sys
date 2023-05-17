@@ -36,7 +36,6 @@ class PosMenuController extends Controller
     }
 
 
-
     public function menuListsSearch(Request $request)
     {
         $search = $request->search;

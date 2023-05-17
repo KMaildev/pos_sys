@@ -155,6 +155,8 @@ export default {
         addRemark(cart_list) {
             swal({
                 title: "Order Note",
+                position: 'top',
+                grow: 'row',
                 content: 'input',
                 buttons: true,
                 dangerMode: true,

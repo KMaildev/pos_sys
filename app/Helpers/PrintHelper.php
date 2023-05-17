@@ -48,7 +48,7 @@ class PrintHelper
         }
 
         $host_name = gethostname();
-        $printer_name = 'EPSONTMT81III';
+        $printer_name = 'POS-80';
         $itemTotal = [];
         foreach ($items as $key => $value) {
             if ($value['printer_name'] == $printer_name) {
@@ -90,7 +90,6 @@ class PrintHelper
             }
         }
     }
-
 
 
     public static function barPrinter1($items, $user_name, $order_date_time, $table_no)
@@ -350,8 +349,74 @@ class PrintHelper
 
 
 
+    
+    // =================Order Printer=========================
 
+    public static function orderPrinter($items, $user_name, $order_date_time, $table_no, $printer_name, $printer_id)
+    {
+        $itemTotal = [];
+        foreach ($items as $key => $value) {
+            if ($value['printer_name'] == $printer_name) {
+                $itemTotal[] = $key + 1;
+            }
+        }
+        $item_total = array_sum($itemTotal);
+        if ($item_total != 0) {
 
+            function printOutRaw($kolom1, $kolom2, $kolom3)
+            {
+                $lebar_kolom_1 = 16;
+                $lebar_kolom_2 = 10;
+                $lebar_kolom_3 = 20;
+    
+                $kolom1 = wordwrap($kolom1, $lebar_kolom_1, "\n", true);
+                $kolom2 = wordwrap($kolom2, $lebar_kolom_2, "\n", true);
+                $kolom3 = wordwrap($kolom3, $lebar_kolom_3, "\n", true);
+    
+                $kolom1Array = explode("\n", $kolom1);
+                $kolom2Array = explode("\n", $kolom2);
+                $kolom3Array = explode("\n", $kolom3);
+    
+                $jmlBarisTerbanyak = max(count($kolom1Array), count($kolom2Array), count($kolom3Array));
+                $hasilBaris = array();
+    
+                for ($i = 0; $i < $jmlBarisTerbanyak; $i++) {
+                    $hasilKolom1 = str_pad((isset($kolom1Array[$i]) ? $kolom1Array[$i] : ""), $lebar_kolom_1, " ");
+                    $hasilKolom2 = str_pad((isset($kolom2Array[$i]) ? $kolom2Array[$i] : ""), $lebar_kolom_2, " ", STR_PAD_LEFT);
+                    $hasilKolom3 = str_pad((isset($kolom3Array[$i]) ? $kolom3Array[$i] : ""), $lebar_kolom_3, " ", STR_PAD_LEFT);
+                    $hasilBaris[] = $hasilKolom1 . " " . $hasilKolom2 . " " . $hasilKolom3;
+                }
+                return implode($hasilBaris) . "\n";
+            }
+
+            try {
+                $connector = new WindowsPrintConnector($printer_name);
+                $printer = new Printer($connector);
+                $printer->text('Waiter: ' . $user_name);
+                $printer->feed();
+                $printer->text('Time: ' . $order_date_time);
+                $printer->feed();
+                $printer->text('Table: ' . $table_no);
+                $printer->feed();
+                $printer->text('==============================================');
+                $printer->feed();
+
+                foreach ($items as $key => $value) {
+                    if ($value['printer_name'] == $printer_name) {
+                        $printer->text(printOutRaw($value['menu_name'], $value['qty'], $value['remark']));
+                        $printer->feed();
+                    }
+                }
+
+                $printer->feed(4);
+                $printer->cut();
+                $printer->close();
+            } catch (Exception $e) {
+                return true;
+                // echo "Couldn't print to this printer: " . $e->getMessage() . "\n";
+            }
+        }
+    }
 
 
 
@@ -384,7 +449,6 @@ class PrintHelper
 
             // Melakukan perulangan setiap baris (yang dibentuk wordwrap), untuk menggabungkan setiap kolom menjadi 1 baris 
             for ($i = 0; $i < $jmlBarisTerbanyak; $i++) {
-
                 // memberikan spasi di setiap cell berdasarkan lebar kolom yang ditentukan, 
                 $hasilKolom1 = str_pad((isset($kolom1Array[$i]) ? $kolom1Array[$i] : ""), $lebar_kolom_1, " ");
                 // memberikan rata kanan pada kolom 3 dan 4 karena akan kita gunakan untuk harga dan total harga

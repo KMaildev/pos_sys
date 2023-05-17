@@ -92,7 +92,7 @@
                             </div>
                         </div>
 
-                        <div class="mb-3 row">
+                        <div class="mb-3 row" hidden>
                             <label for="html5-text-input" class="col-md-3 col-form-label">
                                 Photo
                             </label>

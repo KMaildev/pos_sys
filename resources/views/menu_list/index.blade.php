@@ -63,6 +63,7 @@
                                     <th class="text-center">Price</th>
                                     <th class="text-center">Category</th>
                                     <th class="text-center">Type</th>
+                                    <th class="text-center">Printer</th>
                                     <th class="text-center">Actions</th>
                                 </tr>
                             </thead>
@@ -91,6 +92,10 @@
 
                                         <td class="text-center">
                                             {{ $menu_list->category_table->type ?? '' }}
+                                        </td>
+
+                                        <td class="text-center">
+                                            {{ $menu_list->printer_name ?? '' }}
                                         </td>
 
                                         <td class="text-center">

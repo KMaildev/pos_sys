@@ -6878,6 +6878,8 @@ __webpack_require__.r(__webpack_exports__);
     addRemark: function addRemark(cart_list) {
       swal({
         title: "Order Note",
+        position: 'top',
+        grow: 'row',
         content: 'input',
         buttons: true,
         dangerMode: true
@@ -15220,14 +15222,12 @@ var render = function render() {
       }
     }, [_vm._v("\n                    " + _vm._s(category.title) + "\n                ")]), _vm._v(" "), _c("center", [category.photo ? _c("img", {
       staticStyle: {
-        width: "80%",
-        height: "auto",
+        width: "100px",
+        height: "100px",
+        "min-height": "100px",
         "object-fit": "cover",
         "object-position": "top",
-        "background-size": "contain",
-        display: "block",
-        "margin-left": "auto",
-        "margin-right": "auto"
+        "background-size": "cover"
       },
       attrs: {
         src: "/images/".concat(category.photo)
@@ -22423,11 +22423,12 @@ var render = function render() {
       }
     }, [_vm._v("\n                    " + _vm._s(category.title) + "\n                ")]), _vm._v(" "), _c("center", [category.photo ? _c("img", {
       staticStyle: {
-        width: "80%",
-        height: "auto",
+        width: "100px",
+        height: "100px",
+        "min-height": "100px",
         "object-fit": "cover",
         "object-position": "top",
-        "background-size": "contain"
+        "background-size": "cover"
       },
       attrs: {
         src: "/images/".concat(category.photo)
