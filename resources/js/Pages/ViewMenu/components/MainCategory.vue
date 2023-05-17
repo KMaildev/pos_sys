@@ -12,7 +12,7 @@
             <div class="col-md-2 col-lg-2 col-sm-12" v-for="category in categories" :key="category.id"
                 @click="loadMenuListPos(category.id)">
                 <div class="card main-menu-box" :style="{ 'background-color': category.background_color }">
-                    <span style="text-align: center; font-size: 17px;">
+                    <span style="text-align: center; font-size: 17px; font-family: georgia !important; color: black; font-weight: bold;">
                         {{ category.title }}
                     </span>
                     <center>

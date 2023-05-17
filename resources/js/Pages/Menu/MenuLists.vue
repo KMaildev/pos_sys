@@ -46,7 +46,7 @@
                                 </td>
 
                                 <td class="text-center">
-                                    <button class="order_btn btn btn-lg" @click="addToCart(menu_list)">
+                                    <button  class="order_btn btn btn-lg" @click="addToCart(menu_list)">
                                         Order
                                     </button>
                                 </td>
@@ -104,13 +104,17 @@ export default {
 </script>
 <style>
 .order_btn {
-    background-color: #F2F2F2;
-    color: black;
+    background-color: #F2F2F2 !important;
+    color: black !important;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 .order_btn:hover {
-    background-color: #F2F2F2;
-    color: black;
+    background-color: #F2F2F2 !important;
+    color: black !important;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 hr.divider {

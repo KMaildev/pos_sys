@@ -78,8 +78,12 @@
                                     </tr>
                                 </tbody>
 
-                                <tr style="background-color: white;">
-                                    <td colspan="3">
+                                <tr style="background-color: #d0cfd1;">
+
+                                    <td colspan="2">
+                                    </td>
+
+                                    <td>
                                         Total
                                     </td>
 

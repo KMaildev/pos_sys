@@ -18,10 +18,11 @@
     font-size: 17px !important;
     font-weight: bold;
     border-radius: 15px 15px 0px 0px;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 .report_button_sub {
-    width: 170px;
+    width: 200px;
     padding: 10px 20px;
     margin: 2px;
     background-color: #808080;
@@ -29,6 +30,7 @@
     font-size: 16px !important;
     font-weight: bold;
     border-radius: 15px 15px 0px 0px;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 .report_button_sub_cashier {
@@ -40,6 +42,7 @@
     font-size: 16px !important;
     font-weight: bold;
     border-radius: 15px 15px 0px 0px;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 .report_button_sub_sale {
@@ -51,6 +54,7 @@
     font-size: 16px !important;
     font-weight: bold;
     border-radius: 15px 15px 0px 0px;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 .main-category {
@@ -291,6 +295,7 @@
     background-color: #CCEDE4;
     color: black !important;
     font-size: 18px !important;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 
@@ -327,8 +332,9 @@
     margin: 3px;
     background-color: #808080;
     color: white !important;
-    font-size: 20px !important;
+    font-size: 18px !important;
     border-radius: 15px 15px 0px 0px;
+    font-weight: bold;
 }
 
 .split_bill_btn {

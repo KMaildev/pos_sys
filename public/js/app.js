@@ -14955,21 +14955,21 @@ var render = function render() {
         return _vm.orderConfirm();
       }
     }
-  }, [_vm._v("\n            Order "), _c("br"), _vm._v(" Confirm\n        ")]), _vm._v(" "), _c("button", {
+  }, [_vm._m(0)]), _vm._v(" "), _c("button", {
     staticClass: "edit_seat_btn",
     on: {
       click: function click($event) {
         return _vm.editSeat();
       }
     }
-  }, [_vm._v("\n            Edit "), _c("br"), _vm._v(" Seat\n        ")]), _vm._v(" "), _c("button", {
+  }, [_vm._m(1)]), _vm._v(" "), _c("button", {
     staticClass: "clear_all",
     on: {
       click: function click($event) {
         return _vm.clearAll();
       }
     }
-  }, [_vm._v("\n            Clear "), _c("br"), _vm._v(" All\n        ")])]), _vm._v(" "), _c("div", {
+  }, [_vm._m(2)])]), _vm._v(" "), _c("div", {
     attrs: {
       id: "printArea"
     }
@@ -14991,12 +14991,12 @@ var render = function render() {
     staticStyle: {
       width: "100%"
     }
-  }, [_vm._m(0), _vm._v(" "), _c("tbody", {
+  }, [_vm._m(3), _vm._v(" "), _c("tbody", {
     staticStyle: {
       "background-color": "#4D4D4D",
       color: "#4D4D4D"
     }
-  }, [_vm._m(1), _vm._v(" "), _vm._l(_vm.cart_lists, function (cart_list, index) {
+  }, [_vm._m(4), _vm._v(" "), _vm._l(_vm.cart_lists, function (cart_list, index) {
     return cart_list.type === "Food" ? _c("tr", {
       key: index
     }, [_c("td", {
@@ -15012,7 +15012,7 @@ var render = function render() {
         "font-size": "11px"
       }
     }, [_vm._v("\n                            " + _vm._s(cart_list.qty) + "\n                        ")])]) : _vm._e();
-  }), _vm._v(" "), _vm._m(2), _vm._v(" "), _vm._l(_vm.cart_lists, function (cart_list, index) {
+  }), _vm._v(" "), _vm._m(5), _vm._v(" "), _vm._l(_vm.cart_lists, function (cart_list, index) {
     return cart_list.type === "Beverage" ? _c("tr", {
       key: index
     }, [_c("td", {
@@ -15031,6 +15031,33 @@ var render = function render() {
   })], 2)])])])]);
 };
 var staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("span", {
+    staticStyle: {
+      "text-shadow": "1px 1px 1px rgba(0,0,0,0.6)",
+      "font-weight": "bold"
+    }
+  }, [_vm._v("\n                Order "), _c("br"), _vm._v(" Confirm\n            ")]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("span", {
+    staticStyle: {
+      "text-shadow": "1px 1px 1px rgba(0,0,0,0.6)",
+      "font-weight": "bold"
+    }
+  }, [_vm._v("\n                Edit "), _c("br"), _vm._v(" Seat\n            ")]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("span", {
+    staticStyle: {
+      "text-shadow": "1px 1px 1px rgba(0,0,0,0.6)",
+      "font-weight": "bold"
+    }
+  }, [_vm._v("\n                Clear "), _c("br"), _vm._v(" All\n            ")]);
+}, function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c("tr", {
@@ -15218,7 +15245,10 @@ var render = function render() {
     }, [_c("span", {
       staticStyle: {
         "text-align": "center",
-        "font-size": "17px"
+        "font-size": "17px",
+        "font-family": "georgia !important",
+        color: "black",
+        "font-weight": "bold"
       }
     }, [_vm._v("\n                    " + _vm._s(category.title) + "\n                ")]), _vm._v(" "), _c("center", [category.photo ? _c("img", {
       staticStyle: {
@@ -18909,7 +18939,7 @@ var render = function render() {
     }, [_vm._v("\n                                        " + _vm._s(bill_info.net_amount) + "\n                                    ")])]) : _vm._e();
   }), 0), _vm._v(" "), _c("tr", {
     staticStyle: {
-      "background-color": "white"
+      "background-color": "#d0cfd1"
     }
   }, [_c("td", {
     attrs: {
@@ -19407,7 +19437,7 @@ var render = function render() {
     }, [_vm._v("\n                                        " + _vm._s(bill_info.discount_amount) + "\n                                    ")])]);
   }), 0), _vm._v(" "), _c("tr", {
     staticStyle: {
-      "background-color": "white"
+      "background-color": "#d0cfd1"
     }
   }, [_c("td", {
     attrs: {
@@ -19571,7 +19601,7 @@ var render = function render() {
     }, [_vm._v("\n                                        " + _vm._s(bill_info.discount_amount) + "\n                                    ")])]);
   }), 0), _vm._v(" "), _c("tr", {
     staticStyle: {
-      "background-color": "white"
+      "background-color": "#d0cfd1"
     }
   }, [_c("td", {
     attrs: {
@@ -19735,7 +19765,7 @@ var render = function render() {
     }, [_vm._v("\n                                        " + _vm._s((_bill_info$net_amount = bill_info.net_amount) !== null && _bill_info$net_amount !== void 0 ? _bill_info$net_amount : "") + "\n                                    ")])]) : _vm._e();
   }), 0), _vm._v(" "), _c("tr", {
     staticStyle: {
-      "background-color": "white"
+      "background-color": "#d0cfd1"
     }
   }, [_c("td", {
     attrs: {
@@ -19892,7 +19922,7 @@ var render = function render() {
     }, [_vm._v("\n                                        " + _vm._s(_vm.totalAmount(payment_method)) + "\n                                    ")])]);
   }), 0), _vm._v(" "), _c("tr", {
     staticStyle: {
-      "background-color": "white"
+      "background-color": "#d0cfd1"
     }
   }, [_c("td", {
     attrs: {
@@ -20052,13 +20082,13 @@ var render = function render() {
     }, [_vm._v("\n                                        " + _vm._s(_vm.salesPercentage(menu_list)) + " %\n                                    ")])]);
   }), 0), _vm._v(" "), _c("tr", {
     staticStyle: {
-      "background-color": "white"
+      "background-color": "#d0cfd1"
     }
   }, [_c("td", {
     attrs: {
-      colspan: "3"
+      colspan: "2"
     }
-  }, [_vm._v("\n                                    Total\n                                ")]), _vm._v(" "), _c("td", {
+  }), _vm._v(" "), _c("td", [_vm._v("\n                                    Total\n                                ")]), _vm._v(" "), _c("td", {
     staticClass: "text-center"
   }, [_vm._v("\n                                    " + _vm._s(_vm.totalSaleAmount()) + "\n                                ")]), _vm._v(" "), _c("td", {
     staticClass: "text-center"
@@ -20214,7 +20244,7 @@ var render = function render() {
     }, [_vm._v("\n                                        " + _vm._s(_vm.saleQtyPercentage(menu_list)) + "\n                                    ")])]);
   }), 0), _vm._v(" "), _c("tr", {
     staticStyle: {
-      "background-color": "white"
+      "background-color": "#d0cfd1"
     }
   }, [_c("td", {
     staticClass: "text-center",
@@ -20437,7 +20467,7 @@ var render = function render() {
     }, [_vm._v("\n                                        " + _vm._s(bill_info.cashier_user.name) + "\n                                    ")])]);
   }), 0), _vm._v(" "), _c("tr", {
     staticStyle: {
-      "background-color": "white"
+      "background-color": "#d0cfd1"
     }
   }, [_c("td", {
     attrs: {
@@ -20618,7 +20648,7 @@ var render = function render() {
     }, [_vm._v("\n                                        " + _vm._s(_vm.totalNetSale(waiter)) + "\n                                    ")])]);
   }), 0), _vm._v(" "), _c("tr", {
     staticStyle: {
-      "background-color": "white"
+      "background-color": "#d0cfd1"
     }
   }, [_c("td", {
     attrs: {
@@ -20788,7 +20818,7 @@ var render = function render() {
     }, [_vm._v("\n                                        " + _vm._s(_vm.SalesAmount(table_list)) + "\n                                    ")])]);
   }), 0), _vm._v(" "), _c("tr", {
     staticStyle: {
-      "background-color": "white"
+      "background-color": "#d0cfd1"
     }
   }, [_c("td", {
     attrs: {
@@ -20962,7 +20992,7 @@ var render = function render() {
     }, [_vm._v("\n                                        " + _vm._s(void_item.reason) + "\n                                    ")])]);
   }), 0), _vm._v(" "), _c("tr", {
     staticStyle: {
-      "background-color": "white"
+      "background-color": "#d0cfd1"
     }
   }, [_c("td", {
     attrs: {
@@ -21366,7 +21396,7 @@ var render = function render() {
     }, [_vm._v("\n                                        " + _vm._s(void_item.reason) + "\n                                    ")])]);
   }), 0), _vm._v(" "), _c("tr", {
     staticStyle: {
-      "background-color": "white"
+      "background-color": "#d0cfd1"
     }
   }, [_c("td", {
     attrs: {
@@ -22419,7 +22449,10 @@ var render = function render() {
     }, [_c("span", {
       staticStyle: {
         "text-align": "center",
-        "font-size": "17px"
+        "font-size": "17px",
+        "font-family": "georgia !important",
+        color: "black",
+        "font-weight": "bold"
       }
     }, [_vm._v("\n                    " + _vm._s(category.title) + "\n                ")]), _vm._v(" "), _c("center", [category.photo ? _c("img", {
       staticStyle: {
@@ -30802,7 +30835,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.menubtn {\n    width: 100%;\n    background-color: #717171;\n    color: white !important;\n    text-align: left;\n    font-size: 18px !important;\n    font-weight: bold;\n    border-radius: 20px 0px 0px 20px;\n}\n.menubtn:hover {\n    width: 100%;\n    background-color: #717171;\n    color: white !important;\n    text-align: left;\n    font-size: 18px !important;\n    font-weight: bold;\n    border-radius: 20px 0px 0px 20px;\n}\n.bg_color {\n    background-color: #4D4D4D;\n}\n.bg_color:hover {\n    background-color: #4D4D4D;\n}\n.main-box {\n    width: 250px;\n    height: auto;\n    display: flex;\n    flex-wrap: wrap;\n    align-content: center;\n}\n.main-box div {\n    width: 250px;\n    height: 70px;\n}\n.name-text {\n    font-size: 18px;\n    color: white;\n    padding-left: 10px;\n    padding-right: 10px;\n    padding-top: 7px;\n    margin: 0px;\n    font-weight: bold;\n}\n.position-text {\n    font-size: 18px;\n    color: white;\n    padding-left: 10px;\n    padding-right: 10px;\n    margin: 0px;\n    font-weight: bold;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.menubtn {\n    width: 100%;\n    background-color: #717171;\n    color: white !important;\n    text-align: left;\n    font-size: 18px !important;\n    font-weight: bold;\n    border-radius: 20px 0px 0px 20px;\n    font-family: georgia !important;\n}\n.menubtn:hover {\n    width: 100%;\n    background-color: #717171;\n    color: white !important;\n    text-align: left;\n    font-size: 18px !important;\n    font-weight: bold;\n    border-radius: 20px 0px 0px 20px;\n}\n.bg_color {\n    background-color: #4D4D4D;\n}\n.bg_color:hover {\n    background-color: #4D4D4D;\n}\n.main-box {\n    width: 250px;\n    height: auto;\n    display: flex;\n    flex-wrap: wrap;\n    align-content: center;\n}\n.main-box div {\n    width: 250px;\n    height: 70px;\n}\n.name-text {\n    font-size: 18px;\n    color: white;\n    padding-left: 10px;\n    padding-right: 10px;\n    padding-top: 7px;\n    margin: 0px;\n    font-weight: bold;\n}\n.position-text {\n    font-size: 18px;\n    color: white;\n    padding-left: 10px;\n    padding-right: 10px;\n    margin: 0px;\n    font-weight: bold;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -30826,7 +30859,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.order_btn {\n    background-color: #F2F2F2;\n    color: black;\n}\n.order_btn:hover {\n    background-color: #F2F2F2;\n    color: black;\n}\nhr.divider {\n    margin: 1px;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.order_btn {\n    background-color: #F2F2F2 !important;\n    color: black !important;\n    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;\n    font-family: 'Times New Roman', Times, serif;\n}\n.order_btn:hover {\n    background-color: #F2F2F2 !important;\n    color: black !important;\n    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;\n    font-family: 'Times New Roman', Times, serif;\n}\nhr.divider {\n    margin: 1px;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

@@ -3,15 +3,21 @@
         <div class="d-flex flex-column">
 
             <button @click="orderConfirm()" class="pay_btn">
-                Order <br> Confirm
+                <span style="text-shadow: 1px 1px 1px rgba(0,0,0,0.6); font-weight: bold;">
+                    Order <br> Confirm
+                </span>
             </button>
 
             <button @click="editSeat()" class="edit_seat_btn">
-                Edit <br> Seat
+                <span style="text-shadow: 1px 1px 1px rgba(0,0,0,0.6); font-weight: bold;">
+                    Edit <br> Seat
+                </span>
             </button>
 
             <button @click="clearAll()" class="clear_all">
-                Clear <br> All
+                <span style="text-shadow: 1px 1px 1px rgba(0,0,0,0.6); font-weight: bold;">
+                    Clear <br> All
+                </span>
             </button>
 
         </div>

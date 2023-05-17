@@ -17,7 +17,7 @@
 
         {{-- Count  --}}
         <div class="col-xl-3 col-sm-6 col-12">
-            <div class="card shadow border-0">
+            <div class="card shadow border-0" style="background-color: #FCD733">
                 <div class="card-body">
                     <div class="row">
                         <div class="col">
@@ -35,10 +35,10 @@
                         </div>
                     </div>
                     <div class="mt-2 mb-0 text-sm">
-                        <span class="badge badge-pill bg-soft-success text-success me-2" style="font-size: 14px;">
+                        <span class="badge badge-pill bg-soft-success text-white me-2" style="font-size: 14px;">
                             {{ $todayOrderCount }}
                         </span>
-                        <span class="text-nowrap text-xs text-muted" style="font-size: 14px;">
+                        <span class="text-nowrap text-xs text-white" style="font-size: 14px;">
                             Today
                         </span>
                     </div>
@@ -48,7 +48,7 @@
 
 
         <div class="col-xl-3 col-sm-6 col-12">
-            <div class="card shadow border-0">
+            <div class="card shadow border-0" style="background-color: #8ECBFC">
                 <div class="card-body">
                     <div class="row">
                         <div class="col">
@@ -66,11 +66,11 @@
                         </div>
                     </div>
                     <div class="mt-2 mb-0 text-sm">
-                        <span class="badge badge-pill bg-soft-success text-success me-2" style="font-size: 14px;">
+                        <span class="badge badge-pill bg-soft-success text-white me-2" style="font-size: 14px;">
                             <i class="bi bi-arrow-up me-1"></i>
                             {{ number_format($todayIncome, 2) }} KS
                         </span>
-                        <span class="text-nowrap text-xs text-muted" style="font-size: 14px;">
+                        <span class="text-nowrap text-xs text-white" style="font-size: 14px;">
                             Today
                         </span>
                     </div>
@@ -80,7 +80,7 @@
 
 
         <div class="col-xl-3 col-sm-6 col-12">
-            <div class="card shadow border-0">
+            <div class="card shadow border-0" style="background-color: #7DEB54">
                 <div class="card-body">
                     <div class="row">
                         <div class="col">
@@ -98,11 +98,11 @@
                         </div>
                     </div>
                     <div class="mt-2 mb-0 text-sm">
-                        <span class="badge badge-pill bg-soft-success text-success me-2" style="font-size: 14px;">
+                        <span class="badge badge-pill bg-soft-success text-white me-2" style="font-size: 14px;">
                             <i class="bi bi-arrow-up me-1"></i>
                             {{ $todayCustomer }}
                         </span>
-                        <span class="text-nowrap text-xs text-muted" style="font-size: 14px;">
+                        <span class="text-nowrap text-xs text-white" style="font-size: 14px;">
                             Today
                         </span>
                     </div>
@@ -112,7 +112,7 @@
 
 
         <div class="col-xl-3 col-sm-6 col-12">
-            <div class="card shadow border-0">
+            <div class="card shadow border-0" style="background-color: #26B7B7">
                 <div class="card-body">
                     <div class="row">
                         <div class="col">
@@ -130,11 +130,11 @@
                         </div>
                     </div>
                     <div class="mt-2 mb-0 text-sm">
-                        <span class="badge badge-pill bg-soft-success text-success me-2" style="font-size: 14px;">
+                        <span class="badge badge-pill bg-soft-success text-white me-2" style="font-size: 14px;">
                             <i class="bi bi-arrow-up me-1"></i>
                             {{ $todayOrderQty }}
                         </span>
-                        <span class="text-nowrap text-xs text-muted" style="font-size: 14px;">
+                        <span class="text-nowrap text-xs text-white" style="font-size: 14px;">
                             Today
                         </span>
                     </div>

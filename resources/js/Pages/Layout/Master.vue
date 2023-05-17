@@ -295,6 +295,7 @@ export default {
     font-size: 18px !important;
     font-weight: bold;
     border-radius: 20px 0px 0px 20px;
+    font-family: georgia !important;
 }
 
 .menubtn:hover {

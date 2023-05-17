@@ -90,7 +90,7 @@
                                     </tr>
                                 </tbody>
 
-                                <tr style="background-color: white;">
+                                <tr style="background-color: #d0cfd1;">
                                     <td colspan="4">
                                         Total
                                     </td>
