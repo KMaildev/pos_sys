@@ -107,7 +107,7 @@
                                                         </a>
                                                     </li>
 
-                                                    <li>
+                                                    <li hidden>
                                                         <form action="{{ route('discount.destroy', $store->id) }}"
                                                             method="POST">
                                                             @csrf

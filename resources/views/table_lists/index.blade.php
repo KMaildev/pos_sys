@@ -106,7 +106,7 @@
                                                         </a>
                                                     </li>
 
-                                                    <li>
+                                                    <li hidden>
                                                         <form action="{{ route('table_list.destroy', $table_list->id) }}"
                                                             method="POST">
                                                             @csrf

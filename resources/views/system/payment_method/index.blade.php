@@ -107,7 +107,7 @@
                                                         </a>
                                                     </li>
 
-                                                    <li>
+                                                    <li hidden>
                                                         <form action="{{ route('payment_method.destroy', $store->id) }}"
                                                             method="POST">
                                                             @csrf

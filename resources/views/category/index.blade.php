@@ -94,7 +94,7 @@
                                                         </a>
                                                     </li>
 
-                                                    <li>
+                                                    <li hidden>
                                                         <form action="{{ route('category.destroy', $category->id) }}"
                                                             method="POST">
                                                             @csrf

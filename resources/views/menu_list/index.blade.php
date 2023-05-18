@@ -123,7 +123,7 @@
                                                         </a>
                                                     </li>
 
-                                                    <li>
+                                                    <li hidden>
                                                         <form action="{{ route('menu_list.destroy', $menu_list->id) }}"
                                                             method="POST">
                                                             @csrf

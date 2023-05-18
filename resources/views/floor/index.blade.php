@@ -89,7 +89,7 @@
                                                         </a>
                                                     </li>
 
-                                                    <li>
+                                                    <li hidden>
                                                         <form action="{{ route('floor.destroy', $floor->id) }}"
                                                             method="POST">
                                                             @csrf
