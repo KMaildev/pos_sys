@@ -90,6 +90,7 @@ class OrderConfirmController extends Controller
             $printer_name = $printer->name ?? '';
             $printer_id = $printer->id ?? 0;
             PrintHelper::orderPrinter($items, $user_name, $order_date_time, $table_no, $printer_name, $printer_id);
+            PrintHelper::orderPrinter($items, $user_name, $order_date_time, $table_no, $printer_name, $printer_id);
         }
 
         // PrintHelper::kitchenPrinter($items, $user_name, $order_date_time, $table_no);
