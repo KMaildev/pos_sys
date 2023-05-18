@@ -8494,7 +8494,7 @@ window.Swal = (sweetalert2__WEBPACK_IMPORTED_MODULE_3___default());
       }
     };
   },
-  props: ['user_name', 'categories', 'bill_infos'],
+  props: ['user_name', 'categories', 'bill_infos', 'order_items_lists'],
   methods: {
     TotalQty: function TotalQty(category_order_item) {
       var sum = 0;
@@ -21150,14 +21150,14 @@ var render = function render() {
           "text-align": "right",
           "font-size": "13px"
         }
-      }, [_vm._v("\n                                                " + _vm._s(order_item.qty) + "\n                                            ")]), _vm._v(" "), _c("td", {
+      }, [_vm._v("\n                                                " + _vm._s(order_item.order_qty) + "\n                                            ")]), _vm._v(" "), _c("td", {
         staticStyle: {
           width: "20%",
           padding: "3px",
           "text-align": "right",
           "font-size": "13px"
         }
-      }, [_vm._v("\n                                                " + _vm._s(order_item.qty * order_item.price) + "\n                                            ")])]);
+      }, [_vm._v("\n                                                " + _vm._s(order_item.order_qty * order_item.price) + "\n                                            ")])]);
     }), _vm._v(" "), _c("tr", [_c("td", [_vm._v("\n                                                Sub-Total\n                                            ")]), _vm._v(" "), _c("td", {
       staticStyle: {
         width: "20%",

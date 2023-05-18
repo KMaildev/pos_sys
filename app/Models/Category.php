@@ -11,6 +11,8 @@ class Category extends Model
 
     public function order_items()
     {
-        return $this->hasMany(OrderItem::class, 'categorie_id', 'id');
+        return $this->hasMany(OrderItem::class, 'categorie_id', 'id')
+            ->selectRaw('*, sum(qty) as order_qty')
+            ->groupBy('menu_list_id');
     }
 }

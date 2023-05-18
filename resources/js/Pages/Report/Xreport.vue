@@ -56,11 +56,11 @@
                                                 </td>
 
                                                 <td style="width: 20%; padding: 3px; text-align: right; font-size: 13px;">
-                                                    {{ order_item.qty }}
+                                                    {{ order_item.order_qty }}
                                                 </td>
 
                                                 <td style="width: 20%; padding: 3px; text-align: right; font-size: 13px;">
-                                                    {{ order_item.qty * order_item.price }}
+                                                    {{ order_item.order_qty * order_item.price }}
                                                 </td>
                                             </tr>
 
@@ -177,6 +177,7 @@ export default {
         'user_name',
         'categories',
         'bill_infos',
+        'order_items_lists',
     ],
 
     methods: {

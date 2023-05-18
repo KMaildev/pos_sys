@@ -27,11 +27,11 @@ class UpdateEmployee extends FormRequest
         return [
             'employee_id' => 'required|unique:users,employee_id,' . $id,
             'name' => 'required',
-            'phone' => 'required|min:9|max:11|unique:users,phone,' . $id,
+            // 'phone' => 'required|min:9|max:11|unique:users,phone,' . $id,
             'email' => 'required|email|unique:users,email,' . $id,
-            'nrc_number' => 'required',
-            'gender' => 'required',
-            'address' => 'required',
+            // 'nrc_number' => 'required',
+            // 'gender' => 'required',
+            // 'address' => 'required',
             'department_id' => 'required',
         ];
     }
